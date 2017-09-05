@@ -1,0 +1,63 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:app="clr-namespace:CustomControls"
+    xmlns:ctrl="CustomControlsLibrary">
+    <ctrl:CommandResourceReference x:Key="SolutionToolBarReference" 
+                                   AssemblyName="SolutionControls" 
+                                   ResourceExtension=".resources" 
+                                   IconPath="Resources/Icons/"/>
+    <ctrl:SolutionCommandGroup x:Key="ImportExportCommandGroup" IsEnabled="True"/>
+    <ctrl:LocalizedRoutedCommand x:Key="CreateNewSolutionCommand" Reference="{StaticResource SolutionToolBarReference}" 
+                                 HeaderKey="ToolBarSolution" IconKey="NewSolution.png" ToolTipKey="ToolBarNewSolutionToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="OpenSolutionCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarOpenSolutionEllipsis" IconKey="OpenSolution.png" ToolTipKey="ToolBarOpenSolutionToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="OpenExistingDocumentCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarOpenExistingEllipsis" IconKey="OpenExisting.png" ToolTipKey="ToolBarOpenExistingToolTip"/>
+    <ctrl:ActiveDocumentRoutedCommand x:Key="CloseDocumentCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                      HeaderKey="ToolBarClose" InactiveHeaderKey="ToolBarInactiveClose" IconKey="Close.png" ToolTipKey="ToolBarCloseToolTip" InactiveToolTipKey="ToolBarInactiveCloseToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="CloseSolutionCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarCloseSolution" IconKey="CloseSolution.png" ToolTipKey="ToolBarCloseSolutionToolTip"/>
+    <ctrl:ActiveDocumentRoutedCommand x:Key="SaveDocumentCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                      HeaderKey="ToolBarSave" InactiveHeaderKey="ToolBarInactiveSave" IconKey="Save.png" ToolTipKey="ToolBarSaveToolTip" InactiveToolTipKey="ToolBarInactiveSaveToolTip"/>
+    <ctrl:ActiveDocumentRoutedCommand x:Key="FileSaveAsCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                      HeaderKey="ToolBarSaveAsEllipsis" InactiveHeaderKey="ToolBarInactiveSaveAsEllipsis" ToolTipKey="ToolBarSaveAsToolTip" InactiveToolTipKey="ToolBarInactiveSaveAsToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="SaveAllCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarSaveAll" IconKey="SaveAll.png" ToolTipKey="ToolBarSaveAllToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ImportCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarImportEllipsis" IconKey="Import.png" ToolTipKey="ToolBarImportToolTip" CommandGroup="{StaticResource ImportExportCommandGroup}"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ImportSolutionCommand"  Reference="{StaticResource SolutionToolBarReference}" 
+                                 HeaderKey="ToolBarImportSolutionEllipsis"  IconKey="ImportSolution.png" ToolTipKey="ToolBarImportSolutionToolTip"/>
+    <ctrl:ActiveDocumentRoutedCommand x:Key="ExportDocumentCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                      HeaderKey="ToolBarExportEllipsis" InactiveHeaderKey="ToolBarInactiveExportEllipsis" IconKey="Export.png" ToolTipKey="ToolBarExportToolTip" InactiveToolTipKey="ToolBarInactiveExportToolTip" CommandGroup="{StaticResource ImportExportCommandGroup}"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ExportAllCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarExportAllEllipsis" IconKey="ExportAll.png" ToolTipKey="ToolBarExportAllToolTip" CommandGroup="{StaticResource ImportExportCommandGroup}"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ExportSolutionCommand"  Reference="{StaticResource SolutionToolBarReference}" 
+                                 HeaderKey="ToolBarExportSolutionEllipsis"  IconKey="ExportSolution.png" ToolTipKey="ToolBarExportSolutionToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ExitCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarExit" IconKey="Exit.png" ToolTipKey="ToolBarExitToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ChangeOptionsCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarOptionsEllipsis" IconKey="Options.png" ToolTipKey="ToolBarOptionsToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="BuildSolutionCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarBuildSolution" IconKey="BuildSolution.png" ToolTipKey="ToolBarBuildSolutionToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ChangePropertiesCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarSolutionProperties" IconKey="Properties.png" ToolTipKey="ToolBarSolutionPropertiesToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ShowSolutionExplorerToolCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarSolutionExplorerTool" IconKey="SolutionExplorer.png" ToolTipKey="ToolBarSolutionExplorerToolToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ShowCompilerOutputToolCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarCompilerOutputTool" IconKey="CompilerOutput.png" ToolTipKey="ToolBarCompilerOutputToolToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ShowPropertiesToolCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarPropertiesTool" IconKey="Properties.png" ToolTipKey="ToolBarPropertiesToolToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ResetLayoutCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarResetLayout" ToolTipKey="ToolBarResetLayoutToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="SplitWindowCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarSplit" IconKey="Split.png" ToolTipKey="ToolBarSplitToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="RemoveWindowSplitCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarRemoveSplit" IconKey="Split.png" ToolTipKey="ToolBarRemoveSplitToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ActivatePreviousWindowCommand" Reference="{StaticResource SolutionToolBarReference}"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ActivateNextWindowCommand" Reference="{StaticResource SolutionToolBarReference}"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ListWindowsCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarListWindows" ToolTipKey="ToolBarListWindowsToolTip"/>
+    <ctrl:LocalizedRoutedCommand x:Key="ShowAboutCommand" Reference="{StaticResource SolutionToolBarReference}"
+                                 HeaderKey="ToolBarAboutEllipsis" IconKey="About.png" ToolTipKey="ToolBarAboutToolTip"/>
+</ResourceDictionary>

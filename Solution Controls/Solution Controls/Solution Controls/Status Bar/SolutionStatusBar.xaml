@@ -1,0 +1,68 @@
+﻿<UserControl x:Class="CustomControls.SolutionStatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:conv="clr-namespace:Converters"
+             xmlns:res="clr-namespace:SolutionControlsInternal.Properties"
+             xmlns:ctrl="clr-namespace:CustomControls">
+    <UserControl.Resources>
+        <conv:StatusTypesToThemeBackgroundBrushConverter x:Key="convStatusTypesToThemeBackgroundBrush"/>
+        <conv:StatusTypesToThemeForegroundBrushConverter x:Key="convStatusTypesToThemeForegroundBrush"/>
+        <conv:DoubleToObjectConverter x:Key="convDoubleToObject"/>
+        <conv:BooleanToObjectConverter x:Key="convBooleanToObject"/>
+        <CompositeCollection x:Key="VisibleHidden">
+            <Visibility>Visible</Visibility>
+            <Visibility>Hidden</Visibility>
+        </CompositeCollection>
+        <CompositeCollection x:Key="HiddenVisible">
+            <Visibility>Hidden</Visibility>
+            <Visibility>Visible</Visibility>
+        </CompositeCollection>
+    </UserControl.Resources>
+    <StatusBar>
+        <StatusBar.Background>
+            <MultiBinding Converter="{StaticResource convStatusTypesToThemeBackgroundBrush}">
+                <Binding Path="CurrentStatus.StatusType" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}"/>
+                <Binding Path="Theme" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}"/>
+            </MultiBinding>
+        </StatusBar.Background>
+        <StatusBar.Foreground>
+            <MultiBinding Converter="{StaticResource convStatusTypesToThemeForegroundBrush}">
+                <Binding Path="CurrentStatus.StatusType" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}"/>
+                <Binding Path="Theme" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}"/>
+            </MultiBinding>
+        </StatusBar.Foreground>
+        <StatusBarItem>
+            <TextBlock Text="{Binding CurrentStatus.Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, FallbackValue={x:Null}}" Margin="10,0,0,0"/>
+        </StatusBarItem>
+        <StatusBarItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <ProgressBar MinWidth="200" 
+                         Visibility="{Binding ProgressMax, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Converter={StaticResource convDoubleToObject}, ConverterParameter={StaticResource HiddenVisible}, FallbackValue=Hidden}"
+                         Value="{Binding ProgressValue, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Mode=OneWay, FallbackValue=0}"
+                         Maximum="{Binding ProgressMax, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, FallbackValue=0}"
+                         Height="8"
+                         VerticalAlignment="Center"
+                         Margin="10,0,10,0"/>
+        </StatusBarItem>
+        <StatusBarItem HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="10,0,0,0">
+            <Grid Width="180">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" Visibility="{Binding HasCaret, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource HiddenVisible}, FallbackValue=Hidden}">
+                    <TextBlock Text="{Binding Source={x:Static res:Resources.StatusLine}}"/>
+                    <TextBlock Text="{Binding CaretLine, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, FallbackValue={x:Null}}" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Visibility="{Binding HasCaret, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource HiddenVisible}, FallbackValue=Hidden}">
+                    <TextBlock Text="{Binding Source={x:Static res:Resources.StatusColumn}}"/>
+                    <TextBlock Text="{Binding CaretColumn, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, FallbackValue={x:Null}}" Margin="5,0,0,0"/>
+                </StackPanel>
+                <Grid Grid.Column="2" Visibility="{Binding HasCaret, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource HiddenVisible}, FallbackValue=Hidden}">
+                    <TextBlock Text="{Binding Source={x:Static res:Resources.StatusInsert}}" Visibility="{Binding IsCaretOverride, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource VisibleHidden}, FallbackValue=Visible}"/>
+                    <TextBlock Text="{Binding Source={x:Static res:Resources.StatusOverride}}" Visibility="{Binding IsCaretOverride, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SolutionStatusBar}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource HiddenVisible}, FallbackValue=Hidden}"/>
+                </Grid>
+            </Grid>
+        </StatusBarItem>
+    </StatusBar>
+</UserControl>

@@ -1,0 +1,10 @@
+﻿<Popup x:Class="CustomControls.DropDownList"
+       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Popup.Resources>
+        <DataTemplate x:Key="OperationTemplate">
+            <TextBlock Text="{Binding Name, FallbackValue={x:Null}}"/>
+        </DataTemplate>
+    </Popup.Resources>
+    <ListBox x:Name="listOperations" ItemsSource="{Binding AssociatedList, FallbackValue={x:Null}}" ItemTemplate="{StaticResource OperationTemplate}" Width="200" MinHeight="20" MaxHeight="400" SelectionMode="Multiple"/>
+</Popup>

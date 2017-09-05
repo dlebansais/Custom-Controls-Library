@@ -1,0 +1,34 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:Converters"
+    xmlns:app="clr-namespace:CustomControls"
+    xmlns:ctrl="CustomControlsLibrary">
+    <conv:BooleanToObjectConverter x:Key="convBooleanToObject"/>
+    <conv:ButtonCommandToHeaderConverter x:Key="convButtonCommandToHeader"/>
+    <conv:ButtonCommandToToolTipConverter x:Key="convButtonCommandToToolTip"/>
+    <conv:ButtonCommandToTextConverter x:Key="convButtonCommandToText"/>
+    <conv:ButtonCommandToIconConverter x:Key="convButtonCommandToIcon"/>
+    <conv:ButtonCommandToGestureTextConverter x:Key="convButtonCommandToGestureText"/>
+    <conv:ButtonCommandToVisibilityConverter x:Key="convButtonCommandToVisibility"/>
+    <CompositeCollection x:Key="CollapsedVisible">
+        <Visibility>Collapsed</Visibility>
+        <Visibility>Visible</Visibility>
+    </CompositeCollection>
+    <CompositeCollection x:Key="VisibleCollapsed">
+        <Visibility>Visible</Visibility>
+        <Visibility>Collapsed</Visibility>
+    </CompositeCollection>
+    <Style TargetType="{x:Type Image}">
+        <Setter Property="Width" Value="16"/>
+        <Setter Property="Height" Value="16"/>
+        <Style.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style TargetType="{x:Type ctrl:ExtendedToolBar}">
+        <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+    </Style>
+</ResourceDictionary>

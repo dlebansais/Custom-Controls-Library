@@ -1,0 +1,104 @@
+﻿<Window x:Class="ExtendedTreeViewDemo.TreeViewSettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:conv="clr-namespace:Converters"
+        Title="Tree View Settings"
+        WindowStartupLocation="CenterOwner"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <conv:EnumToIntConverter x:Key="convEnumToInt"/>
+        <conv:DiscreteIndexConverter x:Key="convDiscreteIndex"/>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" HorizontalAlignment="Right" Margin="15,15,15,15">
+            <Button IsDefault="True" Click="OnOk" Width="120" Height="24" Margin="0,0,0,0">OK</Button>
+            <Button IsCancel="True" Width="120" Height="24" Margin="10,0,0,0">Cancel</Button>
+        </StackPanel>
+        <Separator DockPanel.Dock="Bottom"/>
+        <Grid Margin="10,10,10,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <GroupBox Grid.Column="0">
+                <GroupBox.Header>General</GroupBox.Header>
+                <Grid VerticalAlignment="Top" Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="150"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" IsChecked="{Binding IsDeferredScrollingEnabled, FallbackValue=False}" Margin="0,0,0,0">Deferred Scrolling</CheckBox>
+                    <CheckBox Name="checkIsVirtualizing" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" IsChecked="{Binding IsVirtualizing, FallbackValue=False}" Margin="0,10,0,0">Virtualizing Panel</CheckBox>
+                    <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0">Virtualization Mode:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="2" IsEnabled="{Binding IsChecked, ElementName=checkIsVirtualizing, FallbackValue=False}" SelectedIndex="{Binding VirtualizationMode, Converter={StaticResource convEnumToInt}, FallbackValue=-1}" Margin="5,10,0,0">
+                        <ComboBoxItem>Standard</ComboBoxItem>
+                        <ComboBoxItem>Recycling</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="5" TextAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0">Selection Mode:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="5" SelectedIndex="{Binding SelectionMode, Converter={StaticResource convEnumToInt}, FallbackValue=-1}" Margin="5,10,0,0">
+                        <ComboBoxItem>Single</ComboBoxItem>
+                        <ComboBoxItem>Multiple</ComboBoxItem>
+                        <ComboBoxItem>Extended</ComboBoxItem>
+                    </ComboBox>
+                    <CheckBox Name="checkAllowDragDrop" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" IsChecked="{Binding AllowDragDrop, FallbackValue=False}" Margin="0,10,0,0">Allow Drag &amp; Drop</CheckBox>
+                    <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="7" IsEnabled="{Binding IsChecked, ElementName=checkAllowDragDrop, FallbackValue=False}" IsChecked="{Binding IsCloneable, FallbackValue=False}" Margin="20,10,0,0">Create Cloneable Items</CheckBox>
+                    <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="8" IsEnabled="{Binding IsChecked, ElementName=checkAllowDragDrop, FallbackValue=False}" IsChecked="{Binding AreLeavesSealed, FallbackValue=False}" Margin="20,10,0,0">Seal Leaves (no move or copy)</CheckBox>
+                </Grid>
+            </GroupBox>
+            <GroupBox Grid.Column="1" Margin="10,0,0,0">
+                <GroupBox.Header>Appearance</GroupBox.Header>
+                <Grid VerticalAlignment="Top" Margin="5,5,5,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="220"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" TextAlignment="Right" VerticalAlignment="Center" Margin="0,0,0,0">Number of Items:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="0" SelectedIndex="{Binding TreeViewSize, Converter={StaticResource convEnumToInt}, FallbackValue=-1}" Margin="5,0,0,0">
+                        <ComboBoxItem>Small (10)</ComboBoxItem>
+                        <ComboBoxItem>Medium (10 Thousands)</ComboBoxItem>
+                        <ComboBoxItem>Large (10 Millions)</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="1" TextAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0">Average number of children:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="1" SelectedIndex="{Binding TreeViewDepth, Converter={StaticResource convEnumToInt}, FallbackValue=-1}" Margin="5,10,0,0">
+                        <ComboBoxItem>Small (5)</ComboBoxItem>
+                        <ComboBoxItem>Medium (500)</ComboBoxItem>
+                        <ComboBoxItem>Large (50000)</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="2" TextAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0">Style:</TextBlock>
+                    <ComboBox Name="comboStyle" Grid.Column="1" Grid.Row="2" SelectedIndex="{Binding TreeViewType, Converter={StaticResource convEnumToInt}, FallbackValue=-1}" Margin="5,10,0,0">
+                        <ComboBoxItem>Visual Studio 2013</ComboBoxItem>
+                        <ComboBoxItem>Windows 7 Explorer</ComboBoxItem>
+                        <ComboBoxItem>Custom</ComboBoxItem>
+                    </ComboBox>
+                    <TextBlock Grid.Column="0" Grid.Row="3" TextAlignment="Right" VerticalAlignment="Center" Margin="0,10,0,0">Items Type:</TextBlock>
+                    <ComboBox Grid.Column="1" Grid.Row="3" IsEnabled="{Binding SelectedIndex, ElementName=comboStyle, Converter={StaticResource convDiscreteIndex}, ConverterParameter=2}" SelectedIndex="{Binding TreeViewItemType, Converter={StaticResource convEnumToInt}, FallbackValue=-1}" Margin="5,10,0,0">
+                        <ComboBoxItem>Image (Fixed Height)</ComboBoxItem>
+                        <ComboBoxItem>Text</ComboBoxItem>
+                        <ComboBoxItem>Image and Text (Variable Height)</ComboBoxItem>
+                    </ComboBox>
+                    <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" IsChecked="{Binding IsRootAlwaysExpanded, FallbackValue=False}" Margin="0,10,0,0">Root Always Expanded</CheckBox>
+                    <CheckBox Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="5" IsChecked="{Binding IsItemExpandedAtStart, FallbackValue=False}" Margin="0,10,0,0">Items Expanded At Start</CheckBox>
+                </Grid>
+            </GroupBox>
+        </Grid>
+    </DockPanel>
+</Window>

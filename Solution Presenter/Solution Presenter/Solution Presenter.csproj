@@ -1,0 +1,324 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EAE2DF36-C4E0-4C77-9D1F-39B4285C7E4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SolutionPresenterInternal</RootNamespace>
+    <AssemblyName>SolutionPresenter</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>0436</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>0436</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Certification\Custom Controls Library.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>0436</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <NoWarn>0436</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DialogValidation">
+      <HintPath>..\..\Dialog Validation\Dialog Validation\$(OutputPath)DialogValidation.dll</HintPath>
+    </Reference>
+    <Reference Include="EnumRadioButton">
+      <HintPath>..\..\Enum RadioButton\Enum RadioButton\$(OutputPath)EnumRadioButton.dll</HintPath>
+    </Reference>
+    <Reference Include="ExtendedToolBar">
+      <HintPath>..\..\Extended ToolBar\Extended ToolBar\$(OutputPath)ExtendedToolBar.dll</HintPath>
+    </Reference>
+    <Reference Include="ExtendedCommandControls">
+      <HintPath>..\..\Extended Command Controls\Extended Command Controls\$(OutputPath)ExtendedCommandControls.dll</HintPath>
+    </Reference>
+    <Reference Include="ExtendedTreeView">
+      <HintPath>..\..\Extended TreeView\Extended TreeView\$(OutputPath)ExtendedTreeView.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="SolutionControls">
+      <HintPath>..\..\Solution Controls\Solution Controls\$(OutputPath)SolutionControls.dll</HintPath>
+    </Reference>
+    <Reference Include="SplitView">
+      <HintPath>..\..\Split View\Split View\$(OutputPath)SplitView.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
+    <Reference Include="TightfittingTabControl">
+      <HintPath>..\..\Tightfitting Tab Control\Tightfitting Tab Control\$(OutputPath)TightfittingTabControl.dll</HintPath>
+    </Reference>
+    <Reference Include="UndoRedo">
+      <HintPath>..\..\Undo Redo Manager\Undo Redo Manager\$(OutputPath)UndoRedo.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.AvalonDock">
+      <HintPath>..\AvalonDock\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero">
+      <HintPath>..\AvalonDock\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro">
+      <HintPath>..\AvalonDock\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010">
+      <HintPath>..\AvalonDock\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\Boolean To Object Converter.cs" />
+    <Compile Include="Converters\Button Command To Gesture Text Converter.cs" />
+    <Compile Include="Converters\Button Command To Header Converter.cs" />
+    <Compile Include="Converters\Button Command To Icon Converter.cs" />
+    <Compile Include="Converters\Button Command To Text Converter.cs" />
+    <Compile Include="Converters\Button Command To Visibility Converter.cs" />
+    <Compile Include="Converters\Document To Title Converter.cs" />
+    <Compile Include="Converters\Double To Object Converter.cs" />
+    <Compile Include="Converters\Null To Object Converter.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Import\Document Import Descriptor.cs" />
+    <Compile Include="Import\Imported Content Descriptor.cs" />
+    <Compile Include="Presenter\Commit Info.cs" />
+    <Compile Include="Presenter\Commit Option.cs" />
+    <Compile Include="Presenter\Compilation Error.cs" />
+    <Compile Include="Presenter\Document Operation.cs" />
+    <Compile Include="Presenter\Document Type Filter.cs" />
+    <Compile Include="Presenter\Document Window Event Args.cs" />
+    <Compile Include="Presenter\DocumentsWindow.xaml.cs">
+      <DependentUpon>DocumentsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenter\Events\Add New Items Requested\Add New Items Requested Completion Args.cs" />
+    <Compile Include="Presenter\Events\Add New Items Requested\Add New Items Requested Event Args.cs" />
+    <Compile Include="Presenter\Events\Add New Items Requested\Add New Items Requested Event Context.cs" />
+    <Compile Include="Presenter\Events\Build Solution Requested\Build Solution Requested Completion Args.cs" />
+    <Compile Include="Presenter\Events\Build Solution Requested\Build Solution Requested Event Args.cs" />
+    <Compile Include="Presenter\Events\Build Solution Requested\Build Solution Requested Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Added\Document Added Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Added\Document Added Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Added\Document Added Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Closed\Document Closed Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Closed\Document Closed Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Closed\Document Closed Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Created\Document Created Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Created\Document Created Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Created\Document Created Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Exported\Document Exported Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Exported\Document Exported Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Exported\Document Exported Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Opened\Document Opened Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Opened\Document Opened Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Opened\Document Opened Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Removed\Document Removed Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Removed\Document Removed Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Removed\Document Removed Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Saved\Document Saved Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Saved\Document Saved Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Saved\Document Saved Event Context.cs" />
+    <Compile Include="Presenter\Events\Document Selected\Document Selected Completion Args.cs" />
+    <Compile Include="Presenter\Events\Document Selected\Document Selected Event Args.cs" />
+    <Compile Include="Presenter\Events\Document Selected\Document Selected Event Context.cs" />
+    <Compile Include="Presenter\Events\Error Focused\Error Focused Completion Args.cs" />
+    <Compile Include="Presenter\Events\Error Focused\Error Focused Event Args.cs" />
+    <Compile Include="Presenter\Events\Error Focused\Error Focused Event Context.cs" />
+    <Compile Include="Presenter\Events\Folder Created\Folder Created Completion Args.cs" />
+    <Compile Include="Presenter\Events\Folder Created\Folder Created Event Args.cs" />
+    <Compile Include="Presenter\Events\Folder Created\Folder Created Event Context.cs" />
+    <Compile Include="Presenter\Events\Folder Enumerated\Folder Enumerated Completion Args.cs" />
+    <Compile Include="Presenter\Events\Folder Enumerated\Folder Enumerated Event Args.cs" />
+    <Compile Include="Presenter\Events\Folder Enumerated\Folder Enumerated Event Context.cs" />
+    <Compile Include="Presenter\Events\Import New Items Requested\Import New Items Requested Completion Args.cs" />
+    <Compile Include="Presenter\Events\Import New Items Requested\Import New Items Requested Event Args.cs" />
+    <Compile Include="Presenter\Events\Import New Items Requested\Import New Items Requested Event Context.cs" />
+    <Compile Include="Presenter\Events\Node Moved\Node Moved Completion Args.cs" />
+    <Compile Include="Presenter\Events\Node Moved\Node Moved Event Args.cs" />
+    <Compile Include="Presenter\Events\Node Moved\Node Moved Event Context.cs" />
+    <Compile Include="Presenter\Events\Node Pasted\Node Pasted Completion Args.cs" />
+    <Compile Include="Presenter\Events\Node Pasted\Node Pasted Event Args.cs" />
+    <Compile Include="Presenter\Events\Node Pasted\Node Pasted Event Context.cs" />
+    <Compile Include="Presenter\Events\Node Renamed\Node Renamed Completion Args.cs" />
+    <Compile Include="Presenter\Events\Node Renamed\Node Renamed Event Args.cs" />
+    <Compile Include="Presenter\Events\Node Renamed\Node Renamed Event Context.cs" />
+    <Compile Include="Presenter\Events\Root Properties Requested\Root Properties Requested Event Args.cs" />
+    <Compile Include="Presenter\Events\Root Properties Requested\Root Properties Requested Event Context.cs" />
+    <Compile Include="Presenter\Events\Root Properties Requested\Root PropertiesProperties Requested Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Closed\Solution Closed Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Closed\Solution Closed Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Closed\Solution Closed Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Created\Solution Created Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Created\Solution Created Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Created\Solution Created Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Deleted\Solution Deleted Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Deleted\Solution Deleted Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Deleted\Solution Deleted Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Exported\Solution Exported Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Exported\Solution Exported Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Exported\Solution Exported Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Opened\Solution Opened Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Opened\Solution Opened Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Opened\Solution Opened Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Presenter Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Presenter Event Completed Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Presenter Event Completed Handler.cs" />
+    <Compile Include="Presenter\Events\Solution Selected\Solution Selected Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Selected\Solution Selected Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Selected\Solution Selected Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Tree Committed\Solution Tree Committed Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Tree Committed\Solution Tree Committed Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Tree Committed\Solution Tree Committed Event Context.cs" />
+    <Compile Include="Presenter\Events\Solution Tree Loaded\Solution Tree Loaded Completion Args.cs" />
+    <Compile Include="Presenter\Events\Solution Tree Loaded\Solution Tree Loaded Event Args.cs" />
+    <Compile Include="Presenter\Events\Solution Tree Loaded\Solution Tree Loaded Event Context.cs" />
+    <Compile Include="Presenter\Option Page Data Context.cs" />
+    <Compile Include="Presenter\OptionsWindow.xaml.cs">
+      <DependentUpon>OptionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenter\Panes Style Selector.cs" />
+    <Compile Include="Presenter\SaveAllWindow.xaml.cs">
+      <DependentUpon>SaveAllWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenter\Solution Menus.cs" />
+    <Compile Include="Presenter\Solution Operation.cs" />
+    <Compile Include="Presenter\SolutionPresenter.xaml.cs">
+      <DependentUpon>SolutionPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Presenter\Theme Option.cs" />
+    <Compile Include="Presenter\Tool Operation.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Status\Avalon Status Theme.cs" />
+    <Compile Include="Status\Localized Application Status.cs" />
+    <Compile Include="Tools\Assert.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Presenter\DocumentsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presenter\OptionsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presenter\PresenterResources.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presenter\SaveAllWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Presenter\SolutionPresenter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icons\About.png" />
+    <Content Include="Resources\Icons\AddExistingItem.png" />
+    <Content Include="Resources\Icons\BuildSolution.png" />
+    <Content Include="Resources\Icons\Close.png" />
+    <Content Include="Resources\Icons\CloseSolution.png" />
+    <Content Include="Resources\Icons\CompilerOutput.png" />
+    <Content Include="Resources\Icons\Copy.png" />
+    <Content Include="Resources\Icons\Cut.png" />
+    <Content Include="Resources\Icons\Delete.png" />
+    <Content Include="Resources\Icons\DeleteSolution.png" />
+    <Content Include="Resources\Icons\Exit.png" />
+    <Content Include="Resources\Icons\Export.png" />
+    <Content Include="Resources\Icons\ExportAll.png" />
+    <Content Include="Resources\Icons\Folder.png" />
+    <Content Include="Resources\Icons\Import.png" />
+    <Content Include="Resources\Icons\NewFolder.png" />
+    <Content Include="Resources\Icons\NewSolution.png" />
+    <Content Include="Resources\Icons\Open.png" />
+    <Content Include="Resources\Icons\OpenExisting.png" />
+    <Content Include="Resources\Icons\OpenSolution.png" />
+    <Content Include="Resources\Icons\Options.png" />
+    <Content Include="Resources\Icons\Paste.png" />
+    <Content Include="Resources\Icons\Properties.png" />
+    <Content Include="Resources\Icons\Redo.png" />
+    <Content Include="Resources\Icons\Rename.png" />
+    <Content Include="Resources\Icons\Save.png" />
+    <Content Include="Resources\Icons\SaveAll.png" />
+    <Content Include="Resources\Icons\SelectAll.png" />
+    <Content Include="Resources\Icons\SolutionExplorer.png" />
+    <Content Include="Resources\Icons\Split.png" />
+    <Content Include="Resources\Icons\Undo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Layout\AvalonDock.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionPath)" "$(ProjectPath)" "Solution Presenter"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>call "$(SolutionDir)signfile.bat" "$(SolutionDir)" $(ConfigurationName)$(PlatformName) "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

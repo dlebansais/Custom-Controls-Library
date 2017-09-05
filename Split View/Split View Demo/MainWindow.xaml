@@ -1,0 +1,14 @@
+﻿<Window x:Class="CustomControls.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="CustomControlsLibrary"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate x:Key="TextBoxViewTemplate">
+            <TextBox Text="{Binding DataContext.TestContent, RelativeSource={RelativeSource AncestorType={x:Type ctrl:SplitView}}, UpdateSourceTrigger=PropertyChanged, FallbackValue={x:Null}}" AcceptsReturn="True"/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ctrl:SplitView ViewTemplate="{StaticResource TextBoxViewTemplate}" ViewLoaded="OnViewLoaded" ZoomChanged="OnZoomChanged"/>
+    </Grid>
+</Window>

@@ -1,0 +1,150 @@
+﻿<UserControl x:Class="CustomControls.SolutionExplorer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctrl="CustomControlsLibrary"
+             xmlns:conv="clr-namespace:Converters"
+             xmlns:res="clr-namespace:SolutionControlsInternal.Properties"
+             xmlns:app="clr-namespace:CustomControls">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SolutionControls;component/Solution Controls/Explorer/ExplorerCommands.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SolutionControls;component/Solution Controls/Explorer/ExplorerResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type app:SolutionRoot}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding SolutionIcon, RelativeSource={RelativeSource AncestorType={x:Type app:SolutionExplorer}}}" VerticalAlignment="Center"/>
+                    <ctrl:EditableTextBlock Text="{Binding Name, Mode=TwoWay, FallbackValue={x:Null}}" Focusable="True" VerticalAlignment="Center" EditEnter="OnEditEnter" EditLeave="OnEditLeave" Margin="10,0,0,0"/>
+                    <TextBlock Text="*" VerticalAlignment="Center">
+                        <TextBlock.Visibility>
+                            <MultiBinding Converter="{StaticResource convMultiOrToObject}" ConverterParameter="{StaticResource CollapsedVisible}" FallbackValue="Collapsed">
+                                <Binding Path="IsDirty" FallbackValue="False"/>
+                                <Binding Path="Properties.IsDirty" FallbackValue="Collapsed"/>
+                            </MultiBinding>
+                        </TextBlock.Visibility>
+                    </TextBlock>
+                    <ctrl:EditableTextBlock Text="{Binding Source={x:Static res:Resources.SolutionTreeLoading}}" Visibility="{Binding IsLoadingTree, RelativeSource={RelativeSource AncestorType={x:Type app:SolutionExplorer}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource CollapsedVisible}}" Editable="False" VerticalAlignment="Center"/>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type app:SolutionFolder}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Resources/Icons/Folder.png" VerticalAlignment="Center"/>
+                    <ctrl:EditableTextBlock Text="{Binding Name, Mode=TwoWay, FallbackValue={x:Null}}" Focusable="True" VerticalAlignment="Center" EditEnter="OnEditEnter" EditLeave="OnEditLeave" Margin="10,0,0,0"/>
+                    <TextBlock Text="*" VerticalAlignment="Center">
+                        <TextBlock.Visibility>
+                            <MultiBinding Converter="{StaticResource convMultiOrToObject}" ConverterParameter="{StaticResource CollapsedVisible}" FallbackValue="Collapsed">
+                                <Binding Path="IsDirty" FallbackValue="False"/>
+                                <Binding Path="Properties.IsDirty" FallbackValue="Collapsed"/>
+                            </MultiBinding>
+                        </TextBlock.Visibility>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type app:SolutionItem}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{Binding Path.Icon}" VerticalAlignment="Center"/>
+                    <ctrl:EditableTextBlock Text="{Binding Name, Mode=TwoWay, FallbackValue={x:Null}}" Focusable="True" VerticalAlignment="Center" EditEnter="OnEditEnter" EditLeave="OnEditLeave" Margin="10,0,0,0">
+                        <ctrl:EditableTextBlock.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="FontWeight" Value="Normal"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Properties.IsSpecial}" Value="True">
+                                        <Setter Property="FontWeight" Value="Bold"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ctrl:EditableTextBlock.Resources>
+                    </ctrl:EditableTextBlock>
+                    <TextBlock Text="*" VerticalAlignment="Center">
+                        <TextBlock.Visibility>
+                            <MultiBinding Converter="{StaticResource convMultiOrToObject}" ConverterParameter="{StaticResource CollapsedVisible}" FallbackValue="Collapsed">
+                                <Binding Path="IsDirty" FallbackValue="False"/>
+                                <Binding Path="Properties.IsDirty" FallbackValue="Collapsed"/>
+                            </MultiBinding>
+                        </TextBlock.Visibility>
+                    </TextBlock>
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
+        <ctrl:ExtendedTreeView x:Name="treeviewSolutionExplorer"
+                               Content="{Binding Root, RelativeSource={RelativeSource AncestorType={x:Type app:SolutionExplorer}}, FallbackValue={x:Null}}" 
+                               SelectionMode="Extended" 
+                               IsRootAlwaysExpanded="True" 
+                               AllowDragDrop="True" 
+                               DragStarting="OnSolutionDragStarting" 
+                               DropCheck="OnSolutionDropCheck" 
+                               PreviewDropCompleted="OnSolutionPreviewDropCompleted">
+            <ctrl:ExtendedTreeView.Resources>
+                <Style TargetType="{x:Type ctrl:ExtendedTreeViewItemBase}">
+                    <EventSetter Event="MouseDoubleClick" Handler="OnMouseDoubleClick"/>
+                </Style>
+            </ctrl:ExtendedTreeView.Resources>
+            <ctrl:ExtendedTreeView.ContextMenu>
+                <ContextMenu Name="contextmenuExplorer" Loaded="OnContextMenuLoaded" Opened="OnContextMenuOpened">
+                    <ContextMenu.Resources>
+                        <Style x:Key="{x:Type ctrl:ExtendedToolBarMenuItem}" TargetType="{x:Type ctrl:ExtendedToolBarMenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Setter Property="HeaderTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding Converter="{StaticResource convButtonCommandToHeader}">
+                                                    <Binding Path="Command" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:ExtendedToolBarMenuItem}}"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Icon">
+                                <Setter.Value>
+                                    <Binding Path="Command" RelativeSource="{RelativeSource Self}" Converter="{StaticResource convButtonCommandToIcon}"/>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="InputGestureText">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource convButtonCommandToGestureText}">
+                                        <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                        <Binding Path="PlacementTarget" RelativeSource="{RelativeSource AncestorType={x:Type ContextMenu}}" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="Visibility">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource convButtonCommandToVisibility}">
+                                        <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                        <Binding Path="CanShow" RelativeSource="{RelativeSource Self}"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                        <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
+                            <EventSetter Event="SubmenuOpened" Handler="OnSubmenuOpened"/>
+                        </Style>
+                    </ContextMenu.Resources>
+                    <MenuItem Header="{Binding Source={x:Static res:Resources.ContextMenuAdd}}">
+                        <ctrl:ExtendedToolBarMenuItem x:Name="menuitemAddExistingItem" Command="{StaticResource AddExistingItemCommand}"/>
+                        <Separator Name="separatorAddDocumentStart"/>
+                        <Separator/>
+                        <ctrl:ExtendedToolBarMenuItem x:Name="menuitemAddNewFolder" Command="{StaticResource AddNewFolderCommand}"/>
+                    </MenuItem>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemOpen" Command="ApplicationCommands.Open"/>
+                    <Separator/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemCut" Command="ApplicationCommands.Cut"/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemCopy" Command="ApplicationCommands.Copy"/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemPaste" Command="ApplicationCommands.Paste"/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemDelete" Command="ApplicationCommands.Delete"/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemDeleteSolution" Command="{StaticResource DeleteSolutionCommand}"/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemRename" Command="{StaticResource RenameCommand}"/>
+                    <Separator/>
+                    <Separator Name="separatorContextMenuItem"/>
+                    <ctrl:ExtendedToolBarMenuItem x:Name="menuitemProperties" Command="{StaticResource EditPropertiesCommand}"/>
+                </ContextMenu>
+            </ctrl:ExtendedTreeView.ContextMenu>
+        </ctrl:ExtendedTreeView>
+    </Grid>
+</UserControl>

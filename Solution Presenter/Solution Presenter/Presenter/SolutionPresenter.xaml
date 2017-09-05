@@ -1,0 +1,189 @@
+﻿<UserControl x:Class="CustomControls.SolutionPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:spc="clr-namespace:CustomControls"
+             xmlns:res="clr-namespace:SolutionPresenterInternal.Properties"
+             xmlns:ctrl="CustomControlsLibrary"
+             xmlns:avl="clr-namespace:Xceed.Wpf.AvalonDock;assembly=Xceed.Wpf.AvalonDock"
+             xmlns:avlcontrol="clr-namespace:Xceed.Wpf.AvalonDock.Controls;assembly=Xceed.Wpf.AvalonDock"
+             xmlns:avllayout="clr-namespace:Xceed.Wpf.AvalonDock.Layout;assembly=Xceed.Wpf.AvalonDock">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SolutionControls;component/Solution Controls/Explorer/ExplorerCommands.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SolutionControls;component/Solution Controls/Tool Bar/ToolBarCommands.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SolutionPresenter;component/Presenter/PresenterResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="{StaticResource CreateNewSolutionCommand}" CanExecute="CanCreateNewSolution" Executed="OnCreateNewSolution"/>
+        <CommandBinding Command="{StaticResource CloseDocumentCommand}" CanExecute="CanCloseDocument" Executed="OnCloseDocument"/>
+        <CommandBinding Command="ApplicationCommands.Undo" CanExecute="CanUndo" Executed="OnUndo"/>
+        <CommandBinding Command="ApplicationCommands.Redo" CanExecute="CanRedo" Executed="OnRedo"/>
+        <CommandBinding Command="{StaticResource ChangePropertiesCommand}" CanExecute="CanChangeProperties" Executed="OnChangeProperties"/>
+        <CommandBinding Command="{StaticResource BuildSolutionCommand}" CanExecute="CanBuildSolution" Executed="OnBuildSolution"/>
+        <CommandBinding Command="ApplicationCommands.Open" CanExecute="CanOpen" Executed="OnOpen"/>
+        <CommandBinding Command="{StaticResource RenameCommand}" CanExecute="CanRename" Executed="OnRename"/>
+        <CommandBinding Command="{StaticResource EditPropertiesCommand}" CanExecute="CanEditProperties" Executed="OnEditProperties"/>
+        <CommandBinding Command="{StaticResource ActivateNextWindowCommand}" CanExecute="CanActivateNextWindow" Executed="OnActivateNextWindow"/>
+        <CommandBinding Command="{StaticResource ActivatePreviousWindowCommand}" CanExecute="CanActivatePreviousWindow" Executed="OnActivatePreviousWindow"/>
+    </UserControl.CommandBindings>
+    <UserControl.InputBindings>
+        <KeyBinding Gesture="Ctrl+Shift+N" Command="{StaticResource CreateNewSolutionCommand}"/>
+        <KeyBinding Gesture="Ctrl+F4" Command="{StaticResource CloseDocumentCommand}"/>
+        <KeyBinding Gesture="Ctrl+Z" Command="ApplicationCommands.Undo"/>
+        <KeyBinding Gesture="Ctrl+Shift+Z" Command="ApplicationCommands.Redo"/>
+        <KeyBinding Gesture="Alt+F6" Command="{StaticResource ChangePropertiesCommand}"/>
+        <KeyBinding Gesture="F6" Command="{StaticResource BuildSolutionCommand}"/>
+        <KeyBinding Key="Enter" Command="ApplicationCommands.Open"/>
+        <KeyBinding Gesture="Ctrl+X" Command="ApplicationCommands.Cut"/>
+        <KeyBinding Gesture="Ctrl+C" Command="ApplicationCommands.Copy"/>
+        <KeyBinding Gesture="Ctrl+V" Command="ApplicationCommands.Paste"/>
+        <KeyBinding Gesture="Del" Command="ApplicationCommands.Delete"/>
+        <KeyBinding Key="F2" Command="{StaticResource RenameCommand}"/>
+        <KeyBinding Key="F4" Command="{StaticResource EditPropertiesCommand}"/>
+        <KeyBinding Key="F6" Modifiers="Control" Command="{StaticResource ActivateNextWindowCommand}"/>
+        <KeyBinding Key="F6" Modifiers="Control+Shift" Command="{StaticResource ActivatePreviousWindowCommand}"/>
+    </UserControl.InputBindings>
+    <DockPanel>
+        <ctrl:SolutionToolBar x:Name="toolbarMain" DockPanel.Dock="Top" 
+                              ApplicationName="{Binding ApplicationName, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}, FallbackValue={x:Null}}"
+                              OpenDocuments="{Binding OpenDocuments, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}}" 
+                              ActiveDocument="{Binding ActiveDocument, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}}" 
+                              MainMenuLoaded="OnMainMenuLoaded" 
+                              MainToolBarLoaded="OnMainToolBarLoaded">
+            <ctrl:SolutionToolBar.CommandBindings>
+                <CommandBinding Command="{StaticResource CreateNewSolutionCommand}" CanExecute="CanCreateNewSolution" Executed="OnCreateNewSolution"/>
+                <CommandBinding Command="{StaticResource OpenSolutionCommand}" CanExecute="CanOpenSolution" Executed="OnOpenSolution"/>
+                <CommandBinding Command="{StaticResource OpenExistingDocumentCommand}" CanExecute="CanOpenExistingDocument" Executed="OnOpenExistingDocument"/>
+                <CommandBinding Command="{StaticResource CloseDocumentCommand}" CanExecute="CanCloseDocument" Executed="OnCloseDocument"/>
+                <CommandBinding Command="{StaticResource CloseSolutionCommand}" CanExecute="CanCloseSolution" Executed="OnCloseSolution"/>
+                <CommandBinding Command="{StaticResource SaveDocumentCommand}" CanExecute="CanSaveDocument" Executed="OnSaveDocument"/>
+                <CommandBinding Command="{StaticResource SaveAllCommand}" CanExecute="CanSaveAll" Executed="OnSaveAll"/>
+                <CommandBinding Command="{StaticResource ImportCommand}" CanExecute="CanImport" Executed="OnImport"/>
+                <CommandBinding Command="{StaticResource ImportSolutionCommand}" CanExecute="CanImportSolution" Executed="OnImportSolution"/>
+                <CommandBinding Command="{StaticResource ExportDocumentCommand}" CanExecute="CanExportDocument" Executed="OnExportDocument"/>
+                <CommandBinding Command="{StaticResource ExportAllCommand}" CanExecute="CanExportAll" Executed="OnExportAll"/>
+                <CommandBinding Command="{StaticResource ExportSolutionCommand}" CanExecute="CanExportSolution" Executed="OnExportSolution"/>
+                <CommandBinding Command="{StaticResource ExitCommand}" CanExecute="CanExit" Executed="OnExit"/>
+                <CommandBinding Command="ApplicationCommands.Undo" CanExecute="CanUndo" Executed="OnUndo"/>
+                <CommandBinding Command="ApplicationCommands.Redo" CanExecute="CanRedo" Executed="OnRedo"/>
+                <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CanDelete" Executed="OnDelete"/>
+                <CommandBinding Command="ApplicationCommands.SelectAll" CanExecute="CanSelectAll" Executed="OnSelectAll"/>
+                <CommandBinding Command="{StaticResource ChangeOptionsCommand}" CanExecute="CanChangeOptions" Executed="OnChangeOptions"/>
+                <CommandBinding Command="{StaticResource BuildSolutionCommand}" CanExecute="CanBuildSolution" Executed="OnBuildSolution"/>
+                <CommandBinding Command="{StaticResource ChangePropertiesCommand}" CanExecute="CanChangeProperties" Executed="OnChangeProperties"/>
+                <CommandBinding Command="{StaticResource ShowSolutionExplorerToolCommand}" CanExecute="CanShowSolutionExplorerTool" Executed="OnShowSolutionExplorerTool"/>
+                <CommandBinding Command="{StaticResource ShowCompilerOutputToolCommand}" CanExecute="CanShowCompilerOutputTool" Executed="OnShowCompilerOutputTool"/>
+                <CommandBinding Command="{StaticResource ShowPropertiesToolCommand}" CanExecute="CanShowPropertiesTool" Executed="OnShowPropertiesTool"/>
+                <CommandBinding Command="{StaticResource ResetLayoutCommand}" CanExecute="CanResetLayout" Executed="OnResetLayout"/>
+                <CommandBinding Command="{StaticResource SplitWindowCommand}" CanExecute="CanSplitWindow" Executed="OnSplitWindow"/>
+                <CommandBinding Command="{StaticResource RemoveWindowSplitCommand}" CanExecute="CanRemoveWindowSplit" Executed="OnRemoveWindowSplit"/>
+                <CommandBinding Command="{StaticResource ListWindowsCommand}" CanExecute="CanListWindows" Executed="OnListWindows"/>
+                <CommandBinding Command="{StaticResource ActivateNextWindowCommand}" CanExecute="CanActivateNextWindow" Executed="OnActivateNextWindow"/>
+                <CommandBinding Command="{StaticResource ActivatePreviousWindowCommand}" CanExecute="CanActivatePreviousWindow" Executed="OnActivatePreviousWindow"/>
+                <CommandBinding Command="{StaticResource ShowAboutCommand}" CanExecute="CanShowAbout" Executed="OnShowAbout"/>
+            </ctrl:SolutionToolBar.CommandBindings>
+            <ctrl:SolutionToolBar.InputBindings>
+                <KeyBinding Gesture="F6" CommandTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}}" Command="{StaticResource BuildSolutionCommand}"/>
+            </ctrl:SolutionToolBar.InputBindings>
+        </ctrl:SolutionToolBar>
+        <ctrl:SolutionStatusBar x:Name="spcStatus" DockPanel.Dock="Bottom"/>
+        <avl:DockingManager x:Name="dockManager" Grid.Row="1"
+                            DocumentsSource="{Binding OpenDocuments, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}, FallbackValue={x:Null}}"
+                            DocumentClosing="OnDockedDocumentClosing"
+                            DocumentClosed="OnDockedDocumentClosed">
+            <avl:DockingManager.InputBindings>
+                <KeyBinding Key="F6" Modifiers="Control" Command="{StaticResource ActivateNextWindowCommand}"/>
+                <KeyBinding Key="F6" Modifiers="Control+Shift" Command="{StaticResource ActivatePreviousWindowCommand}"/>
+            </avl:DockingManager.InputBindings>
+            <avl:DockingManager.LayoutItemContainerStyleSelector>
+                <spc:SolutionPresenterPaneStyleSelector>
+                    <spc:SolutionPresenterPaneStyleSelector.DocumentPaneStyle>
+                        <Style TargetType="{x:Type avlcontrol:LayoutDocumentItem}">
+                            <Setter Property="Title">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource convDocumentToTitle}">
+                                        <Binding Path="Model.Path.HeaderName"/>
+                                        <Binding Path="Model.IsDirty"/>
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="ContentId" Value="{Binding Model.Path.ContentId}"/>
+                        </Style>
+                    </spc:SolutionPresenterPaneStyleSelector.DocumentPaneStyle>
+                </spc:SolutionPresenterPaneStyleSelector>
+            </avl:DockingManager.LayoutItemContainerStyleSelector>
+            <avllayout:LayoutRoot>
+                <avllayout:LayoutPanel Orientation="Horizontal">
+                    <avllayout:LayoutAnchorablePaneGroup DockWidth="250">
+                        <avllayout:LayoutAnchorablePane>
+                            <avllayout:LayoutAnchorable ContentId="toolSolutionExplorer" Title="{Binding Source={x:Static res:Resources.SolutionExplorer}}">
+                                <ctrl:SolutionExplorer Grid.Row="0" x:Name="spcSolutionExplorer" 
+                                                       SolutionIcon="{Binding SolutionIcon, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}}" 
+                                                       IsLoadingTree="{Binding IsLoadingTree, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}}" 
+                                                       ContextMenuLoaded="OnContextMenuLoaded"
+                                                       NameChanged="OnNodeNameChanged"
+                                                       Moved="OnNodeMoved"
+                                                       TreeChanged="OnNodeTreeChanged">
+                                    <ctrl:SolutionExplorer.CommandBindings>
+                                        <CommandBinding Command="{StaticResource AddExistingItemCommand}" CanExecute="CanAddExistingItem" Executed="OnAddExistingItem"/>
+                                        <CommandBinding Command="{StaticResource AddNewFolderCommand}" CanExecute="CanAddNewFolder" Executed="OnAddNewFolder"/>
+                                        <CommandBinding Command="ApplicationCommands.Open" CanExecute="CanOpen" Executed="OnOpen"/>
+                                        <CommandBinding Command="ApplicationCommands.Cut" CanExecute="CanCut" Executed="OnCut"/>
+                                        <CommandBinding Command="ApplicationCommands.Copy" CanExecute="CanCopy" Executed="OnCopy"/>
+                                        <CommandBinding Command="ApplicationCommands.Paste" CanExecute="CanPaste" Executed="OnPaste"/>
+                                        <CommandBinding Command="ApplicationCommands.Delete" CanExecute="CanDelete" Executed="OnDelete"/>
+                                        <CommandBinding Command="{StaticResource DeleteSolutionCommand}" CanExecute="CanDeleteSolution" Executed="OnDeleteSolution"/>
+                                        <CommandBinding Command="{StaticResource RenameCommand}" CanExecute="CanRename" Executed="OnRename"/>
+                                        <CommandBinding Command="{StaticResource EditPropertiesCommand}" CanExecute="CanEditProperties" Executed="OnEditProperties"/>
+                                    </ctrl:SolutionExplorer.CommandBindings>
+                                    <ctrl:SolutionExplorer.InputBindings>
+                                        <KeyBinding Key="Enter" CommandTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}}" Command="ApplicationCommands.Open"/>
+                                    </ctrl:SolutionExplorer.InputBindings>
+                                </ctrl:SolutionExplorer>
+                            </avllayout:LayoutAnchorable>
+                        </avllayout:LayoutAnchorablePane>
+                    </avllayout:LayoutAnchorablePaneGroup>
+                    <avllayout:LayoutPanel Orientation="Vertical">
+                        <avllayout:LayoutDocumentPaneGroup>
+                            <avllayout:LayoutDocumentPane/>
+                        </avllayout:LayoutDocumentPaneGroup>
+                        <avllayout:LayoutAnchorablePaneGroup DockHeight="200">
+                            <avllayout:LayoutAnchorablePane>
+                                <avllayout:LayoutAnchorable ContentId="toolCompilerOutput" Title="{Binding Source={x:Static res:Resources.Compiler}}">
+                                    <ListView x:Name="listviewCompilerOutput" Grid.Row="2" ItemsSource="{Binding CompilationErrorList, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}, FallbackValue={x:Null}}" SelectionMode="Single">
+                                        <ListView.Resources>
+                                            <DataTemplate x:Key="SourceCellTemplate">
+                                                <TextBlock Text="{Binding Source.HeaderName, FallbackValue={x:Null}}"/>
+                                            </DataTemplate>
+                                        </ListView.Resources>
+                                        <ListView.ItemContainerStyle>
+                                            <Style TargetType="{x:Type ListViewItem}">
+                                                <EventSetter Event="MouseDoubleClick" Handler="OnErrorLineDoubleClick"/>
+                                            </Style>
+                                        </ListView.ItemContainerStyle>
+                                        <ListView.View>
+                                            <GridView>
+                                                <GridViewColumn Header="Description" Width="500" DisplayMemberBinding="{Binding Description, FallbackValue={x:Null}}"/>
+                                                <GridViewColumn Header="Source" Width="100" CellTemplate="{StaticResource SourceCellTemplate}"/>
+                                            </GridView>
+                                        </ListView.View>
+                                    </ListView>
+                                </avllayout:LayoutAnchorable>
+                            </avllayout:LayoutAnchorablePane>
+                        </avllayout:LayoutAnchorablePaneGroup>
+                    </avllayout:LayoutPanel>
+                    <avllayout:LayoutAnchorablePaneGroup>
+                        <avllayout:LayoutAnchorablePane>
+                            <avllayout:LayoutAnchorable ContentId="toolProperties" Title="{Binding Source={x:Static res:Resources.Properties}}">
+                                <ctrl:MergedProperties x:Name="spcProperties" PropertyEntries="{Binding SolutionMergedProperties, RelativeSource={RelativeSource AncestorType={x:Type spc:SolutionPresenter}}, Mode=OneWay, FallbackValue={x:Null}}"/>
+                            </avllayout:LayoutAnchorable>
+                        </avllayout:LayoutAnchorablePane>
+                    </avllayout:LayoutAnchorablePaneGroup>
+                </avllayout:LayoutPanel>
+            </avllayout:LayoutRoot>
+        </avl:DockingManager>
+    </DockPanel>
+</UserControl>

@@ -1,0 +1,405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AddFolder" xml:space="preserve">
+    <value>Add Folder</value>
+  </data>
+  <data name="AddItem" xml:space="preserve">
+    <value>Add Item</value>
+  </data>
+  <data name="AddTree" xml:space="preserve">
+    <value>Add Tree</value>
+  </data>
+  <data name="ContextMenuAdd" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="ContextMenuAddExistingItemEllipsis" xml:space="preserve">
+    <value>Existing Item...</value>
+  </data>
+  <data name="ContextMenuAddNewFolder" xml:space="preserve">
+    <value>New Folder</value>
+  </data>
+  <data name="ContextMenuDeleteSolution" xml:space="preserve">
+    <value>Delete Solution</value>
+  </data>
+  <data name="ContextMenuProperties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="ContextMenuRename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="EditToolBarName" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditToolBarOptions" xml:space="preserve">
+    <value>Edit ToolBar Options</value>
+  </data>
+  <data name="FileToolBarName" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="FileToolBarOptions" xml:space="preserve">
+    <value>File ToolBar Options</value>
+  </data>
+  <data name="HelpToolBarName" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="HelpToolBarOptions" xml:space="preserve">
+    <value>Help ToolBar Options</value>
+  </data>
+  <data name="Move" xml:space="preserve">
+    <value>Move</value>
+  </data>
+  <data name="ProjectToolBarName" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ProjectToolBarOptions" xml:space="preserve">
+    <value>Project ToolBar Options</value>
+  </data>
+  <data name="RemoveTree" xml:space="preserve">
+    <value>Remove Tree</value>
+  </data>
+  <data name="Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="SolutionTreeLoading" xml:space="preserve">
+    <value>(loading...)</value>
+  </data>
+  <data name="StatusColumn" xml:space="preserve">
+    <value>Col</value>
+  </data>
+  <data name="StatusFailure" xml:space="preserve">
+    <value>Failure</value>
+  </data>
+  <data name="StatusInitializing" xml:space="preserve">
+    <value>Initializing</value>
+  </data>
+  <data name="StatusInsert" xml:space="preserve">
+    <value>INS</value>
+  </data>
+  <data name="StatusLine" xml:space="preserve">
+    <value>Ln</value>
+  </data>
+  <data name="StatusOverride" xml:space="preserve">
+    <value>OVR</value>
+  </data>
+  <data name="StatusReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="ToolBarAboutEllipsis" xml:space="preserve">
+    <value>About {ApplicationName}...</value>
+  </data>
+  <data name="ToolBarAboutToolTip" xml:space="preserve">
+    <value>About {ApplicationName}</value>
+  </data>
+  <data name="ToolBarBuildSolution" xml:space="preserve">
+    <value>Build Solution</value>
+  </data>
+  <data name="ToolBarBuildSolutionToolTip" xml:space="preserve">
+    <value>Build Solution</value>
+  </data>
+  <data name="ToolBarClass" xml:space="preserve">
+    <value>Class</value>
+  </data>
+  <data name="ToolBarClose" xml:space="preserve">
+    <value>Close {0}</value>
+  </data>
+  <data name="ToolBarCloseSolution" xml:space="preserve">
+    <value>Close Solution</value>
+  </data>
+  <data name="ToolBarCloseSolutionToolTip" xml:space="preserve">
+    <value>Close Solution</value>
+  </data>
+  <data name="ToolBarCloseToolTip" xml:space="preserve">
+    <value>Close {0}</value>
+  </data>
+  <data name="ToolBarCompilerOutputTool" xml:space="preserve">
+    <value>Compiler Output</value>
+  </data>
+  <data name="ToolBarCompilerOutputToolToolTip" xml:space="preserve">
+    <value>Show the Compiler Output window</value>
+  </data>
+  <data name="ToolBarEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ToolBarExit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ToolBarExitToolTip" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ToolBarExportAllEllipsis" xml:space="preserve">
+    <value>Export All...</value>
+  </data>
+  <data name="ToolBarExportAllToolTip" xml:space="preserve">
+    <value>Export All</value>
+  </data>
+  <data name="ToolBarExportEllipsis" xml:space="preserve">
+    <value>Export {0}...</value>
+  </data>
+  <data name="ToolBarExportSolutionEllipsis" xml:space="preserve">
+    <value>Export Solution...</value>
+  </data>
+  <data name="ToolBarExportSolutionToolTip" xml:space="preserve">
+    <value>Export Solution</value>
+  </data>
+  <data name="ToolBarExportToolTip" xml:space="preserve">
+    <value>Export {0}</value>
+  </data>
+  <data name="ToolBarFile" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="ToolBarHelp" xml:space="preserve">
+    <value>Help</value>
+  </data>
+  <data name="ToolBarImportEllipsis" xml:space="preserve">
+    <value>Import...</value>
+  </data>
+  <data name="ToolBarImportSolutionEllipsis" xml:space="preserve">
+    <value>Import solution...</value>
+  </data>
+  <data name="ToolBarImportSolutionToolTip" xml:space="preserve">
+    <value>Import solution</value>
+  </data>
+  <data name="ToolBarImportToolTip" xml:space="preserve">
+    <value>Import</value>
+  </data>
+  <data name="ToolBarInactiveClose" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ToolBarInactiveCloseToolTip" xml:space="preserve">
+    <value>Close</value>
+  </data>
+  <data name="ToolBarInactiveExportEllipsis" xml:space="preserve">
+    <value>Export...</value>
+  </data>
+  <data name="ToolBarInactiveExportToolTip" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ToolBarInactiveSave" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ToolBarInactiveSaveAsEllipsis" xml:space="preserve">
+    <value>Save as...</value>
+  </data>
+  <data name="ToolBarInactiveSaveAsToolTip" xml:space="preserve">
+    <value>Save as</value>
+  </data>
+  <data name="ToolBarInactiveSaveToolTip" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="ToolBarListWindows" xml:space="preserve">
+    <value>Windows...</value>
+  </data>
+  <data name="ToolBarListWindowsToolTip" xml:space="preserve">
+    <value>List windows</value>
+  </data>
+  <data name="ToolBarNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="ToolBarNewSolutionToolTip" xml:space="preserve">
+    <value>New Solution</value>
+  </data>
+  <data name="ToolBarOpenExistingEllipsis" xml:space="preserve">
+    <value>Open Existing Item...</value>
+  </data>
+  <data name="ToolBarOpenExistingToolTip" xml:space="preserve">
+    <value>Open Existing Item</value>
+  </data>
+  <data name="ToolBarOpenSolutionEllipsis" xml:space="preserve">
+    <value>Open Solution...</value>
+  </data>
+  <data name="ToolBarOpenSolutionToolTip" xml:space="preserve">
+    <value>Open Solution</value>
+  </data>
+  <data name="ToolBarOptionsEllipsis" xml:space="preserve">
+    <value>Options...</value>
+  </data>
+  <data name="ToolBarOptionsToolTip" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="ToolBarProject" xml:space="preserve">
+    <value>Project</value>
+  </data>
+  <data name="ToolBarPropertiesTool" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="ToolBarPropertiesToolToolTip" xml:space="preserve">
+    <value>Show or hide the Properties window</value>
+  </data>
+  <data name="ToolBarRemoveSplit" xml:space="preserve">
+    <value>Remove Split</value>
+  </data>
+  <data name="ToolBarRemoveSplitToolTip" xml:space="preserve">
+    <value>Remove Split</value>
+  </data>
+  <data name="ToolBarResetLayout" xml:space="preserve">
+    <value>Reset Layout</value>
+  </data>
+  <data name="ToolBarResetLayoutToolTip" xml:space="preserve">
+    <value>Reset Layout</value>
+  </data>
+  <data name="ToolBarSave" xml:space="preserve">
+    <value>Save {0}</value>
+  </data>
+  <data name="ToolBarSaveAll" xml:space="preserve">
+    <value>Save All</value>
+  </data>
+  <data name="ToolBarSaveAllToolTip" xml:space="preserve">
+    <value>Save All</value>
+  </data>
+  <data name="ToolBarSaveAsEllipsis" xml:space="preserve">
+    <value>Save {0} as...</value>
+  </data>
+  <data name="ToolBarSaveAsToolTip" xml:space="preserve">
+    <value>Save {0} as</value>
+  </data>
+  <data name="ToolBarSaveToolTip" xml:space="preserve">
+    <value>Save {0}</value>
+  </data>
+  <data name="ToolBarSolution" xml:space="preserve">
+    <value>Solution</value>
+  </data>
+  <data name="ToolBarSolutionExplorerTool" xml:space="preserve">
+    <value>Solution Explorer</value>
+  </data>
+  <data name="ToolBarSolutionExplorerToolToolTip" xml:space="preserve">
+    <value>Show the Solution Explorer window</value>
+  </data>
+  <data name="ToolBarSolutionProperties" xml:space="preserve">
+    <value>Solution Properties</value>
+  </data>
+  <data name="ToolBarSolutionPropertiesToolTip" xml:space="preserve">
+    <value>Solution Properties</value>
+  </data>
+  <data name="ToolBarSplit" xml:space="preserve">
+    <value>Split</value>
+  </data>
+  <data name="ToolBarSplitToolTip" xml:space="preserve">
+    <value>Split window horizontally</value>
+  </data>
+  <data name="ToolBarWindow" xml:space="preserve">
+    <value>Window</value>
+  </data>
+  <data name="WindowToolBarName" xml:space="preserve">
+    <value>Window</value>
+  </data>
+  <data name="WindowToolBarOptions" xml:space="preserve">
+    <value>Window ToolBar Options</value>
+  </data>
+</root>

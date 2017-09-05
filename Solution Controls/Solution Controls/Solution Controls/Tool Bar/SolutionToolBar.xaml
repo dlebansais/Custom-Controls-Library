@@ -1,0 +1,259 @@
+﻿<UserControl x:Class="CustomControls.SolutionToolBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:app="clr-namespace:CustomControls"
+             xmlns:res="clr-namespace:SolutionControlsInternal.Properties"
+             xmlns:ctrl="CustomControlsLibrary"
+             FocusManager.IsFocusScope="True">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/SolutionControls;component/Solution Controls/Tool Bar/ToolBarCommands.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/SolutionControls;component/Solution Controls/Tool Bar/ToolBarResources.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <UserControl.InputBindings>
+        <KeyBinding Key="F6" Modifiers="Control" Command="{StaticResource ActivateNextWindowCommand}"/>
+        <KeyBinding Key="F6" Modifiers="Control+Shift" Command="{StaticResource ActivatePreviousWindowCommand}"/>
+        <KeyBinding Key="F4" Command="{StaticResource ShowPropertiesToolCommand}"/>
+    </UserControl.InputBindings>
+    <StackPanel>
+        <Menu Name="menuMain" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Loaded="OnMainMenuLoaded">
+            <Menu.Resources>
+                <Style x:Key="{x:Type ctrl:ExtendedToolBarMenuItem}" TargetType="{x:Type ctrl:ExtendedToolBarMenuItem}" BasedOn="{StaticResource {x:Type MenuItem}}">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource convButtonCommandToHeader}">
+                                            <Binding Path="Command" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:ExtendedToolBarMenuItem}}"/>
+                                            <Binding Path="ApplicationName" RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}"/>
+                                            <Binding Path="ActiveDocument" RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Icon">
+                        <Setter.Value>
+                            <Binding Path="Command" RelativeSource="{RelativeSource Self}" Converter="{StaticResource convButtonCommandToIcon}"/>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="InputGestureText">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource convButtonCommandToGestureText}">
+                                <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="Visibility">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource convButtonCommandToVisibility}">
+                                <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                <Binding Path="CanShow" RelativeSource="{RelativeSource Self}"/>
+                                <Binding Path="ActiveDocument" RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}" />
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <Style x:Key="{x:Type MenuItem}" TargetType="{x:Type MenuItem}">
+                    <EventSetter Event="SubmenuOpened" Handler="OnSubmenuOpened"/>
+                </Style>
+            </Menu.Resources>
+            <MenuItem Header="{Binding Source={x:Static res:Resources.ToolBarFile}}">
+                <MenuItem Header="{Binding Source={x:Static res:Resources.ToolBarNew}}">
+                    <ctrl:ExtendedToolBarMenuItem Command="{StaticResource CreateNewSolutionCommand}"/>
+                    <Separator Name="separatorMenuFirstNewDocument"/>
+                    <Separator Name="separatorMenuNewDocumentsEnd"/>
+                </MenuItem>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource OpenSolutionCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource OpenExistingDocumentCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource CloseDocumentCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource CloseSolutionCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource SaveDocumentCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource FileSaveAsCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource SaveAllCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ImportCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ImportSolutionCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ExportDocumentCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ExportAllCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ExportSolutionCommand}"/>
+                <Separator/>
+                <Separator Name="separatorFileCustomMenuItem"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ExitCommand}"/>
+            </MenuItem>
+            <MenuItem Header="{Binding Source={x:Static res:Resources.ToolBarEdit}}">
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.Undo"/>
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.Redo"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.Cut"/>
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.Copy"/>
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.Paste"/>
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.Delete"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="ApplicationCommands.SelectAll"/>
+                <Separator/>
+                <Separator Name="separatorEditCustomMenuItem"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ChangeOptionsCommand}"/>
+            </MenuItem>
+            <MenuItem Header="{Binding Source={x:Static res:Resources.ToolBarProject}}">
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource BuildSolutionCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ChangePropertiesCommand}"/>
+            </MenuItem>
+            <MenuItem Header="{Binding Source={x:Static res:Resources.ToolBarWindow}}" SubmenuOpened="OnWindowMenuOpening">
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ShowSolutionExplorerToolCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ShowCompilerOutputToolCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ShowPropertiesToolCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ResetLayoutCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource SplitWindowCommand}"/>
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource RemoveWindowSplitCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarMenuItem x:Name="ListWindowsMenu" Command="{StaticResource ListWindowsCommand}"/>
+            </MenuItem>
+            <MenuItem Header="{Binding Source={x:Static res:Resources.ToolBarHelp}}">
+                <ctrl:ExtendedToolBarMenuItem Command="{StaticResource ShowAboutCommand}"/>
+            </MenuItem>
+        </Menu>
+        <ToolBarTray Name="toolbarMainTray" Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" Loaded="OnMainToolBarLoaded">
+            <ToolBarTray.Resources>
+                <Style TargetType="{x:Type ctrl:ExtendedToolBarButton}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Setter Property="Content" Value="{Binding Command, RelativeSource={RelativeSource Self}, Converter={StaticResource convButtonCommandToIcon}}"/>
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource convButtonCommandToToolTip}">
+                                <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}"/>
+                                <Binding Path="ApplicationName" RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <EventSetter Event="IsActiveChanged" Handler="OnIsActiveChanged"/>
+                </Style>
+                <Style x:Key="DropDownButtonStyle" TargetType="{x:Type ToggleButton}">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ToggleButton}">
+                                <Border x:Name="DropDownBorder" Padding="4,0,1,0" Margin="2,0,0,0" BorderThickness="0.5,0,0,0" BorderBrush="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}" Background="Transparent">
+                                    <Path x:Name="DropDown" Stroke="Black" Fill="Black" Data="M 0 0 L 5 0 L 2.5 2.5 Z" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsEnabled" Value="False">
+                                        <Setter TargetName="DropDownBorder" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.ControlBrushKey}}"/>
+                                        <Setter TargetName="DropDown" Property="Stroke" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                                        <Setter TargetName="DropDown" Property="Fill" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+                <RoutedUICommand x:Key="DropDownUndoCommand"/>
+                <RoutedUICommand x:Key="DropDownRedoCommand"/>
+                <Style x:Key="UndoStyle" TargetType="{x:Type ctrl:ExtendedToolBarButton}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl Content="{Binding Command, RelativeSource={RelativeSource AncestorType={x:Type ctrl:ExtendedToolBarButton}}, Converter={StaticResource convButtonCommandToIcon}}"/>
+                                <ToggleButton Style="{StaticResource DropDownButtonStyle}" Command="{StaticResource DropDownUndoCommand}"/>
+                            </StackPanel>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource convButtonCommandToToolTip}">
+                                <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}" />
+                                <Binding Path="ApplicationName" RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <EventSetter Event="IsActiveChanged" Handler="OnIsActiveChanged"/>
+                </Style>
+                <Style x:Key="RedoStyle" TargetType="{x:Type ctrl:ExtendedToolBarButton}" BasedOn="{StaticResource {x:Static ToolBar.ButtonStyleKey}}">
+                    <Setter Property="Content">
+                        <Setter.Value>
+                            <StackPanel Orientation="Horizontal">
+                                <ContentControl Content="{Binding Command, RelativeSource={RelativeSource AncestorType={x:Type ctrl:ExtendedToolBarButton}}, Converter={StaticResource convButtonCommandToIcon}}"/>
+                                <ToggleButton Style="{StaticResource DropDownButtonStyle}" Command="{StaticResource DropDownRedoCommand}"/>
+                            </StackPanel>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <MultiBinding Converter="{StaticResource convButtonCommandToToolTip}">
+                                <Binding Path="Command" RelativeSource="{RelativeSource Self}"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}" />
+                                <Binding Path="ApplicationName" RelativeSource="{RelativeSource AncestorType={x:Type app:SolutionToolBar}}"/>
+                            </MultiBinding>
+                        </Setter.Value>
+                    </Setter>
+                    <EventSetter Event="IsActiveChanged" Handler="OnIsActiveChanged"/>
+                </Style>
+            </ToolBarTray.Resources>
+            <ctrl:ExtendedToolBar ToolBarName="{Binding Source={x:Static res:Resources.FileToolBarName}}" ToolTip="{Binding Source={x:Static res:Resources.FileToolBarOptions}}">
+                <ctrl:ExtendedToolBarButton Command="{StaticResource CreateNewSolutionCommand}"/>
+                <Separator Name="separatorToolBarFirstNewDocument"/>
+                <Separator Name="separatorToolBarNewDocumentsEnd"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource OpenSolutionCommand}"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource OpenExistingDocumentCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource CloseDocumentCommand}" IsDefaultActive="False"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource CloseSolutionCommand}" IsDefaultActive="False"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource SaveDocumentCommand}"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource SaveAllCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ImportCommand}" IsDefaultActive="False"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ImportSolutionCommand}" IsDefaultActive="False"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ExportDocumentCommand}" IsDefaultActive="False"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ExportAllCommand}" IsDefaultActive="False"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ExportSolutionCommand}" IsDefaultActive="False"/>
+                <Separator/>
+                <Separator Name="separatorFileCustomButton"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ExitCommand}" IsDefaultActive="False"/>
+            </ctrl:ExtendedToolBar>
+            <ctrl:ExtendedToolBar ToolBarName="{Binding Source={x:Static res:Resources.EditToolBarName}}" ToolTip="{Binding Source={x:Static res:Resources.EditToolBarOptions}}">
+                <ctrl:ExtendedToolBar.CommandBindings>
+                    <CommandBinding Command="{StaticResource DropDownUndoCommand}" Executed="OnDropDownUndo"/>
+                    <CommandBinding Command="{StaticResource DropDownRedoCommand}" Executed="OnDropDownRedo"/>
+                </ctrl:ExtendedToolBar.CommandBindings>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.Undo" Style="{StaticResource UndoStyle}" Reference="{StaticResource SolutionToolBarReference}"/>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.Redo" Style="{StaticResource RedoStyle}" Reference="{StaticResource SolutionToolBarReference}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.Cut" IsDefaultActive="False" Reference="{StaticResource SolutionToolBarReference}"/>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.Copy" IsDefaultActive="False" Reference="{StaticResource SolutionToolBarReference}"/>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.Paste" IsDefaultActive="False" Reference="{StaticResource SolutionToolBarReference}"/>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.Delete" IsDefaultActive="False" Reference="{StaticResource SolutionToolBarReference}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarButton Command="ApplicationCommands.SelectAll" IsDefaultActive="False" Reference="{StaticResource SolutionToolBarReference}"/>
+                <Separator/>
+                <Separator Name="separatorEditCustomButton"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ChangeOptionsCommand}"/>
+            </ctrl:ExtendedToolBar>
+            <ctrl:ExtendedToolBar ToolBarName="{Binding Source={x:Static res:Resources.ProjectToolBarName}}" ToolTip="{Binding Source={x:Static res:Resources.ProjectToolBarOptions}}">
+                <ctrl:ExtendedToolBarButton Command="{StaticResource BuildSolutionCommand}"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ChangePropertiesCommand}"/>
+            </ctrl:ExtendedToolBar>
+            <ctrl:ExtendedToolBar ToolBarName="{Binding Source={x:Static res:Resources.WindowToolBarName}}" ToolTip="{Binding Source={x:Static res:Resources.WindowToolBarOptions}}">
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ShowSolutionExplorerToolCommand}"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ShowCompilerOutputToolCommand}"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ShowPropertiesToolCommand}"/>
+                <Separator/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource SplitWindowCommand}"/>
+                <ctrl:ExtendedToolBarButton Command="{StaticResource RemoveWindowSplitCommand}"/>
+            </ctrl:ExtendedToolBar>
+            <ctrl:ExtendedToolBar ToolBarName="{Binding Source={x:Static res:Resources.HelpToolBarName}}" ToolTip="{Binding Source={x:Static res:Resources.HelpToolBarOptions}}">
+                <ctrl:ExtendedToolBarButton Command="{StaticResource ShowAboutCommand}"/>
+            </ctrl:ExtendedToolBar>
+        </ToolBarTray>
+    </StackPanel>
+</UserControl>

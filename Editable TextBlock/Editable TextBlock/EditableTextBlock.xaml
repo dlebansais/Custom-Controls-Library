@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="CustomControls.EditableTextBlock"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctrl="clr-namespace:CustomControls"
+             xmlns:conv="clr-namespace:Converters">
+    <UserControl.Resources>
+        <conv:EditableTextBlockMarginConverter x:Key="MarginConverter"/>
+    </UserControl.Resources>
+    <Grid Name="ctrlGrid" x:FieldModifier="internal">
+        <Grid.Margin>
+            <MultiBinding Converter="{StaticResource MarginConverter}" ConverterParameter="GridMargin" FallbackValue="0">
+                <Binding Path="IsEditing" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:EditableTextBlock}}" FallbackValue="False"/>
+                <Binding Path="Margin" ElementName="ctrlTextBlock" FallbackValue="0"/>
+                <Binding Path="Padding" ElementName="ctrlTextBlock" FallbackValue="0"/>
+                <Binding Path="BorderThickness" ElementName="ctrlTextBox" FallbackValue="0"/>
+                <Binding Path="Padding" ElementName="ctrlTextBox" FallbackValue="0"/>
+            </MultiBinding>
+        </Grid.Margin>
+        <TextBlock Name="ctrlTextBlock" x:FieldModifier="internal"
+                   Text="{Binding Text, RelativeSource={RelativeSource AncestorType={x:Type ctrl:EditableTextBlock}}}"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   MouseLeftButtonDown="OnMouseLeftButtonDown"
+                   MouseLeftButtonUp="OnMouseLeftButtonUp"
+                   />
+        <TextBox Name="ctrlTextBox" x:FieldModifier="internal"
+                 HorizontalAlignment="Left"
+                 VerticalAlignment="Top"
+                 Visibility="Collapsed"
+                 LostFocus="OnEditLostFocus"
+                 PreviewKeyDown="OnEditPreviewKeyDown">
+            <TextBox.Margin>
+                <MultiBinding Converter="{StaticResource MarginConverter}" ConverterParameter="TextBoxMargin" FallbackValue="0">
+                    <Binding Path="IsEditing" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:EditableTextBlock}}" FallbackValue="False"/>
+                    <Binding Path="Margin" ElementName="ctrlTextBlock" FallbackValue="0"/>
+                    <Binding Path="Padding" ElementName="ctrlTextBlock" FallbackValue="0"/>
+                    <Binding Path="BorderThickness" ElementName="ctrlTextBox" FallbackValue="0"/>
+                    <Binding Path="Padding" ElementName="ctrlTextBox" FallbackValue="0"/>
+                </MultiBinding>
+            </TextBox.Margin>
+        </TextBox>
+    </Grid>
+</UserControl>

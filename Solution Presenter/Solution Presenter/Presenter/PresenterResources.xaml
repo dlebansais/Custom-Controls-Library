@@ -1,0 +1,62 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:conv="clr-namespace:Converters"
+    xmlns:spc="clr-namespace:CustomControls"
+    xmlns:themeAero="clr-namespace:Xceed.Wpf.AvalonDock.Themes;assembly=Xceed.Wpf.AvalonDock.Themes.Aero"
+    >
+    <conv:DocumentToTitleConverter x:Key="convDocumentToTitle"/>
+    <CompositeCollection x:Key="ThemeBackgroundBrushKeys">
+        <CompositeCollection>
+            <sys:String>/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml</sys:String>
+            <ComponentResourceKey TypeInTargetAssembly="{x:Type themeAero:AeroColors}" ResourceId="BaseColor6"/>
+            <ComponentResourceKey TypeInTargetAssembly="{x:Type themeAero:AeroColors}" ResourceId="BaseColor7"/>
+            <SolidColorBrush>Red</SolidColorBrush>
+            <SolidColorBrush>Orange</SolidColorBrush>
+            <ComponentResourceKey TypeInTargetAssembly="{x:Type themeAero:AeroColors}" ResourceId="BaseColor5"/>
+        </CompositeCollection>
+        <CompositeCollection>
+            <sys:String>/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml</sys:String>
+            <sys:String>AvalonDock_ThemeMetro_BaseColor1</sys:String>
+            <sys:String>AvalonDock_ThemeMetro_BaseColor3</sys:String>
+            <SolidColorBrush>Red</SolidColorBrush>
+            <SolidColorBrush>Orange</SolidColorBrush>
+            <sys:String>AvalonDock_ThemeMetro_BaseColor5</sys:String>
+        </CompositeCollection>
+        <CompositeCollection>
+            <sys:String>/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml</sys:String>
+            <sys:String>AvalonDock_ThemeVS2010_BaseColor33</sys:String>
+            <sys:String>AvalonDock_ThemeVS2010_BaseColor24</sys:String>
+            <SolidColorBrush>Red</SolidColorBrush>
+            <SolidColorBrush>Orange</SolidColorBrush>
+            <sys:String>AvalonDock_ThemeVS2010_BaseColor15</sys:String>
+        </CompositeCollection>
+    </CompositeCollection>
+    <CompositeCollection x:Key="ThemeForegroundBrushKeys">
+        <CompositeCollection>
+            <sys:String>/Xceed.Wpf.AvalonDock.Themes.Aero;component/Theme.xaml</sys:String>
+            <ComponentResourceKey TypeInTargetAssembly="{x:Type themeAero:AeroColors}" ResourceId="BaseColor10"/>
+            <ComponentResourceKey TypeInTargetAssembly="{x:Type themeAero:AeroColors}" ResourceId="BaseColor10"/>
+            <SolidColorBrush>Black</SolidColorBrush>
+            <SolidColorBrush>Black</SolidColorBrush>
+            <ComponentResourceKey TypeInTargetAssembly="{x:Type themeAero:AeroColors}" ResourceId="BaseColor2"/>
+        </CompositeCollection>
+        <CompositeCollection>
+            <sys:String>/Xceed.Wpf.AvalonDock.Themes.Metro;component/Theme.xaml</sys:String>
+            <sys:String>AvalonDock_ThemeMetro_BaseColor5</sys:String>
+            <sys:String>AvalonDock_ThemeMetro_BaseColor5</sys:String>
+            <SolidColorBrush>Black</SolidColorBrush>
+            <SolidColorBrush>Black</SolidColorBrush>
+            <sys:String>AvalonDock_ThemeMetro_BaseColor1</sys:String>
+        </CompositeCollection>
+        <CompositeCollection>
+            <sys:String>/Xceed.Wpf.AvalonDock.Themes.VS2010;component/Theme.xaml</sys:String>
+            <sys:String>AvalonDock_ThemeVS2010_BaseColor10</sys:String>
+            <sys:String>AvalonDock_ThemeVS2010_BaseColor3</sys:String>
+            <SolidColorBrush>Black</SolidColorBrush>
+            <SolidColorBrush>Black</SolidColorBrush>
+            <sys:String>AvalonDock_ThemeVS2010_BaseColor3</sys:String>
+        </CompositeCollection>
+    </CompositeCollection>
+</ResourceDictionary>

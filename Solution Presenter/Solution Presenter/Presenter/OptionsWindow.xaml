@@ -1,0 +1,62 @@
+﻿<Window x:Class="CustomControls.OptionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:app="clr-namespace:CustomControls"
+        xmlns:res="clr-namespace:SolutionPresenterInternal.Properties"
+        xmlns:conv="clr-namespace:Converters"
+        xmlns:ctrl="CustomControlsLibrary"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="CenterOwner"
+        Closing="OnClosing">
+    <Window.Resources>
+        <TabItem x:Key="PageTheme" Header="{Binding Source={x:Static res:Resources.Theme}}" Loaded="OnThemePageLoaded">
+            <DockPanel VerticalAlignment="Top">
+                <GroupBox DockPanel.Dock="Top" Header="{Binding Source={x:Static res:Resources.UserInterfaceTheme}}">
+                    <GroupBox.Resources>
+                        <DataTemplate x:Key="RadioButtonTemplate">
+                            <ctrl:EnumRadioButton Content="{Binding Converter={x:Static ctrl:EnumRadioButton.EnumName}, ConverterParameter=SolutionPresenterInternal.Properties.Resources}" EnumValue="{Binding Mode=OneTime}" GroupName="ThemeGroup" EnumBinding="{Binding Theme, RelativeSource={RelativeSource AncestorType={x:Type app:OptionsWindow}}}" Margin="0,5,0,0"/>
+                        </DataTemplate>
+                    </GroupBox.Resources>
+                    <ItemsControl ItemsSource="{Binding Theme, Mode=OneTime, Converter={x:Static ctrl:EnumRadioButton.EnumItems}}" ItemTemplate="{StaticResource RadioButtonTemplate}" Margin="5,10,5,5"/>
+                </GroupBox>
+            </DockPanel>
+        </TabItem>
+        <TabItem x:Key="PageCompiler" Header="{Binding Source={x:Static res:Resources.Compiler}}" Loaded="OnCompilerPageLoaded">
+            <DockPanel VerticalAlignment="Top">
+                <GroupBox DockPanel.Dock="Top" Header="{Binding Source={x:Static res:Resources.Compiler}}">
+                    <Grid Margin="5,10,5,5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <CheckBox Grid.Column="0" Grid.Row="0" Content="{Binding Source={x:Static res:Resources.SaveBeforeCompiling}}" IsChecked="{Binding SaveBeforeCompiling, FallbackValue=True}" Margin="0,0,0,0"/>
+                    </Grid>
+                </GroupBox>
+            </DockPanel>
+        </TabItem>
+        <DataTemplate x:Key="HeaderNameTemplate">
+            <TextBlock Text="{Binding Header, FallbackValue={x:Null}}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static ctrl:DialogValidation.DefaultCommandOk}" CanExecute="CanOK" Executed="OnOK"/>
+        <CommandBinding Command="{x:Static ctrl:DialogValidation.DefaultCommandCancel}" CanExecute="CanCancel" Executed="OnCancel"/>
+    </Window.CommandBindings>
+    <DockPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+        <ctrl:DialogValidation DockPanel.Dock="Bottom"/>
+        <DockPanel Margin="10,10,10,0">
+            <DockPanel DockPanel.Dock="Right" Margin="10,0,0,0">
+                <Separator DockPanel.Dock="Bottom" Margin="0,10,5,0"/>
+                <ctrl:TightfittingTabControl ItemsSource="{Binding Pages, FallbackValue={x:Null}}" SelectedIndex="{Binding ElementName=listOptions, Path=SelectedIndex, FallbackValue=0}" BorderBrush="{x:Null}" BorderThickness="0" Background="Transparent" Margin="0,-2,0,0">
+                    <ctrl:TightfittingTabControl.ItemContainerStyle>
+                        <Style TargetType="{x:Type TabItem}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </ctrl:TightfittingTabControl.ItemContainerStyle>
+                </ctrl:TightfittingTabControl>
+            </DockPanel>
+            <ListBox x:Name="listOptions" ItemsSource="{Binding Pages, FallbackValue={x:Null}}" ItemTemplate="{StaticResource HeaderNameTemplate}" SelectedIndex="{Binding OptionPageIndex, FallbackValue=0}" MinWidth="130" Margin="0,0,0,0"/>
+        </DockPanel>
+    </DockPanel>
+</Window>

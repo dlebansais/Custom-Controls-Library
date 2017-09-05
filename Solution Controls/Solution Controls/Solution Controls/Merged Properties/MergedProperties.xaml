@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="CustomControls.MergedProperties"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctrl="CustomControlsLibrary"
+             xmlns:conv="clr-namespace:Converters"
+             xmlns:res="clr-namespace:SolutionControlsInternal.Properties"
+             xmlns:spc="clr-namespace:CustomControls">
+    <UserControl.Resources>
+        <spc:PropertyEntrySelector x:Key="selectorPropertyEntry"/>
+        <DataTemplate x:Key="StringPropertyKey">
+            <ctrl:EditableTextBlock Text="{Binding Text, FallbackValue={x:Null}}" Focusable="True" MouseLeftButtonDown="OnTextMouseLeftButtonDown" TextChanged="OnTextChanged" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="EnumPropertyKey">
+            <ComboBox SelectedIndex="{Binding SelectedIndex, FallbackValue=-1}" ItemsSource="{Binding EnumNames, FallbackValue={x:Null}}" SelectionChanged="OnSelectedIndexChanged" VerticalAlignment="Center"/>
+        </DataTemplate>
+        <DataTemplate x:Key="NameTemplate">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding FriendlyName, FallbackValue={x:Null}}"/>
+                <TextBlock>:</TextBlock>
+            </StackPanel>
+        </DataTemplate>
+    </UserControl.Resources>
+    <ListView ItemsSource="{Binding PropertyEntries, RelativeSource={RelativeSource AncestorType={x:Type spc:MergedProperties}}, Mode=OneWay, FallbackValue={x:Null}}" SelectionMode="Single" Focusable="False">
+        <ListView.Resources>
+            <Style TargetType="{x:Type GridViewColumnHeader}">
+                <Setter Property="Visibility" Value="Collapsed"/>
+            </Style>
+        </ListView.Resources>
+        <ListView.ItemContainerStyle>
+            <Style TargetType="{x:Type ListViewItem}">
+                <Setter Property="Focusable" Value="False"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="{x:Null}"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ListView.ItemContainerStyle>
+        <ListView.View>
+            <GridView>
+                <GridViewColumn CellTemplate="{StaticResource NameTemplate}"/>
+                <GridViewColumn CellTemplateSelector="{StaticResource selectorPropertyEntry}" Width="150"/>
+            </GridView>
+        </ListView.View>
+    </ListView>
+</UserControl>

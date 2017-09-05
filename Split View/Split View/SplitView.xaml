@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="CustomControls.SplitView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:app="clr-namespace:CustomControls"
+             xmlns:ctrl="CustomControlsLibrary"
+             xmlns:conv="clr-namespace:Converters">
+    <UserControl.Resources>
+        <conv:DoubleToPercentageConverter x:Key="convDoubleToPercentage"/>
+        <conv:BooleanToObjectConverter x:Key="convBooleanToObject"/>
+        <CompositeCollection x:Key="VisibleCollapsed">
+            <Visibility>Visible</Visibility>
+            <Visibility>Collapsed</Visibility>
+        </CompositeCollection>
+        <CompositeCollection x:Key="DefaultZoomOptions">
+            <sys:Double>0.2</sys:Double>
+            <sys:Double>0.5</sys:Double>
+            <sys:Double>0.7</sys:Double>
+            <sys:Double>1.0</sys:Double>
+            <sys:Double>1.5</sys:Double>
+            <sys:Double>2.0</sys:Double>
+            <sys:Double>4.0</sys:Double>
+        </CompositeCollection>
+        <DataTemplate x:Key="ZoomPercentageTemplate">
+            <TextBlock Text="{Binding Converter={StaticResource convDoubleToPercentage}, FallbackValue={x:Null}}"/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <Grid SizeChanged="OnMainGridSizeChanged">
+        <Grid x:Name="gridInner" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition MinHeight="5"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Margin="0,5,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer x:Name="viewer0" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <ContentControl ContentTemplate="{Binding Path=ViewTemplate, RelativeSource={RelativeSource AncestorType={x:Type app:SplitView}}, FallbackValue={x:Null}}" Loaded="OnContentControlLoaded" Unloaded="OnContentControlUnloaded"/>
+                </ScrollViewer>
+                <ctrl:ExtendedScrollBar Grid.Column="1" Grid.Row="0" BoundScrollViewer="{Binding ElementName=viewer0}" Orientation="Vertical"/>
+                <DockPanel Grid.Column="0" Grid.Row="1">
+                    <ComboBox x:Name="comboZoom0" DockPanel.Dock="Left" IsReadOnly="True" ItemsSource="{Binding Path=ZoomOptions, RelativeSource={RelativeSource AncestorType={x:Type app:SplitView}}, FallbackValue={x:Null}}" ItemTemplate="{StaticResource ZoomPercentageTemplate}" SelectionChanged="OnZoom0Changed" BorderThickness="0" BorderBrush="Transparent" Width="55" Padding="5,0,0,0"/>
+                    <ctrl:ExtendedScrollBar BoundScrollViewer="{Binding ElementName=viewer0}" Orientation="Horizontal" SizeChanged="OnBottomScrollBar0SizeChanged"/>
+                </DockPanel>
+            </Grid>
+            <GridSplitter x:Name="splitterLine" Grid.Row="1" Background="Gray" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="5" DragCompleted="OnDragCompleted"/>
+            <Grid Grid.Row="2" Margin="0,0,0,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer x:Name="viewer1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden">
+                    <ContentControl ContentTemplate="{Binding Path=ViewTemplate, RelativeSource={RelativeSource AncestorType={x:Type app:SplitView}}, FallbackValue={x:Null}}" Loaded="OnContentControlLoaded" Unloaded="OnContentControlUnloaded"/>
+                </ScrollViewer>
+                <DockPanel Grid.Column="1" Grid.Row="0">
+                    <Border x:Name="buttonSplit" DockPanel.Dock="Top" Visibility="{Binding Path=IsTopRowVisible, RelativeSource={RelativeSource AncestorType={x:Type app:SplitView}}, Converter={StaticResource convBooleanToObject}, ConverterParameter={StaticResource VisibleCollapsed}, FallbackValue=Visible}" BorderThickness="1,1,1,1" BorderBrush="DarkGray">
+                        <Image Source="Resources/Icons/HorizontalSplit.png" Width="16" Height="16" MouseLeftButtonDown="OnSplitClick"/>
+                    </Border>
+                    <ctrl:ExtendedScrollBar BoundScrollViewer="{Binding ElementName=viewer1}" Orientation="Vertical" SizeChanged="OnRightScrollBarSizeChanged"/>
+                </DockPanel>
+                <DockPanel Grid.Column="0" Grid.Row="1">
+                    <ComboBox x:Name="comboZoom1" DockPanel.Dock="Left" IsReadOnly="True" ItemsSource="{Binding Path=ZoomOptions, RelativeSource={RelativeSource AncestorType={x:Type app:SplitView}}, FallbackValue={x:Null}}" ItemTemplate="{StaticResource ZoomPercentageTemplate}" SelectionChanged="OnZoom1Changed" BorderThickness="0" BorderBrush="Transparent" Width="55" Padding="5,0,0,0"/>
+                    <ctrl:ExtendedScrollBar BoundScrollViewer="{Binding ElementName=viewer1}" Orientation="Horizontal" SizeChanged="OnBottomScrollBar1SizeChanged"/>
+                </DockPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>
