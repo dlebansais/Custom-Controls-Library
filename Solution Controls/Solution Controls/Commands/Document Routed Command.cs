@@ -1,10 +1,4 @@
-﻿using System;
-using System.Globalization;
-using System.Reflection;
-using System.Resources;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 
 namespace CustomControls
 {

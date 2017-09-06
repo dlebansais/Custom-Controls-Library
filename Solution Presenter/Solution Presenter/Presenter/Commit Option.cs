@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     public enum CommitOption
     {

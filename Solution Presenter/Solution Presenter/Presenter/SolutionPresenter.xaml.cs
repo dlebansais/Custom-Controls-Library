@@ -1,13 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     public interface IModifyContext
     {

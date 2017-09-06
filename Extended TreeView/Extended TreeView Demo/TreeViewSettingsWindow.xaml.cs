@@ -7,7 +7,7 @@ namespace ExtendedTreeViewDemo
 {
     public partial class TreeViewSettingsWindow : Window
     {
-        #region Init
+        #region Constants
         private static IReadOnlyDictionary<TreeViewSize, int> SizeTable = new Dictionary<TreeViewSize, int>()
         {
             { TreeViewSize.Small, 10 },
@@ -48,7 +48,7 @@ namespace ExtendedTreeViewDemo
         }
         #endregion
 
-        #region Init
+        #region Properties
         public static bool IsDeferredScrollingEnabled { get; set; }
         public static bool IsVirtualizing { get; set; }
         public static VirtualizationMode VirtualizationMode { get; set; }

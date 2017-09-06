@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     public class SolutionExportedEventContext
     {

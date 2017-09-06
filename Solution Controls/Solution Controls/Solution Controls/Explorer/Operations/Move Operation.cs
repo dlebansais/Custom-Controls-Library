@@ -1,5 +1,4 @@
 ﻿using SolutionControlsInternal.Properties;
-using System.Windows;
 using Verification;
 
 namespace CustomControls

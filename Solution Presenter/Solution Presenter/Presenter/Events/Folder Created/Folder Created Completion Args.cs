@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     internal interface IFolderCreatedCompletionArgs
     {

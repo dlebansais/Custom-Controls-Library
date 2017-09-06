@@ -1,6 +1,4 @@
-﻿using System.Collections.ObjectModel;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     public interface IExtendedTreeNode
     {

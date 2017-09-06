@@ -1,5 +1,4 @@
 ﻿using SolutionControlsInternal.Properties;
-using System.Collections.Generic;
 
 namespace CustomControls
 {

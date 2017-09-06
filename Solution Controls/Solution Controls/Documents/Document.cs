@@ -1,6 +1,4 @@
-﻿using System.Windows.Input;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     public interface IDocument
     {

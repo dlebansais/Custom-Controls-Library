@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Markup;
+﻿using System.Windows.Input;
 using System.Windows.Media;
 
 namespace CustomControls

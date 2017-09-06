@@ -1,5 +1,4 @@
-﻿using CustomControls;
-using SolutionPresenterInternal.Properties;
+﻿using SolutionPresenterInternal.Properties;
 using System;
 using System.Diagnostics;
 

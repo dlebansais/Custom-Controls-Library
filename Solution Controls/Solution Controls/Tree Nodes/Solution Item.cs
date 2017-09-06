@@ -1,6 +1,4 @@
-﻿using CustomControls;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
     public interface ISolutionItem : ISolutionTreeNode
     {

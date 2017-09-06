@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using Verification;
-using UndoRedo;
+﻿using UndoRedo;
 
 namespace CustomControls
 {

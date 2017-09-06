@@ -1,11 +1,9 @@
-﻿using CustomControls;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 using Verification;
-using Xceed.Wpf.AvalonDock;
 using Xceed.Wpf.AvalonDock.Themes;
 
 namespace CustomControls
