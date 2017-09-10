@@ -1,10 +1,1 @@
-if not exist "C:\Projects\Version Tools\VersionBuilder.exe" goto error
-
-"C:\Projects\Version Tools\VersionBuilder.exe" %1 %2 %3
-goto end
-
-:error
-rem echo Failed to update version.
-goto end
-
-:end
+@if exist "%~1..\updateversion.bat" call "%~1..\updateversion.bat" "%~1..\" %2 %3

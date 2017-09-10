@@ -66,7 +66,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExtendedScrollBar">
-      <HintPath>..\..\..\Custom Controls Library\Extended ScrollBar\Extended ScrollBar\$(OutDir)ExtendedScrollBar.dll</HintPath>
+      <HintPath>..\..\Extended ScrollBar\Extended ScrollBar\$(OutDir)ExtendedScrollBar.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -104,11 +104,11 @@
     <Resource Include="Resources\Icons\HorizontalSplit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionPath)" "$(ProjectPath)" "Split View"</PreBuildEvent>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <PostBuildEvent>call "$(SolutionDir)signfile.bat" "$(SolutionDir)" "$(ConfigurationName)-$(PlatformName)" "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>call "$(SolutionDir)signfile.bat" "$(SolutionDir)" $(ConfigurationName)$(PlatformName) "$(TargetPath)"</PostBuildEvent>
+    <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionDir)" "$(SolutionPath)" "$(ProjectPath)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
