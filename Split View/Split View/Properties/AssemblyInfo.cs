@@ -57,5 +57,5 @@ using System.Windows.Markup;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.101")]
-[assembly: AssemblyFileVersion("1.0.0.144")]
+[assembly: AssemblyFileVersion("1.0.0.23")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
