@@ -31,7 +31,7 @@ Represents a scroll with specific support for binding to a scrollviewer.
 Represents a tool bar with a localized name.
 
 ## Extended TreeView
-See [the doc](/doc/Extended TreeView.pdf).
+See [the doc](/doc/ExtendedTreeView.pdf).
 
 Aims at providing the same features as the standard TreeView control in general, as well as new features such as Drag & Drop.
 
