@@ -5,7 +5,7 @@ A set of miscellaneous WPF custom controls
 A simple control to indicate that the application is busy.
 
 ## Dialog Validation
-(See /Dialog Validation/DialogValidation.pdf)
+(See [the doc](/Dialog Validation/DialogValidation.pdf))
 
 Provides the same buttons you can find at the bottom of a dialog box, but in a simple and localized way.
 
@@ -31,7 +31,7 @@ Represents a scroll with specific support for binding to a scrollviewer.
 Represents a tool bar with a localized name.
 
 ## Extended TreeView
-(See /Extended TreeView/Extended TreeView.pdf)
+(See [the doc](/Extended TreeView/Extended TreeView.pdf))
 
 Aims at providing the same features as the standard TreeView control in general, as well as new features such as Drag & Drop.
 
