@@ -1,6 +1,9 @@
 # Custom Controls Library
 A set of miscellaneous WPF custom controls
 
+## Busy Indicator
+A simple control to indicate that the application is busy.
+
 ## Dialog Validation
 (See /Dialog Validation/DialogValidation.pdf)
 
