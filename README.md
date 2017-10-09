@@ -1,8 +1,11 @@
+# Download
+Latest version of all files can be downloaded from /Release/x64, except the busy indicator (see below).
+
 # Custom Controls Library
 A set of miscellaneous WPF custom controls
 
 ## Busy Indicator
-A simple control to indicate that the application is busy.
+A simple control to indicate that the application is busy. This .xaml and .cs are intended to be copied directly in the target solution.
 
 ## Dialog Validation
 See [the doc](/doc/DialogValidation.pdf).
