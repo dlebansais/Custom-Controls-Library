@@ -106,16 +106,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionPath)" "$(ProjectPath)" "Split View"</PreBuildEvent>
+    <PostBuildEvent>call "$(SolutionDir)signfile.bat" "$(SolutionDir)" "$(ConfigurationName)-$(PlatformName)" "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PostBuildEvent>call "$(SolutionDir)signfile.bat" "$(SolutionDir)" $(ConfigurationName)$(PlatformName) "$(TargetPath)"</PostBuildEvent>
+    <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionDir)" "$(SolutionPath)"</PreBuildEvent>
   </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>

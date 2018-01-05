@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Verification;
 
@@ -23,10 +24,16 @@ namespace CustomControls
         {
             InitCycling();
             SizeChanged += OnSizeChanged;
+            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Loaded, new SizeChangedEventHandler(OnSizeChanged), null, null);
         }
         #endregion
 
         #region Clycling through pages
+        /// <summary>
+        ///     Event triggered when the control is resized to fit all pages.
+        /// </summary>
+        public event EventHandler CyclingCompleted;
+
         private void InitCycling()
         {
             CycleDone = false;
@@ -37,7 +44,8 @@ namespace CustomControls
 
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            UpdateLargestSize(e);
+            if (e != null)
+                UpdateLargestSize(e);
 
             if (!CycleDone)
                 UpdateCycle();
@@ -95,6 +103,8 @@ namespace CustomControls
 
             RestoreSelectedIndex();
             SetMinSize();
+
+            CyclingCompleted?.Invoke(this, new EventArgs());
         }
 
         private void RestoreSelectedIndex()
