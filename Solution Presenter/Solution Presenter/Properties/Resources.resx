@@ -141,6 +141,9 @@
   <data name="False" xml:space="preserve">
     <value>False</value>
   </data>
+  <data name="FolderAndSubfolders" xml:space="preserve">
+    <value>«Folder and subfolders»</value>
+  </data>
   <data name="Metro" xml:space="preserve">
     <value>Metro</value>
   </data>

@@ -1694,10 +1694,13 @@ namespace CustomControls
                 CompleteFilter += "|";
             CompleteFilter += SolutionPresenterInternal.Properties.Resources.AllFiles + " (*.*)|*.*";
 
+            string FolderPattern = SolutionPresenterInternal.Properties.Resources.FolderAndSubfolders;
             OpenFileDialog Dlg = new OpenFileDialog();
             Dlg.DefaultExt = "*." + Filter.DefaultExtension;
             Dlg.Filter = CompleteFilter;
             Dlg.Multiselect = true;
+            Dlg.FileName = FolderPattern;
+            Dlg.CheckFileExists = false;
 
             if (ImportFolder != null && Directory.Exists(ImportFolder))
                 Dlg.InitialDirectory = ImportFolder;
@@ -1707,12 +1710,23 @@ namespace CustomControls
             bool? Result = Dlg.ShowDialog();
             if (Result.HasValue && Result.Value && Dlg.FileNames.Length > 0)
             {
+                List<string> FileNames = new List<string>(Dlg.FileNames);
+
                 string LastFileName = Dlg.FileName;
                 if (LastFileName != null)
+                {
                     ImportFolder = Path.GetDirectoryName(LastFileName);
 
+                    string LastFileRoot = Path.GetFileNameWithoutExtension(LastFileName);
+                    if (FileNames.Count == 1 && LastFileRoot == FolderPattern)
+                    {
+                        FileNames.Clear();
+                        AddAllFiles(FileNames, ImportFolder, Filter.DefaultExtension);
+                    }
+                }
+
                 Dictionary<object, IDocumentType> ImportedDocumentTable = new Dictionary<object, IDocumentType>();
-                foreach (string FileName in Dlg.FileNames)
+                foreach (string FileName in FileNames)
                 {
                     string FileExtension = Path.GetExtension(FileName);
                     foreach (IDocumentImportDescriptor Descriptor in DocumentImportDescriptors)
@@ -1729,6 +1743,15 @@ namespace CustomControls
                 if (ImportedDocumentTable.Count > 0)
                     NotifyImportNewItemsRequested(ImportedDocumentTable, new List<IDocumentPath>());
             }
+        }
+
+        private void AddAllFiles(List<string> FileNames, string RootFolder, string Extension)
+        {
+            foreach (string FileName in Directory.GetFiles(RootFolder, "*." + Extension))
+                FileNames.Add(FileName);
+
+            foreach (string FolderName in Directory.GetDirectories(RootFolder))
+                AddAllFiles(FileNames, FolderName, Extension);
         }
 
         private DocumentTypeFilter GetFilters()
