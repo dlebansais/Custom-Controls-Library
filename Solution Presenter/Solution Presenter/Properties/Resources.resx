@@ -120,9 +120,6 @@
   <data name="Activate" xml:space="preserve">
     <value>Activate</value>
   </data>
-  <data name="Aero" xml:space="preserve">
-    <value>Aero</value>
-  </data>
   <data name="AllFiles" xml:space="preserve">
     <value>All files</value>
   </data>
@@ -137,6 +134,9 @@
   </data>
   <data name="ConfirmSaveSolutionChanges" xml:space="preserve">
     <value>Do you want to save changes made to solution '{0}'?</value>
+  </data>
+  <data name="Expression" xml:space="preserve">
+    <value>Expression</value>
   </data>
   <data name="False" xml:space="preserve">
     <value>False</value>
@@ -192,8 +192,8 @@
   <data name="UserInterfaceTheme" xml:space="preserve">
     <value>User Interface Theme</value>
   </data>
-  <data name="VS2010" xml:space="preserve">
-    <value>Visual Studio 2010</value>
+  <data name="VS2013" xml:space="preserve">
+    <value>Visual Studio 2013</value>
   </data>
   <data name="Windows" xml:space="preserve">
     <value>Windows</value>

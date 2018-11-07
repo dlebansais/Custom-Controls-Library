@@ -106,7 +106,7 @@ namespace CustomControls
         }
         #endregion
         #region Theme Option
-        public static readonly DependencyProperty ThemeOptionProperty = DependencyProperty.Register("ThemeOption", typeof(ThemeOption), typeof(SolutionPresenter), new PropertyMetadata(ThemeOption.Aero, OnThemeOptionChanged));
+        public static readonly DependencyProperty ThemeOptionProperty = DependencyProperty.Register("ThemeOption", typeof(ThemeOption), typeof(SolutionPresenter), new PropertyMetadata(ThemeOption.Expression, OnThemeOptionChanged));
 
         public ThemeOption ThemeOption
         {
@@ -4070,16 +4070,16 @@ namespace CustomControls
             Theme Theme;
             switch (ThemeOption)
             {
-                case ThemeOption.Aero:
-                    Theme = new AeroTheme();
+                case ThemeOption.Expression:
+                    Theme = new ExpressionLightTheme();
                     break;
 
                 case ThemeOption.Metro:
                     Theme = new MetroTheme();
                     break;
 
-                case ThemeOption.VS2010:
-                    Theme = new VS2010Theme();
+                case ThemeOption.VS2013:
+                    Theme = new Vs2013BlueTheme();
                     break;
 
                 default:
@@ -4095,16 +4095,16 @@ namespace CustomControls
 
         private static readonly Dictionary<ThemeOption, string> ThemeAssemblyTable = new Dictionary<ThemeOption, string>()
         {
-            { ThemeOption.Aero, "Aero" },
+            { ThemeOption.Expression, "Expression" },
             { ThemeOption.Metro, "Metro" },
-            { ThemeOption.VS2010, "VS2010" },
+            { ThemeOption.VS2013, "VS2013" },
         };
 
         private static readonly Dictionary<ThemeOption, string> ThemeResourceTable = new Dictionary<ThemeOption, string>()
         {
-            { ThemeOption.Aero, "Theme.xaml" },
+            { ThemeOption.Expression, "LightTheme.xaml" },
             { ThemeOption.Metro, "Theme.xaml" },
-            { ThemeOption.VS2010, "Theme.xaml" },
+            { ThemeOption.VS2013, "BlueTheme.xaml" },
         };
 
         public void LoadTheme(ThemeOption themeOption)

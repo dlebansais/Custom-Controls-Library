@@ -2,8 +2,8 @@
 {
     public enum ThemeOption
     {
-        Aero,
+        Expression,
         Metro,
-        VS2010,
+        VS2013,
     }
 }

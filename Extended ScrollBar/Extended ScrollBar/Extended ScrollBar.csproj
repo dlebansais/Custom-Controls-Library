@@ -37,7 +37,7 @@
     <DocumentationFile>bin\Release\ExtendedScrollBar.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>../../../Certification/Custom-Controls-Library.pfx</AssemblyOriginatorKeyFile>

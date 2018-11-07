@@ -70,15 +70,6 @@ namespace SolutionPresenterInternal.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aero.
-        /// </summary>
-        public static string Aero {
-            get {
-                return ResourceManager.GetString("Aero", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to All files.
         /// </summary>
         public static string AllFiles {
@@ -120,6 +111,15 @@ namespace SolutionPresenterInternal.Properties {
         public static string ConfirmSaveSolutionChanges {
             get {
                 return ResourceManager.GetString("ConfirmSaveSolutionChanges", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expression.
+        /// </summary>
+        public static string Expression {
+            get {
+                return ResourceManager.GetString("Expression", resourceCulture);
             }
         }
         
@@ -286,11 +286,11 @@ namespace SolutionPresenterInternal.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Visual Studio 2010.
+        ///   Looks up a localized string similar to Visual Studio 2013.
         /// </summary>
-        public static string VS2010 {
+        public static string VS2013 {
             get {
-                return ResourceManager.GetString("VS2010", resourceCulture);
+                return ResourceManager.GetString("VS2013", resourceCulture);
             }
         }
         
