@@ -1,6 +1,7 @@
 ﻿using SolutionPresenterInternal.Properties;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace CustomControls
 {
@@ -16,7 +17,7 @@ namespace CustomControls
         {
             try
             {
-                return Resources.ResourceManager.GetString(key);
+                return Resources.ResourceManager.GetString(key, CultureInfo.CurrentCulture);
             }
             catch (Exception e)
             {

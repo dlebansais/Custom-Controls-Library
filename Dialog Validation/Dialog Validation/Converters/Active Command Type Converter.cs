@@ -8,7 +8,9 @@ namespace Converters
     /// <summary>
     ///     Converter from a string to a <see cref="ActiveCommand"/>.
     /// </summary>
+#pragma warning disable CA1812
     internal class ActiveCommandTypeConverter : TypeConverter
+#pragma warning restore CA1812
     {
         /// <summary>
         ///     Compare a name with known command names and return the courresponding <see cref="ActiveCommand"/>.

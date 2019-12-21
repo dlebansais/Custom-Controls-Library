@@ -7,13 +7,13 @@ namespace Verification
         public static void ValidateReference(object referenceValue)
         {
             if (referenceValue == null)
-                throw new ArgumentNullException("referenceValue", "Invalid null reference");
+                throw new ArgumentNullException(nameof(referenceValue));
         }
 
         public static void CheckCondition(bool assertedCondition)
         {
             if (!assertedCondition)
-                throw new ArgumentException("Condition not met", "assertedCondition");
+                throw new ArgumentException("Condition not met", nameof(assertedCondition));
         }
     }
 }

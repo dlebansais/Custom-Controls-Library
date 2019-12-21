@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -75,21 +76,24 @@ namespace CustomControls
 
             Minimum = 0;
 
+            bool IsHandled = false;
+
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     SetBinding(ScrollBar.MaximumProperty, (new Binding("ScrollableWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
                     SetBinding(ScrollBar.ViewportSizeProperty, (new Binding("ViewportWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
+                    IsHandled = true;
                     break;
 
                 case Orientation.Vertical:
                     SetBinding(ScrollBar.MaximumProperty, (new Binding("ScrollableHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
-                    SetBinding(ScrollBar.ViewportSizeProperty, (new Binding("ViewportHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay })); 
+                    SetBinding(ScrollBar.ViewportSizeProperty, (new Binding("ViewportHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
+                    IsHandled = true;
                     break;
-
-                default:
-                    throw new ArgumentException("Orientation");
             }
+
+            Debug.Assert(IsHandled);
 
             LargeChange = 242; 
             SmallChange = 16;
@@ -106,19 +110,22 @@ namespace CustomControls
         {
             Assert.ValidateReference(e);
 
+            bool IsHandled = false;
+
             switch (Orientation) 
             { 
                 case Orientation.Horizontal:
                     Value = e.HorizontalOffset;
+                    IsHandled = true;
                     break;
 
                 case Orientation.Vertical:
-                    Value = e.VerticalOffset; 
+                    Value = e.VerticalOffset;
+                    IsHandled = true;
                     break; 
-
-                default:
-                    throw new ArgumentException("Orientation");
             }
+
+            Debug.Assert(IsHandled);
         }
 
         /// <summary>
@@ -132,19 +139,22 @@ namespace CustomControls
         {
             Assert.ValidateReference(e);
 
+            bool IsHandled = false;
+
             switch (Orientation)
             {
                 case Orientation.Horizontal:
                     BoundScrollViewer.ScrollToHorizontalOffset(e.NewValue);
+                    IsHandled = true;
                     break;
 
                 case Orientation.Vertical:
                     BoundScrollViewer.ScrollToVerticalOffset(e.NewValue);
+                    IsHandled = true;
                     break;
-
-                default:
-                    throw new ArgumentException("Orientation");
             }
+
+            Debug.Assert(IsHandled);
         }
         #endregion
     }

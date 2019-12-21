@@ -1,6 +1,6 @@
 ﻿namespace CustomControls
 {
-    public enum SolutionMenus
+    public enum SolutionMenu
     {
         FileMenu,
         FileToolBar,

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -48,8 +49,8 @@ namespace ExtendedTreeViewDemo
             GenerateCount = count;
             GenerateProgress = total > 0 ? Math.Round((double)count / (double)total, 2) : 0;
 
-            NotifyPropertyChanged("GenerateCount");
-            NotifyPropertyChanged("GenerateProgress");
+            NotifyPropertyChanged(nameof(GenerateCount));
+            NotifyPropertyChanged(nameof(GenerateProgress));
         }
 
         protected virtual void OnNewTreeView(object sender, ExecutedRoutedEventArgs e)
@@ -70,7 +71,7 @@ namespace ExtendedTreeViewDemo
         protected virtual void GenerateTreeView()
         {
             IsGenerating = true;
-            NotifyPropertyChanged("IsGenerating");
+            NotifyPropertyChanged(nameof(IsGenerating));
 
             panelMain.Children.Clear();
             UpdateProgress(0, 0);
@@ -89,6 +90,8 @@ namespace ExtendedTreeViewDemo
             Collection<ResourceDictionary> MergedDictionaries = Application.Current.Resources.MergedDictionaries;
             MergedDictionaries.Clear();
 
+            bool IsHandled = false;
+
             switch (TreeViewSettingsWindow.TreeViewType)
             {
                 case TreeViewType.VS2013:
@@ -96,6 +99,7 @@ namespace ExtendedTreeViewDemo
                     treeviewSample.ExpandButtonStyle = FindResource("VS2013ExpandButtonStyle") as Style;
                     treeviewSample.ExpandButtonWidth = 16;
                     treeviewSample.IndentationWidth = 16;
+                    IsHandled = true;
                     break;
 
                 case TreeViewType.Explorer:
@@ -110,6 +114,7 @@ namespace ExtendedTreeViewDemo
                     treeviewSample.IndentationWidth = 8;
                     treeviewSample.MouseEnter += OnTreeViewMouseEnter;
                     treeviewSample.MouseLeave += OnTreeViewMouseLeave;
+                    IsHandled = true;
                     break;
 
                 case TreeViewType.Custom:
@@ -117,24 +122,23 @@ namespace ExtendedTreeViewDemo
                     {
                         case TreeViewItemType.FixedHeightImage:
                             MergedDictionaries.Add(CustomFixedHeightImageDictionnary);
+                            IsHandled = true;
                             break;
 
                         case TreeViewItemType.Text:
                             MergedDictionaries.Add(CustomTextImageDictionnary);
+                            IsHandled = true;
                             break;
 
                         case TreeViewItemType.VariableHeightImageAndText:
                             MergedDictionaries.Add(CustomVariableHeightImageAndTextDictionnary);
+                            IsHandled = true;
                             break;
-
-                        default:
-                            throw new ArgumentException("Invalid TreeViewItemType");
                     }
                     break;
-
-                default:
-                    throw new ArgumentException("Invalid TreeViewType");
             }
+
+            Debug.Assert(IsHandled);
 
             panelMain.Children.Add(treeviewSample);
         }
@@ -206,18 +210,21 @@ namespace ExtendedTreeViewDemo
             else
             {
                 IsGenerating = false;
-                NotifyPropertyChanged("IsGenerating");
+                NotifyPropertyChanged(nameof(IsGenerating));
             }
         }
 
         private void OnCancel(object sender, RoutedEventArgs e)
         {
             IsGenerating = false;
-            NotifyPropertyChanged("IsGenerating");
+            NotifyPropertyChanged(nameof(IsGenerating));
         }
 
         protected virtual void OnDropCheck(object sender, RoutedEventArgs e)
         {
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
+
             DropCheckEventArgs Args = (DropCheckEventArgs)e;
             IExtendedTreeNode DropDestinationItem = Args.DropDestinationItem as IExtendedTreeNode;
 

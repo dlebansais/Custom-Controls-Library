@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CustomControls
@@ -7,6 +8,9 @@ namespace CustomControls
     {
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
+            if (container == null)
+                throw new ArgumentNullException(nameof(container));
+
             FrameworkElement ControlContainer = (FrameworkElement)container;
             DataTemplate Result;
 

@@ -8,6 +8,9 @@ namespace CustomControls
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            if (parameter == null)
+                throw new ArgumentNullException(nameof(parameter));
+
             CompositeCollection CollectionOfItems = parameter as CompositeCollection;
 
             if (values != null && values.Length > 2 && (values[0] is int) && (values[1] is bool) && (values[2] is int))

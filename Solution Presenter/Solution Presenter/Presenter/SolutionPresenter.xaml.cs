@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Reflection;
@@ -68,6 +69,9 @@ namespace CustomControls
 
         protected static void OnActiveDocumentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             SolutionPresenter ctrl = (SolutionPresenter)modifiedObject;
             ctrl.OnActiveDocumentChanged(e);
         }
@@ -116,6 +120,9 @@ namespace CustomControls
 
         protected static void OnThemeOptionChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             SolutionPresenter ctrl = (SolutionPresenter)modifiedObject;
             ctrl.OnThemeOptionChanged(e);
         }
@@ -1025,6 +1032,9 @@ namespace CustomControls
 
         public virtual void RemoveDocuments(IReadOnlyCollection<IDocumentPath> documentPathList, object clientInfo)
         {
+            if (documentPathList == null)
+                throw new ArgumentNullException(nameof(documentPathList));
+
             IList<IDocument> ClosedDocumentList = FindOpenDocuments(documentPathList);
             IReadOnlyDictionary<ITreeNodePath, IPathConnection> ClosedTree = spcSolutionExplorer.FindItemsByDocumentPath(documentPathList);
 
@@ -1128,7 +1138,7 @@ namespace CustomControls
 
         protected virtual string SerializeCompilerState()
         {
-            return SaveBeforeCompiling.ToString();
+            return SaveBeforeCompiling.ToString(CultureInfo.CurrentCulture);
         }
 
         public virtual void DeserializeDockManagerState(string state)
@@ -2892,18 +2902,21 @@ namespace CustomControls
             ITreeNodePath NewPath = CompletionArgs.NewPath;
             ITreeNodeProperties NewProperties = CompletionArgs.NewProperties;
 
-            IFolderPath DestinationPath;
+            IFolderPath DestinationPath = null;
 
             IFolderPath AsFolderPath;
             IFolderProperties AsFolderProperties;
             IItemPath AsItemPath;
             IItemProperties AsItemProperties;
+            bool IsHandled = false;
 
             if ((AsFolderPath = NewPath as IFolderPath) != null && (AsFolderProperties = NewProperties as IFolderProperties) != null)
             {
                 DestinationPath = AsFolderPath;
                 if (!IsUndoRedo)
                     spcSolutionExplorer.AddFolder(ParentPath, AsFolderPath, AsFolderProperties);
+
+                IsHandled = true;
             }
 
             else if ((AsItemPath = NewPath as IItemPath) != null && (AsItemProperties = NewProperties as IItemProperties) != null)
@@ -2911,10 +2924,11 @@ namespace CustomControls
                 DestinationPath = null;
                 if (!IsUndoRedo)
                     spcSolutionExplorer.AddItem(ParentPath, AsItemPath, AsItemProperties);
+
+                IsHandled = true;
             }
 
-            else
-                throw new InvalidCastException("Invalid Path");
+            Debug.Assert(IsHandled);
 
             AddNextNode(DestinationPath, PathTable, UpdatedParentTable, IsUndoRedo);
         }
@@ -3548,17 +3562,22 @@ namespace CustomControls
             spcSolutionExplorer.ClearDirtyItemsAndProperties();
             ClearDirtyDocuments();
 
+            bool IsHandled = false;
+
             switch (SolutionOperation)
             {
                 case SolutionOperation.Save:
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.Create:
                     NotifySolutionClosed(SolutionOperation, RootPath, null);
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.Delete:
                     NotifySolutionClosed(SolutionOperation, RootPath, null);
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.Open:
@@ -3566,32 +3585,37 @@ namespace CustomControls
                         NotifySolutionClosed(SolutionOperation, RootPath, NewRootPath);
                     else
                         NotifySolutionOpened(NewRootPath);
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.Close:
                     if (RootPath != null)
                         NotifySolutionClosed(SolutionOperation, RootPath, null);
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.Exit:
                     NotifyExitRequested();
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.ExportDocument:
                     NotifyDocumentExported(DocumentOperation.Export, OpenDocuments, true, DestinationPath);
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.ExportSolution:
                     ExportSolution(RootPath);
+                    IsHandled = true;
                     break;
 
                 case SolutionOperation.Build:
                     NotifyBuildSolutionRequested();
+                    IsHandled = true;
                     break;
-
-                default:
-                    throw new ArgumentException("Invalid SolutionOperation");
             }
+
+            Debug.Assert(IsHandled);
         }
 
         protected virtual void LoadTree(IRootPath newRootPath, IRootProperties newRootProperties, IComparer<ITreeNodePath> newComparer, IList<IFolderPath> expandedFolderList, object context)
@@ -3773,55 +3797,68 @@ namespace CustomControls
             NotifyMainToolBarLoaded(e);
         }
 
-        public virtual void InsertCustomControl(SolutionMenus solutionMenu, FrameworkElement childItem)
+        public virtual void InsertCustomControl(SolutionMenu solutionMenu, FrameworkElement childItem)
         {
             Separator InsertionSeparator = GetSeparator(solutionMenu);
             InsertItem(InsertionSeparator, childItem);
         }
 
-        public virtual void ReplaceMenuItem(SolutionMenus solutionMenu, ICommand byCommand, MenuItem newItem)
+        public virtual void ReplaceMenuItem(SolutionMenu solutionMenu, ICommand byCommand, MenuItem newItem)
         {
             ItemsControl InsertionControl = GetMenuControl(solutionMenu);
             ReplaceMenuItem(InsertionControl.Items, byCommand, newItem);
         }
 
-        protected virtual Separator GetSeparator(SolutionMenus solutionMenu)
+        protected virtual Separator GetSeparator(SolutionMenu solutionMenu)
         {
+            Separator Result = null;
+
             switch (solutionMenu)
             {
-                case SolutionMenus.FileMenu:
-                    return toolbarMain.FileCustomMenuSeparator;
+                case SolutionMenu.FileMenu:
+                    Result = toolbarMain.FileCustomMenuSeparator;
+                    break;
 
-                case SolutionMenus.FileToolBar:
-                    return toolbarMain.FileToolBarSeparator;
+                case SolutionMenu.FileToolBar:
+                    Result = toolbarMain.FileToolBarSeparator;
+                    break;
 
-                case SolutionMenus.EditMenu:
-                    return toolbarMain.EditCustomMenuSeparator;
+                case SolutionMenu.EditMenu:
+                    Result = toolbarMain.EditCustomMenuSeparator;
+                    break;
 
-                case SolutionMenus.EditToolBar:
-                    return toolbarMain.EditToolBarSeparator;
+                case SolutionMenu.EditToolBar:
+                    Result = toolbarMain.EditToolBarSeparator;
+                    break;
 
-                case SolutionMenus.ContextMenu:
-                    return spcSolutionExplorer.ContextMenuSeparator;
-
-                default:
-                    throw new ArgumentException("Invalid SolutionMenu");
+                case SolutionMenu.ContextMenu:
+                    Result = spcSolutionExplorer.ContextMenuSeparator;
+                    break;
             }
+
+            Debug.Assert(Result != null);
+
+            return Result;
         }
 
-        protected virtual ItemsControl GetMenuControl(SolutionMenus solutionMenu)
+        protected virtual ItemsControl GetMenuControl(SolutionMenu solutionMenu)
         {
+            ItemsControl Result = null;
+
             switch (solutionMenu)
             {
-                case SolutionMenus.FileMenu:
-                    return toolbarMain.MainMenu;
+                case SolutionMenu.FileMenu:
+                    Result = toolbarMain.MainMenu;
+                    break;
 
-                case SolutionMenus.EditMenu:
-                    return toolbarMain.MainMenu;
-
-                default:
-                    throw new ArgumentException("Invalid SolutionMenu");
+                case SolutionMenu.EditMenu:
+                    Result = toolbarMain.MainMenu;
+                    break;
             }
+
+            Debug.Assert(Result != null);
+
+            return Result;
         }
 
         protected virtual void InsertItem(Separator insertionSeparator, FrameworkElement childItem)
@@ -3974,6 +4011,9 @@ namespace CustomControls
 
         protected virtual void OnDocumentActivated(object sender, RoutedEventArgs e)
         {
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
+
             DocumentActivatedEventArgs Args = (DocumentActivatedEventArgs)e;
             UserActivateDocument(Args.ActiveDocument);
         }
@@ -4067,7 +4107,8 @@ namespace CustomControls
         {
             LoadTheme(ThemeOption);
 
-            Theme Theme;
+            Theme Theme = null;
+
             switch (ThemeOption)
             {
                 case ThemeOption.Expression:
@@ -4081,10 +4122,9 @@ namespace CustomControls
                 case ThemeOption.VS2013:
                     Theme = new Vs2013BlueTheme();
                     break;
-
-                default:
-                    throw new ArgumentException("Invalid ThemeOption");
             }
+
+            Debug.Assert(Theme != null);
 
             dockManager.Theme = Theme;
 

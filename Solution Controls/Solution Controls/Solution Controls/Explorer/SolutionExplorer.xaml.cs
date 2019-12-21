@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.IO.Compression;
@@ -516,6 +517,9 @@ namespace CustomControls
 
         public void ChangeName(ITreeNodePath path, string newName)
         {
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+
             RenameOperation Operation = new RenameOperation(Root, path, newName);
             if (UndoRedoManager != null)
             {
@@ -737,6 +741,9 @@ namespace CustomControls
 
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> FindItemsByDocumentPath(IReadOnlyCollection<IDocumentPath> documentPathList)
         {
+            if (documentPathList == null)
+                throw new ArgumentNullException(nameof(documentPathList));
+
             return FindItemsByDocumentPath(Root, documentPathList);
         }
 
@@ -1021,6 +1028,9 @@ namespace CustomControls
 
         protected virtual void OnContextMenuOpened(object sender, RoutedEventArgs e)
         {
+            if (sender == null)
+                throw new ArgumentNullException(nameof(sender));
+
             ContextMenu ExplorerContextMenu = (ContextMenu)sender;
 
             ValidEditOperations ValidOperations = ValidEditOperations;
@@ -1224,19 +1234,24 @@ namespace CustomControls
             FrameworkElement Ctrl = (FrameworkElement)sender;
 
             ISolutionFolder AsFolder;
+            bool IsHandled = false;
 
             if ((AsFolder = Ctrl.DataContext as ISolutionFolder) != null)
+            {
                 treeviewSolutionExplorer.ToggleIsExpanded(AsFolder);
+                IsHandled = true;
+            }
 
             else if (Ctrl.DataContext is ISolutionItem)
             {
                 RoutedUICommand OpenCommand = ApplicationCommands.Open;
                 if (OpenCommand.CanExecute(this, null))
                     OpenCommand.Execute(this, null);
+
+                IsHandled = true;
             }
 
-            else
-                throw new InvalidCastException("Invalid Tree Node");
+            Debug.Assert(IsHandled);
         }
         #endregion
 

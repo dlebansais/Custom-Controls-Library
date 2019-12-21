@@ -211,7 +211,9 @@ namespace CustomControls
         /// </returns>
         private Size GetTextSize(string text)
         {
+#pragma warning disable CS0618 // Type or member is obsolete
             FormattedText EnumFormattedText = new FormattedText(text, ConversionCulture, FlowDirection, new Typeface(FontFamily, FontStyle, FontWeight, FontStretch), FontSize, Foreground);
+#pragma warning restore CS0618 // Type or member is obsolete
             double EnumWidth = EnumFormattedText.WidthIncludingTrailingWhitespace;
             double EnumHeight = EnumFormattedText.Height;
 

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +20,9 @@ namespace CustomControls
 
         protected static void OnPropertyEntriesChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             MergedProperties ctrl = (MergedProperties)modifiedObject;
             ctrl.OnPropertyEntriesChanged(e);
         }

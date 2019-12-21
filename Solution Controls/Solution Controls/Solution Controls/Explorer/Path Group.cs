@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Verification;
 
 namespace CustomControls
@@ -58,6 +59,9 @@ namespace CustomControls
 
         public PathGroup(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, IFolderPath groupParentPath)
         {
+            if (groupParentPath == null)
+                throw new ArgumentNullException(nameof(groupParentPath));
+
             Assert.ValidateReference(pathTable);
             Assert.ValidateReference(groupParentPath);
             Assert.CheckCondition(HasNullCommonParent(pathTable));
@@ -79,7 +83,7 @@ namespace CustomControls
             }
 
             this.PathTable = PathTable;
-            this.GroupParentPath = GroupParentPath;
+            GroupParentPath = groupParentPath;
         }
 
         public static bool HasCommonParent(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)

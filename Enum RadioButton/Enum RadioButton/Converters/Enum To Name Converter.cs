@@ -37,7 +37,7 @@ namespace Converters
                 ResourceManager Manager = new ResourceManager(ResourceSource);
                 string ResourceName = value.ToString();
 
-                return Manager.GetString(ResourceName);
+                return Manager.GetString(ResourceName, CultureInfo.CurrentCulture);
             }
 
             return null;

@@ -54,7 +54,7 @@ namespace CustomControls
         private void UpdateName()
         {
             Name = Path.FriendlyName;
-            NotifyPropertyChanged("Name");
+            NotifyPropertyChanged(nameof(Name));
         }
         #endregion
 

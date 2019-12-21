@@ -9,6 +9,9 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            if (parameter == null)
+                throw new ArgumentNullException(nameof(parameter));
+
             CompositeCollection CollectionOfItems = parameter as CompositeCollection;
 
             return value != null ? CollectionOfItems[1] : CollectionOfItems[0];

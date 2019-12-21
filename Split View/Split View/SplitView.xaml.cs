@@ -279,7 +279,7 @@ namespace CustomControls
                                     IsTopRowVisible = true;
 
                                     NotifyTopRowVisibilityChanged();
-                                    NotifyPropertyChanged("IsTopRowVisible");
+                                    NotifyPropertyChanged(nameof(IsTopRowVisible));
                                 }
                             }
                         }
@@ -314,7 +314,7 @@ namespace CustomControls
                         IsTopRowVisible = false;
 
                         NotifyTopRowVisibilityChanged();
-                        NotifyPropertyChanged("IsTopRowVisible");
+                        NotifyPropertyChanged(nameof(IsTopRowVisible));
                     }
                 }
             }
@@ -537,7 +537,7 @@ namespace CustomControls
             if (IsTopRowVisible != OldIsVisible)
             {
                 NotifyTopRowVisibilityChanged();
-                NotifyPropertyChanged("IsTopRowVisible");
+                NotifyPropertyChanged(nameof(IsTopRowVisible));
             }
         }
         #endregion

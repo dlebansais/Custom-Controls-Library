@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -39,6 +40,9 @@ namespace CustomControls
 
         protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             ExtendedTreeViewBase ctrl = (ExtendedTreeViewBase)modifiedObject;
             ctrl.OnContentChanged(e);
         }
@@ -114,6 +118,9 @@ namespace CustomControls
 
         protected static void OnDragDropChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             ExtendedTreeViewBase ctrl = (ExtendedTreeViewBase)modifiedObject;
             ctrl.OnDragDropChanged(e);
         }
@@ -402,6 +409,9 @@ namespace CustomControls
 
         protected static object CoerceItemsSource(DependencyObject modifiedObject, object value)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             ExtendedTreeViewBase ctrl = (ExtendedTreeViewBase)modifiedObject;
             return ctrl.CoerceItemsSource(value);
         }
@@ -495,7 +505,7 @@ namespace CustomControls
 
         protected virtual void InsertChildren(IInsertItemContext context, object item, object parentItem)
         {
-            IList Children = GetChildren(item);
+            IList Children = GetItemChildren(item);
             bool IsExpanded = IsItemExpandedAtStart || (parentItem == null && IsRootAlwaysExpanded);
 
             if (IsExpanded)
@@ -518,7 +528,7 @@ namespace CustomControls
 
             if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart))
             {
-                IList Children = GetChildren(item);
+                IList Children = GetItemChildren(item);
                 foreach (object ChildItem in Children)
                     RemoveChildren(context, ChildItem, item);
             }
@@ -705,7 +715,7 @@ namespace CustomControls
 
             if (IsExpanded(item))
             {
-                object ParentItem = GetParent(item);
+                object ParentItem = GetItemParent(item);
 
                 int StartIndex;
                 int RemoveCount;
@@ -714,7 +724,7 @@ namespace CustomControls
                 {
                     StartIndex = VisibleChildren.IndexOf(item) + 1;
 
-                    IList Siblings = GetChildren(ParentItem);
+                    IList Siblings = GetItemChildren(ParentItem);
                     int ItemIndex = Siblings.IndexOf(item);
                     if (ItemIndex + 1 < Siblings.Count)
                     {
@@ -774,8 +784,8 @@ namespace CustomControls
                 for (int i = 0; i < index; i++)
                     if (i != excludedIndex)
                     {
-                        object Child = GetChild(item, i);
-                        Result += CountPreviousChildrenExpanded(Child, GetChildrenCount(Child), -1);
+                        object Child = GetItemChild(item, i);
+                        Result += CountPreviousChildrenExpanded(Child, GetItemChildrenCount(Child), -1);
                     }
 
             return Result;
@@ -789,7 +799,7 @@ namespace CustomControls
 
             if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart))
             {
-                IList Children = GetChildren(item);
+                IList Children = GetItemChildren(item);
                 Result += Children.Count;
 
                 foreach (object Child in Children)
@@ -801,7 +811,7 @@ namespace CustomControls
 
         public void SetItemExpanded(object item)
         {
-            IList Children = GetChildren(item);
+            IList Children = GetItemChildren(item);
             ExpandedChildren.Add(item, Children);
 
             int Index = VisibleChildren.IndexOf(item) + 1;
@@ -810,19 +820,19 @@ namespace CustomControls
 
         public bool IsItemExpandable(object item)
         {
-            return !IsCtrlDown() && GetChildrenCount(item) > 0;
+            return !IsCtrlDown() && GetItemChildrenCount(item) > 0;
         }
 
         public bool IsItemCollapsible(object item)
         {
-            return !IsCtrlDown() && GetChildrenCount(item) > 0 && (item != Content || !IsRootAlwaysExpanded);
+            return !IsCtrlDown() && GetItemChildrenCount(item) > 0 && (item != Content || !IsRootAlwaysExpanded);
         }
 
         protected virtual int Expand(object item, int index)
         {
             int NewIndex = index;
 
-            IList Children = GetChildren(item);
+            IList Children = GetItemChildren(item);
             foreach (object ChildItem in Children)
             {
                 InternalInsert(NewIndex++, ChildItem);
@@ -844,7 +854,7 @@ namespace CustomControls
 
         protected virtual void Collapse(object item, int index)
         {
-            IList Children = GetChildren(item);
+            IList Children = GetItemChildren(item);
             foreach (object ChildItem in Children)
             {
                 InternalRemove(index, ChildItem);
@@ -867,7 +877,7 @@ namespace CustomControls
             while (CurrentItem != null)
             {
                 Level++;
-                CurrentItem = GetParent(CurrentItem);
+                CurrentItem = GetItemParent(CurrentItem);
             }
 
             return Level;
@@ -1282,7 +1292,7 @@ namespace CustomControls
             if (FirstItem == Content)
                 return false;
 
-            object FirstItemParent = GetParent(FirstItem);
+            object FirstItemParent = GetItemParent(FirstItem);
 
             if (GetItemsWithSameParent(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
             {
@@ -1308,7 +1318,7 @@ namespace CustomControls
 
             foreach (object item in sortedSelectedItems)
             {
-                if (GetParent(item) != firstItemParent)
+                if (GetItemParent(item) != firstItemParent)
                     return false;
 
                 canonicSelectedItemList.ItemList.Add(item);
@@ -1325,7 +1335,7 @@ namespace CustomControls
             if (sortedSelectedItems == null || canonicSelectedItemList == null)
                 return false;
 
-            IList Children = GetChildren(firstItemParent);
+            IList Children = GetItemChildren(firstItemParent);
             foreach (object ChildItem in Children)
             {
                 if (sortedSelectedItems.Contains(ChildItem))
@@ -1355,7 +1365,7 @@ namespace CustomControls
 
             if (IsExpanded(item))
             {
-                IList Children = GetChildren(item);
+                IList Children = GetItemChildren(item);
                 foreach (object ChildItem in Children)
                 {
                     if (!sortedSelectedItems.Contains(ChildItem))
@@ -1371,11 +1381,16 @@ namespace CustomControls
 
         protected virtual void OnDragActivityChanged(object sender, EventArgs e)
         {
+            if (sender == null)
+                throw new ArgumentNullException(nameof(sender));
+
             IDragSourceControl Ctrl = (IDragSourceControl)sender;
+            bool IsHandled = false;
 
             switch (Ctrl.DragActivity)
             {
                 case DragActivity.Idle:
+                    IsHandled = true;
                     break;
 
                 case DragActivity.Starting:
@@ -1385,6 +1400,8 @@ namespace CustomControls
                     NotifyDragStarting(cancellation);
                     if (cancellation.IsCanceled)
                         Ctrl.CancelDrag();
+
+                    IsHandled = true;
                     break;
 
                 case DragActivity.Started:
@@ -1394,11 +1411,15 @@ namespace CustomControls
                         AllowedEffects |= DragDropEffects.Copy;
                     DragDrop.DoDragDrop(this, Data, AllowedEffects);
                     ClearCurrentDropTarget();
+
+                    IsHandled = true;
                     break;
 
                 default:
-                    throw new ArgumentException("Invalid DragActivity");
+                    break;
             }
+
+            Debug.Assert(IsHandled);
         }
 
         protected virtual IList FlatItemList(IList other)
@@ -1410,7 +1431,7 @@ namespace CustomControls
                 {
                     Result.Add(item);
 
-                    IList FlatChildren = FlatItemList(GetChildren(item));
+                    IList FlatChildren = FlatItemList(GetItemChildren(item));
                     foreach (object Child in FlatChildren)
                         Result.Add(Child);
                 }
@@ -1686,7 +1707,7 @@ namespace CustomControls
         {
             RemoveKeyboardFocusWithinHandler();
 
-            CurrentlyFocusedContainer = container;
+            CurrentlyFocusedContainer = container ?? throw new ArgumentNullException(nameof(container));
             CurrentlyFocusedContainer.IsKeyboardFocusWithinChanged += OnIsKeyboardFocusWithinChanged;
         }
 
@@ -1754,10 +1775,10 @@ namespace CustomControls
         #endregion
 
         #region Descendant Interface
-        protected abstract object GetParent(object item);
-        protected abstract int GetChildrenCount(object item);
-        protected abstract IList GetChildren(object item);
-        protected abstract object GetChild(object item, int index);
+        protected abstract object GetItemParent(object item);
+        protected abstract int GetItemChildrenCount(object item);
+        protected abstract IList GetItemChildren(object item);
+        protected abstract object GetItemChild(object item, int index);
         protected abstract void InstallHandlers(object item);
         protected abstract void UninstallHandlers(object item);
         protected abstract void DragDropMove(object sourceItem, object destinationItem, IList itemList);

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
@@ -10,6 +11,9 @@ namespace CustomControls
         #region Gesture Text
         public static string GetGestureText(ICommand command, FrameworkElement source)
         {
+            if (source == null)
+                throw new ArgumentNullException(nameof(source));
+
             Dictionary<string, string> GestureTable = GetGestureTable(source);
 
             string GestureText = null;
@@ -67,6 +71,9 @@ namespace CustomControls
         #region Gesture Table
         private static Dictionary<string, string> GetGestureTable(FrameworkElement Source)
         {
+            if (Source == null)
+                throw new ArgumentNullException(nameof(Source));
+
             Dictionary<string, string> GestureTable = new Dictionary<string, string>();
             FrameworkElement Element = Source;
             IGestureTranslator Translator = null;

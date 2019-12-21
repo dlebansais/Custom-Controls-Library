@@ -8,7 +8,9 @@ namespace Converters
     /// <summary>
     /// Converter from a string to a collection of <see cref="ActiveCommand"/>.
     /// </summary>
+#pragma warning disable CA1812
     internal class ActiveCommandCollectionTypeConverter : TypeConverter
+#pragma warning restore CA1812
     {
         /// <summary>
         /// Tell the system this converter can convert a string to a <see cref="ActiveCommandCollection"/>.

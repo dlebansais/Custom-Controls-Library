@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace CustomControls
@@ -7,6 +8,9 @@ namespace CustomControls
     {
         public static void MakeMenuPretty(ItemsControl itemsCollection)
         {
+            if (itemsCollection == null)
+                throw new ArgumentNullException(nameof(itemsCollection));
+
             RestoreVisible(itemsCollection);
             ModifyAllSubmenus(itemsCollection, HideEmpty);
             HideSeparators(itemsCollection, FromTop);

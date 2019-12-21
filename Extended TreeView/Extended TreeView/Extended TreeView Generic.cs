@@ -10,40 +10,63 @@ namespace CustomControls
         where TCollection : IExtendedTreeNodeCollection
     {
         #region Ancestor Interface
-        protected override object GetParent(object item)
+        protected override object GetItemParent(object item)
         {
-            return ((TItem)item).Parent;
+            if (item is TItem AsItem)
+                return AsItem.Parent;
+            else
+                throw new ArgumentNullException(nameof(item));
         }
 
-        protected override int GetChildrenCount(object item)
+        protected override int GetItemChildrenCount(object item)
         {
-            return ((TItem)item).Children.Count;
+            if (item is TItem AsItem)
+                return AsItem.Children.Count;
+            else
+                throw new ArgumentNullException(nameof(item));
         }
 
-        protected override IList GetChildren(object item)
+        protected override IList GetItemChildren(object item)
         {
-            return (IList)((TItem)item).Children;
+            if (item is TItem AsItem)
+                return AsItem.Children;
+            else
+                throw new ArgumentNullException(nameof(item));
         }
 
-        protected override object GetChild(object item, int index)
+        protected override object GetItemChild(object item, int index)
         {
-            return ((TItem)item).Children[index];
+            if (item is TItem AsItem)
+                return AsItem.Children[index];
+            else
+                throw new ArgumentNullException(nameof(item));
         }
 
         protected override void InstallHandlers(object item)
         {
-            ((TItem)item).Children.CollectionChanged += OnItemChildrenChanged;
+            if (item is TItem AsItem)
+                AsItem.Children.CollectionChanged += OnItemChildrenChanged;
+            else
+                throw new ArgumentNullException(nameof(item));
         }
 
         protected override void UninstallHandlers(object item)
         {
-            ((TItem)item).Children.CollectionChanged -= OnItemChildrenChanged;
+            if (item is TItem AsItem)
+                AsItem.Children.CollectionChanged -= OnItemChildrenChanged;
+            else
+                throw new ArgumentNullException(nameof(item));
         }
 
         protected override void DragDropMove(object sourceItem, object destinationItem, IList itemList)
         {
-            TCollection SourceCollection = (TCollection)((TItem)sourceItem).Children;
-            TCollection DestinationCollection = (TCollection)((TItem)destinationItem).Children;
+            if (!(sourceItem is TItem AsSourceItem))
+                throw new ArgumentNullException(nameof(sourceItem));
+            if (!(destinationItem is TItem AsDestinationItem))
+                throw new ArgumentNullException(nameof(destinationItem));
+
+            TCollection SourceCollection = (TCollection)AsSourceItem.Children;
+            TCollection DestinationCollection = (TCollection)AsDestinationItem.Children;
 
             if (itemList != null)
             {
@@ -62,6 +85,9 @@ namespace CustomControls
 
         protected override void DragDropCopy(object sourceItem, object destinationItem, IList itemList, IList cloneList)
         {
+            if (destinationItem == null)
+                throw new ArgumentNullException(nameof(destinationItem));
+
             TCollection DestinationCollection = (TCollection)((TItem)destinationItem).Children;
 
             if (itemList != null && cloneList != null)
@@ -86,6 +112,9 @@ namespace CustomControls
         #region Implementation
         protected virtual void OnItemChildrenChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
+            if (sender == null)
+                throw new ArgumentNullException(nameof(sender));
+
             TCollection ItemCollection = (TCollection)sender;
             object Item = ItemCollection.Parent;
 

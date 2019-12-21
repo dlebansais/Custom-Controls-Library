@@ -1,4 +1,4 @@
-﻿<Application x:Class="Test_Controls.App"
+﻿<Application x:Class="TestControls.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">

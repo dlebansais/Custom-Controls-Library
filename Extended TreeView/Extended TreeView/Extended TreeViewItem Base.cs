@@ -62,6 +62,9 @@ namespace CustomControls
 
         protected static void OnIsExpandedChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             ExtendedTreeViewItemBase ctrl = (ExtendedTreeViewItemBase)modifiedObject;
             ctrl.OnIsExpandedChanged(e);
         }
@@ -169,6 +172,9 @@ namespace CustomControls
 
         protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
             ExtendedTreeViewItemBase ctrl = (ExtendedTreeViewItemBase)modifiedObject;
             ctrl.OnContentChanged(e);
         }
@@ -213,7 +219,7 @@ namespace CustomControls
             UpdateDisconnectedItem(newContent);
 
             if (DisconnectedItem != null && newContent != DisconnectedItem)
-                NotifyPropertyChanged("Level");
+                NotifyPropertyChanged(nameof(Level));
         }
 
         protected override void OnGotFocus(RoutedEventArgs e)

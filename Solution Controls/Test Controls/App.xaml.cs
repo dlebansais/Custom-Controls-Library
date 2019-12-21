@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Test_Controls
+namespace TestControls
 {
     /// <summary>
     /// Interaction logic for App.xaml

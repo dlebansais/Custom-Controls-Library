@@ -12,7 +12,7 @@
     <ProjectGuid>{688A5E56-0927-4D77-A26A-B3FBDE816CBD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test_Controls</RootNamespace>
+    <RootNamespace>TestControls</RootNamespace>
     <AssemblyName>Test Controls</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

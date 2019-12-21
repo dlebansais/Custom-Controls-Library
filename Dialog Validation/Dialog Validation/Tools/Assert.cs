@@ -7,7 +7,7 @@ namespace Verification
         public static void ValidateReference(object referenceValue)
         {
             if (referenceValue == null)
-                throw new ArgumentNullException("referenceValue", "Invalid null reference");
+                throw new ArgumentNullException(nameof(referenceValue));
         }
     }
 }

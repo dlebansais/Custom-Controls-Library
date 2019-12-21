@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
@@ -92,7 +93,7 @@ namespace CustomControls
             Initialize();
 
             if (InitResourceManager != null)
-                return InitResourceManager.GetString(name);
+                return InitResourceManager.GetString(name, CultureInfo.CurrentCulture);
             else
                 return null;
         }
