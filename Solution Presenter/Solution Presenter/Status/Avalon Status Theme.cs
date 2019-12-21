@@ -3,7 +3,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using Verification;
 using Xceed.Wpf.AvalonDock.Themes;
 
 namespace CustomControls
@@ -36,7 +35,8 @@ namespace CustomControls
 
         protected virtual Brush GetBrush(StatusType statusType, CompositeCollection resourceKeys)
         {
-            Assert.ValidateReference(resourceKeys);
+            if (resourceKeys == null)
+                throw new ArgumentNullException(nameof(resourceKeys));
 
             Uri uri = Theme.GetResourceUri();
             if (uri != null)

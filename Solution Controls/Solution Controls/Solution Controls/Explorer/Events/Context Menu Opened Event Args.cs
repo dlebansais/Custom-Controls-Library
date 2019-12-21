@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using Verification;
 
 namespace CustomControls
 {
@@ -10,8 +10,10 @@ namespace CustomControls
         public ContextMenuOpenedEventArgs(RoutedEvent routedEvent, IReadOnlyCollection<ITreeNodePath> selectedItems, ICollection<ExtendedRoutedCommand> canShowCommandList)
             : base(routedEvent)
         {
-            Assert.ValidateReference(selectedItems);
-            Assert.ValidateReference(canShowCommandList);
+            if (selectedItems == null)
+                throw new ArgumentNullException(nameof(selectedItems));
+            if (canShowCommandList == null)
+                throw new ArgumentNullException(nameof(canShowCommandList));
 
             this.SelectedItems = selectedItems;
             this.CanShowCommandList = canShowCommandList;

@@ -9,7 +9,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Xaml;
-using Verification;
 
 namespace CustomControls
 {
@@ -118,7 +117,8 @@ namespace CustomControls
         /// <param name="xamlData">A string containing the new state of the toolbar.</param>
         public virtual void DeserializeActiveButtons(string xamlData)
         {
-            Assert.ValidateReference(xamlData);
+            if (xamlData == null)
+                throw new ArgumentNullException(nameof(xamlData));
 
             try
             {

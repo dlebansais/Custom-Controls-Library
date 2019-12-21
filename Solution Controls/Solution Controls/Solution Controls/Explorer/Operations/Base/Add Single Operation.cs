@@ -1,4 +1,5 @@
-﻿using Verification;
+﻿using System;
+using System.Diagnostics;
 
 namespace CustomControls
 {
@@ -8,7 +9,8 @@ namespace CustomControls
         protected AddSingleOperation(ISolutionRoot root, IFolderPath destinationFolderPath, ITreeNodePath newPath, ITreeNodeProperties newProperties)
             : base(root, destinationFolderPath, newPath, newProperties)
         {
-            Assert.ValidateReference(destinationFolderPath);
+            if (destinationFolderPath== null)
+                throw new ArgumentNullException(nameof(destinationFolderPath));
 
             this.DestinationFolderPath = destinationFolderPath;
         }
@@ -25,7 +27,7 @@ namespace CustomControls
             base.Redo();
 
             ISolutionFolder ParentFolder = Root.FindTreeNode(DestinationFolderPath) as ISolutionFolder;
-            Assert.ValidateReference(ParentFolder);
+            Debug.Assert(ParentFolder != null);
 
             AddExpandedFolder(ParentFolder);
         }

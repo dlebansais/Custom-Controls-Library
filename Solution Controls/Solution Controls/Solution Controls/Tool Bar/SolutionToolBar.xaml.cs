@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using UndoRedo;
-using Verification;
 
 namespace CustomControls
 {
@@ -59,7 +59,8 @@ namespace CustomControls
 
         protected virtual void NotifyMainMenuLoaded(RoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             RaiseEvent(new RoutedEventArgs(MainMenuLoadedEvent, e.OriginalSource));
         }
@@ -75,7 +76,8 @@ namespace CustomControls
 
         protected virtual void NotifyMainToolBarLoaded(RoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             RaiseEvent(new RoutedEventArgs(MainToolBarLoadedEvent, e.OriginalSource));
         }
@@ -165,7 +167,8 @@ namespace CustomControls
 
         public virtual void DeserializeActiveButtons(string xamlData)
         {
-            Assert.ValidateReference(xamlData);
+            if (xamlData == null)
+                throw new ArgumentNullException(nameof(xamlData));
 
             string[] Splitted = xamlData.Split(SerializedDataSeparator);
             for (int i = 0; i < toolbarMainTray.ToolBars.Count && i < Splitted.Length; i++)

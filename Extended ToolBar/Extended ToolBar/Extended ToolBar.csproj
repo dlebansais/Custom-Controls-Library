@@ -97,7 +97,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Themes\Theme Icons.cs" />
-    <Compile Include="Tools\Assert.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.fr.resx">

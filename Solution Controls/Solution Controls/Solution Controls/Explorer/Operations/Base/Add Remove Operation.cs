@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using Verification;
+﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace CustomControls
 {
@@ -9,7 +10,8 @@ namespace CustomControls
         protected AddRemoveOperation(ISolutionRoot root, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
             : base(root)
         {
-            Assert.ValidateReference(pathTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
             this.PathTable = pathTable;
         }
@@ -23,25 +25,32 @@ namespace CustomControls
         #region Descendant Interface
         protected virtual ISolutionFolder CreateSolutionFolder(ISolutionFolder parentFolder, IFolderPath path, IFolderProperties properties)
         {
-            Assert.ValidateReference(parentFolder);
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(properties);
+            if (parentFolder == null)
+                throw new ArgumentNullException(nameof(parentFolder));
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (properties == null)
+                throw new ArgumentNullException(nameof(properties));
 
             return new SolutionFolder(parentFolder, path, properties);
         }
 
         protected virtual ISolutionItem CreateSolutionItem(ISolutionFolder parentFolder, IItemPath path, IItemProperties properties)
         {
-            Assert.ValidateReference(parentFolder);
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(properties);
+            if (parentFolder == null)
+                throw new ArgumentNullException(nameof(parentFolder));
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (properties == null)
+                throw new ArgumentNullException(nameof(properties));
 
             return new SolutionItem(path, parentFolder, properties);
         }
 
         protected virtual void Add(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
-            Assert.ValidateReference(pathTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
             ClearExpandedFolders();
 
@@ -71,6 +80,7 @@ namespace CustomControls
 
                         IFolderPath AsFolderPath;
                         IItemPath AsItemPath;
+                        bool IsHandled = false;
 
                         if ((AsFolderPath = Path as IFolderPath) != null)
                         {
@@ -81,6 +91,8 @@ namespace CustomControls
 
                             if (Connection.IsExpanded)
                                 AddExpandedFolder(NewFolder);
+
+                            IsHandled = true;
                         }
 
                         else if ((AsItemPath = Path as IItemPath) != null)
@@ -89,10 +101,11 @@ namespace CustomControls
 
                             ISolutionItem NewItem = CreateSolutionItem(ParentFolder, AsItemPath, Properties);
                             ChildrenCollection.Add(NewItem);
+
+                            IsHandled = true;
                         }
 
-                        else
-                            Assert.InvalidExecutionPath();
+                        Debug.Assert(IsHandled);
 
                         if (!ModifiedCollectionList.Contains(ChildrenCollection))
                             ModifiedCollectionList.Add(ChildrenCollection);
@@ -108,7 +121,8 @@ namespace CustomControls
 
         protected virtual void Remove(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
-            Assert.ValidateReference(pathTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
             IReadOnlyDictionary<IFolderPath, ISolutionFolder> FlatFolderTable = Root.FlatFolderChildren;
             List<ISolutionTreeNodeCollection> ModifiedCollectionList = new List<ISolutionTreeNodeCollection>();

@@ -7,7 +7,6 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
-using Verification;
 
 namespace CustomControls
 {
@@ -447,7 +446,8 @@ namespace CustomControls
         /// <param name="e">This parameter is not used.</param>
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (e.ClickCount < 2)
             {
@@ -521,7 +521,8 @@ namespace CustomControls
         /// <param name="e">State of the key pressed.</param>
         private void OnEditPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (e.Key == Key.Return)
             {

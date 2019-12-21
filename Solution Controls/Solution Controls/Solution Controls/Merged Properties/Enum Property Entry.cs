@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Verification;
+﻿using System;
+using System.Collections.Generic;
 
 namespace CustomControls
 {
@@ -14,7 +14,8 @@ namespace CustomControls
         public EnumPropertyEntry(IReadOnlyList<ITreeNodeProperties> sourcePropertiesList, string name, string friendlyName, string[] enumNames, int selectedIndex)
             : base(sourcePropertiesList, name, friendlyName)
         {
-            Assert.ValidateReference(enumNames);
+            if (enumNames == null)
+                throw new ArgumentNullException(nameof(enumNames));
 
             this.EnumNames = new List<string>();
             foreach (string EnumName in enumNames)

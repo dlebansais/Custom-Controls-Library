@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Threading;
-using Verification;
 
 namespace CustomControls
 {
@@ -24,7 +23,8 @@ namespace CustomControls
 
         protected virtual void NotifyEventCompletedAsync(Dispatcher dispatcher, object completionArgs)
         {
-            Assert.ValidateReference(dispatcher);
+            if (dispatcher == null)
+                throw new ArgumentNullException(nameof(dispatcher));
 
             dispatcher.BeginInvoke(new NotifyEventCompletedAsyncHandler(OnNotifyEventCompletedAsync), completionArgs);
         }

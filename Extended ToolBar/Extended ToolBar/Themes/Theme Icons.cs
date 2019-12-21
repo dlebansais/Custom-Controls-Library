@@ -5,7 +5,6 @@ using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using Verification;
 
 namespace CustomControls
 {
@@ -32,8 +31,10 @@ namespace CustomControls
         /// <param name="key">The key used to locate the resource in the assembly.</param>
         public static ImageSource GetImageSource(Assembly resourceAssembly, string iconPath, string key)
         {
-            Assert.ValidateReference(resourceAssembly);
-            Assert.ValidateReference(iconPath);
+            if (resourceAssembly == null)
+                throw new ArgumentNullException(nameof(resourceAssembly));
+            if (iconPath == null)
+                throw new ArgumentNullException(nameof(iconPath));
 
             if (key != null)
             {

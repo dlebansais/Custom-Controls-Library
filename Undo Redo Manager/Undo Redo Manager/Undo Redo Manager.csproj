@@ -72,7 +72,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reversible Operation.cs" />
-    <Compile Include="Tools\Assert.cs" />
     <Compile Include="Undo Redo Manager.cs" />
   </ItemGroup>
   <ItemGroup>

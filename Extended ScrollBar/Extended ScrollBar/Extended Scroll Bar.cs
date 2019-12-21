@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using Verification;
 
 namespace CustomControls
 {
@@ -47,7 +46,8 @@ namespace CustomControls
 
         private void OnBoundScrollViewerPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (e.NewValue != null)
                 UpdateBindings();
@@ -108,7 +108,8 @@ namespace CustomControls
         /// </parameters>
         private void BoundScrollChanged(object sender, ScrollChangedEventArgs e) 
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             bool IsHandled = false;
 
@@ -137,7 +138,8 @@ namespace CustomControls
         /// </parameters>
         private void OnScroll(object sender, ScrollEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             bool IsHandled = false;
 

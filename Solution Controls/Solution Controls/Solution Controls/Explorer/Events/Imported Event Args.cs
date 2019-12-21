@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using Verification;
+﻿using System;
+using System.Windows;
 
 namespace CustomControls
 {
@@ -9,7 +9,8 @@ namespace CustomControls
         public ImportedEventArgs(RoutedEvent routedEvent, SolutionPackage package, string solutionName)
             : base(routedEvent)
         {
-            Assert.ValidateReference(solutionName);
+            if (solutionName == null)
+                throw new ArgumentNullException(nameof(solutionName));
 
             this.Package = package;
             this.RootPath = null;
@@ -21,8 +22,10 @@ namespace CustomControls
         public ImportedEventArgs(RoutedEvent routedEvent, SolutionPackage package, IRootPath rootPath, IFolderPath currentFolderPath, string folderName)
             : base(routedEvent)
         {
-            Assert.ValidateReference(rootPath);
-            Assert.ValidateReference(folderName);
+            if (rootPath == null)
+                throw new ArgumentNullException(nameof(rootPath));
+            if (folderName == null)
+                throw new ArgumentNullException(nameof(folderName));
 
             this.Package = package;
             this.RootPath = rootPath;
@@ -34,10 +37,14 @@ namespace CustomControls
         public ImportedEventArgs(RoutedEvent routedEvent, SolutionPackage package, IRootPath rootPath, IFolderPath currentFolderPath, string itemName, byte[] content)
             : base(routedEvent)
         {
-            Assert.ValidateReference(rootPath);
-            Assert.ValidateReference(currentFolderPath);
-            Assert.ValidateReference(itemName);
-            Assert.ValidateReference(content);
+            if (rootPath == null)
+                throw new ArgumentNullException(nameof(rootPath));
+            if (currentFolderPath == null)
+                throw new ArgumentNullException(nameof(currentFolderPath));
+            if (itemName == null)
+                throw new ArgumentNullException(nameof(itemName));
+            if (content == null)
+                throw new ArgumentNullException(nameof(content));
 
             this.Package = package;
             this.RootPath = rootPath;

@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows;
-using Verification;
 
 namespace CustomControls
 {
@@ -10,7 +10,8 @@ namespace CustomControls
         public TreeChangedEventArgs(RoutedEvent routedEvent, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, bool isAdd, bool isUndoRedo)
             : base(routedEvent)
         {
-            Assert.ValidateReference(pathTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
             this.PathTable = pathTable;
             this.IsAdd = isAdd;

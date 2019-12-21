@@ -8,7 +8,6 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using Verification;
 
 namespace Converters
 {
@@ -31,7 +30,8 @@ namespace Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Assert.ValidateReference(value);
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
             ExtendedToolBarButton Button;
             if ((Button = value as ExtendedToolBarButton) != null)

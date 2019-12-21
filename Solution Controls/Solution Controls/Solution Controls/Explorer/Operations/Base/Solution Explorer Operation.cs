@@ -1,7 +1,8 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using UndoRedo;
-using Verification;
 
 namespace CustomControls
 {
@@ -10,7 +11,8 @@ namespace CustomControls
         #region Init
         protected SolutionExplorerOperation(ISolutionRoot root)
         {
-            Assert.ValidateReference(root);
+            if (root == null)
+                throw new ArgumentNullException(nameof(root));
 
             this.Root = root;
 
@@ -37,7 +39,7 @@ namespace CustomControls
 
         public virtual void Undo()
         {
-            Assert.CheckCondition(IsExecuted);
+            Debug.Assert(IsExecuted);
 
             NotifyUndone();
         }
@@ -51,7 +53,8 @@ namespace CustomControls
 
         protected void AddExpandedFolder(ISolutionFolder folder)
         {
-            Assert.ValidateReference(folder);
+            if (folder == null)
+                throw new ArgumentNullException(nameof(folder));
 
             if (!ExpandedFolderList.Contains(folder))
                 ExpandedFolderList.Add(folder);
@@ -63,7 +66,7 @@ namespace CustomControls
 
         private void NotifyRedone()
         {
-            Assert.CheckCondition(Redone != null);
+            Debug.Assert(Redone != null);
             Redone(this, new RoutedEventArgs());
         }
 
@@ -71,7 +74,7 @@ namespace CustomControls
 
         private void NotifyUndone()
         {
-            Assert.CheckCondition(Undone != null);
+            Debug.Assert(Undone != null);
             Undone(this, new RoutedEventArgs());
         }
         #endregion

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Verification;
+using System.Diagnostics;
 
 namespace CustomControls
 {
@@ -15,9 +15,12 @@ namespace CustomControls
         #region Init
         public PathGroup(ITreeNodePath path, IFolderPath parentPath, ITreeNodeProperties properties)
         {
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(parentPath);
-            Assert.ValidateReference(properties);
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (parentPath == null)
+                throw new ArgumentNullException(nameof(parentPath));
+            if (properties == null)
+                throw new ArgumentNullException(nameof(properties));
 
             Dictionary<ITreeNodePath, IPathConnection> SinglePathTable = new Dictionary<ITreeNodePath, IPathConnection>();
             SinglePathTable.Add(path, new PathConnection(parentPath, properties, false));
@@ -28,8 +31,10 @@ namespace CustomControls
 
         public PathGroup(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
-            Assert.ValidateReference(pathTable);
-            Assert.CheckCondition(HasCommonParent(pathTable));
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
+
+            Debug.Assert(HasCommonParent(pathTable));
 
             Dictionary<ITreeNodePath, IPathConnection> PathTable = new Dictionary<ITreeNodePath, IPathConnection>();
             IFolderPath GroupParentPath = null;
@@ -61,10 +66,10 @@ namespace CustomControls
         {
             if (groupParentPath == null)
                 throw new ArgumentNullException(nameof(groupParentPath));
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
-            Assert.ValidateReference(pathTable);
-            Assert.ValidateReference(groupParentPath);
-            Assert.CheckCondition(HasNullCommonParent(pathTable));
+            Debug.Assert(HasNullCommonParent(pathTable));
 
             Dictionary<ITreeNodePath, IPathConnection> PathTable = new Dictionary<ITreeNodePath, IPathConnection>();
 
@@ -88,7 +93,8 @@ namespace CustomControls
 
         public static bool HasCommonParent(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
-            Assert.ValidateReference(pathTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
             IFolderPath GroupParentPath = null;
             bool? IsNullParent = null;
@@ -121,7 +127,8 @@ namespace CustomControls
 
         public static bool HasNullCommonParent(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
-            Assert.ValidateReference(pathTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
 
             foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in pathTable)
             {

@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using UndoRedo;
-using Verification;
 using Xceed.Wpf.AvalonDock.Controls;
 using Xceed.Wpf.AvalonDock.Layout;
 using Xceed.Wpf.AvalonDock.Layout.Serialization;
@@ -211,7 +210,8 @@ namespace CustomControls
 
         protected virtual void NotifyMainMenuLoaded(RoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             RaiseEvent(new RoutedEventArgs(MainMenuLoadedEvent, e.OriginalSource));
         }
@@ -227,7 +227,8 @@ namespace CustomControls
 
         protected virtual void NotifyMainToolBarLoaded(RoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             RaiseEvent(new RoutedEventArgs(MainToolBarLoadedEvent, e.OriginalSource));
         }
@@ -243,7 +244,8 @@ namespace CustomControls
 
         protected virtual void NotifyContextMenuLoaded(RoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             RaiseEvent(new RoutedEventArgs(ContextMenuLoadedEvent, e.OriginalSource));
         }
@@ -1080,7 +1082,8 @@ namespace CustomControls
 
         public virtual void DeserializeState(string mergedState)
         {
-            Assert.ValidateReference(mergedState);
+            if (mergedState == null)
+                throw new ArgumentNullException(nameof(mergedState));
 
             string[] StateList = mergedState.Split('|');
 
@@ -1157,7 +1160,8 @@ namespace CustomControls
 
         protected virtual void DeserializePresenterState(string mergedState)
         {
-            Assert.ValidateReference(mergedState);
+            if (mergedState == null)
+                throw new ArgumentNullException(nameof(mergedState));
 
             string[] StateList = mergedState.Split(',');
 
@@ -1273,7 +1277,8 @@ namespace CustomControls
 
         protected virtual void RemoveDocumentControls(Separator firstSeparator)
         {
-            Assert.ValidateReference(firstSeparator);
+            if (firstSeparator == null)
+                throw new ArgumentNullException(nameof(firstSeparator));
 
             ItemsControl Container = firstSeparator.Parent as ItemsControl;
             ItemCollection Items = Container.Items;
@@ -1304,7 +1309,8 @@ namespace CustomControls
 
         protected virtual void AddDocumentControls(Separator firstSeparator, int index, FrameworkElement documentControl)
         {
-            Assert.ValidateReference(firstSeparator);
+            if (firstSeparator == null)
+                throw new ArgumentNullException(nameof(firstSeparator));
 
             ItemsControl Container = firstSeparator.Parent as ItemsControl;
             ItemCollection Items = Container.Items;
@@ -1357,7 +1363,8 @@ namespace CustomControls
 
         protected virtual void CanAddNewDocument(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentCreatedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -1365,7 +1372,8 @@ namespace CustomControls
 
         protected virtual void OnAddNewDocument(object sender, ExecutedRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentCreatedEventArgs.HasHandler)
             {
@@ -1384,7 +1392,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentCreatedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             DocumentCreatedEventContext EventContext = (DocumentCreatedEventContext)e.EventContext;
             IDocumentCreatedCompletionArgs CompletionArgs = (IDocumentCreatedCompletionArgs)e.CompletionArgs;
@@ -1399,7 +1408,8 @@ namespace CustomControls
         #region Command: File / Create New Solution
         protected virtual void CanCreateNewSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (SolutionCreatedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -1420,7 +1430,8 @@ namespace CustomControls
 
         protected virtual void OnSolutionCreatedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             ISolutionCreatedCompletionArgs CompletionArgs = (ISolutionCreatedCompletionArgs)e.CompletionArgs;
             IRootPath CreatedRootPath = CompletionArgs.CreatedRootPath;
@@ -1433,7 +1444,8 @@ namespace CustomControls
         #region Command: File / Open Solution
         protected virtual void CanOpenSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (SolutionSelectedEventArgs.HasHandler && SolutionOpenedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -1446,7 +1458,8 @@ namespace CustomControls
 
         protected virtual void OnSolutionSelectedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             ISolutionSelectedCompletionArgs CompletionArgs = (ISolutionSelectedCompletionArgs)e.CompletionArgs;
             IRootPath SelectedRootPath = CompletionArgs.SelectedRootPath;
@@ -1466,7 +1479,8 @@ namespace CustomControls
 
         protected virtual void OnSolutionOpenedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             SolutionOpenedEventContext EventContext = (SolutionOpenedEventContext)e.EventContext;
             ISolutionOpenedCompletionArgs CompletionArgs = (ISolutionOpenedCompletionArgs)e.CompletionArgs; 
@@ -1484,7 +1498,8 @@ namespace CustomControls
         #region Command: File / Open Existing Document
         protected virtual void CanOpenExistingDocument(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentSelectedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -1497,7 +1512,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentSelectedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocumentSelectedCompletionArgs CompletionArgs = (IDocumentSelectedCompletionArgs)e.CompletionArgs;
             IList<IDocumentPath> DocumentPathList = CompletionArgs.DocumentPathList;
@@ -1508,7 +1524,8 @@ namespace CustomControls
         #region Command: File / Close Document
         protected virtual void CanCloseDocument(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (ActiveDocument != null)
                 e.CanExecute = true;
@@ -1533,7 +1550,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentClosedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             DocumentClosedEventContext EventContext = (DocumentClosedEventContext)e.EventContext;
             DocumentOperation DocumentOperation = EventContext.DocumentOperation;
@@ -1560,7 +1578,8 @@ namespace CustomControls
         #region Command: File / Close Solution
         protected virtual void CanCloseSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (SolutionClosedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -1581,7 +1600,8 @@ namespace CustomControls
 
         protected virtual void OnSolutionClosedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             SolutionClosedEventContext EventContext = (SolutionClosedEventContext)e.EventContext;
             SolutionOperation SolutionOperation = EventContext.SolutionOperation;
@@ -1621,7 +1641,8 @@ namespace CustomControls
         #region Command: File / Save Document
         protected virtual void CanSaveDocument(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (ActiveDocument != null)
                 e.CanExecute = true;
@@ -1635,7 +1656,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentSavedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             DocumentSavedEventContext EventContext = (DocumentSavedEventContext)e.EventContext;
             DocumentOperation DocumentOperation = EventContext.DocumentOperation;
@@ -1663,7 +1685,8 @@ namespace CustomControls
         #region Command: File / Save All
         protected virtual void CanSaveAll(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             CommitInfo Info = GetDirtyObjects();
 
@@ -1683,7 +1706,8 @@ namespace CustomControls
         #region Command: File / Import
         protected virtual void CanImport(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentImportDescriptors != null && DocumentImportDescriptors.Count > 0)
                 e.CanExecute = true;
@@ -1791,7 +1815,8 @@ namespace CustomControls
 
         protected virtual void OnImportNewItemsRequestedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             ImportNewItemsRequestedEventContext EventContext = (ImportNewItemsRequestedEventContext)e.EventContext;
             IImportNewItemsRequestedCompletionArgs CompletionArgs = (IImportNewItemsRequestedCompletionArgs)e.CompletionArgs;
@@ -1831,7 +1856,8 @@ namespace CustomControls
         #region Command: File / Import Solution
         protected virtual void CanImportSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentImportDescriptors != null && DocumentImportDescriptors.Count > 0)
                 e.CanExecute = true;
@@ -1891,7 +1917,8 @@ namespace CustomControls
         #region Command: File / Export Document
         protected virtual void CanExportDocument(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentImportDescriptors != null && DocumentImportDescriptors.Count > 0 && ActiveDocument != null)
                 e.CanExecute = true;
@@ -1951,7 +1978,8 @@ namespace CustomControls
         #region Command: File / Export All
         protected virtual void CanExportAll(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentImportDescriptors != null && DocumentImportDescriptors.Count > 0 && OpenDocuments.Count > 0)
                 e.CanExecute = true;
@@ -1993,7 +2021,8 @@ namespace CustomControls
         #region Command: File / Export Solution
         protected virtual void CanExportSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (SolutionExportedEventArgs.HasHandler && SolutionExtension != null && SolutionExtensionFilter != null)
                 e.CanExecute = true;
@@ -2052,7 +2081,8 @@ namespace CustomControls
 
         protected virtual void OnSolutionExportedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             SolutionExportedEventContext EventContext = (SolutionExportedEventContext)e.EventContext;
             string DestinationPath = EventContext.DestinationPath;
@@ -2066,7 +2096,8 @@ namespace CustomControls
         #region Command: File / Exit
         protected virtual void CanExit(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2091,7 +2122,8 @@ namespace CustomControls
         #region Command: Undo
         protected virtual void CanUndo(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2121,7 +2153,8 @@ namespace CustomControls
         #region Command: Redo
         protected virtual void CanRedo(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2151,7 +2184,8 @@ namespace CustomControls
         #region Command: Select All
         protected virtual void CanSelectAll(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2178,7 +2212,8 @@ namespace CustomControls
         #region Command: Edit / Change Options
         protected virtual void CanChangeOptions(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2200,7 +2235,8 @@ namespace CustomControls
 
         protected virtual void UpdatePresenterOptions(OptionsWindow optionDialog)
         {
-            Assert.ValidateReference(optionDialog);
+            if (optionDialog == null)
+                throw new ArgumentNullException(nameof(optionDialog));
 
             if (ThemeOption != optionDialog.Theme)
             {
@@ -2217,7 +2253,8 @@ namespace CustomControls
         #region Command: Project / Build Solution
         protected virtual void CanBuildSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (RootPath != null && BuildSolutionRequestedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -2239,7 +2276,8 @@ namespace CustomControls
 
         protected virtual void OnBuildSolutionRequestedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IBuildSolutionRequestedCompletionArgs CompletionArgs = (IBuildSolutionRequestedCompletionArgs)e.CompletionArgs;
             IReadOnlyList<ICompilationError> ErrorList = CompletionArgs.ErrorList;
@@ -2253,7 +2291,8 @@ namespace CustomControls
         #region Command: Project / Change Properties
         protected virtual void CanChangeProperties(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (RootPath != null && RootPropertiesRequestedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -2273,7 +2312,8 @@ namespace CustomControls
         #region Command: Window / Show Solution Explorer Tool
         protected virtual void CanShowSolutionExplorerTool(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2287,7 +2327,8 @@ namespace CustomControls
         #region Command: Window / Show Compiler Output Tool
         protected virtual void CanShowCompilerOutputTool(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2301,7 +2342,8 @@ namespace CustomControls
         #region Command: Window / Show Properties Tool
         protected virtual void CanShowPropertiesTool(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2315,7 +2357,8 @@ namespace CustomControls
         #region Command: Window / Reset Layout
         protected virtual void CanResetLayout(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2329,7 +2372,8 @@ namespace CustomControls
         #region Command: Window / Split Window
         protected virtual void CanSplitWindow(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (ActiveDocument != null)
             {
@@ -2353,7 +2397,8 @@ namespace CustomControls
         #region Command: Window / Remove Window Split
         protected virtual void CanRemoveWindowSplit(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (ActiveDocument != null)
             {
@@ -2377,7 +2422,8 @@ namespace CustomControls
         #region Command: Window / List Windows
         protected virtual void CanListWindows(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2394,21 +2440,24 @@ namespace CustomControls
 
         protected virtual void OnDocumentActivated(object sender, DocumentWindowEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             UserActivateDocument(e.Document);
         }
 
         protected virtual void OnDocumentSaved(object sender, DocumentWindowEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             NotifyDocumentSaved(DocumentOperation.Save, e.Document, null);
         }
 
         protected virtual void OnDocumentClosed(object sender, DocumentWindowEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (e.Document.IsDirty)
             {
@@ -2454,7 +2503,8 @@ namespace CustomControls
         #region Command: Help / Show About
         protected virtual void CanShowAbout(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             e.CanExecute = true;
         }
@@ -2468,7 +2518,8 @@ namespace CustomControls
         #region Command: Context / Add Existing Item
         protected virtual void CanAddExistingItem(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (AddNewItemsRequestedEventArgs.HasHandler)
             {
@@ -2487,7 +2538,8 @@ namespace CustomControls
 
         protected virtual void OnAddNewItemsRequestedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IAddNewItemsRequestedEventContext EventContext = (IAddNewItemsRequestedEventContext)e.EventContext;
             IAddNewItemsRequestedCompletionArgs CompletionArgs = (IAddNewItemsRequestedCompletionArgs)e.CompletionArgs;
@@ -2499,7 +2551,8 @@ namespace CustomControls
 
         protected virtual void AddNextDocument(DocumentOperation documentOperation, IFolderPath destinationFolderPath, IList<IDocumentPath> documentPathList, IRootProperties rootProperties)
         {
-            Assert.ValidateReference(documentPathList);
+            if (documentPathList == null)
+                throw new ArgumentNullException(nameof(documentPathList));
 
             if (documentPathList.Count > 0)
                 NotifyDocumentAdded(documentOperation, destinationFolderPath, documentPathList, rootProperties);
@@ -2507,7 +2560,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentAddedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             DocumentAddedEventContext EventContext = (DocumentAddedEventContext)e.EventContext;
             IDocumentAddedCompletionArgs CompletionArgs = (IDocumentAddedCompletionArgs)e.CompletionArgs;
@@ -2548,7 +2602,8 @@ namespace CustomControls
         #region Command: Context / Add New Folder
         protected virtual void CanAddNewFolder(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (dockManager.ActiveContent == spcSolutionExplorer)
                 if (spcSolutionExplorer.ValidEditOperations.AddFolder)
@@ -2597,7 +2652,8 @@ namespace CustomControls
 
         protected virtual bool IsNameTaken(IReadOnlyCollection<ITreeNodePath> folderChildren, string folderName)
         {
-            Assert.ValidateReference(folderChildren);
+            if (folderChildren == null)
+                throw new ArgumentNullException(nameof(folderChildren));
 
             bool FolderNameAlreadyExist = false;
             foreach (ITreeNodePath Path in folderChildren)
@@ -2616,7 +2672,8 @@ namespace CustomControls
 
         protected virtual void OnFolderCreatedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             FolderCreatedEventContext EventContext = (FolderCreatedEventContext)e.EventContext;
             IFolderCreatedCompletionArgs CompletionArgs = (IFolderCreatedCompletionArgs)e.CompletionArgs;
@@ -2631,7 +2688,8 @@ namespace CustomControls
         #region Command: Open
         protected virtual void CanOpen(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (DocumentOpenedEventArgs.HasHandler)
                 foreach (IItemPath ItemPath in SelectedItems)
@@ -2674,7 +2732,8 @@ namespace CustomControls
 
         protected virtual void OpenNextDocument(IList<IDocumentPath> documentPathList)
         {
-            Assert.ValidateReference(documentPathList);
+            if (documentPathList == null)
+                throw new ArgumentNullException(nameof(documentPathList));
 
             if (documentPathList.Count > 0)
                 NotifyDocumentOpened(DocumentOperation.Open, null, documentPathList, new List<IDocumentPath>(), null);
@@ -2682,7 +2741,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentOpenedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             DocumentOpenedEventContext EventContext = (DocumentOpenedEventContext)e.EventContext;
             IDocumentOpenedCompletionArgs CompletionArgs = (IDocumentOpenedCompletionArgs)e.CompletionArgs;
@@ -2726,7 +2786,8 @@ namespace CustomControls
         #region Command: Cut
         protected virtual void CanCut(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2761,7 +2822,8 @@ namespace CustomControls
         #region Command: Copy
         protected virtual void CanCopy(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2791,7 +2853,8 @@ namespace CustomControls
         #region Command: Paste
         protected virtual void CanPaste(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2844,8 +2907,10 @@ namespace CustomControls
 
         protected virtual void AddNextNode(IFolderPath destinationPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, Dictionary<ITreeNodePath, IFolderPath> parentTable, bool isUndoRedo)
         {
-            Assert.ValidateReference(pathTable);
-            Assert.ValidateReference(parentTable);
+            if (pathTable == null)
+                throw new ArgumentNullException(nameof(pathTable));
+            if (parentTable == null)
+                throw new ArgumentNullException(nameof(parentTable));
 
             if (parentTable.Count > 0)
             {
@@ -2891,7 +2956,8 @@ namespace CustomControls
 
         protected virtual void OnNodePastedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             NodePastedEventContext EventContext = (NodePastedEventContext)e.EventContext;
             INodePastedCompletionArgs CompletionArgs = (INodePastedCompletionArgs)e.CompletionArgs;
@@ -2937,7 +3003,8 @@ namespace CustomControls
         #region Command: Delete
         protected virtual void CanDelete(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             IDocument Document = dockManager.ActiveContent as IDocument;
             if (Document != null)
@@ -2968,7 +3035,8 @@ namespace CustomControls
 
         protected virtual void DeletePathList(IReadOnlyDictionary<ITreeNodePath, IPathConnection> deletedTree, bool isUndoRedo)
         {
-            Assert.ValidateReference(deletedTree);
+            if (deletedTree == null)
+                throw new ArgumentNullException(nameof(deletedTree));
 
             List<IDocument> ClosedDocumentList = new List<IDocument>();
             foreach (IDocument Document in OpenDocuments)
@@ -2997,7 +3065,8 @@ namespace CustomControls
 
         protected virtual void OnDocumentRemovedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             DocumentRemovedEventContext EventContext = (DocumentRemovedEventContext)e.EventContext;
             IReadOnlyDictionary<ITreeNodePath, IPathConnection> DeletedTree = EventContext.DeletedTree;
@@ -3016,7 +3085,8 @@ namespace CustomControls
         #region Command: Context / Delete Solution
         protected virtual void CanDeleteSolution(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (SolutionDeletedEventArgs.HasHandler)
                 e.CanExecute = true;
@@ -3054,7 +3124,8 @@ namespace CustomControls
         #region Command: Context / Rename
         protected virtual void CanRename(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (dockManager.ActiveContent == spcSolutionExplorer)
                 if (spcSolutionExplorer.ValidEditOperations.Rename)
@@ -3088,7 +3159,8 @@ namespace CustomControls
 
         protected virtual void OnNodeRenamedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             NodeRenamedEventContext EventContext = (NodeRenamedEventContext)e.EventContext;
             ITreeNodePath Path = EventContext.Path;
@@ -3107,7 +3179,8 @@ namespace CustomControls
 
         protected virtual void OnNodeMovedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             NodeMovedEventContext EventContext = (NodeMovedEventContext)e.EventContext;
             ITreeNodePath Path = EventContext.Path;
@@ -3142,7 +3215,8 @@ namespace CustomControls
         #region Command: Context / Properties
         protected virtual void CanEditProperties(object sender, CanExecuteRoutedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (SolutionMergedProperties.Count > 0)
                 e.CanExecute = true;
@@ -3271,7 +3345,8 @@ namespace CustomControls
 
         protected virtual CommitOption IsMultipleSaveConfirmed(CommitInfo info)
         {
-            Assert.ValidateReference(info);
+            if (info == null)
+                throw new ArgumentNullException(nameof(info));
 
             bool NoDocumentDirty = false;
             bool IsSolutionOnlyDirtyItem = false;
@@ -3322,7 +3397,8 @@ namespace CustomControls
 
         protected virtual CommitOption IsAllElementsSaveConfirmed(CommitInfo info)
         {
-            Assert.ValidateReference(info);
+            if (info == null)
+                throw new ArgumentNullException(nameof(info));
 
             SaveAllWindow Dlg = new SaveAllWindow();
             Dlg.Owner = Owner;
@@ -3376,7 +3452,8 @@ namespace CustomControls
 
         protected virtual CommitOption IsSingleDocumentSaveConfirmed(IDocument savedDocument)
         {
-            Assert.ValidateReference(savedDocument);
+            if (savedDocument == null)
+                throw new ArgumentNullException(nameof(savedDocument));
 
             string QuestionFormat = SolutionPresenterInternal.Properties.Resources.ConfirmSaveDocumentChanges;
             string Question = String.Format(CultureInfo.CurrentCulture, QuestionFormat, savedDocument.Path.HeaderName);
@@ -3551,7 +3628,8 @@ namespace CustomControls
 
         protected virtual void OnCommitComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             SolutionTreeCommittedEventContext EventContext = (SolutionTreeCommittedEventContext)e.EventContext;
             SolutionOperation SolutionOperation = EventContext.SolutionOperation;
@@ -3681,7 +3759,8 @@ namespace CustomControls
 
         protected virtual void OnFolderEnumeratedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             FolderEnumeratedEventContext EventContext = (FolderEnumeratedEventContext)e.EventContext;
             IFolderEnumeratedCompletionArgs CompletionArgs = (IFolderEnumeratedCompletionArgs)e.CompletionArgs;
@@ -3739,8 +3818,10 @@ namespace CustomControls
 
         protected virtual bool IsChildExpanded(ICollection<IFolderPath> expandedFolderList, IFolderPath folderPath)
         {
-            Assert.ValidateReference(expandedFolderList);
-            Assert.ValidateReference(folderPath);
+            if (expandedFolderList == null)
+                throw new ArgumentNullException(nameof(expandedFolderList));
+            if (folderPath == null)
+                throw new ArgumentNullException(nameof(folderPath));
 
             foreach (IFolderPath Path in ExpandedFolderList)
                 if (folderPath.IsEqual(Path))
@@ -3758,7 +3839,8 @@ namespace CustomControls
 
         protected virtual void OnErrorLineDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             ICompilationError Error;
             if ((Error = listviewCompilerOutput.SelectedItem as ICompilationError) != null)
@@ -3863,7 +3945,8 @@ namespace CustomControls
 
         protected virtual void InsertItem(Separator insertionSeparator, FrameworkElement childItem)
         {
-            Assert.ValidateReference(insertionSeparator);
+            if (insertionSeparator == null)
+                throw new ArgumentNullException(nameof(insertionSeparator));
 
             ItemsControl ParentCollection = (ItemsControl)insertionSeparator.Parent;
             int Index = ParentCollection.Items.IndexOf(insertionSeparator);
@@ -3872,8 +3955,10 @@ namespace CustomControls
 
         protected virtual bool ReplaceMenuItem(ItemCollection items, ICommand byCommand, MenuItem newItem)
         {
-            Assert.ValidateReference(items);
-            Assert.ValidateReference(newItem);
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+            if (newItem == null)
+                throw new ArgumentNullException(nameof(newItem));
 
             foreach (object Item in items)
             {
@@ -3899,8 +3984,10 @@ namespace CustomControls
 
         protected virtual bool ReinsertRemovedMenuItem(ItemCollection items, MenuItem removedMenuItem)
         {
-            Assert.ValidateReference(items);
-            Assert.ValidateReference(removedMenuItem);
+            if (items == null)
+                throw new ArgumentNullException(nameof(items));
+            if (removedMenuItem == null)
+                throw new ArgumentNullException(nameof(removedMenuItem));
 
             foreach (object Item in items)
             {

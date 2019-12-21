@@ -1,5 +1,6 @@
 ﻿using SolutionControlsInternal.Properties;
-using Verification;
+using System;
+using System.Diagnostics;
 
 namespace CustomControls
 {
@@ -9,9 +10,12 @@ namespace CustomControls
         public MoveOperation(ISolutionRoot root, ITreeNodePath path, ISolutionFolder oldParent, ISolutionFolder newParent)
             : base(root)
         {
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(oldParent);
-            Assert.ValidateReference(newParent);
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (oldParent == null)
+                throw new ArgumentNullException(nameof(oldParent));
+            if (newParent == null)
+                throw new ArgumentNullException(nameof(newParent));
 
             this.Path = path;
             this.OldParent = oldParent;
@@ -44,7 +48,7 @@ namespace CustomControls
         private void ChangeParent(ISolutionFolder oldParent, ISolutionFolder newParent)
         {
             ISolutionTreeNode Node = Root.FindTreeNode(Path);
-            Assert.CheckCondition(Node != null);
+            Debug.Assert(Node != null);
 
             ISolutionTreeNodeCollection OldChildrenCollection = (ISolutionTreeNodeCollection)oldParent.Children;
             OldChildrenCollection.Remove(Node);

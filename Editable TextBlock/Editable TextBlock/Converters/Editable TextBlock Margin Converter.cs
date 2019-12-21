@@ -3,7 +3,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using Verification;
 
 namespace Converters
 {
@@ -22,7 +21,8 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Assert.ValidateReference(values);
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
 
             if (values.Length > 4 && (values[0] is bool) && (values[1] is Thickness) && (values[2] is Thickness) && (values[3] is Thickness) && (values[4] is Thickness))
             {

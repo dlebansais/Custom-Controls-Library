@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using Verification;
+﻿using System;
+using System.Windows;
 
 namespace CustomControls
 {
@@ -9,9 +9,12 @@ namespace CustomControls
         public MovedEventArgs(RoutedEvent routedEvent, ITreeNodePath path, IFolderPath oldParentPath, IFolderPath newParentPath, bool isUndoRedo)
             : base(routedEvent)
         {
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(oldParentPath);
-            Assert.ValidateReference(newParentPath);
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (oldParentPath == null)
+                throw new ArgumentNullException(nameof(oldParentPath));
+            if (newParentPath == null)
+                throw new ArgumentNullException(nameof(newParentPath));
 
             this.Path = path;
             this.OldParentPath = oldParentPath;

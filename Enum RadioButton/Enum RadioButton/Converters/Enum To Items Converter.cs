@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using Verification;
 
 namespace Converters
 {
@@ -20,7 +19,8 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            Assert.ValidateReference(value);
+            if (value == null)
+                throw new ArgumentNullException(nameof(value));
 
             Type EnumType = value.GetType();
             if (EnumType.IsEnum)

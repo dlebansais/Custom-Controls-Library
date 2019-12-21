@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
-using Verification;
 
 namespace CustomControls
 {
@@ -53,7 +52,8 @@ namespace CustomControls
 
         private void UpdateLargestSize(SizeChangedEventArgs e)
         {
-            Assert.ValidateReference(e);
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
             if (e.WidthChanged && LargestWidth < e.NewSize.Width)
                 LargestWidth = e.NewSize.Width;

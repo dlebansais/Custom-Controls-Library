@@ -1,5 +1,5 @@
-﻿using System.Windows;
-using Verification;
+﻿using System;
+using System.Windows;
 
 namespace CustomControls
 {
@@ -9,9 +9,12 @@ namespace CustomControls
         public NameChangedEventArgs(RoutedEvent routedEvent, ITreeNodePath path, string oldName, string newName, bool isUndoRedo)
             : base(routedEvent)
         {
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(oldName);
-            Assert.ValidateReference(newName);
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (oldName == null)
+                throw new ArgumentNullException(nameof(oldName));
+            if (newName == null)
+                throw new ArgumentNullException(nameof(newName));
 
             this.Path = path;
             this.OldName = oldName;

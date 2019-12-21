@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-using Verification;
 
 namespace Converters
 {
@@ -12,7 +11,8 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Assert.ValidateReference(values);
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
 
             if (values.Length > 1 && (values[0] is ICommand) && (values[1] is FrameworkElement))
             {

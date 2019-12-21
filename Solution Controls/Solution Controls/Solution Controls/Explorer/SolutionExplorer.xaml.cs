@@ -14,7 +14,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Threading;
 using UndoRedo;
-using Verification;
 
 namespace CustomControls
 {
@@ -1258,7 +1257,8 @@ namespace CustomControls
         #region Undo/Redo
         private void ExpandNewNodes(SolutionExplorerOperation Operation)
         {
-            Assert.ValidateReference(Operation);
+            if (Operation == null)
+                throw new ArgumentNullException(nameof(Operation));
 
             Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new FollowOperationWithExpandHandler(OnFollowOperationWithExpand), Operation.ExpandedFolderList);
         }

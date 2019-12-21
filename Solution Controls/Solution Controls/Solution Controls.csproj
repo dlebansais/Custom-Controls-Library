@@ -173,7 +173,6 @@
     <Compile Include="Solution Controls\Tool Bar\SolutionToolBar.xaml.cs">
       <DependentUpon>SolutionToolBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tools\Assert.cs" />
     <Compile Include="Tree Nodes\Path\Document Path.cs" />
     <Compile Include="Tree Nodes\Path\Folder Path.cs" />
     <Compile Include="Tree Nodes\Path\Item Path.cs" />

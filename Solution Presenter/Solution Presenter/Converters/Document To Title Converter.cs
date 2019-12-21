@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows.Data;
-using Verification;
 
 namespace Converters
 {
@@ -9,7 +8,8 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Assert.ValidateReference(values);
+            if (values == null)
+                throw new ArgumentNullException(nameof(values));
 
             if (values.Length > 1 && (values[0] is string) && (values[1] is bool))
             {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Verification;
 
 namespace CustomControls
 {
@@ -14,7 +13,8 @@ namespace CustomControls
         #region Init
         internal ClipboardPathData(IPathGroup pathGroup)
         {
-            Assert.ValidateReference(pathGroup);
+            if (pathGroup == null)
+                throw new ArgumentNullException(nameof(pathGroup));
 
             PathTable = pathGroup.PathTable;
         }

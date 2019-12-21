@@ -1,5 +1,6 @@
 ﻿using SolutionControlsInternal.Properties;
-using Verification;
+using System;
+using System.Diagnostics;
 
 namespace CustomControls
 {
@@ -9,8 +10,10 @@ namespace CustomControls
         public RenameOperation(ISolutionRoot root, ITreeNodePath path, string newName)
             : base(root)
         {
-            Assert.ValidateReference(path);
-            Assert.ValidateReference(newName);
+            if (path == null)
+                throw new ArgumentNullException(nameof(path));
+            if (newName == null)
+                throw new ArgumentNullException(nameof(newName));
 
             this.Path = path;
             this.OldName = Path.FriendlyName;
@@ -43,7 +46,7 @@ namespace CustomControls
         private void ChangeName(string Name)
         {
             ISolutionTreeNode Node = Root.FindTreeNode(Path);
-            Assert.CheckCondition(Node != null);
+            Debug.Assert(Node != null);
 
             Node.ChangeName(Name);
         }

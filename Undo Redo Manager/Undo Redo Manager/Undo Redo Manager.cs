@@ -1,5 +1,6 @@
-﻿using System.Collections.ObjectModel;
-using Verification;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace UndoRedo
 {
@@ -84,7 +85,8 @@ namespace UndoRedo
         /// </summary>
         public virtual void AddOperation(IReversibleOperation operation)
         {
-            Assert.ValidateReference(operation);
+            if (operation == null)
+                throw new ArgumentNullException(nameof(operation));
 
             RedoList.Clear();
             UndoList.Insert(0, operation);
@@ -96,7 +98,8 @@ namespace UndoRedo
         /// </summary>
         public virtual void AddAndExecuteOperation(IReversibleOperation operation)
         {
-            Assert.ValidateReference(operation);
+            if (operation == null)
+                throw new ArgumentNullException(nameof(operation));
 
             RedoList.Clear();
             UndoList.Insert(0, operation);
@@ -110,7 +113,7 @@ namespace UndoRedo
         /// </summary>
         public virtual void Undo()
         {
-            Assert.CheckCondition(UndoList.Count > 0);
+            Debug.Assert(UndoList.Count > 0);
 
             IReversibleOperation Operation = UndoList[0];
             UndoList.RemoveAt(0);
@@ -125,7 +128,7 @@ namespace UndoRedo
         /// </summary>
         public virtual void Redo()
         {
-            Assert.CheckCondition(RedoList.Count > 0);
+            Debug.Assert(RedoList.Count > 0);
 
             IReversibleOperation Operation = RedoList[0];
             RedoList.RemoveAt(0);

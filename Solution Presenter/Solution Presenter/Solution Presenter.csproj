@@ -245,7 +245,6 @@
     </Compile>
     <Compile Include="Status\Avalon Status Theme.cs" />
     <Compile Include="Status\Localized Application Status.cs" />
-    <Compile Include="Tools\Assert.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Presenter\DocumentsWindow.xaml">
