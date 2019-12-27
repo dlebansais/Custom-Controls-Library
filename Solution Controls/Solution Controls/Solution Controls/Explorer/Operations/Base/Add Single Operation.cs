@@ -26,10 +26,11 @@ namespace CustomControls
             Add(PathTable);
             base.Redo();
 
-            ISolutionFolder ParentFolder = Root.FindTreeNode(DestinationFolderPath) as ISolutionFolder;
-            Debug.Assert(ParentFolder != null);
-
-            AddExpandedFolder(ParentFolder);
+            if (Root is ISolutionRoot AsValidRoot)
+            {
+                if (AsValidRoot.FindTreeNode(DestinationFolderPath) is ISolutionFolder ParentFolder)
+                    AddExpandedFolder(ParentFolder);
+            }
         }
 
         public override void Undo()

@@ -10,14 +10,14 @@ namespace CustomControls
     {
         public SolutionExportedCompletionArgs()
         {
-            this.ContentTable = null;
+            ContentTable = null;
         }
 
         public SolutionExportedCompletionArgs(Dictionary<IDocumentPath, byte[]> contentTable)
         {
-            this.ContentTable = contentTable;
+            ContentTable = contentTable;
         }
 
-        public Dictionary<IDocumentPath, byte[]> ContentTable { get; private set; }
+        public Dictionary<IDocumentPath, byte[]>? ContentTable { get; }
     }
 }

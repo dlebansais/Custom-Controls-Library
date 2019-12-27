@@ -11,41 +11,42 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values != null && values.Length > 1 && (values[0] is ICommand) && (values[1] is bool))
+            if (values != null && values.Length > 1 && (values[0] is ICommand Command) && (values[1] is bool CanShow))
             {
-                ICommand Command = (ICommand)values[0];
-                bool CanShow = (bool)values[1];
-                IDocument ActiveDocument = (values.Length > 2) ? (IDocument)values[2] : null;
+                bool IsVisible;
 
-                bool IsVisible = CanShow && GetItemVisibility(Command, ActiveDocument);
-                return IsVisible ? Visibility.Visible : Visibility.Collapsed;
+                if (values.Length > 2)
+                {
+                    if (values[2] is IDocument ActiveDocument)
+                        IsVisible = GetItemVisibility(Command, ActiveDocument);
+                    else
+                        throw new ArgumentOutOfRangeException(nameof(values));
+                }
+                else
+                    IsVisible = true;
+
+                return CanShow && IsVisible ? Visibility.Visible : Visibility.Collapsed;
             }
-
-            return null;
+            else
+                throw new ArgumentOutOfRangeException(nameof(values));
         }
 
         protected virtual bool GetItemVisibility(ICommand command, object activeDocument)
         {
-            ExtendedRoutedCommand AsExtendedCommand;
-            if ((AsExtendedCommand = command as ExtendedRoutedCommand) != null)
+            switch (command)
             {
-                if (AsExtendedCommand.CommandGroup != null)
-                    if (!AsExtendedCommand.CommandGroup.IsEnabled)
-                        return false;
-            }
-
-            if (command is ActiveDocumentRoutedCommand)
-            {
-                if (activeDocument == null)
+                default:
+                case ActiveDocumentRoutedCommand AsActiveDocumentRoutedCommand:
                     return true;
-            }
 
-            return true;
+                case ExtendedRoutedCommand AsExtendedCommand:
+                    return AsExtendedCommand.CommandGroup.IsEnabled;
+            }
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

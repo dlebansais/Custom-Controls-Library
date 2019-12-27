@@ -7,19 +7,17 @@ namespace Converters
     [ValueConversion(typeof(object), typeof(object))]
     public class NullToObjectConverter : IValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        public object Convert(object? value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
-
-            CompositeCollection CollectionOfItems = parameter as CompositeCollection;
-
-            return value != null ? CollectionOfItems[1] : CollectionOfItems[0];
+            if (parameter is CompositeCollection CollectionOfItems)
+                return value != null ? CollectionOfItems[1] : CollectionOfItems[0];
+            else
+                throw new ArgumentOutOfRangeException(nameof(parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

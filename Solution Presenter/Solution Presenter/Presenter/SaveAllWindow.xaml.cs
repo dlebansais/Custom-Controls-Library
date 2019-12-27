@@ -12,10 +12,6 @@ namespace CustomControls
             InitializeComponent();
             DataContext = this;
 
-            TitleList = new ObservableCollection<string>();
-            DirtySolutionName = null;
-            Result = MessageBoxResult.Cancel;
-
             Loaded += OnLoaded;
         }
 
@@ -25,9 +21,9 @@ namespace CustomControls
             Icon = Owner.Icon;
         }
 
-        public ObservableCollection<string> TitleList { get; private set; }
-        public string DirtySolutionName { get; set; }
-        public MessageBoxResult Result { get; private set; }
+        public ObservableCollection<string> TitleList { get; } = new ObservableCollection<string>();
+        public string DirtySolutionName { get; set; } = string.Empty;
+        public MessageBoxResult Result { get; private set; } = MessageBoxResult.Cancel;
 
         public string SaveText 
         {
@@ -36,7 +32,7 @@ namespace CustomControls
                 string Text = "";
                 string TabText = "";
 
-                if (DirtySolutionName != null)
+                if (DirtySolutionName.Length > 0)
                 {
                     Text += DirtySolutionName;
                     Text += "*";

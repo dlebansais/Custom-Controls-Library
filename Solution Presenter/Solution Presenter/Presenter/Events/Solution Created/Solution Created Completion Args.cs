@@ -2,21 +2,21 @@
 {
     internal interface ISolutionCreatedCompletionArgs
     {
-        IRootPath CreatedRootPath { get; }
+        IRootPath? CreatedRootPath { get; }
     }
 
     internal class SolutionCreatedCompletionArgs : ISolutionCreatedCompletionArgs
     {
         public SolutionCreatedCompletionArgs()
         {
-            this.CreatedRootPath = null;
+            CreatedRootPath = null;
         }
 
-        public SolutionCreatedCompletionArgs(IRootPath CreatedRootPath)
+        public SolutionCreatedCompletionArgs(IRootPath createdRootPath)
         {
-            this.CreatedRootPath = CreatedRootPath;
+            CreatedRootPath = createdRootPath;
         }
 
-        public IRootPath CreatedRootPath { get; private set; }
+        public IRootPath? CreatedRootPath { get; }
     }
 }

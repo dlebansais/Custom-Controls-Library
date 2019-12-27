@@ -9,18 +9,18 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
-
-            double DoubleValue = (double)value;
-            CompositeCollection CollectionOfItems = parameter as CompositeCollection;
-
-            return DoubleValue == 0 ? CollectionOfItems[0] : CollectionOfItems[1];
+            if (value is double AsDoubleValue)
+                if (parameter is CompositeCollection CollectionOfItems && CollectionOfItems.Count > 1)
+                    return AsDoubleValue == 0 ? CollectionOfItems[0] : CollectionOfItems[1];
+                else
+                    throw new ArgumentOutOfRangeException(nameof(parameter));
+            else
+                throw new ArgumentOutOfRangeException(nameof(value));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

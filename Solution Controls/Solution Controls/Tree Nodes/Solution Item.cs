@@ -1,4 +1,6 @@
-﻿namespace CustomControls
+﻿using System.Collections.Generic;
+
+namespace CustomControls
 {
     public interface ISolutionItem : ISolutionTreeNode
     {
@@ -14,7 +16,7 @@
         #endregion
 
         #region Properties
-        public override IExtendedTreeNodeCollection Children { get { return new SolutionTreeNodeCollection((ISolutionTreeNode)Parent, null); } }
+        public override IExtendedTreeNodeCollection Children { get { return new SolutionTreeNodeCollection(Parent as ISolutionTreeNode); } }
         #endregion
     }
 }

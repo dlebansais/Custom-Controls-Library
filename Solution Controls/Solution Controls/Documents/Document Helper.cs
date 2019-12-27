@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Input;
 
@@ -8,39 +9,36 @@ namespace CustomControls
     {
         public static string GetToolTipText(ICommand command, FrameworkElement source)
         {
-            string Text = null;
-            IDocument ActiveDocument;
+            string Text;
 
-            IActiveDocumentSource AsActiveDocumentSource;
-            if ((AsActiveDocumentSource = source as IActiveDocumentSource) != null)
-                ActiveDocument = AsActiveDocumentSource.ActiveDocument;
-            else
-                ActiveDocument = null;
-
-            ActiveDocumentRoutedCommand AsActiveDocumentCommand;
-            ExtendedRoutedCommand AsExtendedCommand;
-            RoutedUICommand AsUICommand;
-
-            if ((AsActiveDocumentCommand = command as ActiveDocumentRoutedCommand) != null)
+            switch (command)
             {
-                if (ActiveDocument == null)
-                    //Text = AsActiveDocumentCommand.GetLocalizedText(AsActiveDocumentCommand.InactiveToolTipKey);
-                    Text = AsActiveDocumentCommand.InactiveButtonToolTip;
-                else
-                {
-                    //string TextFormat = AsActiveDocumentCommand.GetLocalizedText(AsActiveDocumentCommand.ToolTipKey);
-                    string TextFormat = AsActiveDocumentCommand.ButtonToolTip;
-                    if (TextFormat != null)
-                        Text = string.Format(CultureInfo.CurrentCulture, TextFormat, ActiveDocument.Path.HeaderName);
-                }
+                case ActiveDocumentRoutedCommand AsActiveDocumentCommand:
+                    if (source is IActiveDocumentSource AsActiveDocumentSource)
+                    {
+                        if (AsActiveDocumentSource.ActiveDocument is IDocument ActiveDocument)
+                        {
+                            string TextFormat = AsActiveDocumentCommand.ButtonToolTip;
+                            Text = string.Format(CultureInfo.CurrentCulture, TextFormat, ActiveDocument.Path.HeaderName);
+                        }
+                        else
+                            Text = string.Empty;
+                    }
+                    else
+                        Text = AsActiveDocumentCommand.InactiveButtonToolTip;
+                    break;
+
+                case ExtendedRoutedCommand AsExtendedCommand:
+                    Text = AsExtendedCommand.ButtonToolTip;
+                    break;
+
+                case RoutedUICommand AsUICommand:
+                    Text = AsUICommand.Text;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
             }
-
-            else if ((AsExtendedCommand = command as ExtendedRoutedCommand) != null)
-                //Text = AsExtendedCommand.GetLocalizedText(AsExtendedCommand.ToolTipKey);
-                Text = AsExtendedCommand.ButtonToolTip;
-
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-                Text = AsUICommand.Text;
 
             return Text;
         }

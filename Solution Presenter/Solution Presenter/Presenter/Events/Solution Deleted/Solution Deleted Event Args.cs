@@ -16,7 +16,7 @@ namespace CustomControls
         }
 
         public IRootPath DeletedRootPath { get { return ((SolutionDeletedEventContext)EventContext).DeletedRootPath; } }
-        public IReadOnlyCollection<ITreeNodePath> DeletedTree { get { return ((SolutionDeletedEventContext)EventContext).DeletedTree; } }
+        public IReadOnlyCollection<ITreeNodePath>? DeletedTree { get { return ((SolutionDeletedEventContext)EventContext).DeletedTree; } }
 
         public virtual void NotifyCompleted()
         {

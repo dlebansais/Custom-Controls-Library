@@ -187,7 +187,7 @@ namespace CustomControls
         {
             InitializeComponent();
 
-            CompositeCollection DefaultZoomOptions = FindResource("DefaultZoomOptions") as CompositeCollection;
+            CompositeCollection DefaultZoomOptions = (CompositeCollection)FindResource("DefaultZoomOptions");
             Collection<double> ConvertedZoomOptions = new Collection<double>();
             for (int i = 0; i < DefaultZoomOptions.Count; i++)
                 ConvertedZoomOptions.Add((double)DefaultZoomOptions[i]);
@@ -261,14 +261,13 @@ namespace CustomControls
                 {
                     RowDefinition TopRow = gridInner.RowDefinitions[0];
                     RowDefinition BottomRow = gridInner.RowDefinitions[2];
-                    FrameworkElement TopChild = gridInner.Children[0] as FrameworkElement;
+                    FrameworkElement TopChild = (FrameworkElement)gridInner.Children[0];
 
-                    FrameworkElement scrollBottom;
-                    if ((scrollBottom = TopChild.FindName("comboZoom0") as FrameworkElement) != null)
+                    if (TopChild.FindName("comboZoom0") is FrameworkElement ScrollBottom)
                     {
-                        if (!double.IsNaN(scrollBottom.ActualHeight) && scrollBottom.ActualHeight > 0)
+                        if (!double.IsNaN(ScrollBottom.ActualHeight) && ScrollBottom.ActualHeight > 0)
                         {
-                            if (gridInner.ActualHeight > (2 * (scrollBottom.ActualHeight + splitterLine.Height)))
+                            if (gridInner.ActualHeight > (2 * (ScrollBottom.ActualHeight + splitterLine.Height)))
                             {
                                 IsTestSuccessful = true;
 
@@ -323,15 +322,15 @@ namespace CustomControls
         /// <summary>
         ///     Return the control at the specified row.
         /// </summary>
-        public FrameworkElement GetRowContent(int rowIndex)
+        public FrameworkElement? GetRowContent(int rowIndex)
         {
             ScrollViewer scrollViewer = (rowIndex == 0) ? viewer0 : viewer1;
-            ContentControl contentControl = scrollViewer.Content as ContentControl;
+            ContentControl contentControl = (ContentControl)scrollViewer.Content;
 
-            FrameworkElement rowContent;
+            FrameworkElement? rowContent;
             if (VisualTreeHelper.GetChildrenCount(contentControl) > 0)
             {
-                ContentPresenter contentPresenter = VisualTreeHelper.GetChild(contentControl, 0) as ContentPresenter;
+                ContentPresenter contentPresenter = (ContentPresenter)VisualTreeHelper.GetChild(contentControl, 0);
                 if (VisualTreeHelper.GetChildrenCount(contentPresenter) > 0)
                 {
                     rowContent = VisualTreeHelper.GetChild(contentPresenter, 0) as FrameworkElement;
@@ -349,14 +348,14 @@ namespace CustomControls
         #region Events
         private void OnContentControlLoaded(object sender, RoutedEventArgs e)
         {
-            ContentControl Content = sender as ContentControl;
+            ContentControl Content = (ContentControl)sender;
 
             if (VisualTreeHelper.GetChildrenCount(Content) > 0)
             {
-                ContentPresenter Presenter = VisualTreeHelper.GetChild(Content, 0) as ContentPresenter;
+                ContentPresenter Presenter = (ContentPresenter)VisualTreeHelper.GetChild(Content, 0);
                 if (VisualTreeHelper.GetChildrenCount(Presenter) > 0)
                 {
-                    FrameworkElement ViewContent = VisualTreeHelper.GetChild(Presenter, 0) as FrameworkElement;
+                    FrameworkElement ViewContent = (FrameworkElement)VisualTreeHelper.GetChild(Presenter, 0);
                     NotifyViewLoaded(ViewContent);
                 }
             }
@@ -364,10 +363,10 @@ namespace CustomControls
 
         private void OnContentControlUnloaded(object sender, RoutedEventArgs e)
         {
-            ContentControl Content = sender as ContentControl;
+            ContentControl Content = (ContentControl)sender;
 
-            ContentPresenter Presenter = VisualTreeHelper.GetChild(Content, 0) as ContentPresenter;
-            FrameworkElement ViewContent = VisualTreeHelper.GetChild(Presenter, 0) as FrameworkElement;
+            ContentPresenter Presenter = (ContentPresenter)VisualTreeHelper.GetChild(Content, 0);
+            FrameworkElement ViewContent = (FrameworkElement)VisualTreeHelper.GetChild(Presenter, 0);
             NotifyViewUnloaded(ViewContent);
         }
 
@@ -387,8 +386,7 @@ namespace CustomControls
         {
             Element.Height = AdjustedSize.Height;
 
-            ComboBox AsComboBox;
-            if ((AsComboBox = Element as ComboBox) != null)
+            if (Element is ComboBox AsComboBox)
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new UpdateIndexHandler(OnUpdateIndex), AsComboBox);
         }
 
@@ -412,7 +410,7 @@ namespace CustomControls
 
         private static void FixSiblingDimension(object sender, string SiblingName, UpdateLengthHandler Handler, SizeChangedEventHandler EventHandler)
         {
-            FrameworkElement SenderElement = sender as FrameworkElement;
+            FrameworkElement SenderElement = (FrameworkElement)sender;
             Size AdjustedSize = new Size(SenderElement.ActualWidth, SenderElement.ActualHeight);
 
             if ((!double.IsNaN(AdjustedSize.Width) && AdjustedSize.Width > 0) ||
@@ -420,29 +418,21 @@ namespace CustomControls
             {
                 FrameworkElement CurrentElement = SenderElement;
 
-                while (CurrentElement != null)
+                for (;;)
                 {
-                    Panel AsPanel;
-                    FrameworkElement AsFrameworkElement;
-
-                    if ((AsPanel = CurrentElement as Panel) != null)
+                    if (CurrentElement is Panel AsPanel)
                     {
-                        FrameworkElement AsSibling;
-                        if ((AsSibling = AsPanel.FindName(SiblingName) as FrameworkElement) != null)
-                        {
+                        if (AsPanel.FindName(SiblingName) is FrameworkElement AsSibling)
                             if (double.IsNaN(AsSibling.Height))
                             {
                                 SenderElement.SizeChanged -= EventHandler;
                                 Handler(AsSibling, AdjustedSize);
                             }
-                        }
 
                         break;
                     }
-
-                    else if ((AsFrameworkElement = CurrentElement.Parent as FrameworkElement) != null)
+                    else if (CurrentElement.Parent is FrameworkElement AsFrameworkElement)
                         CurrentElement = AsFrameworkElement;
-
                     else
                         break;
                 }
@@ -473,7 +463,7 @@ namespace CustomControls
 
         private void OnZoomChanged(object sender, ScrollViewer viewer)
         {
-            ComboBox ctrl = sender as ComboBox;
+            ComboBox ctrl = (ComboBox)sender;
             int SelectedIndex = ctrl.SelectedIndex;
 
             if (SelectedIndex >= 0 && SelectedIndex < ZoomOptions.Count)
@@ -482,13 +472,13 @@ namespace CustomControls
 
                 if (ZoomChangedEvent != null)
                 {
-                    ContentControl Content = viewer.Content as ContentControl;
+                    ContentControl Content = (ContentControl)viewer.Content;
                     if (VisualTreeHelper.GetChildrenCount(Content) > 0)
                     {
-                        ContentPresenter Presenter = VisualTreeHelper.GetChild(Content, 0) as ContentPresenter;
+                        ContentPresenter Presenter = (ContentPresenter)VisualTreeHelper.GetChild(Content, 0);
                         if (VisualTreeHelper.GetChildrenCount(Presenter) > 0)
                         {
-                            FrameworkElement ViewContent = VisualTreeHelper.GetChild(Presenter, 0) as FrameworkElement;
+                            FrameworkElement ViewContent = (FrameworkElement)VisualTreeHelper.GetChild(Presenter, 0);
                             NotifyZoomChanged(ViewContent, Zoom);
                         }
                     }
@@ -515,23 +505,20 @@ namespace CustomControls
             if (gridInner.RowDefinitions.Count > 0 && gridInner.Children.Count > 0)
             {
                 RowDefinition TopRow = gridInner.RowDefinitions[0];
-                FrameworkElement TopChild = gridInner.Children[0] as FrameworkElement;
+                FrameworkElement TopChild = (FrameworkElement)gridInner.Children[0];
 
                 if (!double.IsNaN(TopRow.ActualHeight) && TopRow.ActualHeight >= 0)
-                {
-                    FrameworkElement scrollBottom;
-                    if ((scrollBottom = TopChild.FindName("comboZoom0") as FrameworkElement) != null)
+                    if (TopChild.FindName("comboZoom0") is FrameworkElement ScrollBottom)
                     {
-                        if (!double.IsNaN(scrollBottom.ActualHeight) && scrollBottom.ActualHeight > 0)
+                        if (!double.IsNaN(ScrollBottom.ActualHeight) && ScrollBottom.ActualHeight > 0)
                         {
-                            if (TopRow.ActualHeight <= scrollBottom.ActualHeight + splitterLine.Height)
+                            if (TopRow.ActualHeight <= ScrollBottom.ActualHeight + splitterLine.Height)
                             {
                                 TopRow.Height = new GridLength(0, GridUnitType.Star);
                                 IsTopRowVisible = false;
                             }
                         }
                     }
-                }
             }
 
             if (IsTopRowVisible != OldIsVisible)
@@ -546,7 +533,7 @@ namespace CustomControls
         /// <summary>
         ///     Implements the PropertyChanged event.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         internal void NotifyPropertyChanged(string propertyName)
         {

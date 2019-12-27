@@ -14,11 +14,11 @@ namespace CustomControls
 
         protected object EventContext { get; private set; }
 
-        public event EventHandler<SolutionPresenterEventCompletedEventArgs> EventCompleted;
+        public event EventHandler<SolutionPresenterEventCompletedEventArgs>? EventCompleted;
 
         protected virtual void NotifyEventCompleted(object completionArgs)
         {
-            EventCompleted(this, new SolutionPresenterEventCompletedEventArgs(EventContext, completionArgs));
+            EventCompleted?.Invoke(this, new SolutionPresenterEventCompletedEventArgs(EventContext, completionArgs));
         }
 
         protected virtual void NotifyEventCompletedAsync(Dispatcher dispatcher, object completionArgs)
@@ -32,7 +32,7 @@ namespace CustomControls
         protected delegate void NotifyEventCompletedAsyncHandler(object completionArgs);
         protected virtual void OnNotifyEventCompletedAsync(object completionArgs)
         {
-            EventCompleted(this, new SolutionPresenterEventCompletedEventArgs(EventContext, completionArgs));
+            EventCompleted?.Invoke(this, new SolutionPresenterEventCompletedEventArgs(EventContext, completionArgs));
         }
     }
 }

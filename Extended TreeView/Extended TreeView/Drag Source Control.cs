@@ -9,13 +9,13 @@ namespace CustomControls
     public interface IDragSourceControl
     {
         FrameworkElement SourceControl { get; }
-        ExtendedTreeViewItemBase SourceContainer { get; }
-        MouseEventArgs SourceLocation { get; }
-        object DragParentItem { get; }
+        ExtendedTreeViewItemBase? SourceContainer { get; }
+        MouseEventArgs? SourceLocation { get; }
+        object? DragParentItem { get; }
         bool AllowDropCopy { get; }
-        object RootItem { get; }
-        IList ItemList { get; }
-        IList FlatItemList { get; }
+        object? RootItem { get; }
+        IList? ItemList { get; }
+        IList? FlatItemList { get; }
         Guid SourceGuid { get; }
         DragActivity DragActivity { get; }
         event EventHandler<EventArgs> DragActivityChanged;
@@ -33,7 +33,7 @@ namespace CustomControls
 
         public DragSourceControl(FrameworkElement sourceControl)
         {
-            this.SourceControl = sourceControl;
+            SourceControl = sourceControl;
 
             SourceContainer = null;
             SourceLocation = null;
@@ -48,39 +48,38 @@ namespace CustomControls
         }
 
         public FrameworkElement SourceControl { get; private set; }
-        public ExtendedTreeViewItemBase SourceContainer { get; private set; }
-        public MouseEventArgs SourceLocation { get; private set; }
-        public object DragParentItem { get; private set; }
+        public ExtendedTreeViewItemBase? SourceContainer { get; private set; }
+        public MouseEventArgs? SourceLocation { get; private set; }
+        public object? DragParentItem { get; private set; }
         public bool AllowDropCopy { get; private set; }
-        public object RootItem { get; private set; }
-        public IList ItemList { get; private set; }
-        public IList FlatItemList { get; private set; }
+        public object? RootItem { get; private set; }
+        public IList? ItemList { get; private set; }
+        public IList? FlatItemList { get; private set; }
         public Guid SourceGuid { get; private set; }
         public DragActivity DragActivity { get; private set; }
 
-        private DispatcherOperation InitiateDragOperation;
+        private DispatcherOperation? InitiateDragOperation;
 
-        public event EventHandler<EventArgs> DragActivityChanged;
+        public event EventHandler<EventArgs>? DragActivityChanged;
         protected void NotifyDragActivityChanged()
         {
-            if (DragActivityChanged != null)
-                DragActivityChanged(this, EventArgs.Empty);
+            DragActivityChanged?.Invoke(this, EventArgs.Empty);
         }
 
         public virtual void SetIsDragPossible(CanonicSelection canonicSelectedItemList)
         {
             if (canonicSelectedItemList != null)
             {
-                this.DragParentItem = canonicSelectedItemList.DraggedItemParent;
-                this.ItemList = canonicSelectedItemList.ItemList;
-                this.AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
+                DragParentItem = canonicSelectedItemList.DraggedItemParent;
+                ItemList = canonicSelectedItemList.ItemList;
+                AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
             }
         }
 
         public virtual void ClearIsDragPossible()
         {
-            this.DragParentItem = null;
-            this.AllowDropCopy = false;
+            DragParentItem = null;
+            AllowDropCopy = false;
         }
 
         public virtual bool IsDragPossible()
@@ -90,7 +89,7 @@ namespace CustomControls
 
         public virtual void DragAfterMouseMove(MouseEventArgs sourceLocation)
         {
-            this.SourceLocation = sourceLocation;
+            SourceLocation = sourceLocation;
 
             InitiateDrag();
         }

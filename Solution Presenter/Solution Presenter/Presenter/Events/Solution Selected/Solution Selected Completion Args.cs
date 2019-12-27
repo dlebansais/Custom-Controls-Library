@@ -2,21 +2,20 @@
 {
     internal interface ISolutionSelectedCompletionArgs
     {
-        IRootPath SelectedRootPath { get; }
+        IRootPath? SelectedRootPath { get; }
     }
 
     internal class SolutionSelectedCompletionArgs : ISolutionSelectedCompletionArgs
     {
         public SolutionSelectedCompletionArgs()
         {
-            this.SelectedRootPath = null;
         }
 
-        public SolutionSelectedCompletionArgs(IRootPath SelectedRootPath)
+        public SolutionSelectedCompletionArgs(IRootPath selectedRootPath)
         {
-            this.SelectedRootPath = SelectedRootPath;
+            SelectedRootPath = selectedRootPath;
         }
 
-        public IRootPath SelectedRootPath { get; private set; }
+        public IRootPath? SelectedRootPath { get; }
     }
 }

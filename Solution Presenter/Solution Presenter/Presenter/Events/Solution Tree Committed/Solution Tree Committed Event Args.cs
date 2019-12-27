@@ -16,9 +16,9 @@ namespace CustomControls
         {
         }
 
-        public IReadOnlyList<ITreeNodePath> DirtyItemList { get { return (IReadOnlyList<ITreeNodePath>)((SolutionTreeCommittedEventContext)EventContext).Info.DirtyItemList; } }
-        public IReadOnlyList<ITreeNodePath> DirtyPropertiesList { get { return (IReadOnlyList<ITreeNodePath>)((SolutionTreeCommittedEventContext)EventContext).Info.DirtyPropertiesList; } }
-        public IReadOnlyList<IDocument> DirtyDocumentList { get { return (IReadOnlyList<IDocument>)((SolutionTreeCommittedEventContext)EventContext).Info.DirtyDocumentList; } }
+        public IReadOnlyList<ITreeNodePath>? DirtyItemList { get { return (IReadOnlyList<ITreeNodePath>?)((SolutionTreeCommittedEventContext)EventContext).Info.DirtyItemList; } }
+        public IReadOnlyList<ITreeNodePath>? DirtyPropertiesList { get { return (IReadOnlyList<ITreeNodePath>?)((SolutionTreeCommittedEventContext)EventContext).Info.DirtyPropertiesList; } }
+        public IReadOnlyList<IDocument>? DirtyDocumentList { get { return (IReadOnlyList<IDocument>?)((SolutionTreeCommittedEventContext)EventContext).Info.DirtyDocumentList; } }
 
         public virtual void NotifyCompletedAsync(Dispatcher dispatcher)
         {

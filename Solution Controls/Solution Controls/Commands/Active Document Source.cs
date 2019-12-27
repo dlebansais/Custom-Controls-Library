@@ -2,6 +2,6 @@
 {
     public interface IActiveDocumentSource
     {
-        IDocument ActiveDocument { get; }
+        IDocument? ActiveDocument { get; }
     }
 }

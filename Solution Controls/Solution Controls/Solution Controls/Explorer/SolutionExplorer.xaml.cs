@@ -57,7 +57,7 @@ namespace CustomControls
         }
         #endregion
         #region Undo Redo Manager
-        public static readonly DependencyProperty UndoRedoManagerProperty = DependencyProperty.Register("UndoRedoManager", typeof(UndoRedoManager), typeof(SolutionExplorer), new PropertyMetadata(null));
+        public static readonly DependencyProperty UndoRedoManagerProperty = DependencyProperty.Register("UndoRedoManager", typeof(UndoRedoManager), typeof(SolutionExplorer), new PropertyMetadata(new UndoRedoManager()));
 
         public UndoRedoManager UndoRedoManager
         {
@@ -236,7 +236,13 @@ namespace CustomControls
         #region Properties
         public ISolutionRoot Root
         {
-            get { return _Root; }
+            get 
+            {
+                if (_Root != null)
+                    return _Root;
+                else
+                    throw new InvalidOperationException();
+            }
             set 
             {
                 if (_Root != value)
@@ -246,7 +252,7 @@ namespace CustomControls
                 }
             }
         }
-        private ISolutionRoot _Root;
+        private ISolutionRoot? _Root;
 
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> SelectedNodes
         {
@@ -258,8 +264,8 @@ namespace CustomControls
                     if (PathTable.ContainsKey(Child.Path))
                         continue;
 
-                    ISolutionFolder ParentFolder = Child.Parent as ISolutionFolder;
-                    IFolderPath ParentPath = ParentFolder != null ? (IFolderPath)ParentFolder.Path : null;
+                    ISolutionFolder? ParentFolder = Child.Parent as ISolutionFolder;
+                    IFolderPath? ParentPath = ParentFolder != null ? (IFolderPath)ParentFolder.Path : null;
                     PathTable.Add(Child.Path, new PathConnection(ParentPath, Child.Properties, treeviewSolutionExplorer.IsExpanded(Child)));
                 }
 
@@ -285,13 +291,12 @@ namespace CustomControls
                 if (PathConnectionTable.ContainsKey(Child.Path))
                     continue;
 
-                ISolutionFolder ParentFolder = Child.Parent as ISolutionFolder;
-                IFolderPath ParentPath = ParentFolder != null ? (IFolderPath)ParentFolder.Path : null;
+                ISolutionFolder? ParentFolder = Child.Parent as ISolutionFolder;
+                IFolderPath? ParentPath = ParentFolder != null ? (IFolderPath)ParentFolder.Path : null;
 
                 PathConnectionTable.Add(Child.Path, new PathConnection(ParentPath, Child.Properties, treeviewSolutionExplorer.IsExpanded(Child)));
 
-                ISolutionFolder AsFolder;
-                if ((AsFolder = Child as ISolutionFolder) != null)
+                if (Child is ISolutionFolder AsFolder)
                     RecursiveGetTree(AsFolder.Children, PathConnectionTable);
             }
         }
@@ -366,10 +371,10 @@ namespace CustomControls
                 bool CanCutOrCopy = treeviewSolutionExplorer.IsCopyPossible;
 
                 bool CanPaste;
-                IDataObject DataObject = Clipboard.GetDataObject();
+                IDataObject? DataObject = Clipboard.GetDataObject();
                 if (DataObject != null)
                 {
-                    ClipboardPathData Data = DataObject.GetData(ClipboardPathData.SolutionExplorerClipboardPathFormat) as ClipboardPathData;
+                    ClipboardPathData? Data = DataObject.GetData(ClipboardPathData.SolutionExplorerClipboardPathFormat) as ClipboardPathData;
                     CanPaste = (Data != null);
                 }
                 else
@@ -391,8 +396,7 @@ namespace CustomControls
                     if (Item == Root)
                         continue;
 
-                    IFolderPath AsFolderPath;
-                    if ((AsFolderPath = Item.Path as IFolderPath) != null)
+                    if (Item.Path is IFolderPath AsFolderPath)
                         if (treeviewSolutionExplorer.IsExpanded(Item))
                             Result.Add(AsFolderPath);
                 }
@@ -401,7 +405,7 @@ namespace CustomControls
             }
         }
 
-        public ITreeNodePath ItemAfterLastSelected
+        public ITreeNodePath? ItemAfterLastSelected
         {
             get
             {
@@ -419,18 +423,13 @@ namespace CustomControls
             }
         }
 
-        public IFolderPath SelectedFolder
+        public IFolderPath? SelectedFolder
         {
             get
             {
                 if (treeviewSolutionExplorer.SelectedItems.Count == 1)
-                {
-                    ISolutionFolder AsFolder;
-                    if ((AsFolder = treeviewSolutionExplorer.SelectedItems[0] as ISolutionFolder) != null)
-                    {
+                    if (treeviewSolutionExplorer.SelectedItems[0] is ISolutionFolder AsFolder)
                         return (IFolderPath)AsFolder.Path;
-                    }
-                }
 
                 return null;
             }
@@ -447,14 +446,16 @@ namespace CustomControls
 
             foreach (ISolutionTreeNode Child in Folder.Children)
             {
-                ISolutionFolder AsFolder;
-                ISolutionItem AsItem;
+                switch (Child)
+                {
+                    case ISolutionFolder AsFolder:
+                        Result.AddRange(GetFlatChildrenItems(AsFolder));
+                        break;
 
-                if ((AsFolder = Child as ISolutionFolder) != null)
-                    Result.AddRange(GetFlatChildrenItems(AsFolder));
-
-                else if ((AsItem = Child as ISolutionItem) != null)
-                    Result.Add(AsItem.Path as IItemPath);
+                    case ISolutionItem AsItem:
+                        Result.Add((IItemPath)AsItem.Path);
+                        break;
+                }
             }
 
             return Result;
@@ -472,12 +473,12 @@ namespace CustomControls
 
         public bool CanUndo
         {
-            get { return UndoRedoManager != null && UndoRedoManager.CanUndo; }
+            get { return UndoRedoManager.CanUndo; }
         }
 
         public bool CanRedo
         {
-            get { return UndoRedoManager != null && UndoRedoManager.CanRedo; }
+            get { return UndoRedoManager.CanRedo; }
         }
         #endregion
 
@@ -488,9 +489,10 @@ namespace CustomControls
             SetValue(RootPropertiesPropertyKey, null);
             SetValue(TreeNodeComparerPropertyKey, null);
 
-            Root = null;
-            if (UndoRedoManager != null)
-                UndoRedoManager.Reset();
+            _Root = null;
+            NotifyThisPropertyChanged();
+
+            UndoRedoManager.Reset();
         }
 
         public void SetRoot(IRootPath newRootPath, IRootProperties newRootProperties, IComparer<ITreeNodePath> newComparer)
@@ -500,8 +502,7 @@ namespace CustomControls
             SetValue(TreeNodeComparerPropertyKey, newComparer);
 
             Root = CreateSolutionRoot(newRootPath, newRootProperties, newComparer);
-            if (UndoRedoManager != null)
-                UndoRedoManager.Reset();
+            UndoRedoManager.Reset();
         }
 
         protected virtual ISolutionRoot CreateSolutionRoot(IRootPath path, IRootProperties properties, IComparer<ITreeNodePath> comparer)
@@ -520,14 +521,9 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(path));
 
             RenameOperation Operation = new RenameOperation(Root, path, newName);
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.AddAndExecuteOperation(Operation);
-                Operation.Redone += OnRenameRedone;
-                Operation.Undone += OnRenameUndone;
-            }
-            else
-                Operation.Redo();
+            UndoRedoManager.AddAndExecuteOperation(Operation);
+            Operation.Redone += OnRenameRedone;
+            Operation.Undone += OnRenameUndone;
         }
 
         private void OnRenameRedone(object sender, RoutedEventArgs e)
@@ -544,35 +540,30 @@ namespace CustomControls
 
         public void Move(ITreeNodePath path, IFolderPath destinationPath)
         {
-            ISolutionTreeNode Node = Root.FindTreeNode(path);
-            ISolutionFolder OldParent = Node.Parent as ISolutionFolder;
+            ISolutionTreeNode? Node = Root.FindTreeNode(path);
+            ISolutionFolder? OldParent = Node?.Parent as ISolutionFolder;
 
             IFolderPath newParentPath = destinationPath;
-            ISolutionFolder NewParent = Root.FindTreeNode(newParentPath) as ISolutionFolder;
+            ISolutionFolder? NewParent = Root.FindTreeNode(newParentPath) as ISolutionFolder;
             if (Node != null && OldParent != null && NewParent != null)
             {
                 MoveOperation Operation = new MoveOperation(Root, path, OldParent, NewParent);
-                if (UndoRedoManager != null)
-                {
-                    UndoRedoManager.AddAndExecuteOperation(Operation);
-                    Operation.Redone += OnMoveRedone;
-                    Operation.Undone += OnMoveUndone;
-                }
-                else
-                    UndoRedoManager.Redo();
+                UndoRedoManager.AddAndExecuteOperation(Operation);
+                Operation.Redone += OnMoveRedone;
+                Operation.Undone += OnMoveUndone;
             }
         }
 
         private void OnMoveUndone(object sender, RoutedEventArgs e)
         {
             MoveOperation Operation = (MoveOperation)sender;
-            NotifyMoved(Operation.Path, Operation.NewParent.Path as IFolderPath, Operation.OldParent.Path as IFolderPath, true);
+            NotifyMoved(Operation.Path, (IFolderPath)Operation.NewParent.Path, (IFolderPath)Operation.OldParent.Path, true);
         }
 
         private void OnMoveRedone(object sender, RoutedEventArgs e)
         {
             MoveOperation Operation = (MoveOperation)sender;
-            NotifyMoved(Operation.Path, Operation.OldParent.Path as IFolderPath, Operation.NewParent.Path as IFolderPath, true);
+            NotifyMoved(Operation.Path, (IFolderPath)Operation.OldParent.Path, (IFolderPath)Operation.NewParent.Path, true);
         }
 
         public void ExpandFolder(IFolderPath folder)
@@ -591,7 +582,7 @@ namespace CustomControls
             }
         }
 
-        public static ClipboardPathData ReadClipboard()
+        public static ClipboardPathData? ReadClipboard()
         {
             IDataObject DataObject = Clipboard.GetDataObject();
             if (DataObject != null)
@@ -602,20 +593,14 @@ namespace CustomControls
 
         public void Undo()
         {
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.Undo();
-                ExpandNewNodes(UndoRedoManager.LastOperation as SolutionExplorerOperation);
-            }
+            UndoRedoManager.Undo();
+            ExpandNewNodes((SolutionExplorerOperation)UndoRedoManager.LastOperation);
         }
 
         public void Redo()
         {
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.Redo();
-                ExpandNewNodes(UndoRedoManager.LastOperation as SolutionExplorerOperation);
-            }
+            UndoRedoManager.Redo();
+            ExpandNewNodes((SolutionExplorerOperation)UndoRedoManager.LastOperation);
         }
 
         public void SelectAll()
@@ -626,14 +611,9 @@ namespace CustomControls
         public void AddFolder(IFolderPath destinationFolderPath, IFolderPath newFolderPath, IFolderProperties newFolderProperties)
         {
             AddFolderOperation Operation = new AddFolderOperation(Root, destinationFolderPath, newFolderPath, newFolderProperties);
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.AddAndExecuteOperation(Operation);
-                Operation.Redone += OnAddRemoveRedone;
-                Operation.Undone += OnAddRemoveUndone;
-            }
-            else
-                Operation.Redo();
+            UndoRedoManager.AddAndExecuteOperation(Operation);
+            Operation.Redone += OnAddRemoveRedone;
+            Operation.Undone += OnAddRemoveUndone;
 
             ExpandNewNodes(Operation);
         }
@@ -641,14 +621,9 @@ namespace CustomControls
         public void AddItem(IFolderPath destinationFolderPath, IItemPath newItemPath, IItemProperties newItemProperties)
         {
             AddItemOperation Operation = new AddItemOperation(Root, destinationFolderPath, newItemPath, newItemProperties);
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.AddAndExecuteOperation(Operation);
-                Operation.Redone += OnAddRemoveRedone;
-                Operation.Undone += OnAddRemoveUndone;
-            }
-            else
-                Operation.Redo();
+            UndoRedoManager.AddAndExecuteOperation(Operation);
+            Operation.Redone += OnAddRemoveRedone;
+            Operation.Undone += OnAddRemoveUndone;
 
             ExpandNewNodes(Operation);
         }
@@ -656,14 +631,9 @@ namespace CustomControls
         public void AddTree(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             AddTreeOperation Operation = new AddTreeOperation(Root, pathTable);
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.AddAndExecuteOperation(Operation);
-                Operation.Redone += OnAddRemoveRedone;
-                Operation.Undone += OnAddRemoveUndone;
-            }
-            else
-                Operation.Redo();
+            UndoRedoManager.AddAndExecuteOperation(Operation);
+            Operation.Redone += OnAddRemoveRedone;
+            Operation.Undone += OnAddRemoveUndone;
 
             ExpandNewNodes(Operation);
         }
@@ -671,14 +641,9 @@ namespace CustomControls
         public void DeleteTree(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             RemoveTreeOperation Operation = new RemoveTreeOperation(Root, pathTable);
-            if (UndoRedoManager != null)
-            {
-                UndoRedoManager.AddAndExecuteOperation(Operation);
-                Operation.Redone += OnAddRemoveRedone;
-                Operation.Undone += OnAddRemoveUndone;
-            }
-            else
-                Operation.Redo();
+            UndoRedoManager.AddAndExecuteOperation(Operation);
+            Operation.Redone += OnAddRemoveRedone;
+            Operation.Undone += OnAddRemoveUndone;
         }
 
         private void OnAddRemoveRedone(object sender, RoutedEventArgs e)
@@ -697,7 +662,7 @@ namespace CustomControls
         {
             treeviewSolutionExplorer.UnselectAll();
 
-            ISolutionTreeNode TreeNode = Root.FindTreeNode(path);
+            ISolutionTreeNode? TreeNode = Root.FindTreeNode(path);
             if (TreeNode != null)
             {
                 treeviewSolutionExplorer.SetSelected(TreeNode);
@@ -718,8 +683,7 @@ namespace CustomControls
             if (folder != null)
                 foreach (ISolutionTreeNode Child in folder.Children)
                 {
-                    ISolutionFolder AsFolder;
-                    if ((AsFolder = Child as ISolutionFolder) != null)
+                    if (Child is ISolutionFolder AsFolder)
                         ClearDirtyItemsAndProperties(AsFolder);
                     else
                         ClearNodeDirtyItemsAndProperties(Child);
@@ -751,48 +715,40 @@ namespace CustomControls
             Dictionary<ITreeNodePath, IPathConnection> Result = new Dictionary<ITreeNodePath, IPathConnection>();
 
             foreach (ISolutionTreeNode Child in Folder.Children)
-            {
-                ISolutionFolder AsFolder;
-                ISolutionItem AsItem;
-
-                if ((AsFolder = Child as ISolutionFolder) != null)
+                switch (Child)
                 {
-                    IReadOnlyDictionary<ITreeNodePath, IPathConnection> InnerTree = FindItemsByDocumentPath(AsFolder, DocumentPathList);
-                    foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in InnerTree)
-                        Result.Add(Entry.Key, Entry.Value);
-                }
+                    case ISolutionFolder AsFolder:
+                        IReadOnlyDictionary<ITreeNodePath, IPathConnection> InnerTree = FindItemsByDocumentPath(AsFolder, DocumentPathList);
+                        foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in InnerTree)
+                            Result.Add(Entry.Key, Entry.Value);
+                        break;
 
-                else if ((AsItem = Child as ISolutionItem) != null)
-                {
-                    IItemPath ItemPath = (IItemPath)AsItem.Path;
-                    foreach (IDocumentPath DocumentPath in DocumentPathList)
-                        if (ItemPath.DocumentPath.IsEqual(DocumentPath))
-                        {
-                            ISolutionFolder ParentFolder = Child.Parent as ISolutionFolder;
-                            Result.Add(Child.Path, new PathConnection((IFolderPath)ParentFolder.Path, Child.Properties, treeviewSolutionExplorer.IsExpanded(Child)));
-                            break;
-                        }
+                    case ISolutionItem AsItem:
+                        IItemPath ItemPath = (IItemPath)AsItem.Path;
+                        foreach (IDocumentPath DocumentPath in DocumentPathList)
+                            if (ItemPath.DocumentPath.IsEqual(DocumentPath))
+                            {
+                                if (Child.Parent is ISolutionFolder ParentFolder)
+                                    Result.Add(Child.Path, new PathConnection((IFolderPath)ParentFolder.Path, Child.Properties, treeviewSolutionExplorer.IsExpanded(Child)));
+                                break;
+                            }
+                        break;
                 }
-            }
 
             return Result;
         }
 
-        public IItemProperties GetItemProperties(IItemPath path)
+        public IItemProperties? GetItemProperties(IItemPath path)
         {
-            IItemPath ItemPath = path;
-            ISolutionItem Item = Root.FindTreeNode(ItemPath) as ISolutionItem;
-            if (Item != null)
+            if (Root.FindTreeNode(path) is ISolutionItem Item)
                 return Item.Properties as IItemProperties;
             else
                 return null;
         }
 
-        public IReadOnlyCollection<ITreeNodePath> GetChildren(IFolderPath folderPath)
+        public IReadOnlyCollection<ITreeNodePath>? GetChildren(IFolderPath folderPath)
         {
-            IFolderPath ParentFolderPath = folderPath;
-            ISolutionFolder ParentFolder = Root.FindTreeNode(ParentFolderPath) as ISolutionFolder;
-            if (ParentFolder != null)
+            if (Root.FindTreeNode(folderPath) is ISolutionFolder ParentFolder)
             {
                 Collection<ITreeNodePath> Result = new Collection<ITreeNodePath>();
 
@@ -805,11 +761,9 @@ namespace CustomControls
                 return null;
         }
 
-        public IReadOnlyCollection<ITreeNodePath> GetTree(IFolderPath folderPath)
+        public IReadOnlyCollection<ITreeNodePath>? GetTree(IFolderPath folderPath)
         {
-            IFolderPath ParentFolderPath = folderPath;
-            ISolutionFolder ParentFolder = Root.FindTreeNode(ParentFolderPath) as ISolutionFolder;
-            if (ParentFolder != null)
+            if (Root.FindTreeNode(folderPath) is ISolutionFolder ParentFolder)
                 return GetTree(ParentFolder);
             else
                 return null;
@@ -821,9 +775,7 @@ namespace CustomControls
             Result.Add(ParentFolder.Path);
 
             foreach (SolutionTreeNode Child in ParentFolder.Children)
-            {
-                ISolutionFolder AsFolder;
-                if ((AsFolder = Child as ISolutionFolder) != null)
+                if (Child is ISolutionFolder AsFolder)
                 {
                     IReadOnlyCollection<ITreeNodePath> InnerTree = GetTree(AsFolder);
                     foreach (ITreeNodePath Path in InnerTree)
@@ -831,50 +783,41 @@ namespace CustomControls
                 }
                 else
                     Result.Add(Child.Path);
-            }
 
             return Result;
         }
 
-        public ITreeNodePath GetEventSource(object sender, RoutedEventArgs e)
+        public ITreeNodePath? GetEventSource(object sender, RoutedEventArgs e)
         {
-            if (e != null)
-            {
-                FrameworkElement SourceElement;
-                if ((SourceElement = e.OriginalSource as FrameworkElement) != null)
-                {
-                    ISolutionTreeNode AsTreeNode;
-                    if ((AsTreeNode = SourceElement.DataContext as ISolutionTreeNode) != null)
-                        return AsTreeNode.Path;
-                }
-            }
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
+
+            if (e.OriginalSource is FrameworkElement SourceElement)
+                if (SourceElement.DataContext is ISolutionTreeNode AsTreeNode)
+                    return AsTreeNode.Path;
 
             return null;
         }
 
         public void TriggerRename()
         {
-            ExtendedTreeViewItemBase AsItemBase;
-            if ((AsItemBase = Keyboard.FocusedElement as ExtendedTreeViewItemBase) != null)
+            if (Keyboard.FocusedElement is ExtendedTreeViewItemBase AsItemBase)
             {
                 DependencyObject RootObject = VisualTreeHelper.GetChild(AsItemBase, 0);
-                EditableTextBlock Ctrl = FindEditableTextBlock(RootObject);
-                if (Ctrl != null)
+                if (FindEditableTextBlock(RootObject) is EditableTextBlock Ctrl)
                     Ctrl.IsEditing = true;
             }
         }
 
-        private EditableTextBlock FindEditableTextBlock(DependencyObject RootObject)
+        private EditableTextBlock? FindEditableTextBlock(DependencyObject RootObject)
         {
-            EditableTextBlock AsEditableTextBlock;
-            if ((AsEditableTextBlock = RootObject as EditableTextBlock) != null)
+            if (RootObject is EditableTextBlock AsEditableTextBlock)
                 return AsEditableTextBlock;
 
             int Count = VisualTreeHelper.GetChildrenCount(RootObject);
             for (int i = 0; i < Count; i++)
             {
-                EditableTextBlock ChildEdit = FindEditableTextBlock(VisualTreeHelper.GetChild(RootObject, i));
-                if (ChildEdit != null)
+                if (FindEditableTextBlock(VisualTreeHelper.GetChild(RootObject, i)) is EditableTextBlock ChildEdit)
                     return ChildEdit;
             }
 
@@ -883,8 +826,7 @@ namespace CustomControls
 
         public void ResetUndoRedo()
         {
-            if (UndoRedoManager != null)
-                UndoRedoManager.Reset();
+            UndoRedoManager.Reset();
         }
 
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "If you think it's ok to dispose of my object, then I think it's ok to dispose of it twice, so FO")]
@@ -903,19 +845,19 @@ namespace CustomControls
         {
             foreach (SolutionTreeNode Child in ParentFolder.Children)
             {
-                ISolutionFolder AsFolder;
-                ISolutionItem AsItem;
-
-                if ((AsFolder = Child as ISolutionFolder) != null)
+                switch (Child)
                 {
-                    string InnerFolderPath = FolderPathIn + AsFolder.Name;
-                    //Archive.CreateEntry(InnerFolderPath);
+                    case ISolutionFolder AsFolder:
+                        string InnerFolderPath = FolderPathIn + AsFolder.Name;
+                        //Archive.CreateEntry(InnerFolderPath);
 
-                    InsertNodeContent(Archive, InnerFolderPath + @"\", AsFolder, ContentTable);
+                        InsertNodeContent(Archive, InnerFolderPath + @"\", AsFolder, ContentTable);
+                        break;
+
+                    case ISolutionItem AsItem:
+                        InsertItemContent(Archive, FolderPathIn, AsItem, ContentTable);
+                        break;
                 }
-
-                else if ((AsItem = Child as ISolutionItem) != null)
-                    InsertItemContent(Archive, FolderPathIn, AsItem, ContentTable);
             }
         }
 
@@ -960,7 +902,7 @@ namespace CustomControls
 
                     EntryList.Sort();
 
-                    ReadNodeContent(package, EntryList, Archive, "", RootPath, null);
+                    ReadNodeContent(package, EntryList, Archive, "", RootPath, new EmptyPath());
                 }
             }
         }
@@ -1076,11 +1018,8 @@ namespace CustomControls
                     FirstIndex--;
 
                 for (int i = FirstIndex; i < LastIndex; i++)
-                {
-                    ExtendedToolBarMenuItem AsExtendedToolBarMenuItem;
-                    if ((AsExtendedToolBarMenuItem = ContextMenuItems[i] as ExtendedToolBarMenuItem) != null)
+                    if (ContextMenuItems[i] is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                         AsExtendedToolBarMenuItem.CanShow = true;
-                }
             }
         }
 
@@ -1089,15 +1028,11 @@ namespace CustomControls
             List<ExtendedToolBarMenuItem> Result = new List<ExtendedToolBarMenuItem>();
             foreach (object Item in ItemsCollection.Items)
             {
-                ExtendedToolBarMenuItem AsExtendedToolBarMenuItem;
-                if ((AsExtendedToolBarMenuItem = Item as ExtendedToolBarMenuItem) != null)
-                {
+                if (Item is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                     if (AsExtendedToolBarMenuItem.Command is DocumentRoutedCommand)
                         Result.Add(AsExtendedToolBarMenuItem);
-                }
 
-                ItemsControl AsItemsCollection;
-                if ((AsItemsCollection = Item as ItemsControl) != null)
+                if (Item is ItemsControl AsItemsCollection)
                     Result.AddRange(GetAddDocumentMenuItemList(AsItemsCollection));
             }
 
@@ -1109,17 +1044,12 @@ namespace CustomControls
             List<ExtendedRoutedCommand> Result = new List<ExtendedRoutedCommand>();
             foreach (object Item in ItemsCollection.Items)
             {
-                ExtendedToolBarMenuItem AsExtendedToolBarMenuItem;
-                if ((AsExtendedToolBarMenuItem = Item as ExtendedToolBarMenuItem) != null)
+                if (Item is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                     if (AsExtendedToolBarMenuItem.CanShow)
-                    {
-                        ExtendedRoutedCommand AsExtendedCommand;
-                        if ((AsExtendedCommand = AsExtendedToolBarMenuItem.Command as ExtendedRoutedCommand) != null)
+                        if (AsExtendedToolBarMenuItem.Command is ExtendedRoutedCommand AsExtendedCommand)
                             Result.Add(AsExtendedCommand);
-                    }
 
-                ItemsControl AsItemsCollection;
-                if ((AsItemsCollection = Item as ItemsControl) != null)
+                if (Item is ItemsControl AsItemsCollection)
                     Result.AddRange(GetCanShowCommandList(AsItemsCollection));
             }
 
@@ -1130,18 +1060,13 @@ namespace CustomControls
         {
             foreach (object Item in ItemsCollection.Items)
             {
-                ExtendedToolBarMenuItem AsExtendedToolBarMenuItem;
-                if ((AsExtendedToolBarMenuItem = Item as ExtendedToolBarMenuItem) != null)
+                if (Item is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                     if (AsExtendedToolBarMenuItem.CanShow)
-                    {
-                        ExtendedRoutedCommand AsExtendedCommand;
-                        if ((AsExtendedCommand = AsExtendedToolBarMenuItem.Command as ExtendedRoutedCommand) != null)
+                        if (AsExtendedToolBarMenuItem.Command is ExtendedRoutedCommand AsExtendedCommand)
                             if (!CanShowCommandList.Contains(AsExtendedCommand))
                                 AsExtendedToolBarMenuItem.CanShow = false;
-                    }
 
-                ItemsControl AsItemsCollection;
-                if ((AsItemsCollection = Item as ItemsControl) != null)
+                if (Item is ItemsControl AsItemsCollection)
                     HideMenuItems(AsItemsCollection, CanShowCommandList);
             }
         }
@@ -1150,21 +1075,18 @@ namespace CustomControls
         #region Rename
         private void OnEditEnter(object sender, RoutedEventArgs e)
         {
-            EditableTextBlockEventArgs Args = e as EditableTextBlockEventArgs;
+            EditableTextBlockEventArgs Args = (EditableTextBlockEventArgs)e;
 
-            RoutedCommand RenameCommand = FindResource("RenameCommand") as RoutedCommand;
-            if (RenameCommand != null)
-            {
+            if (FindResource("RenameCommand") is RoutedCommand RenameCommand)
                 if (!RenameCommand.CanExecute(null, this))
                     Args.Cancel();
-            }
         }
 
         private void OnEditLeave(object sender, RoutedEventArgs e)
         {
-            EditableTextBlock Ctrl = sender as EditableTextBlock;
-            EditLeaveEventArgs Args = e as EditLeaveEventArgs;
-            ISolutionTreeNode Node = Ctrl.DataContext as ISolutionTreeNode;
+            EditableTextBlock Ctrl = (EditableTextBlock)sender;
+            EditLeaveEventArgs Args = (EditLeaveEventArgs)e;
+            ISolutionTreeNode Node = (ISolutionTreeNode)Ctrl.DataContext;
 
             if (!Args.IsEditCanceled)
             {
@@ -1202,28 +1124,25 @@ namespace CustomControls
         {
             DropCompletedEventArgs Args = (DropCompletedEventArgs)e;
 
-            ISolutionFolder AsFolder;
-            if ((AsFolder = Args.DropDestinationItem as ISolutionFolder) != null)
-            {
-                if (!Args.IsCopy)
+            if (Args.DropDestinationItem is ISolutionFolder AsFolder)
+                if (!Args.IsCopy && Args.ItemList != null)
                 {
                     foreach (ISolutionTreeNode Item in Args.ItemList)
                     {
                         ITreeNodePath ItemPath = Item.Path;
-                        ISolutionFolder ItemParent = Item.Parent as ISolutionFolder;
+                        ISolutionFolder? ItemParent = Item.Parent as ISolutionFolder;
 
-                        NotifyMoved(ItemPath, ItemParent.Path as IFolderPath, AsFolder.Path as IFolderPath, true);
-
-                        MoveOperation Operation = new MoveOperation(Root, ItemPath, ItemParent, AsFolder);
-                        if (UndoRedoManager != null)
+                        if (ItemParent != null)
                         {
+                            NotifyMoved(ItemPath, (IFolderPath)ItemParent.Path, (IFolderPath)AsFolder.Path, true);
+
+                            MoveOperation Operation = new MoveOperation(Root, ItemPath, ItemParent, AsFolder);
                             UndoRedoManager.AddOperation(Operation);
                             Operation.Redone += OnMoveRedone;
                             Operation.Undone += OnMoveUndone;
                         }
                     }
                 }
-            }
         }
         #endregion
 
@@ -1231,23 +1150,22 @@ namespace CustomControls
         private void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             FrameworkElement Ctrl = (FrameworkElement)sender;
-
-            ISolutionFolder AsFolder;
             bool IsHandled = false;
 
-            if ((AsFolder = Ctrl.DataContext as ISolutionFolder) != null)
+            switch (Ctrl.DataContext)
             {
-                treeviewSolutionExplorer.ToggleIsExpanded(AsFolder);
-                IsHandled = true;
-            }
+                case ISolutionFolder AsSolutionFolder:
+                    treeviewSolutionExplorer.ToggleIsExpanded(AsSolutionFolder);
+                    IsHandled = true;
+                    break;
 
-            else if (Ctrl.DataContext is ISolutionItem)
-            {
-                RoutedUICommand OpenCommand = ApplicationCommands.Open;
-                if (OpenCommand.CanExecute(this, null))
-                    OpenCommand.Execute(this, null);
+                case ISolutionItem AsSolutionItem:
+                    RoutedUICommand OpenCommand = ApplicationCommands.Open;
+                    if (OpenCommand.CanExecute(this, null))
+                        OpenCommand.Execute(this, null);
 
-                IsHandled = true;
+                    IsHandled = true;
+                    break;
             }
 
             Debug.Assert(IsHandled);
@@ -1275,7 +1193,7 @@ namespace CustomControls
         /// <summary>
         ///     Implements the PropertyChanged event.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         internal void NotifyPropertyChanged(string propertyName)
         {

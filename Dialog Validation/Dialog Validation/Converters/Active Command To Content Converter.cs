@@ -28,9 +28,6 @@ namespace Converters
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-
             if (values.Length > 1 && (values[0] is DialogValidation) && (values[1] is ActiveCommand))
             {
                 DialogValidation Control = (DialogValidation)values[0];
@@ -70,7 +67,7 @@ namespace Converters
                     return Control.ContentContinue;
             }
 
-            return null;
+            throw new ArgumentOutOfRangeException(nameof(values));
         }
 
         /// <summary>
@@ -82,7 +79,7 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

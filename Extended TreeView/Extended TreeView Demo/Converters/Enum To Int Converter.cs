@@ -32,7 +32,7 @@ namespace Converters
                 return Values.GetValue(IndexValue);
             }
             else
-                return null;
+                return value;
         }
     }
 }

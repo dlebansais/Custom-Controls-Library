@@ -31,7 +31,7 @@ namespace CustomControls
         /// <summary>
         ///     Event triggered when the control is resized to fit all pages.
         /// </summary>
-        public event EventHandler CyclingCompleted;
+        public event EventHandler? CyclingCompleted;
 
         private void InitCycling()
         {

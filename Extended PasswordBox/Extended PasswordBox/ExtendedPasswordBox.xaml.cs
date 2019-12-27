@@ -49,8 +49,8 @@ namespace CustomControls
         {
             if (!IsUserChange)
             {
-                string NewText = e.NewValue as string;
-                if (NewText != null && NewText.Length > 0)
+                string NewText = (string)e.NewValue;
+                if (NewText.Length > 0)
                     HasTextBeenShown = true;
 
                 UpdateIsPasswordEmptyProperty(NewText);

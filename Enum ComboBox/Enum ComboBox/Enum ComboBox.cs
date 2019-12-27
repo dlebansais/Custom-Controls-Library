@@ -79,7 +79,7 @@ namespace CustomControls
         /// <returns>
         ///     The identifier for the <see cref="NameConverter"/> dependency property.
         /// </returns>
-        public static readonly DependencyProperty NameConverterProperty = DependencyProperty.Register("NameConverter", typeof(IValueConverter), typeof(EnumComboBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty NameConverterProperty = DependencyProperty.Register("NameConverter", typeof(IValueConverter), typeof(EnumComboBox), new PropertyMetadata(new Converters.IdentityStringConverter()));
 
         /// <summary>
         ///     Gets or sets the converter to use to convert an enum value to its localized content (usually a string).
@@ -117,7 +117,7 @@ namespace CustomControls
         /// <returns>
         ///     The identifier for the <see cref="NameConverterCulture"/> dependency property.
         /// </returns>
-        public static readonly DependencyProperty NameConverterCultureProperty = DependencyProperty.Register("NameConverterCulture", typeof(CultureInfo), typeof(EnumComboBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty NameConverterCultureProperty = DependencyProperty.Register("NameConverterCulture", typeof(CultureInfo), typeof(EnumComboBox), new PropertyMetadata(CultureInfo.CurrentCulture));
 
         /// <summary>
         ///     Gets or sets the converter culture to use when converting an enum value to its localized content.
@@ -312,13 +312,11 @@ namespace CustomControls
                 IValueConverter Converter = NameConverter;
                 object ConverterParameter = NameConverterParameter;
                 ConversionCulture = NameConverterCulture;
-                if (ConversionCulture == null)
-                    ConversionCulture = CultureInfo.CurrentCulture;
 
                 string[] EnumNames = enumType.GetEnumNames();
                 foreach (string EnumName in EnumNames)
                 {
-                    string ConvertedText = (Converter != null) ? Converter.Convert(EnumName, typeof(string), ConverterParameter, ConversionCulture) as string : EnumName;
+                    string ConvertedText = (string)Converter.Convert(EnumName, typeof(string), ConverterParameter, ConversionCulture);
                     EnumNameCollection.Add(ConvertedText);
                 }
             }
@@ -332,7 +330,7 @@ namespace CustomControls
         /// <summary>
         ///     Gets the culture that was used during conversion of enum values to their localized names.
         /// </summary>
-        private CultureInfo ConversionCulture;
+        private CultureInfo ConversionCulture = CultureInfo.CurrentCulture;
         #endregion
     }
 }

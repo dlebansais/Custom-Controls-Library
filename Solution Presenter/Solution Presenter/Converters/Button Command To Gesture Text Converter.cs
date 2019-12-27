@@ -11,27 +11,21 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values != null && values.Length > 1 && (values[0] is ICommand) && (values[1] is FrameworkElement))
-            {
-                ICommand Command = (ICommand)values[0];
-                FrameworkElement Source = (FrameworkElement)values[1];
-
+            if (values != null && values.Length > 1 && (values[0] is ICommand Command) && (values[1] is FrameworkElement Source))
                 return GetItemGestureText(Command, Source);
-            }
-
-            return null;
+            else
+                throw new ArgumentOutOfRangeException(nameof(values));
         }
 
         protected virtual string GetItemGestureText(ICommand command, FrameworkElement source)
         {
             string GestureText = GestureHelper.GetGestureText(command, source);
-
             return GestureText;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

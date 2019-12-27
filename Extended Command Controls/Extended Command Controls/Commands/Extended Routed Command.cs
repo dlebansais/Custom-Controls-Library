@@ -12,7 +12,7 @@ namespace CustomControls
         /// <summary>
         ///     Gets or sets the <see cref="CommandGroup"/> this command is associated to.
         /// </summary>
-        public SolutionCommandGroup CommandGroup { get; set; }
+        public SolutionCommandGroup CommandGroup { get; set; } = SolutionCommandGroup.Default;
         /// <summary>
         ///     Gets the name of the resource for menu headers using this command.
         /// </summary>

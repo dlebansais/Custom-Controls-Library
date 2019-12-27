@@ -25,11 +25,10 @@ namespace Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ICommand AsCommand;
-            if ((AsCommand = value as ICommand) != null)
+            if (value is ICommand AsCommand)
                 return GetItemText(AsCommand);
             else
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(value));
         }
 
         /// <summary>
@@ -43,28 +42,31 @@ namespace Converters
         /// </returns>
         private static string GetItemText(ICommand command)
         {
-            string ItemHeader = null;
+            string ItemHeader;
 
-            ActiveDocumentRoutedCommand AsActiveDocumentCommand;
-            LocalizedRoutedCommand AsLocalizedRoutedCommand;
-            ExtendedRoutedCommand AsExtendedRoutedCommand;
-            RoutedUICommand AsUICommand;
-
-            if ((AsActiveDocumentCommand = command as ActiveDocumentRoutedCommand) != null)
-                ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
-
-            else if ((AsLocalizedRoutedCommand = command as LocalizedRoutedCommand) != null)
+            switch (command)
             {
-                ItemHeader = AsLocalizedRoutedCommand.MenuHeader;
-                if (ItemHeader.Contains(LocalizedRoutedCommand.ApplicationNamePattern))
-                    ItemHeader = ItemHeader.Replace(LocalizedRoutedCommand.ApplicationNamePattern, "");
+                case ActiveDocumentRoutedCommand AsActiveDocumentCommand:
+                    ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
+                    break;
+
+                case LocalizedRoutedCommand AsLocalizedRoutedCommand:
+                    ItemHeader = AsLocalizedRoutedCommand.MenuHeader;
+                    if (ItemHeader.Contains(LocalizedRoutedCommand.ApplicationNamePattern))
+                        ItemHeader = ItemHeader.Replace(LocalizedRoutedCommand.ApplicationNamePattern, "");
+                    break;
+
+                case ExtendedRoutedCommand AsExtendedRoutedCommand:
+                    ItemHeader = AsExtendedRoutedCommand.MenuHeader;
+                    break;
+
+                case RoutedUICommand AsUICommand:
+                    ItemHeader = AsUICommand.Text;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
             }
-
-            else if ((AsExtendedRoutedCommand = command as ExtendedRoutedCommand) != null)
-                ItemHeader = AsExtendedRoutedCommand.MenuHeader;
-
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-                ItemHeader = AsUICommand.Text;
 
             return ItemHeader;
         }
@@ -78,7 +80,7 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

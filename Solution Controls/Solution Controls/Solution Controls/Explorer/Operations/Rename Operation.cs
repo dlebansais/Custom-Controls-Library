@@ -45,10 +45,9 @@ namespace CustomControls
         #region Implementation
         private void ChangeName(string Name)
         {
-            ISolutionTreeNode Node = Root.FindTreeNode(Path);
-            Debug.Assert(Node != null);
-
-            Node.ChangeName(Name);
+            ISolutionTreeNode? Node = Root.FindTreeNode(Path);
+            if (Node != null)
+                Node.ChangeName(Name);
         }
         #endregion
     }

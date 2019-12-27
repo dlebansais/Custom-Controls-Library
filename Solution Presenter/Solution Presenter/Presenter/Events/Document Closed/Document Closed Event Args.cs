@@ -17,7 +17,7 @@ namespace CustomControls
 
         public DocumentOperation DocumentOperation { get { return ((DocumentClosedEventContext)EventContext).DocumentOperation; } }
         public IReadOnlyList<IDocument> ClosedDocumentList { get { return (IReadOnlyList<IDocument>)((DocumentClosedEventContext)EventContext).ClosedDocumentList; } }
-        public object ClientInfo { get { return ((DocumentClosedEventContext)EventContext).ClientInfo; } }
+        public object? ClientInfo { get { return ((DocumentClosedEventContext)EventContext).ClientInfo; } }
 
         public virtual void NotifyCompleted()
         {

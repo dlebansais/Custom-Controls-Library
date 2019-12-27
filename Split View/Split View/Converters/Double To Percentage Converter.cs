@@ -25,14 +25,11 @@ namespace Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value is double)
-            {
-                double DoubleValue = (double)value;
-                if (DoubleValue >= 0)
-                    return ((DoubleValue * 100).ToString(CultureInfo.InvariantCulture)) + "%";
-            }
+            if (value is double AsDoubleValue)
+                if (AsDoubleValue >= 0)
+                    return ((AsDoubleValue * 100).ToString(CultureInfo.InvariantCulture)) + "%";
 
-            return null;
+            throw new ArgumentOutOfRangeException(nameof(value));
         }
 
         /// <summary>
@@ -44,7 +41,7 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

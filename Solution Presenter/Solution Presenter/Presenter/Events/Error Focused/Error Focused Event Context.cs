@@ -2,13 +2,13 @@
 {
     public class ErrorFocusedEventContext
     {
-        public ErrorFocusedEventContext(IDocument document, object errorLocation)
+        public ErrorFocusedEventContext(IDocument document, object? errorLocation)
         {
-            this.Document = document;
-            this.ErrorLocation = errorLocation;
+            Document = document;
+            ErrorLocation = errorLocation;
         }
 
-        public IDocument Document { get; private set; }
-        public object ErrorLocation { get; private set; }
+        public IDocument Document { get; }
+        public object? ErrorLocation { get; }
     }
 }

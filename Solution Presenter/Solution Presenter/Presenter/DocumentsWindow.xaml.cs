@@ -29,26 +29,23 @@ namespace CustomControls
         public ObservableCollection<IDocument> DocumentList { get; private set; }
         #endregion
 
-        #region Properties
-        public event EventHandler<DocumentWindowEventArgs> DocumentActivated;
+        #region Events
+        public event EventHandler<DocumentWindowEventArgs>? DocumentActivated;
         protected void NotifyDocumentActivated(IDocument document)
         {
-            if (DocumentActivated != null)
-                DocumentActivated(this, new DocumentWindowEventArgs(document));
+            DocumentActivated?.Invoke(this, new DocumentWindowEventArgs(document));
         }
 
-        public event EventHandler<DocumentWindowEventArgs> DocumentSaved;
+        public event EventHandler<DocumentWindowEventArgs>? DocumentSaved;
         protected void NotifyDocumentSaved(IDocument document)
         {
-            if (DocumentSaved != null)
-                DocumentSaved(this, new DocumentWindowEventArgs(document));
+            DocumentSaved?.Invoke(this, new DocumentWindowEventArgs(document));
         }
 
-        public event EventHandler<DocumentWindowEventArgs> DocumentClosed;
+        public event EventHandler<DocumentWindowEventArgs>? DocumentClosed;
         protected void NotifyDocumentClosed(IDocument document)
         {
-            if (DocumentClosed != null)
-                DocumentClosed(this, new DocumentWindowEventArgs(document));
+            DocumentClosed?.Invoke(this, new DocumentWindowEventArgs(document));
         }
         #endregion
 

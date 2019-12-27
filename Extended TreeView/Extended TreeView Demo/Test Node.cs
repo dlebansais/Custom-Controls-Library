@@ -5,15 +5,15 @@ namespace ExtendedTreeViewDemo
 {
     public class TestNode : IExtendedTreeNode
     {
-        public TestNode(TestNode parent, int index)
+        public TestNode(TestNode? parent, int index)
         {
-            this.Parent = parent;
-            this.Index = index;
+            Parent = parent;
+            Index = index;
 
             Children = new TestNodeCollection(this);
         }
 
-        public IExtendedTreeNode Parent { get; private set; }
+        public IExtendedTreeNode? Parent { get; private set; }
         public int Index { get; private set; }
         public IExtendedTreeNodeCollection Children { get; private set; }
         public string Text { get { return "TestNode #" + Index.ToString(CultureInfo.InvariantCulture); } }

@@ -11,10 +11,7 @@ namespace CustomControls
         #region Init
         protected SolutionExplorerOperation(ISolutionRoot root)
         {
-            if (root == null)
-                throw new ArgumentNullException(nameof(root));
-
-            this.Root = root;
+            Root = root;
 
             IsExecuted = false;
             ExpandedFolderList = new Collection<ISolutionFolder>();
@@ -23,7 +20,7 @@ namespace CustomControls
 
         #region Properties
         public abstract string Name { get; }
-        public ISolutionRoot Root { get; private set; }
+        public ISolutionRoot Root { get; }
         public bool IsExecuted { get; private set; }
         public Collection<ISolutionFolder> ExpandedFolderList { get; private set; }
         #endregion
@@ -62,20 +59,20 @@ namespace CustomControls
         #endregion
 
         #region Events
-        public event RoutedEventHandler Redone;
+        public event RoutedEventHandler? Redone;
 
         private void NotifyRedone()
         {
             Debug.Assert(Redone != null);
-            Redone(this, new RoutedEventArgs());
+            Redone?.Invoke(this, new RoutedEventArgs());
         }
 
-        public event RoutedEventHandler Undone;
+        public event RoutedEventHandler? Undone;
 
         private void NotifyUndone()
         {
             Debug.Assert(Undone != null);
-            Undone(this, new RoutedEventArgs());
+            Undone?.Invoke(this, new RoutedEventArgs());
         }
         #endregion
     }

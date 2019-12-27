@@ -47,18 +47,13 @@ namespace Converters
         /// </example>
         public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            string AsString;
-            if ((AsString = value as string) != null)
+            if (value is string AsString)
             {
                 string[] StringList = AsString.Split(',');
 
                 ActiveCommandCollection Result = new ActiveCommandCollection();
                 foreach (string Name in StringList)
-                {
-                    ActiveCommand Command;
-                    if (ActiveCommandTypeConverter.TryParseName(Name.Trim(), out Command))
-                        Result.Add(Command);
-                }
+                    ActiveCommandTypeConverter.TryParseName(Name.Trim(), (ActiveCommand command) => Result.Add(command));
 
                 return Result;
             }
@@ -81,8 +76,7 @@ namespace Converters
         /// </remarks>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            ActiveCommandCollection AsActiveCommandCollection;
-            if ((AsActiveCommandCollection = value as ActiveCommandCollection) != null)
+            if (value is ActiveCommandCollection AsActiveCommandCollection)
                 if (destinationType == typeof(string))
                 {
                     string Result = "";

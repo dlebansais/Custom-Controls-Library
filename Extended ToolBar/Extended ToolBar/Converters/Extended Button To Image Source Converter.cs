@@ -30,14 +30,10 @@ namespace Converters
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
-            ExtendedToolBarButton Button;
-            if ((Button = value as ExtendedToolBarButton) != null)
+            if (value is ExtendedToolBarButton Button)
                 return GetItemImageSource(Button.Command, Button.Reference);
             else
-                return null;
+                throw new ArgumentNullException(nameof(value));
         }
 
         /// <summary>
@@ -49,25 +45,19 @@ namespace Converters
         /// </summary>
         private static ImageSource GetItemImageSource(ICommand command, CommandResourceReference reference)
         {
-            ImageSource ItemImageSource = null;
-
-            ExtendedRoutedCommand AsExtendedCommand;
-            RoutedUICommand AsUICommand;
-
-            if ((AsExtendedCommand = command as ExtendedRoutedCommand) != null)
-                ItemImageSource = AsExtendedCommand.ImageSource;
-
-            else if ((AsUICommand = command as RoutedUICommand) != null)
+            switch (command)
             {
-                if (reference != null)
-                {
-                    Assembly ReferenceAssembly = Assembly.Load(reference.AssemblyName);
-                    if (ReferenceAssembly != null)
-                        ItemImageSource = ThemeIcons.GetImageSource(ReferenceAssembly, AsUICommand.Name);
-                }
-            }
+                case ExtendedRoutedCommand AsExtendedCommand:
+                    return AsExtendedCommand.ImageSource;
 
-            return ItemImageSource;
+                case RoutedUICommand AsUICommand:
+                    Assembly ReferenceAssembly = Assembly.Load(reference.AssemblyName);
+                    ImageSource ItemImageSource = ThemeIcons.GetImageSource(ReferenceAssembly, AsUICommand.Name);
+                    return ItemImageSource;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
+            }
         }
 
         /// <summary>
@@ -79,7 +69,7 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

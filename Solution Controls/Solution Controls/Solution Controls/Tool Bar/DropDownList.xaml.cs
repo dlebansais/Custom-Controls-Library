@@ -16,8 +16,6 @@ namespace CustomControls
         {
             InitializeComponent();
             DataContext = this;
-
-            SetAssociatedList(null);
         }
 
         public ObservableCollection<IReversibleOperation> AssociatedList 
@@ -32,7 +30,7 @@ namespace CustomControls
                 }
             }
         }
-        private ObservableCollection<IReversibleOperation> _AssociatedList;
+        private ObservableCollection<IReversibleOperation> _AssociatedList = new ObservableCollection<IReversibleOperation>();
 
         public int SelectedCount
         {
@@ -41,7 +39,7 @@ namespace CustomControls
                 int Count = 0;
                 for (int i = 0; i < listOperations.Items.Count; i++, Count++)
                 {
-                    ListBoxItem Ctrl = listOperations.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
+                    ListBoxItem? Ctrl = listOperations.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
                     if (Ctrl == null || !Ctrl.IsSelected)
                         break;
                 }
@@ -50,7 +48,7 @@ namespace CustomControls
             }
         }
 
-        public void SetAssociatedList(ObservableCollection<IReversibleOperation> associatedList)
+        public void SetAssociatedList(ObservableCollection<IReversibleOperation>? associatedList)
         {
             if (associatedList != null)
                 this.AssociatedList = associatedList;
@@ -64,8 +62,7 @@ namespace CustomControls
 
             for (int i = 0; i < listOperations.Items.Count; i++)
             {
-                ListBoxItem Ctrl = listOperations.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem;
-                if (Ctrl != null)
+                if (listOperations.ItemContainerGenerator.ContainerFromIndex(i) is ListBoxItem Ctrl)
                 {
                     Point CtrlTopLeft = Ctrl.PointToScreen(new Point(0, 0));
                     if (CtrlTopLeft.Y >= lastSelectedScreenCoordinates.Y)
@@ -89,8 +86,8 @@ namespace CustomControls
         /// <summary>
         ///     Implements the PropertyChanged event.
         /// </summary>
-        [field: NonSerializedAttribute()]
-        public event PropertyChangedEventHandler PropertyChanged;
+        //[field: NonSerialized()]
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Default parameter is mandatory with [CallerMemberName]")]
         internal void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")

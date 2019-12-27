@@ -208,7 +208,7 @@ namespace CustomControls
             }
         }
 
-        private static object DisconnectedItem = null;
+        private static object? DisconnectedItem = null;
         #endregion
 
         #region Implementation
@@ -385,7 +385,7 @@ namespace CustomControls
         #endregion
 
         #region Implementation of INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void NotifyPropertyChanged(string propertyName)
         {

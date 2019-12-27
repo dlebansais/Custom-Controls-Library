@@ -265,11 +265,9 @@ namespace CustomControls
         {
             bool IsCommandGroupEnabled = true;
 
-            ExtendedRoutedCommand AsExtendedCommand;
-            if ((AsExtendedCommand = Command as ExtendedRoutedCommand) != null)
-                if (AsExtendedCommand.CommandGroup != null)
-                    if (!AsExtendedCommand.CommandGroup.IsEnabled)
-                        IsCommandGroupEnabled = false;
+            if (Command is ExtendedRoutedCommand AsExtendedCommand)
+                if (!AsExtendedCommand.CommandGroup.IsEnabled)
+                    IsCommandGroupEnabled = false;
 
             Visibility = (IsCommandGroupEnabled && (!IsCheckable || IsActive)) ? Visibility.Visible : Visibility.Collapsed;
         }

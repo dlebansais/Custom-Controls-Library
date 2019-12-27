@@ -7,15 +7,15 @@ namespace ExtendedTreeViewDemo
 {
     public class CloneableTestNode : IExtendedTreeNode, ICloneable
     {
-        public CloneableTestNode(CloneableTestNode parent, int index)
+        public CloneableTestNode(CloneableTestNode? parent, int index)
         {
-            this.Parent = parent;
-            this.Index = index;
+            Parent = parent;
+            Index = index;
 
             Children = new CloneableTestNodeCollection(this);
         }
 
-        public IExtendedTreeNode Parent { get; private set; }
+        public IExtendedTreeNode? Parent { get; private set; }
         public int Index { get; private set; }
         public IExtendedTreeNodeCollection Children { get; private set; }
         public string Text { get { return "CloneableTestNode #" + Index.ToString(CultureInfo.InvariantCulture); } }
@@ -27,7 +27,7 @@ namespace ExtendedTreeViewDemo
 
         public object Clone()
         {
-            CloneableTestNode Clone = new CloneableTestNode((CloneableTestNode)Parent, Index);
+            CloneableTestNode Clone = new CloneableTestNode((CloneableTestNode?)Parent, Index);
             foreach (CloneableTestNode Child in Children)
                 Clone.Children.Add(Child.Clone());
             

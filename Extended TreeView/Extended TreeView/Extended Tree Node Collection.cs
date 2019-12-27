@@ -5,7 +5,7 @@ namespace CustomControls
 {
     public interface IExtendedTreeNodeCollection : IList, INotifyCollectionChanged
     {
-        IExtendedTreeNode Parent { get; }
+        IExtendedTreeNode? Parent { get; }
         void Sort();
     }
 }

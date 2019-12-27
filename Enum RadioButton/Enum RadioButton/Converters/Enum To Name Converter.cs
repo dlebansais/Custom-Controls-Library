@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -26,21 +27,15 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
-
             Type EnumType = value.GetType();
-            if (EnumType.IsEnum)
-            {
-                Assembly ResourceAssembly = EnumType.Assembly;
-                Type ResourceSource = ResourceAssembly.GetType(parameter as string);
-                ResourceManager Manager = new ResourceManager(ResourceSource);
-                string ResourceName = value.ToString();
+            Debug.Assert(EnumType.IsEnum);
 
-                return Manager.GetString(ResourceName, CultureInfo.CurrentCulture);
-            }
+            Assembly ResourceAssembly = EnumType.Assembly;
+            Type ResourceSource = ResourceAssembly.GetType(parameter as string);
+            ResourceManager Manager = new ResourceManager(ResourceSource);
+            string ResourceName = value.ToString();
 
-            return null;
+            return Manager.GetString(ResourceName, CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -52,7 +47,7 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

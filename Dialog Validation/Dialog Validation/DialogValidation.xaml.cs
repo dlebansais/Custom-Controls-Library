@@ -149,7 +149,7 @@ namespace CustomControls
         /// <summary>
         ///     The default collection of commands as loaded by the static constructor.
         /// </summary>
-        private static IEnumerable DefaultCommandCollection;
+        private static IEnumerable DefaultCommandCollection = InitDefaultCommandCollection();
         #endregion
         #region Orientation
         /// <summary>
@@ -569,25 +569,15 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes the <see cref="DialogValidation"/> static properties.
+        ///     Gets default commands to use when the client does not specifically define them.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Can't be done inline - too complex")]
-        static DialogValidation()
-        {
-            InitializeStrings();
-            InitDefaultCommandCollection();
-        }
-
-        /// <summary>
-        ///     Initializes the default commands to use when the client does not specifically defines them.
-        /// </summary>
-        private static void InitDefaultCommandCollection()
+        private static List<ActiveCommand> InitDefaultCommandCollection()
         {
             List<ActiveCommand> DefaultList = new List<ActiveCommand>();
             DefaultList.Add(ActiveCommand.Ok);
             DefaultList.Add(ActiveCommand.Cancel);
 
-            DefaultCommandCollection = DefaultList;
+            return DefaultList;
         }
 
         /// <summary>
@@ -654,11 +644,12 @@ namespace CustomControls
         /// <summary>
         ///     Locates and loads localized strings to be used as localized command names.
         /// </summary>
-        private static void InitializeStrings()
+        private static IList<string> InitializeStrings()
         {
             string SystemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
             string User32Path = Path.Combine(SystemPath, "user32.dll");
-            DefaultLocalizedStrings = LoadStringFromResourceFile(User32Path, 51);
+
+            return LoadStringFromResourceFile(User32Path, 51);
         }
 
         internal static IList<string> LoadStringFromResourceFile(string FilePath, uint ResourceID)
@@ -681,7 +672,7 @@ namespace CustomControls
         /// <summary>
         ///     Gets the list of localized string for command friendly names, as loaded by the static constructor.
         /// </summary>
-        private static IList<string> DefaultLocalizedStrings;
+        private static IList<string> DefaultLocalizedStrings = InitializeStrings();
         #endregion
     }
 }

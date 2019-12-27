@@ -11,36 +11,33 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ICommand AsCommand;
-            if ((AsCommand = value as ICommand) != null)
+            if (value is ICommand AsCommand)
                 return GetItemText(AsCommand);
             else
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(value));
         }
 
         protected virtual string GetItemText(ICommand command)
         {
-            string ItemHeader = null;
+            switch (command)
+            {
+                case ActiveDocumentRoutedCommand AsActiveDocumentCommand:
+                    return AsActiveDocumentCommand.InactiveMenuHeader;
 
-            ActiveDocumentRoutedCommand AsActiveDocumentCommand;
-            ExtendedRoutedCommand AsExtendedRoutedCommand;
-            RoutedUICommand AsUICommand;
+                case ExtendedRoutedCommand AsExtendedRoutedCommand:
+                    return AsExtendedRoutedCommand.MenuHeader;
 
-            if ((AsActiveDocumentCommand = command as ActiveDocumentRoutedCommand) != null)
-                ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
+                case RoutedUICommand AsUICommand:
+                    return AsUICommand.Text;
 
-            else if ((AsExtendedRoutedCommand = command as ExtendedRoutedCommand) != null)
-                ItemHeader = AsExtendedRoutedCommand.MenuHeader;
-
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-                ItemHeader = AsUICommand.Text;
-
-            return ItemHeader;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

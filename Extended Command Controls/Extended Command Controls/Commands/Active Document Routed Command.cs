@@ -9,11 +9,11 @@
         /// <summary>
         ///     Gets or sets the key to use to find a localized menu header in standard resource files when a document is inactive.
         /// </summary>
-        public string InactiveHeaderKey { get; set; }
+        public string InactiveHeaderKey { get; set; } = string.Empty;
         /// <summary>
         ///     Gets or sets the key to use to find a localized tooltip in standard resource files when a document is inactive.
         /// </summary>
-        public string InactiveToolTipKey { get; set; }
+        public string InactiveToolTipKey { get; set; } = string.Empty;
 
         /// <summary>
         ///     Gets the localized menu header when a document is inactive.

@@ -6,22 +6,24 @@ namespace CustomControls
 {
     public class PropertyEntrySelector : DataTemplateSelector
     {
-        public override DataTemplate SelectTemplate(object item, DependencyObject container)
+        public override DataTemplate? SelectTemplate(object item, DependencyObject container)
         {
             if (container == null)
                 throw new ArgumentNullException(nameof(container));
 
             FrameworkElement ControlContainer = (FrameworkElement)container;
-            DataTemplate Result;
+            DataTemplate? Result = null;
 
-            if (item is IStringPropertyEntry)
-                Result = ControlContainer.FindResource("StringPropertyKey") as DataTemplate;
+            switch (item)
+            {
+                case IStringPropertyEntry AsStringPropertyEntry:
+                    Result = ControlContainer.FindResource("StringPropertyKey") as DataTemplate;
+                    break;
 
-            else if (item is IEnumPropertyEntry)
-                Result = ControlContainer.FindResource("EnumPropertyKey") as DataTemplate;
-
-            else
-                Result = null;
+                case IEnumPropertyEntry AsEnumPropertyEntry:
+                    Result = ControlContainer.FindResource("EnumPropertyKey") as DataTemplate;
+                    break;
+            }
 
             return Result;
         }

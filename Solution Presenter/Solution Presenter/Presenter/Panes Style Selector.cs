@@ -5,7 +5,7 @@ namespace CustomControls
 {
     public class SolutionPresenterPaneStyleSelector : StyleSelector
     {
-        public Style DocumentPaneStyle { get; set; }
+        public Style DocumentPaneStyle { get; set; } = new Style();
 
         public override Style SelectStyle(object item, DependencyObject container)
         {

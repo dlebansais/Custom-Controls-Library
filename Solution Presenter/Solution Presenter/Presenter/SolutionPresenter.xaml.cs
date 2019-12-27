@@ -60,9 +60,9 @@ namespace CustomControls
         #region Active Document
         public static readonly DependencyProperty ActiveDocumentProperty = DependencyProperty.Register("ActiveDocument", typeof(IDocument), typeof(SolutionPresenter), new PropertyMetadata(null, OnActiveDocumentChanged));
 
-        public IDocument ActiveDocument
+        public IDocument? ActiveDocument
         {
-            get { return (IDocument)GetValue(ActiveDocumentProperty); }
+            get { return (IDocument?)GetValue(ActiveDocumentProperty); }
             set { SetValue(ActiveDocumentProperty, value); }
         }
 
@@ -77,7 +77,7 @@ namespace CustomControls
 
         protected virtual void OnActiveDocumentChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (OpenDocuments.Contains(ActiveDocument) && !IsActiveDocumentChanging)
+            if (ActiveDocument != null && OpenDocuments.Contains(ActiveDocument) && !IsActiveDocumentChanging)
                 UserActivateDocument(ActiveDocument);
         }
         #endregion
@@ -150,7 +150,7 @@ namespace CustomControls
         }
         #endregion
         #region Root Path
-        private static readonly DependencyPropertyKey RootPathPropertyKey = DependencyProperty.RegisterReadOnly("RootPath", typeof(IRootPath), typeof(SolutionPresenter), new PropertyMetadata(null));
+        private static readonly DependencyPropertyKey RootPathPropertyKey = DependencyProperty.RegisterReadOnly("RootPath", typeof(IRootPath), typeof(SolutionPresenter), new PropertyMetadata(new EmptyPath()));
         public static readonly DependencyProperty RootPathProperty = RootPathPropertyKey.DependencyProperty;
 
         public IRootPath RootPath
@@ -279,7 +279,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnCommitComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionTreeCommittedCompletionArgs()));
+                OnCommitComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionTreeCommittedCompletionArgs()));
         }
         #endregion
         #region Folder Enumerated
@@ -302,7 +302,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnFolderEnumeratedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new FolderEnumeratedCompletionArgs()));
+                OnFolderEnumeratedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new FolderEnumeratedCompletionArgs()));
         }
         #endregion
         #region Solution Tree Loaded
@@ -341,7 +341,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnSolutionSelectedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionSelectedCompletionArgs()));
+                OnSolutionSelectedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionSelectedCompletionArgs()));
         }
         #endregion
         #region Solution Created
@@ -364,7 +364,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnSolutionCreatedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionCreatedCompletionArgs()));
+                OnSolutionCreatedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionCreatedCompletionArgs()));
         }
         #endregion
         #region Solution Opened
@@ -387,7 +387,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnSolutionOpenedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionOpenedCompletionArgs()));
+                OnSolutionOpenedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionOpenedCompletionArgs()));
         }
         #endregion
         #region Solution Closed
@@ -410,7 +410,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnSolutionClosedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionClosedCompletionArgs()));
+                OnSolutionClosedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionClosedCompletionArgs()));
         }
         #endregion
         #region Solution Deleted
@@ -422,7 +422,7 @@ namespace CustomControls
             remove { RemoveHandler(SolutionDeletedEvent, value); SolutionDeletedEventArgs.DecrementHandlerCount(); }
         }
 
-        protected virtual void NotifySolutionDeleted(IRootPath deletedRootPath, IReadOnlyCollection<ITreeNodePath> deletedTree)
+        protected virtual void NotifySolutionDeleted(IRootPath deletedRootPath, IReadOnlyCollection<ITreeNodePath>? deletedTree)
         {
             SolutionDeletedEventContext EventContext = new SolutionDeletedEventContext(deletedRootPath, deletedTree);
 
@@ -433,7 +433,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnSolutionDeletedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionDeletedCompletionArgs()));
+                OnSolutionDeletedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionDeletedCompletionArgs()));
         }
         #endregion
         #region Solution Exported
@@ -456,7 +456,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnSolutionExportedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionExportedCompletionArgs()));
+                OnSolutionExportedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new SolutionExportedCompletionArgs()));
         }
         #endregion
         #region Imported
@@ -577,7 +577,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentSelectedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentSelectedCompletionArgs()));
+                OnDocumentSelectedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentSelectedCompletionArgs()));
         }
         #endregion
         #region Document Added
@@ -600,7 +600,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentAddedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentAddedCompletionArgs()));
+                OnDocumentAddedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentAddedCompletionArgs()));
         }
         #endregion
         #region Document Opened
@@ -612,7 +612,7 @@ namespace CustomControls
             remove { RemoveHandler(DocumentOpenedEvent, value); DocumentOpenedEventArgs.DecrementHandlerCount(); }
         }
 
-        protected virtual void NotifyDocumentOpened(DocumentOperation documentOperation, IFolderPath destinationFolderPath, IList<IDocumentPath> openedDocumentPathList, IList<IDocumentPath> documentPathList, object errorLocation)
+        protected virtual void NotifyDocumentOpened(DocumentOperation documentOperation, IFolderPath destinationFolderPath, IList<IDocumentPath> openedDocumentPathList, IList<IDocumentPath> documentPathList, object? errorLocation)
         {
             DocumentOpenedEventContext EventContext = new DocumentOpenedEventContext(documentOperation, destinationFolderPath, openedDocumentPathList, documentPathList, errorLocation);
 
@@ -623,7 +623,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentOpenedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentOpenedCompletionArgs()));
+                OnDocumentOpenedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentOpenedCompletionArgs()));
         }
         #endregion
         #region Document Closed
@@ -640,10 +640,10 @@ namespace CustomControls
             List<IDocument> ClosedDocumentList = new List<IDocument>();
             ClosedDocumentList.Add(closedDocument);
 
-            NotifyDocumentClosed(documentOperation, ClosedDocumentList, new Dictionary<ITreeNodePath, IPathConnection>(), false,null);
+            NotifyDocumentClosed(documentOperation, ClosedDocumentList, new Dictionary<ITreeNodePath, IPathConnection>(), false, null);
         }
 
-        protected virtual void NotifyDocumentClosed(DocumentOperation documentOperation, IList<IDocument> closedDocumentList, IReadOnlyDictionary<ITreeNodePath, IPathConnection> closedTree, bool isUndoRedo, object clientInfo)
+        protected virtual void NotifyDocumentClosed(DocumentOperation documentOperation, IList<IDocument> closedDocumentList, IReadOnlyDictionary<ITreeNodePath, IPathConnection> closedTree, bool isUndoRedo, object? clientInfo)
         {
             DocumentClosedEventContext EventContext = new DocumentClosedEventContext(documentOperation, closedDocumentList, closedTree, isUndoRedo, clientInfo);
 
@@ -654,7 +654,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentClosedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentClosedCompletionArgs()));
+                OnDocumentClosedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentClosedCompletionArgs()));
         }
         #endregion
         #region Document Saved
@@ -677,7 +677,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentSavedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentSavedCompletionArgs()));
+                OnDocumentSavedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentSavedCompletionArgs()));
         }
         #endregion
         #region Document Removed
@@ -689,7 +689,7 @@ namespace CustomControls
             remove { RemoveHandler(DocumentRemovedEvent, value); DocumentRemovedEventArgs.DecrementHandlerCount(); }
         }
 
-        protected virtual void NotifyDocumentRemoved(IRootPath rootPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> deletedTree, bool isUndoRedo, object clientInfo)
+        protected virtual void NotifyDocumentRemoved(IRootPath rootPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> deletedTree, bool isUndoRedo, object? clientInfo)
         {
             DocumentRemovedEventContext EventContext = new DocumentRemovedEventContext(rootPath, deletedTree, isUndoRedo, clientInfo);
 
@@ -700,7 +700,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentRemovedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentRemovedCompletionArgs()));
+                OnDocumentRemovedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentRemovedCompletionArgs()));
         }
         #endregion
         #region Document Exported
@@ -730,7 +730,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnDocumentExportedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentExportedCompletionArgs()));
+                OnDocumentExportedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new DocumentExportedCompletionArgs()));
         }
         #endregion
         #region Error Focused
@@ -742,7 +742,7 @@ namespace CustomControls
             remove { RemoveHandler(ErrorFocusedEvent, value); ErrorFocusedEventArgs.DecrementHandlerCount(); }
         }
 
-        protected virtual void NotifyErrorFocused(IDocument document, object errorLocation)
+        protected virtual void NotifyErrorFocused(IDocument document, object? errorLocation)
         {
             ErrorFocusedEventContext EventContext = new ErrorFocusedEventContext(document, errorLocation);
 
@@ -753,7 +753,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnErrorFocusedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new ErrorFocusedCompletionArgs()));
+                OnErrorFocusedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new ErrorFocusedCompletionArgs()));
         }
         #endregion
         #region Add New Items Requested
@@ -776,7 +776,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnAddNewItemsRequestedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new AddNewItemsRequestedCompletionArgs()));
+                OnAddNewItemsRequestedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new AddNewItemsRequestedCompletionArgs()));
         }
         #endregion
         #region Exit Requested
@@ -845,7 +845,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnImportNewItemsRequestedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new ImportNewItemsRequestedCompletionArgs()));
+                OnImportNewItemsRequestedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new ImportNewItemsRequestedCompletionArgs()));
         }
         #endregion
         #region Build Solution Requested
@@ -868,7 +868,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnBuildSolutionRequestedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new BuildSolutionRequestedCompletionArgs()));
+                OnBuildSolutionRequestedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new BuildSolutionRequestedCompletionArgs()));
         }
         #endregion
         #region Options Changed
@@ -905,7 +905,7 @@ namespace CustomControls
                 RaiseEvent(Args);
             }
             else
-                OnRootPropertiesRequestedComplete(null, new SolutionPresenterEventCompletedEventArgs(EventContext, new RootPropertiesRequestedCompletionArgs()));
+                OnRootPropertiesRequestedComplete(this, new SolutionPresenterEventCompletedEventArgs(EventContext, new RootPropertiesRequestedCompletionArgs()));
         }
         #endregion
         #region Show About Requested
@@ -929,11 +929,9 @@ namespace CustomControls
         {
             InitializeComponent();
             InitializeDocuments();
-            InitializeMergedProperties();
             InitializeSolutionTree();
             InitializeContextMenu();
             InitializeDockManager();
-            InitializeCompilerTool();
             InitUndoRedo();
         }
         #endregion
@@ -957,11 +955,8 @@ namespace CustomControls
 
                 List<IItemPath> Result = new List<IItemPath>();
                 foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in SelectedNodes)
-                {
-                    IItemPath AsItemPath;
-                    if ((AsItemPath = Entry.Key as IItemPath) != null)
+                    if (Entry.Key is IItemPath AsItemPath)
                         Result.Add(AsItemPath);
-                }
 
                 return Result;
             }
@@ -972,16 +967,15 @@ namespace CustomControls
             get { return spcSolutionExplorer.SelectedTree; }
         }
 
-        public ObservableCollection<ICompilationError> CompilationErrorList { get; private set; }
+        public ObservableCollection<ICompilationError> CompilationErrorList { get; } = new ObservableCollection<ICompilationError>();
 
-        public StatusTheme StatusTheme { get; private set; }
+        public StatusTheme StatusTheme { get; private set; } = new StatusTheme();
 
-        public FrameworkElement ActiveDocumentContent
+        public FrameworkElement? ActiveDocumentContent
         {
             get
             {
-                SplitView ctrl = GetActiveControl();
-                if (ctrl != null)
+                if (GetActiveControl() is SplitView ctrl)
                     return ctrl.GetRowContent(1);
                 else
                     return null;
@@ -995,16 +989,10 @@ namespace CustomControls
         {
             if (dockManager.ActiveContent == spcSolutionExplorer || IsToolVisible("toolSolutionExplorer"))
                 spcSolutionExplorer.Focus();
-
             else if (dockManager.ActiveContent == listviewCompilerOutput || IsToolVisible("toolCompilerOutput"))
                 listviewCompilerOutput.Focus();
-
-            else
-            {
-                IDocument Document = dockManager.ActiveContent as IDocument;
-                if (Document != null)
+            else if (dockManager.ActiveContent is IDocument Document)
                     Document.SetViewGotFocus();
-            }
         }
 
         public virtual ICollection<IItemPath> Items
@@ -1012,7 +1000,7 @@ namespace CustomControls
             get { return spcSolutionExplorer.SolutionItems; }
         }
 
-        public virtual IItemProperties GetItemProperties(IItemPath path)
+        public virtual IItemProperties? GetItemProperties(IItemPath path)
         {
             return spcSolutionExplorer.GetItemProperties(path);
         }
@@ -1027,7 +1015,7 @@ namespace CustomControls
             CommitInfo Info = CheckToSaveCurrentSolution();
 
             if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, isExit ? SolutionOperation.Exit : SolutionOperation.Save, null, null, null);
+                NotifySolutionTreeCommitted(Info, isExit ? SolutionOperation.Exit : SolutionOperation.Save, new EmptyPath(), new EmptyPath(), string.Empty);
 
             return Info.Option;
         }
@@ -1254,7 +1242,7 @@ namespace CustomControls
 
             if (DocumentTypes != null)
             {
-                DocumentRoutedCommand PreferredDocumentCommand = null;
+                DocumentRoutedCommand? PreferredDocumentCommand = null;
 
                 for (int i = 0; i < DocumentTypes.Count; i++)
                 {
@@ -1280,7 +1268,7 @@ namespace CustomControls
             if (firstSeparator == null)
                 throw new ArgumentNullException(nameof(firstSeparator));
 
-            ItemsControl Container = firstSeparator.Parent as ItemsControl;
+            ItemsControl Container = (ItemsControl)firstSeparator.Parent;
             ItemCollection Items = Container.Items;
             int FirstIndex = Items.IndexOf(firstSeparator) + 1;
 
@@ -1312,7 +1300,7 @@ namespace CustomControls
             if (firstSeparator == null)
                 throw new ArgumentNullException(nameof(firstSeparator));
 
-            ItemsControl Container = firstSeparator.Parent as ItemsControl;
+            ItemsControl Container = (ItemsControl)firstSeparator.Parent;
             ItemCollection Items = Container.Items;
             int FirstIndex = Items.IndexOf(firstSeparator) + 1;
 
@@ -1340,19 +1328,13 @@ namespace CustomControls
         protected virtual void RemoveDocumentKeyBindings()
         {
             foreach (InputBinding Binding in InputBindings)
-            {
-                KeyBinding AsKeyBinding;
-                if ((AsKeyBinding = Binding as KeyBinding) != null)
-                {
-                    DocumentRoutedCommand AsDocumentCommand;
-                    if ((AsDocumentCommand = AsKeyBinding.Command as DocumentRoutedCommand) != null)
+                if (Binding is KeyBinding AsKeyBinding)
+                    if (AsKeyBinding.Command is DocumentRoutedCommand AsDocumentCommand)
                         if (AsDocumentCommand.DocumentType.IsPreferred)
                         {
                             InputBindings.Remove(AsKeyBinding);
                             break;
                         }
-                }
-            }
         }
 
         protected virtual void AddDocumentKeyBinding(DocumentRoutedCommand newDocumentCommand)
@@ -1379,8 +1361,7 @@ namespace CustomControls
             {
                 IFolderPath DestinationPath;
 
-                IFolderPath AsFolderPath;
-                if ((AsFolderPath = spcSolutionExplorer.GetEventSource(sender, e) as IFolderPath) != null)
+                if (spcSolutionExplorer.GetEventSource(sender, e) is IFolderPath AsFolderPath)
                     DestinationPath = AsFolderPath;
                 else
                     DestinationPath = RootPath;
@@ -1422,10 +1403,9 @@ namespace CustomControls
             CommitInfo Info = CheckToSaveCurrentSolution();
 
             if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.Create, ClosedRootPath, null, null);
-
+                NotifySolutionTreeCommitted(Info, SolutionOperation.Create, ClosedRootPath, new EmptyPath(), string.Empty);
             else if (Info.Option == CommitOption.Continue)
-                NotifySolutionClosed(SolutionOperation.Create, ClosedRootPath, null);
+                NotifySolutionClosed(SolutionOperation.Create, ClosedRootPath, new EmptyPath());
         }
 
         protected virtual void OnSolutionCreatedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -1434,9 +1414,8 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(e));
 
             ISolutionCreatedCompletionArgs CompletionArgs = (ISolutionCreatedCompletionArgs)e.CompletionArgs;
-            IRootPath CreatedRootPath = CompletionArgs.CreatedRootPath;
 
-            if (CreatedRootPath != null)
+            if (CompletionArgs.CreatedRootPath is IRootPath CreatedRootPath)
                 NotifySolutionOpened(CreatedRootPath);
         }
         #endregion
@@ -1462,19 +1441,18 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(e));
 
             ISolutionSelectedCompletionArgs CompletionArgs = (ISolutionSelectedCompletionArgs)e.CompletionArgs;
-            IRootPath SelectedRootPath = CompletionArgs.SelectedRootPath;
-            IRootPath ClosedRootPath = RootPath;
+            if (CompletionArgs.SelectedRootPath is IRootPath SelectedRootPath)
+            {
+                IRootPath ClosedRootPath = RootPath;
 
-            CommitInfo Info = CheckToSaveCurrentSolution();
+                CommitInfo Info = CheckToSaveCurrentSolution();
 
-            if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.Open, ClosedRootPath, SelectedRootPath, null);
+                if (Info.Option == CommitOption.CommitAndContinue)
+                    NotifySolutionTreeCommitted(Info, SolutionOperation.Open, ClosedRootPath, SelectedRootPath, string.Empty);
 
-            else if (Info.Option == CommitOption.Continue)
-                if (ClosedRootPath != null)
+                else if (Info.Option == CommitOption.Continue)
                     NotifySolutionClosed(SolutionOperation.Open, ClosedRootPath, SelectedRootPath);
-                else
-                    NotifySolutionOpened(SelectedRootPath);
+            }
         }
 
         protected virtual void OnSolutionOpenedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -1485,10 +1463,10 @@ namespace CustomControls
             SolutionOpenedEventContext EventContext = (SolutionOpenedEventContext)e.EventContext;
             ISolutionOpenedCompletionArgs CompletionArgs = (ISolutionOpenedCompletionArgs)e.CompletionArgs; 
             IRootPath OpenedRootPath = EventContext.OpenedRootPath;
-            IRootProperties OpenedRootProperties = CompletionArgs.OpenedRootProperties;
-            IComparer<ITreeNodePath> OpenedRootComparer = CompletionArgs.OpenedRootComparer;
-            IList<IFolderPath> ExpandedFolderList = CompletionArgs.ExpandedFolderList;
-            object Context = CompletionArgs.Context;
+            IRootProperties? OpenedRootProperties = CompletionArgs.OpenedRootProperties;
+            IComparer<ITreeNodePath>? OpenedRootComparer = CompletionArgs.OpenedRootComparer;
+            IList<IFolderPath>? ExpandedFolderList = CompletionArgs.ExpandedFolderList;
+            object? Context = CompletionArgs.Context;
 
             SetValue(TreeNodeComparerPropertyKey, OpenedRootComparer);
             LoadTree(OpenedRootPath, OpenedRootProperties, OpenedRootComparer, ExpandedFolderList, Context);
@@ -1539,7 +1517,7 @@ namespace CustomControls
                     CommitOption Option = IsSingleDocumentSaveConfirmed(ActiveDocument);
 
                     if (Option == CommitOption.CommitAndContinue)
-                        NotifyDocumentSaved(DocumentOperation.Close, ActiveDocument, null);
+                        NotifyDocumentSaved(DocumentOperation.Close, ActiveDocument, string.Empty);
 
                     else if (Option == CommitOption.Continue)
                         NotifyDocumentClosed(DocumentOperation.Close, ActiveDocument);
@@ -1558,7 +1536,7 @@ namespace CustomControls
             IList<IDocument> ClosedDocumentList = EventContext.ClosedDocumentList;
             IReadOnlyDictionary<ITreeNodePath, IPathConnection> ClosedTree = EventContext.ClosedTree;
             bool IsUndoRedo = EventContext.IsUndoRedo;
-            object ClientInfo = EventContext.ClientInfo;
+            object? ClientInfo = EventContext.ClientInfo;
 
             foreach (IDocument ClosedDocument in ClosedDocumentList)
                 OpenDocuments.Remove(ClosedDocument);
@@ -1592,10 +1570,10 @@ namespace CustomControls
             CommitInfo Info = CheckToSaveCurrentSolution();
 
             if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.Close, ClosedRootPath, null, null);
+                NotifySolutionTreeCommitted(Info, SolutionOperation.Close, ClosedRootPath, new EmptyPath(), string.Empty);
 
             else if (Info.Option == CommitOption.Continue)
-                NotifySolutionClosed(SolutionOperation.Close, ClosedRootPath, null);
+                NotifySolutionClosed(SolutionOperation.Close, ClosedRootPath, new EmptyPath());
         }
 
         protected virtual void OnSolutionClosedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -1608,7 +1586,7 @@ namespace CustomControls
             IRootPath ClosedRootPath = EventContext.ClosedRootPath;
             IRootPath NewRootPath = EventContext.NewRootPath;
 
-            IReadOnlyCollection<ITreeNodePath> DeletedTree;
+            IReadOnlyCollection<ITreeNodePath>? DeletedTree;
             if (SolutionOperation == SolutionOperation.Delete)
                 DeletedTree = spcSolutionExplorer.GetTree(ClosedRootPath);
             else
@@ -1651,7 +1629,7 @@ namespace CustomControls
         protected virtual void OnSaveDocument(object sender, ExecutedRoutedEventArgs e)
         {
             if (ActiveDocument != null)
-                NotifyDocumentSaved(DocumentOperation.Save, ActiveDocument, null);
+                NotifyDocumentSaved(DocumentOperation.Save, ActiveDocument, string.Empty);
         }
 
         protected virtual void OnDocumentSavedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -1690,7 +1668,7 @@ namespace CustomControls
 
             CommitInfo Info = GetDirtyObjects();
 
-            if (Info.DirtyItemList.Count > 0 || Info.DirtyPropertiesList.Count > 0 || Info.DirtyDocumentList.Count > 0)
+            if ((Info.DirtyItemList != null && Info.DirtyItemList.Count > 0) || (Info.DirtyPropertiesList != null && Info.DirtyPropertiesList.Count > 0) || (Info.DirtyDocumentList != null && Info.DirtyDocumentList.Count > 0))
                 e.CanExecute = true;
         }
 
@@ -1698,8 +1676,8 @@ namespace CustomControls
         {
             CommitInfo Info = GetDirtyObjects();
 
-            if (Info.DirtyItemList.Count > 0 || Info.DirtyPropertiesList.Count > 0 || Info.DirtyDocumentList.Count > 0)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.Save, null, null, null);
+            if ((Info.DirtyItemList != null && Info.DirtyItemList.Count > 0) || (Info.DirtyPropertiesList != null && Info.DirtyPropertiesList.Count > 0) || (Info.DirtyDocumentList != null && Info.DirtyDocumentList.Count > 0))
+                NotifySolutionTreeCommitted(Info, SolutionOperation.Save, new EmptyPath(), new EmptyPath(), string.Empty);
         }
         #endregion
 
@@ -1790,14 +1768,14 @@ namespace CustomControls
 
         private DocumentTypeFilter GetFilters()
         {
-            string DefaultExtension = null;
+            string DefaultExtension = string.Empty;
             Dictionary<string, string> FileExtensionTable = new Dictionary<string, string>();
             foreach (IDocumentImportDescriptor Descriptor in DocumentImportDescriptors)
             {
                 if (!FileExtensionTable.ContainsKey(Descriptor.FileExtension))
                     FileExtensionTable.Add(Descriptor.FileExtension, Descriptor.FriendlyImportName);
 
-                if (DefaultExtension == null || Descriptor.IsDefault)
+                if (DefaultExtension.Length == 0 || Descriptor.IsDefault)
                     DefaultExtension = Descriptor.FileExtension;
             }
 
@@ -1848,7 +1826,7 @@ namespace CustomControls
                     NotifyImportNewItemsRequested(ImportedDocumentTable, DocumentPathList);
 
                 else
-                    NotifyDocumentOpened(DocumentOperation.Open, null, DocumentPathList, null, null);
+                    NotifyDocumentOpened(DocumentOperation.Open, new EmptyPath(), DocumentPathList, new List<IDocumentPath>(), null);
             }
         }
         #endregion
@@ -2004,7 +1982,7 @@ namespace CustomControls
                         if (Info.Option == CommitOption.CommitAndContinue)
                         {
                             ExportFolder = Dlg.SelectedPath;
-                            NotifySolutionTreeCommitted(Info, SolutionOperation.ExportDocument, null, null, ExportFolder);
+                            NotifySolutionTreeCommitted(Info, SolutionOperation.ExportDocument, new EmptyPath(), new EmptyPath(), ExportFolder);
                         }
 
                         else if (Info.Option == CommitOption.Continue)
@@ -2035,7 +2013,7 @@ namespace CustomControls
             CommitInfo Info = CheckToSaveCurrentSolution();
 
             if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.ExportSolution, ExportedRootPath, null, null);
+                NotifySolutionTreeCommitted(Info, SolutionOperation.ExportSolution, ExportedRootPath, new EmptyPath(), string.Empty);
 
             else if (Info.Option == CommitOption.Continue)
                 ExportSolution(ExportedRootPath);
@@ -2076,7 +2054,7 @@ namespace CustomControls
             if (Result.HasValue && Result.Value && Dlg.FileName.Length > 0)
                 return Dlg.FileName;
             else
-                return null;
+                return string.Empty;
         }
 
         protected virtual void OnSolutionExportedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -2087,9 +2065,9 @@ namespace CustomControls
             SolutionExportedEventContext EventContext = (SolutionExportedEventContext)e.EventContext;
             string DestinationPath = EventContext.DestinationPath;
             SolutionExportedCompletionArgs Args = (SolutionExportedCompletionArgs)e.CompletionArgs;
-            Dictionary<IDocumentPath, byte[]> ContentTable = Args.ContentTable;
 
-            spcSolutionExplorer.CreateExportedSolutionPackage(DestinationPath, ContentTable);
+            if (Args.ContentTable is Dictionary<IDocumentPath, byte[]> ContentTable)
+                spcSolutionExplorer.CreateExportedSolutionPackage(DestinationPath, ContentTable);
         }
         #endregion
 
@@ -2107,7 +2085,7 @@ namespace CustomControls
             CommitInfo Info = CheckToSaveCurrentSolution();
 
             if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.Exit, null, null, null);
+                NotifySolutionTreeCommitted(Info, SolutionOperation.Exit, new EmptyPath(), new EmptyPath(), string.Empty);
 
             else if (Info.Option == CommitOption.Continue)
             {
@@ -2125,13 +2103,11 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanUndo())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (spcSolutionExplorer.CanUndo)
@@ -2141,10 +2117,8 @@ namespace CustomControls
 
         protected virtual void OnUndo(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.OnUndo();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
                 spcSolutionExplorer.Undo();
         }
@@ -2156,13 +2130,11 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanRedo())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (spcSolutionExplorer.CanRedo)
@@ -2172,10 +2144,8 @@ namespace CustomControls
 
         protected virtual void OnRedo(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.OnRedo();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
                 spcSolutionExplorer.Redo();
         }
@@ -2187,23 +2157,19 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanSelectAll())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
                 e.CanExecute = true;
         }
 
         protected virtual void OnSelectAll(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.OnSelectAll();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
                 spcSolutionExplorer.SelectAll();
         }
@@ -2267,7 +2233,7 @@ namespace CustomControls
                 CommitInfo Info = CheckToSaveCurrentSolution();
 
                 if (Info.Option == CommitOption.CommitAndContinue)
-                    NotifySolutionTreeCommitted(Info, SolutionOperation.Build, null, null, null);
+                    NotifySolutionTreeCommitted(Info, SolutionOperation.Build, new EmptyPath(), new EmptyPath(), string.Empty);
 
                 else if (Info.Option == CommitOption.Continue)
                     NotifyBuildSolutionRequested();
@@ -2376,21 +2342,15 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(e));
 
             if (ActiveDocument != null)
-            {
-                SplitView Ctrl = GetActiveControl();
-                if (Ctrl != null && !Ctrl.IsSplitRemovable)
+                if (GetActiveControl() is SplitView Ctrl && !Ctrl.IsSplitRemovable)
                     e.CanExecute = true;
-            }
         }
 
         protected virtual void OnSplitWindow(object sender, ExecutedRoutedEventArgs e)
         {
             if (ActiveDocument != null)
-            {
-                SplitView Ctrl = GetActiveControl();
-                if (Ctrl != null)
+                if (GetActiveControl() is SplitView Ctrl)
                     Ctrl.Split();
-            }
         }
         #endregion
 
@@ -2401,21 +2361,15 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(e));
 
             if (ActiveDocument != null)
-            {
-                SplitView Ctrl = GetActiveControl();
-                if (Ctrl != null && Ctrl.IsSplitRemovable)
+                if (GetActiveControl() is SplitView Ctrl && Ctrl.IsSplitRemovable)
                     e.CanExecute = true;
-            }
         }
 
         protected virtual void OnRemoveWindowSplit(object sender, ExecutedRoutedEventArgs e)
         {
             if (ActiveDocument != null)
-            {
-                SplitView Ctrl = GetActiveControl();
-                if (Ctrl != null)
+                if (GetActiveControl() is SplitView Ctrl)
                     Ctrl.RemoveSplit();
-            }
         }
         #endregion
 
@@ -2451,7 +2405,7 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            NotifyDocumentSaved(DocumentOperation.Save, e.Document, null);
+            NotifyDocumentSaved(DocumentOperation.Save, e.Document, string.Empty);
         }
 
         protected virtual void OnDocumentClosed(object sender, DocumentWindowEventArgs e)
@@ -2468,7 +2422,7 @@ namespace CustomControls
                 CommitOption Option = IsMultipleSaveConfirmed(Info);
 
                 if (Option == CommitOption.CommitAndContinue)
-                    NotifyDocumentSaved(DocumentOperation.Close, e.Document, null);
+                    NotifyDocumentSaved(DocumentOperation.Close, e.Document, string.Empty);
 
                 else if (Option == CommitOption.Continue)
                     NotifyDocumentClosed(DocumentOperation.Close, e.Document);
@@ -2522,17 +2476,13 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(e));
 
             if (AddNewItemsRequestedEventArgs.HasHandler)
-            {
-                IFolderPath DestinationFolderPath = spcSolutionExplorer.SelectedFolder;
-                if (DestinationFolderPath != null)
+                if (spcSolutionExplorer.SelectedFolder is IFolderPath)
                     e.CanExecute = true;
-            }
         }
 
         protected virtual void OnAddExistingItem(object sender, ExecutedRoutedEventArgs e)
         {
-            IFolderPath DestinationFolderPath = spcSolutionExplorer.SelectedFolder;
-            if (DestinationFolderPath != null)
+            if (spcSolutionExplorer.SelectedFolder is IFolderPath DestinationFolderPath)
                 NotifyAddNewItemsRequested(DestinationFolderPath);
         }
 
@@ -2624,8 +2574,7 @@ namespace CustomControls
 
             IFolderPath DestinationPath;
 
-            IFolderPath AsFolderPath;
-            if ((AsFolderPath = spcSolutionExplorer.GetEventSource(sender, e) as IFolderPath) != null)
+            if (spcSolutionExplorer.GetEventSource(sender, e) is IFolderPath AsFolderPath)
                 DestinationPath = AsFolderPath;
             else
                 DestinationPath = RootPath;
@@ -2641,11 +2590,13 @@ namespace CustomControls
 
             string TentativeName = originalName;
 
-            IReadOnlyCollection<ITreeNodePath> Children = spcSolutionExplorer.GetChildren(destinationPath);
-            int Index = 1;
+            if (spcSolutionExplorer.GetChildren(destinationPath) is IReadOnlyCollection<ITreeNodePath> Children)
+            {
+                int Index = 1;
 
-            while (IsNameTaken(Children, TentativeName))
-                TentativeName = String.Format(CultureInfo.CurrentCulture, SolutionPresenterInternal.Properties.Resources.NameCopy, originalName, Index++);
+                while (IsNameTaken(Children, TentativeName))
+                    TentativeName = String.Format(CultureInfo.CurrentCulture, SolutionPresenterInternal.Properties.Resources.NameCopy, originalName, Index++);
+            }
 
             return TentativeName;
         }
@@ -2657,15 +2608,12 @@ namespace CustomControls
 
             bool FolderNameAlreadyExist = false;
             foreach (ITreeNodePath Path in folderChildren)
-            {
-                IFolderPath AsFolderChild;
-                if ((AsFolderChild = Path as IFolderPath) != null)
+                if (Path is IFolderPath AsFolderChild)
                     if (AsFolderChild.FriendlyName == folderName)
                     {
                         FolderNameAlreadyExist = true;
                         break;
                     }
-            }
 
             return FolderNameAlreadyExist;
         }
@@ -2736,7 +2684,7 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(documentPathList));
 
             if (documentPathList.Count > 0)
-                NotifyDocumentOpened(DocumentOperation.Open, null, documentPathList, new List<IDocumentPath>(), null);
+                NotifyDocumentOpened(DocumentOperation.Open, new EmptyPath(), documentPathList, new List<IDocumentPath>(), null);
         }
 
         protected virtual void OnDocumentOpenedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -2749,7 +2697,7 @@ namespace CustomControls
             DocumentOperation DocumentOperation = EventContext.DocumentOperation;
             IFolderPath DestinationFolderPath = EventContext.DestinationFolderPath;
             IList<IDocumentPath> DocumentPathList = EventContext.DocumentPathList;
-            object ErrorLocation = EventContext.ErrorLocation;
+            object? ErrorLocation = EventContext.ErrorLocation;
             IReadOnlyList < IDocument > OpenedDocumentList = CompletionArgs.OpenedDocumentList;
 
             foreach (IDocument OpenedDocument in OpenedDocumentList)
@@ -2789,13 +2737,11 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanCut())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (spcSolutionExplorer.ValidEditOperations.Cut)
@@ -2805,10 +2751,8 @@ namespace CustomControls
 
         protected virtual void OnCut(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.OnCut();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 IReadOnlyDictionary<ITreeNodePath, IPathConnection> DeletedTree = spcSolutionExplorer.SelectedTree;
@@ -2825,13 +2769,11 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanCopy())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (spcSolutionExplorer.ValidEditOperations.Copy)
@@ -2841,10 +2783,8 @@ namespace CustomControls
 
         protected virtual void OnCopy(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.OnCopy();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
                 spcSolutionExplorer.Copy();
         }
@@ -2856,13 +2796,11 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanPaste())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (spcSolutionExplorer.ValidEditOperations.Paste)
@@ -2873,10 +2811,8 @@ namespace CustomControls
 
         protected virtual void OnPaste(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.OnPaste();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (!NodePastedEventArgs.HasHandler)
@@ -2884,28 +2820,27 @@ namespace CustomControls
 
                 IFolderPath DestinationPath;
 
-                IFolderPath AsFolderPath;
-                if ((AsFolderPath = spcSolutionExplorer.GetEventSource(sender, e) as IFolderPath) != null)
+                if (spcSolutionExplorer.GetEventSource(sender, e) is IFolderPath AsFolderPath)
                     DestinationPath = AsFolderPath;
                 else
                     DestinationPath = RootPath;
 
-                ClipboardPathData Data = SolutionExplorer.ReadClipboard();
-                if (Data != null)
+                if (SolutionExplorer.ReadClipboard() is ClipboardPathData Data)
                 {
                     IPathGroup PathGroup = new PathGroup(Data.PathTable, DestinationPath);
                     IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable = PathGroup.PathTable;
 
                     Dictionary<ITreeNodePath, IFolderPath> ParentTable = new Dictionary<ITreeNodePath,IFolderPath>();
                     foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in PathTable)
-                        ParentTable.Add(Entry.Key, Entry.Value.ParentPath);
+                        if (Entry.Value.ParentPath is IFolderPath ParentPath)
+                            ParentTable.Add(Entry.Key, ParentPath);
 
                     AddNextNode(DestinationPath, PathTable, ParentTable, false);
                 }
             }
         }
 
-        protected virtual void AddNextNode(IFolderPath destinationPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, Dictionary<ITreeNodePath, IFolderPath> parentTable, bool isUndoRedo)
+        protected virtual void AddNextNode(IFolderPath? destinationPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, Dictionary<ITreeNodePath, IFolderPath> parentTable, bool isUndoRedo)
         {
             if (pathTable == null)
                 throw new ArgumentNullException(nameof(pathTable));
@@ -2914,8 +2849,8 @@ namespace CustomControls
 
             if (parentTable.Count > 0)
             {
-                ITreeNodePath AddedPath = null;
-                IFolderPath ParentPath = null;
+                ITreeNodePath? AddedPath = null;
+                IFolderPath? ParentPath = null;
                 foreach (KeyValuePair<ITreeNodePath, IFolderPath> Entry in parentTable)
                 {
                     AddedPath = Entry.Key;
@@ -2938,19 +2873,22 @@ namespace CustomControls
                 }
                 while (HasAncestor);
 
-                string NewName;
-                if (destinationPath == null || isUndoRedo)
-                    NewName = AddedPath.FriendlyName;
-                else
-                    NewName = GetUniqueName(destinationPath, AddedPath.FriendlyName);
+                if (AddedPath != null && ParentPath != null)
+                {
+                    string NewName;
+                    if (destinationPath == null || isUndoRedo)
+                        NewName = AddedPath.FriendlyName;
+                    else
+                        NewName = GetUniqueName(destinationPath, AddedPath.FriendlyName);
 
-                if (AddedPath.FriendlyName != NewName)
-                    AddedPath.ChangeFriendlyName(NewName);
+                    if (AddedPath.FriendlyName != NewName)
+                        AddedPath.ChangeFriendlyName(NewName);
 
-                //IPathConnection AddedNodeData = pathTable[AddedPath];
-                parentTable.Remove(AddedPath);
+                    //IPathConnection AddedNodeData = pathTable[AddedPath];
+                    parentTable.Remove(AddedPath);
 
-                NotifyNodePasted(AddedPath, ParentPath, pathTable, parentTable, RootProperties, isUndoRedo);
+                    NotifyNodePasted(AddedPath, ParentPath, pathTable, parentTable, RootProperties, isUndoRedo);
+                }
             }
         }
 
@@ -2968,15 +2906,11 @@ namespace CustomControls
             ITreeNodePath NewPath = CompletionArgs.NewPath;
             ITreeNodeProperties NewProperties = CompletionArgs.NewProperties;
 
-            IFolderPath DestinationPath = null;
+            IFolderPath? DestinationPath = null;
 
-            IFolderPath AsFolderPath;
-            IFolderProperties AsFolderProperties;
-            IItemPath AsItemPath;
-            IItemProperties AsItemProperties;
             bool IsHandled = false;
 
-            if ((AsFolderPath = NewPath as IFolderPath) != null && (AsFolderProperties = NewProperties as IFolderProperties) != null)
+            if (NewPath is IFolderPath AsFolderPath && NewProperties is IFolderProperties AsFolderProperties)
             {
                 DestinationPath = AsFolderPath;
                 if (!IsUndoRedo)
@@ -2984,8 +2918,7 @@ namespace CustomControls
 
                 IsHandled = true;
             }
-
-            else if ((AsItemPath = NewPath as IItemPath) != null && (AsItemProperties = NewProperties as IItemProperties) != null)
+            else if (NewPath is IItemPath AsItemPath && NewProperties is IItemProperties AsItemProperties)
             {
                 DestinationPath = null;
                 if (!IsUndoRedo)
@@ -3006,13 +2939,11 @@ namespace CustomControls
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 if (Document.CanDelete())
                     e.CanExecute = true;
             }
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 if (spcSolutionExplorer.ValidEditOperations.Delete)
@@ -3022,8 +2953,7 @@ namespace CustomControls
 
         protected virtual void OnDelete(object sender, ExecutedRoutedEventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
                 Document.CanDelete();
 
             else if (dockManager.ActiveContent == spcSolutionExplorer)
@@ -3043,15 +2973,12 @@ namespace CustomControls
             {
                 bool IsClosed = false;
                 foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in deletedTree)
-                {
-                    IItemPath AsItemPath;
-                    if ((AsItemPath = Entry.Key as IItemPath) != null)
+                    if (Entry.Key is IItemPath AsItemPath)
                         if (AsItemPath.DocumentPath.IsEqual(Document.Path))
                         {
                             IsClosed = true;
                             break;
                         }
-                }
 
                 if (IsClosed)
                     ClosedDocumentList.Add(Document);
@@ -3072,9 +2999,7 @@ namespace CustomControls
             IReadOnlyDictionary<ITreeNodePath, IPathConnection> DeletedTree = EventContext.DeletedTree;
             bool IsUndoRedo = EventContext.IsUndoRedo;
 
-            ITreeNodePath ItemAfterLastSelected = spcSolutionExplorer.ItemAfterLastSelected;
-
-            if (!IsUndoRedo)
+            if (spcSolutionExplorer.ItemAfterLastSelected is ITreeNodePath ItemAfterLastSelected && !IsUndoRedo)
             {
                 spcSolutionExplorer.DeleteTree(DeletedTree);
                 spcSolutionExplorer.SetSelected(ItemAfterLastSelected);
@@ -3101,10 +3026,10 @@ namespace CustomControls
             CommitInfo Info = CheckToSaveCurrentSolution();
 
             if (Info.Option == CommitOption.CommitAndContinue)
-                NotifySolutionTreeCommitted(Info, SolutionOperation.Delete, DeletedRootPath, null, null);
+                NotifySolutionTreeCommitted(Info, SolutionOperation.Delete, DeletedRootPath, new EmptyPath(), string.Empty);
 
             else if (Info.Option == CommitOption.Continue)
-                NotifySolutionClosed(SolutionOperation.Delete, DeletedRootPath, null);
+                NotifySolutionClosed(SolutionOperation.Delete, DeletedRootPath, new EmptyPath());
         }
 
         protected virtual bool IsDeleteSolutionConfirmed(string solutionName)
@@ -3146,7 +3071,7 @@ namespace CustomControls
 
         private void OnNodeNameChanged(object sender, RoutedEventArgs e)
         {
-            NameChangedEventArgs Args = e as NameChangedEventArgs;
+            NameChangedEventArgs Args = (NameChangedEventArgs)e;
 
             if (Args.Path is IFolderPath)
             {
@@ -3173,7 +3098,7 @@ namespace CustomControls
 
         private void OnNodeMoved(object sender, RoutedEventArgs e)
         {
-            MovedEventArgs Args = e as MovedEventArgs;
+            MovedEventArgs Args = (MovedEventArgs)e;
             NotifyNodeMoved(Args.Path, Args.NewParentPath, Args.IsUndoRedo, RootProperties);
         }
 
@@ -3193,14 +3118,15 @@ namespace CustomControls
 
         private void OnNodeTreeChanged(object sender, RoutedEventArgs e)
         {
-            TreeChangedEventArgs Args = e as TreeChangedEventArgs;
+            TreeChangedEventArgs Args = (TreeChangedEventArgs)e;
             if (Args.IsAdd)
             {
-                IFolderPath DestinationPath = null;
+                IFolderPath? DestinationPath = null;
 
                 Dictionary<ITreeNodePath, IFolderPath> ParentTable = new Dictionary<ITreeNodePath,IFolderPath>();
                 foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in Args.PathTable)
-                    ParentTable.Add(Entry.Key, Entry.Value.ParentPath);
+                    if (Entry.Value.ParentPath is IFolderPath ParentPath)
+                        ParentTable.Add(Entry.Key, ParentPath);
 
                 AddNextNode(DestinationPath, Args.PathTable, ParentTable, Args.IsUndoRedo);
             }
@@ -3242,15 +3168,14 @@ namespace CustomControls
             if (e == null || e.Document == null)
                 return;
 
-            IDocument Document = e.Document.Content as IDocument;
-            if (Document != null)
+            if (e.Document.Content is IDocument Document)
                 if (Document.IsDirty)
                 {
                     CommitOption Option = IsSingleDocumentSaveConfirmed(Document);
 
                     if (Option == CommitOption.CommitAndContinue)
                     {
-                        NotifyDocumentSaved(DocumentOperation.Close, Document, null);
+                        NotifyDocumentSaved(DocumentOperation.Close, Document, string.Empty);
                         e.Cancel = true;
                     }
 
@@ -3267,8 +3192,7 @@ namespace CustomControls
         {
             if (e != null && e.Document != null)
             {
-                IDocument Document = e.Document.Content as IDocument;
-                if (Document != null)
+                if (e.Document.Content is IDocument Document)
                 {
                     OpenDocuments.Remove(Document);
                     NotifyDocumentClosed(DocumentOperation.Close, Document);
@@ -3283,7 +3207,7 @@ namespace CustomControls
         {
             CommitInfo Info = GetDirtyObjects();
 
-            if (Info.DirtyItemList.Count == 0 && Info.DirtyPropertiesList.Count == 0 && Info.DirtyDocumentList.Count == 0)
+            if (Info.DirtyItemList != null && Info.DirtyItemList.Count == 0 && Info.DirtyPropertiesList != null && Info.DirtyPropertiesList.Count == 0 && Info.DirtyDocumentList != null && Info.DirtyDocumentList.Count == 0)
                 return new CommitInfo(CommitOption.Continue, null, null, null);
 
             CommitOption Option;
@@ -3300,7 +3224,7 @@ namespace CustomControls
 
         protected virtual CommitInfo CheckToSaveOpenDocuments()
         {
-            ICollection<IDocument> DirtyDocumentList = GetDirtyDocuments();
+            ICollection<IDocument>? DirtyDocumentList = GetDirtyDocuments();
 
             if (DirtyDocumentList.Count == 0)
             {
@@ -3355,28 +3279,28 @@ namespace CustomControls
             bool DirtySolutionItem = false;
             bool DirtySolutionProperties = false;
 
-            if (info.DirtyDocumentList.Count == 0)
+            if (info.DirtyDocumentList != null && info.DirtyDocumentList.Count == 0)
                 NoDocumentDirty = true;
 
-            if (info.DirtyItemList.Count == 1)
+            if (info.DirtyItemList != null && info.DirtyItemList.Count == 1)
                 foreach (ITreeNodePath Path in info.DirtyItemList)
                     if (Path == RootPath)
                     {
                         DirtySolutionItem = true;
-                        if (info.DirtyPropertiesList.Count == 0)
+                        if (info.DirtyPropertiesList != null && info.DirtyPropertiesList.Count == 0)
                             IsSolutionOnlyDirtyItem = true;
                     }
 
-            if (info.DirtyPropertiesList.Count == 1)
+            if (info.DirtyPropertiesList != null && info.DirtyPropertiesList.Count == 1)
                 foreach (ITreeNodePath Path in info.DirtyPropertiesList)
                     if (Path == RootPath)
                     {
                         DirtySolutionProperties = true;
-                        if (info.DirtyItemList.Count == 0)
+                        if (info.DirtyItemList != null && info.DirtyItemList.Count == 0)
                             IsSolutionOnlyDirtyProperties = true;
                     }
 
-            IsSolutionOnlyDirty = ((info.DirtyItemList.Count == 1) && DirtySolutionItem && (info.DirtyPropertiesList.Count == 1) && DirtySolutionProperties);
+            IsSolutionOnlyDirty = ((info.DirtyItemList != null && info.DirtyItemList.Count == 1) && DirtySolutionItem && (info.DirtyPropertiesList != null && info.DirtyPropertiesList.Count == 1) && DirtySolutionProperties);
 
             bool IsSolutionOnly = NoDocumentDirty && (IsSolutionOnlyDirtyItem || IsSolutionOnlyDirtyProperties || IsSolutionOnlyDirty);
 
@@ -3403,45 +3327,48 @@ namespace CustomControls
             SaveAllWindow Dlg = new SaveAllWindow();
             Dlg.Owner = Owner;
 
-            if (info.DirtyItemList.Contains(RootPath) || info.DirtyPropertiesList.Contains(RootPath))
+            if (info.DirtyItemList != null && info.DirtyItemList.Contains(RootPath) || info.DirtyPropertiesList != null && info.DirtyPropertiesList.Contains(RootPath))
                 Dlg.DirtySolutionName = RootPath.FriendlyName;
 
-            foreach (ITreeNodePath Path in info.DirtyItemList)
-                Dlg.TitleList.Add(Path.FriendlyName);
-
-            foreach (ITreeNodePath Path in info.DirtyPropertiesList)
-                if (!info.DirtyItemList.Contains(Path))
-                    Dlg.TitleList.Add(Path.FriendlyName);
-
-            foreach (IDocument Document in info.DirtyDocumentList)
+            if (info.DirtyItemList != null)
             {
-                bool AlreadyListed = false;
-
                 foreach (ITreeNodePath Path in info.DirtyItemList)
-                {
-                    IItemPath AsItemPath;
-                    if ((AsItemPath = Path as IItemPath) != null)
-                        if (AsItemPath.DocumentPath.IsEqual(Document.Path))
-                        {
-                            AlreadyListed = true;
-                            break;
-                        }
-                }
+                    Dlg.TitleList.Add(Path.FriendlyName);
+            }
 
-                if (!AlreadyListed)
-                    foreach (ITreeNodePath Path in info.DirtyPropertiesList)
-                    {
-                        IItemPath AsItemPath;
-                        if ((AsItemPath = Path as IItemPath) != null)
+            if (info.DirtyPropertiesList != null && info.DirtyItemList != null)
+            {
+                foreach (ITreeNodePath Path in info.DirtyPropertiesList)
+                    if (!info.DirtyItemList.Contains(Path))
+                        Dlg.TitleList.Add(Path.FriendlyName);
+            }
+
+            if (info.DirtyDocumentList != null && info.DirtyItemList != null)
+            {
+                foreach (IDocument Document in info.DirtyDocumentList)
+                {
+                    bool AlreadyListed = false;
+
+                    foreach (ITreeNodePath Path in info.DirtyItemList)
+                        if (Path is IItemPath AsItemPath)
                             if (AsItemPath.DocumentPath.IsEqual(Document.Path))
                             {
                                 AlreadyListed = true;
                                 break;
                             }
-                    }
 
-                if (!AlreadyListed)
-                    Dlg.TitleList.Add(Document.Path.HeaderName);
+                    if (!AlreadyListed && info.DirtyPropertiesList != null)
+                        foreach (ITreeNodePath Path in info.DirtyPropertiesList)
+                            if (Path is IItemPath AsItemPath)
+                                if (AsItemPath.DocumentPath.IsEqual(Document.Path))
+                                {
+                                    AlreadyListed = true;
+                                    break;
+                                }
+
+                    if (!AlreadyListed)
+                        Dlg.TitleList.Add(Document.Path.HeaderName);
+                }
             }
 
             Dlg.ShowDialog();
@@ -3474,7 +3401,7 @@ namespace CustomControls
                 return CommitOption.CommitAndContinue;
         }
 
-        protected void InternalChangeActiveDocument(IDocument newDocument)
+        protected void InternalChangeActiveDocument(IDocument? newDocument)
         {
             IsActiveDocumentChanging = true;
 
@@ -3490,11 +3417,6 @@ namespace CustomControls
         #endregion
 
         #region Properties Tool
-        private void InitializeMergedProperties()
-        {
-            SolutionMergedProperties = new ObservableCollection<IPropertyEntry>();
-        }
-
         protected virtual void MergeProperties()
         {
             SolutionMergedProperties.Clear();
@@ -3549,18 +3471,18 @@ namespace CustomControls
 
         private static IPropertyEntry GetMergedStringProperty(List<ITreeNodeProperties> PropertiesList, PropertyInfo Info, string FriendlyName)
         {
-            string MergedText = null;
+            string MergedText = string.Empty;
 
             foreach (ITreeNodeProperties Properties in PropertiesList)
             {
                 string NextText = (string)Info.GetValue(Properties);
 
-                if (MergedText == null)
+                if (MergedText.Length == 0)
                     MergedText = NextText;
 
                 else if (MergedText != NextText)
                 {
-                    MergedText = "";
+                    MergedText = string.Empty;
                     break;
                 }
             }
@@ -3612,7 +3534,7 @@ namespace CustomControls
             return new EnumPropertyEntry(PropertiesList, Info.Name, FriendlyName, EnumNames, MergedSelectedIndex);
         }
 
-        public ObservableCollection<IPropertyEntry> SolutionMergedProperties { get; private set; }
+        public ObservableCollection<IPropertyEntry> SolutionMergedProperties { get; } = new ObservableCollection<IPropertyEntry>();
         #endregion
 
         #region Solution Tree
@@ -3649,12 +3571,12 @@ namespace CustomControls
                     break;
 
                 case SolutionOperation.Create:
-                    NotifySolutionClosed(SolutionOperation, RootPath, null);
+                    NotifySolutionClosed(SolutionOperation, RootPath, new EmptyPath());
                     IsHandled = true;
                     break;
 
                 case SolutionOperation.Delete:
-                    NotifySolutionClosed(SolutionOperation, RootPath, null);
+                    NotifySolutionClosed(SolutionOperation, RootPath, new EmptyPath());
                     IsHandled = true;
                     break;
 
@@ -3668,7 +3590,7 @@ namespace CustomControls
 
                 case SolutionOperation.Close:
                     if (RootPath != null)
-                        NotifySolutionClosed(SolutionOperation, RootPath, null);
+                        NotifySolutionClosed(SolutionOperation, RootPath, new EmptyPath());
                     IsHandled = true;
                     break;
 
@@ -3696,9 +3618,12 @@ namespace CustomControls
             Debug.Assert(IsHandled);
         }
 
-        protected virtual void LoadTree(IRootPath newRootPath, IRootProperties newRootProperties, IComparer<ITreeNodePath> newComparer, IList<IFolderPath> expandedFolderList, object context)
+        protected virtual void LoadTree(IRootPath newRootPath, IRootProperties? newRootProperties, IComparer<ITreeNodePath>? newComparer, IList<IFolderPath>? expandedFolderList, object? context)
         {
-            if (newRootPath != null)
+            if (newRootPath == null)
+                throw new ArgumentNullException(nameof(newRootPath));
+
+            if (newRootPath.FriendlyName.Length > 0 && newRootProperties != null && newComparer != null && expandedFolderList != null && context != null)
             {
                 SetValue(RootPathPropertyKey, newRootPath);
                 SetValue(RootPropertiesPropertyKey, newRootProperties);
@@ -3746,13 +3671,10 @@ namespace CustomControls
                 return;
             }
 
-            IFolderPath ParentPath = null;
-            foreach (IFolderPath Path in ParentPathList)
-            {
-                ParentPath = Path;
-                ParentPathList.Remove(Path);
-                break;
-            }
+            IEnumerator<IFolderPath> Enumerator = ParentPathList.GetEnumerator();
+            Enumerator.MoveNext();
+            IFolderPath ParentPath = Enumerator.Current;
+            ParentPathList.Remove(ParentPath);
 
             NotifyFolderEnumerated(ParentPath, ParentPathList, RootProperties, ExpandedFolderList, Context);
         }
@@ -3783,8 +3705,7 @@ namespace CustomControls
             {
                 bool IsExpanded = false;
 
-                IFolderPath AsFolderPath;
-                if ((AsFolderPath = ChildPath as IFolderPath) != null)
+                if (ChildPath is IFolderPath AsFolderPath)
                     foreach (IFolderPath Path in ExpandedFolderList)
                         if (Path.IsEqual(AsFolderPath))
                         {
@@ -3800,16 +3721,13 @@ namespace CustomControls
             List<IFolderPath> FolderPathList = new List<IFolderPath>();
             List<IFolderPath> ExpandedFolders = new List<IFolderPath>();
             foreach (ITreeNodePath ChildPath in ChildrenPathList)
-            {
-                IFolderPath AsFolderPath;
-                if ((AsFolderPath = ChildPath as IFolderPath) != null)
+                if (ChildPath is IFolderPath AsFolderPath)
                 {
                     FolderPathList.Add(AsFolderPath);
 
                     if (IsChildExpanded(ExpandedFolderList, AsFolderPath))
                         ExpandedFolders.Add(AsFolderPath);
                 }
-            }
 
             foreach (IFolderPath Path in FolderPathList)
                 ParentPathList.Add(Path);
@@ -3832,23 +3750,17 @@ namespace CustomControls
         #endregion
 
         #region Compiler Tool
-        private void InitializeCompilerTool()
-        {
-            CompilationErrorList = new ObservableCollection<ICompilationError>();
-        }
-
         protected virtual void OnErrorLineDoubleClick(object sender, MouseButtonEventArgs e)
         {
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
-            ICompilationError Error;
-            if ((Error = listviewCompilerOutput.SelectedItem as ICompilationError) != null)
-                if (Error.Source != null)
+            if (listviewCompilerOutput.SelectedItem is ICompilationError Error)
+                if (Error.Source is IDocumentPath AsDocumentPath)
                 {
                     bool IsOpened = false;
                     foreach (IDocument Document in OpenDocuments)
-                        if (Document.Path.IsEqual(Error.Source))
+                        if (Document.Path.IsEqual(AsDocumentPath))
                         {
                             IsOpened = true;
                             UserActivateDocument(Document);
@@ -3859,8 +3771,8 @@ namespace CustomControls
                     if (!IsOpened)
                     {
                         List<IDocumentPath> DocumentPathList = new List<IDocumentPath>();
-                        DocumentPathList.Add(Error.Source);
-                        NotifyDocumentOpened(DocumentOperation.ShowError, null, DocumentPathList, new List<IDocumentPath>(), Error.Location);
+                        DocumentPathList.Add(AsDocumentPath);
+                        NotifyDocumentOpened(DocumentOperation.ShowError, new EmptyPath(), DocumentPathList, new List<IDocumentPath>(), Error.Location);
                     }
                 }
 
@@ -3893,54 +3805,41 @@ namespace CustomControls
 
         protected virtual Separator GetSeparator(SolutionMenu solutionMenu)
         {
-            Separator Result = null;
-
             switch (solutionMenu)
             {
                 case SolutionMenu.FileMenu:
-                    Result = toolbarMain.FileCustomMenuSeparator;
-                    break;
+                    return toolbarMain.FileCustomMenuSeparator;
 
                 case SolutionMenu.FileToolBar:
-                    Result = toolbarMain.FileToolBarSeparator;
-                    break;
+                    return toolbarMain.FileToolBarSeparator;
 
                 case SolutionMenu.EditMenu:
-                    Result = toolbarMain.EditCustomMenuSeparator;
-                    break;
+                    return toolbarMain.EditCustomMenuSeparator;
 
                 case SolutionMenu.EditToolBar:
-                    Result = toolbarMain.EditToolBarSeparator;
-                    break;
+                    return toolbarMain.EditToolBarSeparator;
 
                 case SolutionMenu.ContextMenu:
-                    Result = spcSolutionExplorer.ContextMenuSeparator;
-                    break;
+                    return spcSolutionExplorer.ContextMenuSeparator;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(solutionMenu));
             }
-
-            Debug.Assert(Result != null);
-
-            return Result;
         }
 
         protected virtual ItemsControl GetMenuControl(SolutionMenu solutionMenu)
         {
-            ItemsControl Result = null;
-
             switch (solutionMenu)
             {
                 case SolutionMenu.FileMenu:
-                    Result = toolbarMain.MainMenu;
-                    break;
+                    return toolbarMain.MainMenu;
 
                 case SolutionMenu.EditMenu:
-                    Result = toolbarMain.MainMenu;
-                    break;
+                    return toolbarMain.MainMenu;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(solutionMenu));
             }
-
-            Debug.Assert(Result != null);
-
-            return Result;
         }
 
         protected virtual void InsertItem(Separator insertionSeparator, FrameworkElement childItem)
@@ -3961,9 +3860,7 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(newItem));
 
             foreach (object Item in items)
-            {
-                MenuItem AsMenuItem;
-                if ((AsMenuItem = Item as MenuItem) != null)
+                if (Item is MenuItem AsMenuItem)
                 {
                     if (AsMenuItem.Command == byCommand)
                     {
@@ -3977,7 +3874,6 @@ namespace CustomControls
                     else if (ReplaceMenuItem(AsMenuItem.Items, byCommand, newItem))
                         break;
                 }
-            }
 
             return false;
         }
@@ -3990,9 +3886,7 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(removedMenuItem));
 
             foreach (object Item in items)
-            {
-                MenuItem AsMenuItem;
-                if ((AsMenuItem = Item as MenuItem) != null)
+                if (Item is MenuItem AsMenuItem)
                 {
                     if (AsMenuItem.Command == removedMenuItem.Command)
                     {
@@ -4004,7 +3898,6 @@ namespace CustomControls
                     else if (ReinsertRemovedMenuItem(AsMenuItem.Items, removedMenuItem))
                         break;
                 }
-            }
 
             return false;
         }
@@ -4041,9 +3934,7 @@ namespace CustomControls
         #region Dock Manager
         private void InitializeDockManager()
         {
-            Documents = new ObservableCollection<IDocument>();
             Documents.CollectionChanged += OnDocumentsCollectionChanged;
-            FocusSortedDocuments = new List<IDocument>();
             SetValue(OpenDocumentsPropertyKey, Documents);
             dockManager.ActiveContentChanged += OnActiveContentChanged;
             toolbarMain.DocumentActivated += OnDocumentActivated;
@@ -4067,8 +3958,7 @@ namespace CustomControls
 
         protected virtual void OnActiveContentChanged(object sender, EventArgs e)
         {
-            IDocument Document = dockManager.ActiveContent as IDocument;
-            if (Document != null)
+            if (dockManager.ActiveContent is IDocument Document)
             {
                 InternalChangeActiveDocument(Document);
 
@@ -4119,12 +4009,9 @@ namespace CustomControls
         private bool IsToolVisible(string ContentId)
         {
             foreach (ILayoutElement Item in dockManager.Layout.Descendents())
-            {
-                LayoutAnchorable AsAnchorable;
-                if ((AsAnchorable = Item as LayoutAnchorable) != null)
+                if (Item is LayoutAnchorable AsAnchorable)
                     if (AsAnchorable.ContentId == ContentId)
                         return AsAnchorable.IsVisible;
-            }
 
             return false;
         }
@@ -4132,9 +4019,7 @@ namespace CustomControls
         private void ShowTool(string ContentId, ToolOperation ToolOperation)
         {
             foreach (ILayoutElement Item in dockManager.Layout.Descendents())
-            {
-                LayoutAnchorable AsAnchorable;
-                if ((AsAnchorable = Item as LayoutAnchorable) != null)
+                if (Item is LayoutAnchorable AsAnchorable)
                     if (AsAnchorable.ContentId == ContentId)
                     {
                         if (!AsAnchorable.IsVisible && ToolOperation != ToolOperation.Hide)
@@ -4147,46 +4032,40 @@ namespace CustomControls
 
                         break;
                     }
-            }
         }
 
-        private SplitView GetActiveControl()
+        private SplitView? GetActiveControl()
         {
             return GetActiveDockedControl(dockManager.Layout);
         }
 
-        private SplitView GetActiveDockedControl(ILayoutElement Layout)
+        private SplitView? GetActiveDockedControl(ILayoutElement Layout)
         {
-            LayoutDocument AsDocument;
-            ILayoutContainer AsContainer;
-
-            if ((AsDocument = Layout as LayoutDocument) != null)
+            switch (Layout)
             {
-                if (AsDocument.Content == dockManager.ActiveContent)
-                {
-                    LayoutItem Item = dockManager.GetLayoutItemFromModel(AsDocument);
-                    if (VisualTreeHelper.GetChildrenCount(Item.View) > 0)
-                        return VisualTreeHelper.GetChild(Item.View, 0) as SplitView;
-                    else
-                        return null;
-                }
-            }
+                case LayoutDocument AsDocument:
+                    if (AsDocument.Content == dockManager.ActiveContent)
+                    {
+                        LayoutItem Item = dockManager.GetLayoutItemFromModel(AsDocument);
+                        if (VisualTreeHelper.GetChildrenCount(Item.View) > 0)
+                            return VisualTreeHelper.GetChild(Item.View, 0) as SplitView;
+                        else
+                            return null;
+                    }
+                    break;
 
-            else if ((AsContainer = Layout as ILayoutContainer) != null)
-            {
-                foreach (ILayoutElement Child in AsContainer.Children)
-                {
-                    SplitView Ctrl = GetActiveDockedControl(Child);
-                    if (Ctrl != null)
-                        return Ctrl;
-                }
+                case ILayoutContainer AsContainer:
+                    foreach (ILayoutElement Child in AsContainer.Children)
+                        if (GetActiveDockedControl(Child) is SplitView Ctrl)
+                            return Ctrl;
+                    break;
             }
 
             return null;
         }
 
-        private ObservableCollection<IDocument> Documents;
-        private List<IDocument> FocusSortedDocuments;
+        private ObservableCollection<IDocument> Documents = new ObservableCollection<IDocument>();
+        private List<IDocument> FocusSortedDocuments = new List<IDocument>();
         #endregion
 
         #region Themes
@@ -4194,7 +4073,7 @@ namespace CustomControls
         {
             LoadTheme(ThemeOption);
 
-            Theme Theme = null;
+            Theme? Theme = null;
 
             switch (ThemeOption)
             {
@@ -4213,11 +4092,14 @@ namespace CustomControls
 
             Debug.Assert(Theme != null);
 
-            dockManager.Theme = Theme;
+            if (Theme != null)
+            {
+                dockManager.Theme = Theme;
 
-            CompositeCollection BackgroundResourceKeys = FindResource("ThemeBackgroundBrushKeys") as CompositeCollection;
-            CompositeCollection ForegroundResourceKeys = FindResource("ThemeForegroundBrushKeys") as CompositeCollection;
-            StatusTheme = new AvalonStatusTheme(Theme, BackgroundResourceKeys, ForegroundResourceKeys);
+                CompositeCollection BackgroundResourceKeys = (CompositeCollection)FindResource("ThemeBackgroundBrushKeys");
+                CompositeCollection ForegroundResourceKeys = (CompositeCollection)FindResource("ThemeForegroundBrushKeys");
+                StatusTheme = new AvalonStatusTheme(Theme, BackgroundResourceKeys, ForegroundResourceKeys);
+            }
         }
 
         private static readonly Dictionary<ThemeOption, string> ThemeAssemblyTable = new Dictionary<ThemeOption, string>()
@@ -4259,12 +4141,11 @@ namespace CustomControls
         #region Undo/Redo
         private void InitUndoRedo()
         {
-            UndoRedoManager = new UndoRedoManager();
             spcSolutionExplorer.UndoRedoManager = UndoRedoManager;
             toolbarMain.UndoRedoManager = UndoRedoManager;
         }
 
-        public UndoRedoManager UndoRedoManager { get; private set; }
+        public UndoRedoManager UndoRedoManager { get; } = new UndoRedoManager();
         #endregion
 
         #region Status Bar

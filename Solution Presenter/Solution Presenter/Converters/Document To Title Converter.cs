@@ -8,23 +8,15 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-
-            if (values.Length > 1 && (values[0] is string) && (values[1] is bool))
-            {
-                string FriendlyName = (string)values[0];
-                bool IsDirty = (bool)values[1];
-
+            if (values != null && values.Length > 1 && (values[0] is string FriendlyName) && (values[1] is bool IsDirty))
                 return FriendlyName + (IsDirty ? "*" : "");
-            }
-
-            return null;
+            else
+                throw new ArgumentNullException(nameof(values));
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

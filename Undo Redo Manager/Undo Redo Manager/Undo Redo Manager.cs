@@ -9,18 +9,6 @@ namespace UndoRedo
     /// </summary>
     public class UndoRedoManager
     {
-        #region Init
-        /// <summary>
-        ///     Initializes a new instance of the UndoRedoManager class.
-        /// </summary>
-        public UndoRedoManager()
-        {
-            UndoList = new ObservableCollection<IReversibleOperation>();
-            RedoList = new ObservableCollection<IReversibleOperation>();
-            LastOperation = null;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         ///     Gets the list of operation that can be reversed.
@@ -28,7 +16,7 @@ namespace UndoRedo
         /// <returns>
         ///     The list of operation that can be reversed.
         /// </returns>
-        public ObservableCollection<IReversibleOperation> UndoList { get; private set; }
+        public ObservableCollection<IReversibleOperation> UndoList { get; } = new ObservableCollection<IReversibleOperation>();
 
         /// <summary>
         ///     Gets the list of operation that have been reversed.
@@ -36,7 +24,7 @@ namespace UndoRedo
         /// <returns>
         ///     The list of operation that have been reversed.
         /// </returns>
-        public ObservableCollection<IReversibleOperation> RedoList { get; private set; }
+        public ObservableCollection<IReversibleOperation> RedoList { get; } = new ObservableCollection<IReversibleOperation>();
 
         /// <summary>
         ///     Gets the last operation that was either performed or reversed.
@@ -44,7 +32,7 @@ namespace UndoRedo
         /// <returns>
         ///     The last operation that was either performed or reversed. Can be null.
         /// </returns>
-        public IReversibleOperation LastOperation { get; private set; }
+        public IReversibleOperation LastOperation { get; private set; } = IdentityOperation.Default;
 
         /// <summary>
         ///     Gets a value that indicate if there is an operation that can be reversed in <see cref="UndoList"/>.
@@ -77,7 +65,7 @@ namespace UndoRedo
         {
             UndoList.Clear();
             RedoList.Clear();
-            LastOperation = null;
+            LastOperation = IdentityOperation.Default;
         }
 
         /// <summary>
@@ -90,7 +78,7 @@ namespace UndoRedo
 
             RedoList.Clear();
             UndoList.Insert(0, operation);
-            LastOperation = null;
+            LastOperation = IdentityOperation.Default;
         }
 
         /// <summary>

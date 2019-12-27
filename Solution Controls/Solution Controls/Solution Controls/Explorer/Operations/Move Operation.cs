@@ -47,16 +47,17 @@ namespace CustomControls
         #region Implementation
         private void ChangeParent(ISolutionFolder oldParent, ISolutionFolder newParent)
         {
-            ISolutionTreeNode Node = Root.FindTreeNode(Path);
-            Debug.Assert(Node != null);
+            ISolutionTreeNode? Node = Root.FindTreeNode(Path);
+            if (Node != null)
+            {
+                ISolutionTreeNodeCollection OldChildrenCollection = (ISolutionTreeNodeCollection)oldParent.Children;
+                OldChildrenCollection.Remove(Node);
 
-            ISolutionTreeNodeCollection OldChildrenCollection = (ISolutionTreeNodeCollection)oldParent.Children;
-            OldChildrenCollection.Remove(Node);
+                ISolutionTreeNodeCollection NewChildrenCollection = (ISolutionTreeNodeCollection)newParent.Children;
+                NewChildrenCollection.Add(Node);
 
-            ISolutionTreeNodeCollection NewChildrenCollection = (ISolutionTreeNodeCollection)newParent.Children;
-            NewChildrenCollection.Add(Node);
-
-            NewChildrenCollection.Sort();
+                NewChildrenCollection.Sort();
+            }
         }
         #endregion
     }

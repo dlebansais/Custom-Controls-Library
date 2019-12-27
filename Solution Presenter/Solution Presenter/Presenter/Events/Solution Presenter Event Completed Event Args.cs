@@ -6,11 +6,11 @@ namespace CustomControls
     {
         public SolutionPresenterEventCompletedEventArgs(object eventContext, object completionArgs)
         {
-            this.EventContext = eventContext;
-            this.CompletionArgs = completionArgs;
+            EventContext = eventContext;
+            CompletionArgs = completionArgs;
         }
 
-        public object EventContext { get; private set; }
-        public object CompletionArgs { get; private set; }
+        public object EventContext { get; }
+        public object CompletionArgs { get; }
     }
 }

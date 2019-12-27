@@ -21,9 +21,6 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-
             if (values.Length > 4 && (values[0] is bool) && (values[1] is Thickness) && (values[2] is Thickness) && (values[3] is Thickness) && (values[4] is Thickness))
             {
                 bool IsEditing = (bool)values[0];
@@ -43,16 +40,18 @@ namespace Converters
                 Thickness GridMargin = new Thickness(GridLeft, GridTop, GridRight, GridBottom);
                 Thickness TextBoxMargin = new Thickness(TextBoxLeft, TextBoxTop, 0, 0);
 
-                string ExpectedResult = parameter as string;
-
-                if (ExpectedResult == "GridMargin")
-                    return GridMargin;
-
-                else if (ExpectedResult == "TextBoxMargin")
-                    return TextBoxMargin;
+                if (parameter is string ExpectedResult)
+                {
+                    if (ExpectedResult == "GridMargin")
+                        return GridMargin;
+                    else if (ExpectedResult == "TextBoxMargin")
+                        return TextBoxMargin;
+                    else
+                        throw new ArgumentOutOfRangeException(nameof(parameter));
+                }
             }
 
-            return new Thickness(0);
+            throw new ArgumentOutOfRangeException(nameof(values));
         }
 
         /// <summary>
@@ -60,7 +59,7 @@ namespace Converters
         /// </summary>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

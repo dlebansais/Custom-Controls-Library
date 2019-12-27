@@ -11,32 +11,30 @@ namespace CustomControls
         ///     Initializes a new instance of the <see cref="ExtendedPassword"/> class.
         /// </summary>
         /// <parameters>
-        /// <param name="Password">A plain text password.</param>
+        /// <param name="password">A plain text password.</param>
         /// </parameters>
         /// <remarks>
         ///     The resulting object is considered not secure and the <see cref="IsSecure"/> property will return False.
         /// </remarks>
-        internal ExtendedPassword(string Password)
+        internal ExtendedPassword(string password)
         {
-            this.IsSecure = false;
-            this.Password = Password;
-            this.SecurePassword = null;
+            Password = password;
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="ExtendedPassword"/> class.
         /// </summary>
         /// <parameters>
-        /// <param name="SecurePassword">A secure password.</param>
+        /// <param name="securePassword">A secure password.</param>
         /// </parameters>
         /// <remarks>
         ///     The resulting object is considered secure and the <see cref="IsSecure"/> property will return True.
         /// </remarks>
-        internal ExtendedPassword(SecureString SecurePassword)
+        internal ExtendedPassword(SecureString securePassword)
         {
-            this.IsSecure = true;
-            this.Password = null;
-            this.SecurePassword = SecurePassword;
+            IsSecure = true;
+            Password = string.Empty;
+            SecurePassword = securePassword;
         }
 
         /// <summary>
@@ -46,7 +44,7 @@ namespace CustomControls
         ///     True if the password is secure, and then password should then be read using the <see cref="SecurePassword"/> property.
         ///     False if the password is not secure, and then password should then be read using the <see cref="Password"/> property.
         /// </returns>
-        public bool IsSecure { get; private set; }
+        public bool IsSecure { get; private set; } = false;
 
         /// <summary>
         ///     A plain text password.
@@ -54,7 +52,7 @@ namespace CustomControls
         /// <returns>
         ///     The password as a plain text string. Null if the <see cref="IsSecure"/> property is True.
         /// </returns>
-        public string Password { get; private set; }
+        public string Password { get; private set; } = string.Empty;
 
         /// <summary>
         ///     A secure password.
@@ -62,6 +60,6 @@ namespace CustomControls
         /// <returns>
         ///     The password as a secure string. Null if the <see cref="IsSecure"/> property is False.
         /// </returns>
-        public SecureString SecurePassword { get; private set; }
+        public SecureString SecurePassword { get; private set; } = new SecureString();
     }
 }

@@ -11,23 +11,34 @@ namespace CustomControls
     public class SolutionTreeNodeCollection : ObservableCollection<ISolutionTreeNode>, ISolutionTreeNodeCollection
     {
         #region Init
-        public SolutionTreeNodeCollection(ISolutionTreeNode parent, IComparer<ITreeNodePath> nodeComparer)
+        public SolutionTreeNodeCollection()
             : base()
         {
-            this.Parent = parent;
-            this.NodeComparer = nodeComparer;
+        }
+
+        public SolutionTreeNodeCollection(ISolutionTreeNode? parent)
+            : base()
+        {
+            Parent = parent;
+        }
+
+        public SolutionTreeNodeCollection(ISolutionTreeNode? parent, IComparer<ITreeNodePath> nodeComparer)
+            : base()
+        {
+            Parent = parent;
+            NodeComparer = nodeComparer;
         }
         #endregion
 
         #region Init
-        public IExtendedTreeNode Parent { get; private set; }
-        public IComparer<ITreeNodePath> NodeComparer { get; private set; }
+        public IExtendedTreeNode? Parent { get; }
+        public IComparer<ITreeNodePath> NodeComparer { get; } = Comparer<ITreeNodePath>.Default;
         #endregion
 
         #region Sorting
         public virtual void Sort()
         {
-            if (NodeComparer == null)
+            if (NodeComparer == Comparer<ITreeNodePath>.Default)
                 return;
 
             bool SortByHighest = true;

@@ -49,24 +49,16 @@ namespace CustomControls
 
         private void OnTextChanged(object sender, RoutedEventArgs e)
         {
-            EditableTextBlock Ctrl = sender as EditableTextBlock;
-            if (Ctrl != null)
-            {
-                StringPropertyEntry Entry = Ctrl.DataContext as StringPropertyEntry;
-                if (Entry != null)
-                    Entry.UpdateText(Ctrl.Text);
-            }
+            EditableTextBlock Ctrl = (EditableTextBlock)sender;
+            StringPropertyEntry Entry = (StringPropertyEntry)Ctrl.DataContext;
+            Entry.UpdateText(Ctrl.Text);
         }
 
         private void OnSelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox Ctrl = sender as ComboBox;
-            if (Ctrl != null)
-            {
-                EnumPropertyEntry Entry = Ctrl.DataContext as EnumPropertyEntry;
-                if (Entry != null)
-                    Entry.UpdateSelectedIndex(Ctrl.SelectedIndex);
-            }
+            ComboBox Ctrl = (ComboBox)sender;
+            EnumPropertyEntry Entry = (EnumPropertyEntry)Ctrl.DataContext;
+            Entry.UpdateSelectedIndex(Ctrl.SelectedIndex);
         }
         #endregion
     }

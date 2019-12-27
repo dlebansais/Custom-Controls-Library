@@ -96,7 +96,7 @@ namespace ExtendedTreeViewDemo
             {
                 case TreeViewType.VS2013:
                     MergedDictionaries.Add(VS2013Dictionnary);
-                    treeviewSample.ExpandButtonStyle = FindResource("VS2013ExpandButtonStyle") as Style;
+                    treeviewSample.ExpandButtonStyle = (Style)FindResource("VS2013ExpandButtonStyle");
                     treeviewSample.ExpandButtonWidth = 16;
                     treeviewSample.IndentationWidth = 16;
                     IsHandled = true;
@@ -104,8 +104,8 @@ namespace ExtendedTreeViewDemo
 
                 case TreeViewType.Explorer:
                     MergedDictionaries.Add(ExplorerDictionnary);
-                    ButtonList = new List<FrameworkElement>();
-                    Style ButtonStyle = FindResource("ExplorerExpandButtonStyle") as Style;
+                    ButtonList.Clear();
+                    Style ButtonStyle = (Style)FindResource("ExplorerExpandButtonStyle");
                     Style NewButtonStyle = new Style(typeof(ToggleButton), ButtonStyle);
                     NewButtonStyle.Setters.Add(new EventSetter(ToggleButton.LoadedEvent, new RoutedEventHandler(OnButtonLoaded)));
                     NewButtonStyle.Setters.Add(new EventSetter(ToggleButton.UnloadedEvent, new RoutedEventHandler(OnButtonUnloaded)));
@@ -226,7 +226,7 @@ namespace ExtendedTreeViewDemo
                 throw new ArgumentNullException(nameof(e));
 
             DropCheckEventArgs Args = (DropCheckEventArgs)e;
-            IExtendedTreeNode DropDestinationItem = Args.DropDestinationItem as IExtendedTreeNode;
+            IExtendedTreeNode DropDestinationItem = (IExtendedTreeNode)Args.DropDestinationItem;
 
             if (DropDestinationItem != null && DropDestinationItem.Children.Count == 0 && TreeViewSettingsWindow.AreLeavesSealed)
                 Args.Deny();
@@ -234,35 +234,35 @@ namespace ExtendedTreeViewDemo
 
         protected virtual void OnTreeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            Storyboard res = FindResource("ShowButton") as Storyboard;
+            Storyboard res = (Storyboard)FindResource("ShowButton");
             foreach (FrameworkElement Button in ButtonList)
                 Button.BeginStoryboard(res);
         }
 
         protected virtual void OnTreeViewMouseLeave(object sender, MouseEventArgs e)
         {
-            Storyboard res = FindResource("HideButton") as Storyboard;
+            Storyboard res = (Storyboard)FindResource("HideButton");
             foreach (FrameworkElement Button in ButtonList)
                 Button.BeginStoryboard(res);
         }
 
         protected virtual void OnButtonLoaded(object sender, RoutedEventArgs e)
         {
-            FrameworkElement ElementSender = sender as FrameworkElement;
+            FrameworkElement ElementSender = (FrameworkElement)sender;
             ButtonList.Add(ElementSender);
         }
 
         protected virtual void OnButtonUnloaded(object sender, RoutedEventArgs e)
         {
-            FrameworkElement ElementSender = sender as FrameworkElement;
+            FrameworkElement ElementSender = (FrameworkElement)sender;
             ButtonList.Remove(ElementSender);
         }
 
-        private List<FrameworkElement> ButtonList;
+        private List<FrameworkElement> ButtonList = new List<FrameworkElement>();
 
 
         #region Implementation of INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void NotifyPropertyChanged(string propertyName)
         {

@@ -11,19 +11,10 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values == null)
-                throw new ArgumentNullException(nameof(values));
-
-            if (values.Length > 1 && (values[0] is ICommand) && (values[1] is FrameworkElement))
-            {
-                ICommand Command = (ICommand)values[0];
-                FrameworkElement Source = (FrameworkElement)values[1];
-                string ApplicationName = (string)values[2];
-
+            if (values != null && values.Length > 2 && (values[0] is ICommand Command) && (values[1] is FrameworkElement Source) && (values[2] is string ApplicationName))
                 return GetItemToolTip(Command, Source, ApplicationName);
-            }
-
-            return null;
+            else
+                throw new ArgumentOutOfRangeException(nameof(values));
         }
 
         protected virtual string GetItemToolTip(ICommand command, FrameworkElement source, string applicationName)
@@ -42,14 +33,14 @@ namespace Converters
                 else
                     ItemToolTip = CommandText;
             else
-                ItemToolTip = null;
+                ItemToolTip = string.Empty;
 
             return ItemToolTip;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

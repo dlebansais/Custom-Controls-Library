@@ -19,10 +19,9 @@ namespace CustomControls
         #region Init
         public OptionsWindow(int optionPageIndex, ThemeOption theme, bool saveBeforeCompiling, ICollection<TabItem> optionPages)
         {
-            this.OptionPageIndex = optionPageIndex;
-            this.Theme = theme;
-            this.SaveBeforeCompiling = saveBeforeCompiling;
-            this.UnusedCtrl = null;
+            OptionPageIndex = optionPageIndex;
+            Theme = theme;
+            SaveBeforeCompiling = saveBeforeCompiling;
 
             InitializeComponent();
             DataContext = this;
@@ -32,14 +31,13 @@ namespace CustomControls
             List<TabItem> TemplateList = new List<TabItem>();
             BackupTable = new Dictionary<IOptionPageDataContext, IOptionPageDataContext>();
             
-            TemplateList.Add(FindResource("PageTheme") as TabItem);
-            TemplateList.Add(FindResource("PageCompiler") as TabItem);
+            TemplateList.Add((TabItem)FindResource("PageTheme"));
+            TemplateList.Add((TabItem)FindResource("PageCompiler"));
             if (optionPages != null)
             {
                 foreach (TabItem Page in optionPages)
                 {
-                    IOptionPageDataContext AsOptionPageDataContext;
-                    if ((AsOptionPageDataContext = Page.DataContext as IOptionPageDataContext) != null)
+                    if (Page.DataContext is IOptionPageDataContext AsOptionPageDataContext)
                         BackupTable.Add(AsOptionPageDataContext, AsOptionPageDataContext.Backup());
 
                     TemplateList.Add(Page);
@@ -63,7 +61,7 @@ namespace CustomControls
         public int OptionPageIndex { get; set; }
         public ThemeOption Theme { get; set; }
         public bool SaveBeforeCompiling { get; set; }
-        public TightfittingTabControl UnusedCtrl { get; private set; } // Don't remove this, it forces the load of the corresponding assembly. Otherwise, an exception is thrown before this window is displayed.
+        public TightfittingTabControl? UnusedCtrl { get; } // Don't remove this, it forces the load of the corresponding assembly. Otherwise, an exception is thrown before this window is displayed.
         #endregion
 
         #region Events

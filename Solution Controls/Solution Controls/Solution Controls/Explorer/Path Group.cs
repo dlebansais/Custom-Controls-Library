@@ -7,7 +7,7 @@ namespace CustomControls
     public interface IPathGroup
     {
         IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable { get; }
-        IFolderPath GroupParentPath { get; }
+        IFolderPath? GroupParentPath { get; }
     }
 
     public class PathGroup : IPathGroup
@@ -37,13 +37,13 @@ namespace CustomControls
             Debug.Assert(HasCommonParent(pathTable));
 
             Dictionary<ITreeNodePath, IPathConnection> PathTable = new Dictionary<ITreeNodePath, IPathConnection>();
-            IFolderPath GroupParentPath = null;
+            IFolderPath? GroupParentPath = null;
 
             foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in pathTable)
             {
                 ITreeNodePath Path = Entry.Key;
                 IPathConnection PathConnection = Entry.Value;
-                IFolderPath ParentPath = PathConnection.ParentPath;
+                IFolderPath? ParentPath = PathConnection.ParentPath;
                 ITreeNodeProperties Properties = PathConnection.Properties;
                 bool IsExpanded = PathConnection.IsExpanded;
 
@@ -77,7 +77,7 @@ namespace CustomControls
             {
                 ITreeNodePath Path = Entry.Key;
                 IPathConnection PathConnection = Entry.Value;
-                IFolderPath ParentPath = PathConnection.ParentPath;
+                IFolderPath? ParentPath = PathConnection.ParentPath;
                 ITreeNodeProperties Properties = PathConnection.Properties;
                 bool IsExpanded = PathConnection.IsExpanded;
 
@@ -96,12 +96,12 @@ namespace CustomControls
             if (pathTable == null)
                 throw new ArgumentNullException(nameof(pathTable));
 
-            IFolderPath GroupParentPath = null;
+            IFolderPath? GroupParentPath = null;
             bool? IsNullParent = null;
             foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in pathTable)
             {
                 IPathConnection PathConnection = Entry.Value;
-                IFolderPath ParentPath = PathConnection.ParentPath;
+                IFolderPath? ParentPath = PathConnection.ParentPath;
 
                 if (ParentPath != null && pathTable.ContainsKey(ParentPath))
                     continue;
@@ -133,7 +133,7 @@ namespace CustomControls
             foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in pathTable)
             {
                 IPathConnection PathConnection = Entry.Value;
-                IFolderPath ParentPath = PathConnection.ParentPath;
+                IFolderPath? ParentPath = PathConnection.ParentPath;
 
                 if (ParentPath != null && !pathTable.ContainsKey(ParentPath))
                     return false;
@@ -145,7 +145,7 @@ namespace CustomControls
 
         #region Properties
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable { get; private set; }
-        public IFolderPath GroupParentPath { get; private set; }
+        public IFolderPath? GroupParentPath { get; private set; }
         #endregion
     }
 }

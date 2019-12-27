@@ -9,8 +9,8 @@ namespace CustomControls
         {
             if (x != null && y != null)
             {
-                IFolderPath xFolder = x as IFolderPath;
-                IFolderPath yFolder = y as IFolderPath;
+                IFolderPath? xFolder = x as IFolderPath;
+                IFolderPath? yFolder = y as IFolderPath;
 
                 if (xFolder != null && yFolder == null)
                     return -1;

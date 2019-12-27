@@ -38,29 +38,25 @@ namespace CustomControls
             if (resourceKeys == null)
                 throw new ArgumentNullException(nameof(resourceKeys));
 
-            Uri uri = Theme.GetResourceUri();
-            if (uri != null)
-            {
-                ResourceDictionary ThemeResources = Application.LoadComponent(uri) as ResourceDictionary;
-                if (ThemeResources != null)
+            if (Theme.GetResourceUri() is Uri Uri)
+                if (Application.LoadComponent(Uri) is ResourceDictionary ThemeResources)
                 {
-                    string UriName = uri.ToString();
+                    string UriName = Uri.ToString();
 
                     foreach (CompositeCollection ThemeResourceKeys in resourceKeys)
                         if (ThemeResourceKeys.Count > 0)
                         {
-                            string ThemeUriName = ThemeResourceKeys[0] as string;
-                            if (ThemeUriName != null && ThemeUriName == UriName)
+                            string ThemeUriName = (string)ThemeResourceKeys[0];
+                            if (ThemeUriName == UriName)
                             {
                                 int StatusIndex = (int)statusType;
                                 if (StatusIndex + 1 < ThemeResourceKeys.Count)
                                 {
                                     object Key = ThemeResourceKeys[StatusIndex + 1];
-                                    if (Key is SolidColorBrush)
-                                        return (Brush)Key;
+                                    if (Key is SolidColorBrush AsSolidColorBrush)
+                                        return AsSolidColorBrush;
 
-                                    Brush Resource = ThemeResources[Key] as Brush;
-                                    if (Resource != null)
+                                    if (ThemeResources[Key] is Brush Resource)
                                         return Resource;
 
                                     Debug.Print("Resource not found: " + Key);
@@ -70,9 +66,8 @@ namespace CustomControls
                             }
                         }
                 }
-            }
 
-            return null;
+            throw new ArgumentOutOfRangeException(nameof(resourceKeys));
         }
         #endregion
     }

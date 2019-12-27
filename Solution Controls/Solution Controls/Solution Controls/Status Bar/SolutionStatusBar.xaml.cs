@@ -249,11 +249,10 @@ namespace CustomControls
         #region Active Status List
         private void InitializeActiveStatusList()
         {
-            StatusList = new Collection<IApplicationStatus>();
             SetValue(ActiveStatusListPropertyKey, StatusList);
         }
 
-        private Collection<IApplicationStatus> StatusList;
+        private Collection<IApplicationStatus> StatusList = new Collection<IApplicationStatus>();
         #endregion
 
         #region Default Status
@@ -274,7 +273,7 @@ namespace CustomControls
             _IsCaretOverride = false;
             FindFocusedOperation = null;
             TrackingStarted = false;
-            FindFocusedTimer = new Timer(new TimerCallback(FindFocusedTimerCallback), null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
+            FindFocusedTimer = new Timer(new TimerCallback(FindFocusedTimerCallback), this, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
         protected virtual void FindFocusedTimerCallback(object parameter)
@@ -286,8 +285,7 @@ namespace CustomControls
         protected delegate void FindFocusedTimerHandler();
         protected virtual void OnFindFocusedTimer()
         {
-            IInputElement FocusedElement = Keyboard.FocusedElement;
-            if (!TrackingStarted && FocusedElement != null)
+            if (!TrackingStarted && Keyboard.FocusedElement is IInputElement FocusedElement)
             {
                 FindFocusedTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
                 StartTrackingFocus(FocusedElement);
@@ -302,31 +300,29 @@ namespace CustomControls
 
         protected virtual void AddHandlers(IInputElement focusedElement)
         {
-            if (focusedElement != null)
-            {
-                focusedElement.LostKeyboardFocus += OnLostKeyboardFocus;
+            if (focusedElement == null)
+                throw new ArgumentNullException(nameof(focusedElement));
 
-                IDocumentEditor AsOldEditor;
-                if ((AsOldEditor = focusedElement as IDocumentEditor) != null)
-                {
-                    UpdateCaretInfo(AsOldEditor);
-                    AsOldEditor.CaretPositionChanged += OnCaretPositionChanged;
-                }
-                else
-                    ResetCaretInfo();
+            focusedElement.LostKeyboardFocus += OnLostKeyboardFocus;
+
+            if (focusedElement is IDocumentEditor AsOldEditor)
+            {
+                UpdateCaretInfo(AsOldEditor);
+                AsOldEditor.CaretPositionChanged += OnCaretPositionChanged;
             }
+            else
+                ResetCaretInfo();
         }
 
         protected virtual void RemoveHandlers(IInputElement focusedElement)
         {
-            if (focusedElement != null)
-            {
-                focusedElement.LostKeyboardFocus -= OnLostKeyboardFocus;
+            if (focusedElement == null)
+                throw new ArgumentNullException(nameof(focusedElement));
 
-                IDocumentEditor AsOldEditor;
-                if ((AsOldEditor = focusedElement as IDocumentEditor) != null)
-                    AsOldEditor.CaretPositionChanged -= OnCaretPositionChanged;
-            }
+            focusedElement.LostKeyboardFocus -= OnLostKeyboardFocus;
+
+            if (focusedElement is IDocumentEditor AsOldEditor)
+                AsOldEditor.CaretPositionChanged -= OnCaretPositionChanged;
         }
 
         protected virtual void OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -362,8 +358,8 @@ namespace CustomControls
             IsCaretOverride = false;
         }
 
-        protected DispatcherOperation FindFocusedOperation { get; private set; }
-        protected Timer FindFocusedTimer { get; private set; }
+        protected DispatcherOperation? FindFocusedOperation { get; private set; }
+        protected Timer FindFocusedTimer { get; private set; } = new Timer(new TimerCallback((object parameter) => { }));
         protected bool TrackingStarted { get; private set; }
         #endregion
 
@@ -371,7 +367,7 @@ namespace CustomControls
         /// <summary>
         ///     Implements the PropertyChanged event.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         internal void NotifyPropertyChanged(string propertyName)
         {
@@ -386,30 +382,49 @@ namespace CustomControls
         #endregion
 
         #region Implementation of IDisposable
+        /// <summary>
+        /// Called when an object should release its resources.
+        /// </summary>
+        /// <param name="isDisposing">Indicates if resources must be disposed now.</param>
         protected virtual void Dispose(bool isDisposing)
         {
-            if (isDisposing)
-                DisposeNow();
-        }
-
-        private void DisposeNow()
-        {
-            if (FindFocusedTimer != null)
+            if (!IsDisposed)
             {
-                FindFocusedTimer.Dispose();
-                FindFocusedTimer= null;
+                IsDisposed = true;
+
+                if (isDisposing)
+                    DisposeNow();
             }
         }
 
+        /// <summary>
+        /// Called when an object should release its resources.
+        /// </summary>
         public void Dispose()
         {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
 
+        /// <summary>
+        /// Object destructor.
+        /// </summary>
         ~SolutionStatusBar()
         {
             Dispose(false);
+        }
+
+        /// <summary>
+        /// True after <see cref="Dispose(bool)"/> has been invoked.
+        /// </summary>
+        private bool IsDisposed = false;
+
+        /// <summary>
+        /// Disposes of every reference that must be cleaned up.
+        /// </summary>
+        private void DisposeNow()
+        {
+            FindFocusedTimer.Dispose();
         }
         #endregion
     }

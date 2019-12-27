@@ -10,5 +10,10 @@
         ///     False, the feature is disabled and commands associated to that feature should not be used.
         /// </summary>
         public bool IsEnabled { get; set; }
+
+        /// <summary>
+        /// The default <see cref="SolutionCommandGroup"/>.
+        /// </summary>
+        public static SolutionCommandGroup Default { get; } = new SolutionCommandGroup();
     }
 }

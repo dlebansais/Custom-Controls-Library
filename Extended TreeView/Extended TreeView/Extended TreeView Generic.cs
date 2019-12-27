@@ -10,7 +10,7 @@ namespace CustomControls
         where TCollection : IExtendedTreeNodeCollection
     {
         #region Ancestor Interface
-        protected override object GetItemParent(object item)
+        protected override object? GetItemParent(object item)
         {
             if (item is TItem AsItem)
                 return AsItem.Parent;
@@ -58,7 +58,7 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(item));
         }
 
-        protected override void DragDropMove(object sourceItem, object destinationItem, IList itemList)
+        protected override void DragDropMove(object sourceItem, object destinationItem, IList? itemList)
         {
             if (!(sourceItem is TItem AsSourceItem))
                 throw new ArgumentNullException(nameof(sourceItem));
@@ -83,12 +83,12 @@ namespace CustomControls
             DestinationCollection.Sort();
         }
 
-        protected override void DragDropCopy(object sourceItem, object destinationItem, IList itemList, IList cloneList)
+        protected override void DragDropCopy(object sourceItem, object destinationItem, IList? itemList, IList cloneList)
         {
-            if (destinationItem == null)
+            if (!(destinationItem is TItem AsDestinationItem))
                 throw new ArgumentNullException(nameof(destinationItem));
 
-            TCollection DestinationCollection = (TCollection)((TItem)destinationItem).Children;
+            TCollection DestinationCollection = (TCollection)AsDestinationItem.Children;
 
             if (itemList != null && cloneList != null)
                 foreach (ICloneable ChildItem in itemList)
@@ -112,13 +112,10 @@ namespace CustomControls
         #region Implementation
         protected virtual void OnItemChildrenChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (sender == null)
-                throw new ArgumentNullException(nameof(sender));
-
-            TCollection ItemCollection = (TCollection)sender;
-            object Item = ItemCollection.Parent;
-
-            HandleChildrenChanged(Item, e);
+            if (sender is TCollection ItemCollection && ItemCollection.Parent is object Item)
+                HandleChildrenChanged(Item, e);
+            else
+                throw new ArgumentOutOfRangeException(nameof(sender));
         }
         #endregion
     }

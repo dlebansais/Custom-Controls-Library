@@ -18,11 +18,11 @@ namespace CustomControls
     public abstract class SolutionTreeNode : ISolutionTreeNode
     {
         #region Init
-        protected SolutionTreeNode(ISolutionFolder parent, ITreeNodePath path, ITreeNodeProperties properties)
+        protected SolutionTreeNode(ISolutionFolder? parent, ITreeNodePath path, ITreeNodeProperties properties)
         {
-            this.Parent = parent;
-            this.Path = path;
-            this.Properties = properties;
+            Parent = parent;
+            Path = path;
+            Properties = properties;
 
             UpdateName();
             InitIsDirty();
@@ -31,9 +31,9 @@ namespace CustomControls
 
         #region Properties
         public ITreeNodePath Path { get; private set; }
-        public IExtendedTreeNode Parent { get; private set; }
+        public IExtendedTreeNode? Parent { get; private set; }
         public ITreeNodeProperties Properties { get; private set; }
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
         public abstract IExtendedTreeNodeCollection Children { get; }
         #endregion
 
@@ -84,12 +84,11 @@ namespace CustomControls
             IsDirty = false;
         }
 
-        public event EventHandler<EventArgs> IsDirtyChanged;
+        public event EventHandler<EventArgs>? IsDirtyChanged;
 
         protected virtual void NotifyIsDirtyChanged()
         {
-            if (IsDirtyChanged != null)
-                IsDirtyChanged(this, EventArgs.Empty);
+            IsDirtyChanged?.Invoke(this, EventArgs.Empty);
         }
         #endregion
 
@@ -97,7 +96,7 @@ namespace CustomControls
         /// <summary>
         ///     Implements the PropertyChanged event.
         /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         internal void NotifyPropertyChanged(string propertyName)
         {

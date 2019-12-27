@@ -40,7 +40,7 @@ namespace CustomControls
             public byte bColorCount;
             public byte bReserved;
             public ushort nID;
-            public byte[] Data;
+            public byte[] Data = Array.Empty<byte>();
             public ushort HotspotX;
             public ushort HotspotY;
         }
@@ -142,17 +142,15 @@ namespace CustomControls
         ///     Initializes a new instance of the <see cref="CursorResource"/> class.
         /// </summary>
         /// <parameters>
-        /// <param name="FilePath">Path to the file to read.</param>
-        /// <param name="ResourceID">Identifier of the resources.</param>
-        /// <param name="PreferredSize">Width and height of the preferred size, in pixels.</param>
+        /// <param name="filePath">Path to the file to read.</param>
+        /// <param name="resourceID">Identifier of the resources.</param>
+        /// <param name="preferredSize">Width and height of the preferred size, in pixels.</param>
         /// </parameters>
-        public CursorResource(string FilePath, uint ResourceID, int PreferredSize)
+        public CursorResource(string filePath, uint resourceID, int preferredSize)
         {
-            this.FilePath = FilePath;
-            this.ResourceID = ResourceID;
-            this.PreferredSize = PreferredSize;
-
-            AsCursor = null;
+            FilePath = filePath;
+            ResourceID = resourceID;
+            PreferredSize = preferredSize;
         }
 
         /// <summary>
@@ -198,7 +196,7 @@ namespace CustomControls
         /// <summary>
         ///     Loaded cursor resources.
         /// </summary>
-        public Cursor AsCursor { get; private set; }
+        public Cursor AsCursor { get; private set; } = Cursors.None;
         #endregion
 
         #region Implementation
@@ -218,32 +216,27 @@ namespace CustomControls
         {
             IntPtr hResDir = NativeMethods.FindResource(hMod, (IntPtr)ResourceID, (IntPtr)NativeMethods.RT_GROUP_CURSOR);
             if (hResDir == IntPtr.Zero)
-            {
-                Header = null;
-                RecordList = null;
-                return false;
-            }
+                throw new ArgumentOutOfRangeException(nameof(hMod));
 
             uint size = NativeMethods.SizeofResource(hMod, hResDir);
+            if (size < 6)
+                throw new ArgumentOutOfRangeException(nameof(hMod));
+
             IntPtr pt = NativeMethods.LoadResource(hMod, hResDir);
 
             byte[] bPtr = new byte[size];
             Marshal.Copy(pt, bPtr, 0, (int)size);
 
-            if (size < 6)
+            Header = new NativeMethods.FileHeader
             {
-                Header = null;
-                RecordList = null;
-                return false;
-            }
+                Reserved = BitConverter.ToInt16(bPtr, 0),
+                Type = BitConverter.ToInt16(bPtr, 2),
+                ImageCount = BitConverter.ToInt16(bPtr, 4)
+            };
 
-            Header = new NativeMethods.FileHeader();
-            Header.Reserved = BitConverter.ToInt16(bPtr, 0);
-            Header.Type = BitConverter.ToInt16(bPtr, 2);
-            Header.ImageCount = BitConverter.ToInt16(bPtr, 4);
-
+            RecordList = new List<NativeMethods.FileRecord>();
             List<NativeMethods.FileRecord> TempRecordList = new List<NativeMethods.FileRecord>();
-            NativeMethods.FileRecord GoodSizedImage = null;
+            bool IsGoodSizedImageAdded = false;
 
             for (short i = 0; i < Header.ImageCount; i++)
             {
@@ -258,14 +251,15 @@ namespace CustomControls
                 Record.nID = BitConverter.ToUInt16(bPtr, Offset + 12);
 
                 TempRecordList.Add(Record);
+
                 if (Record.bWidth == PreferredSize)
-                    GoodSizedImage = Record;
+                {
+                    IsGoodSizedImageAdded = true;
+                    RecordList.Add(Record);
+                }
             }
 
-            RecordList = new List<NativeMethods.FileRecord>();
-            if (GoodSizedImage != null)
-                RecordList.Add(GoodSizedImage);
-            else
+            if (!IsGoodSizedImageAdded)
                 RecordList.AddRange(TempRecordList);
 
             return true;

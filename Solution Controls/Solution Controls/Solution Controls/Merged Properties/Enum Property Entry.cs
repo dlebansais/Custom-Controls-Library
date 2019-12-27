@@ -26,7 +26,7 @@ namespace CustomControls
 
         public IList<string> EnumNames { get; private set; }
         public int SelectedIndex { get; set; }
-        public string SelectedItem { get { return SelectedIndex >= 0 && SelectedIndex < EnumNames.Count ? EnumNames[SelectedIndex] : null; } }
+        public string SelectedItem { get { return SelectedIndex >= 0 && SelectedIndex < EnumNames.Count ? EnumNames[SelectedIndex] : string.Empty; } }
 
         public virtual void UpdateSelectedIndex(int newSelectedIndex)
         {

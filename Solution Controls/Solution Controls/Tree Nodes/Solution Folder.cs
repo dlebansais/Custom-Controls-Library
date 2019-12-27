@@ -6,7 +6,7 @@ namespace CustomControls
     {
         IComparer<ITreeNodePath> NodeComparer { get; }
         IReadOnlyDictionary<IFolderPath, ISolutionFolder> FlatFolderChildren { get; }
-        ISolutionTreeNode FindTreeNode(ITreeNodePath path);
+        ISolutionTreeNode? FindTreeNode(ITreeNodePath? path);
     }
 
     public class SolutionFolder : SolutionTreeNode, ISolutionFolder
@@ -31,7 +31,7 @@ namespace CustomControls
         #region Properties
         public IComparer<ITreeNodePath> NodeComparer { get { return _Children.NodeComparer; } }
         public override IExtendedTreeNodeCollection Children { get { return _Children; } }
-        private ISolutionTreeNodeCollection _Children;
+        private ISolutionTreeNodeCollection _Children = new SolutionTreeNodeCollection();
 
         public IReadOnlyDictionary<IFolderPath, ISolutionFolder> FlatFolderChildren
         {
@@ -49,16 +49,13 @@ namespace CustomControls
             FlatChildrenTable.Add((IFolderPath)Path, this);
 
             foreach (ISolutionTreeNode Child in Children)
-            {
-                SolutionFolder AsFolder;
-                if ((AsFolder = Child as SolutionFolder) != null)
+                if (Child is SolutionFolder AsFolder)
                     AsFolder.AddChilrenToTable(FlatChildrenTable);
-            }
         }
         #endregion
 
         #region Client Interface
-        public virtual ISolutionTreeNode FindTreeNode(ITreeNodePath path)
+        public virtual ISolutionTreeNode? FindTreeNode(ITreeNodePath? path)
         {
             if (path == null)
                 return null;
@@ -71,10 +68,9 @@ namespace CustomControls
                 if (path.IsEqual(Child.Path))
                     return Child;
 
-                ISolutionFolder AsFolder;
-                if ((AsFolder = Child as ISolutionFolder) != null)
+                if (Child is ISolutionFolder AsFolder)
                 {
-                    ISolutionTreeNode TreeNode = AsFolder.FindTreeNode(path);
+                    ISolutionTreeNode? TreeNode = AsFolder.FindTreeNode(path);
                     if (TreeNode != null)
                         return TreeNode;
                 }

@@ -13,23 +13,22 @@ namespace Converters
 #pragma warning restore CA1812
     {
         /// <summary>
-        ///     Compare a name with known command names and return the courresponding <see cref="ActiveCommand"/>.
+        ///     Compares a name with known command names and execute a handler if found.
         /// </summary>
-        /// <param name="Name">The command name to compare.</param>
-        /// <param name="Result">A <see cref="ActiveCommand"/> with this name, null if no command name matches <paramref name="Name"/>.</param>
+        /// <param name="name">The command name to compare.</param>
+        /// <param name="handler">A handler to execute if a command is found.</param>
         /// <returns>
         ///     True if a match is found; otherwise, false.
         /// </returns>
-        public static bool TryParseName(string Name, out ActiveCommand Result)
+        public static bool TryParseName(string name, Action<ActiveCommand> handler)
         {
             foreach (ActiveCommand Command in ActiveCommand.AllCommands)
-                if (Name == Command.Name)
+                if (name == Command.Name)
                 {
-                    Result = Command;
+                    handler(Command);
                     return true;
                 }
 
-            Result = null;
             return false;
         }
 
@@ -61,17 +60,14 @@ namespace Converters
         /// <remarks>
         ///     Compare a name with known command names and return the courresponding <see cref="ActiveCommand"/>.
         /// </remarks>
-        public override object ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
+        public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            string AsString;
-            if ((AsString = value as string) != null)
-            {
-                ActiveCommand Result;
-                if (ActiveCommandTypeConverter.TryParseName(AsString, out Result))
-                    return Result;
-            }
+            object? Result = base.ConvertFrom(context, culture, value);
 
-            return base.ConvertFrom(context, culture, value);
+            if (value is string AsString)
+                ActiveCommandTypeConverter.TryParseName(AsString, (ActiveCommand command) => Result = command);
+
+            return Result;
         }
 
         /// <summary>
@@ -89,8 +85,7 @@ namespace Converters
         /// </remarks>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            ActiveCommand AsActiveCommand;
-            if ((AsActiveCommand = value as ActiveCommand) != null)
+            if (value is ActiveCommand AsActiveCommand)
                 if (destinationType == typeof(string))
                     return AsActiveCommand.Name;
 

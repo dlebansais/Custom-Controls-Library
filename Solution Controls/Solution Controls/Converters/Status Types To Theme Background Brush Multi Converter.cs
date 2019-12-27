@@ -13,16 +13,15 @@ namespace Converters
             {
                 StatusType StatusType = (StatusType)values[0];
                 IStatusTheme Theme = (IStatusTheme)values[1];
-                if (Theme != null)
-                    return Theme.GetBackgroundBrush(StatusType);
+                return Theme.GetBackgroundBrush(StatusType);
             }
-
-            return null;
+            else
+                throw new ArgumentOutOfRangeException(nameof(values));
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

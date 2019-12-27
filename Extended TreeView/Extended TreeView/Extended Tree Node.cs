@@ -2,7 +2,7 @@
 {
     public interface IExtendedTreeNode
     {
-        IExtendedTreeNode Parent { get; }
+        IExtendedTreeNode? Parent { get; }
         IExtendedTreeNodeCollection Children { get; }
         void ChangeParent(IExtendedTreeNode newParent);
     }

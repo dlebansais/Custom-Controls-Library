@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -186,34 +187,33 @@ namespace CustomControls
         #endregion
 
         #region Drop Down Lists
-        private DropDownList DropDownPopup;
+        private DropDownList DropDownPopup = new DropDownList();
 
         private void InitDropDownLists()
         {
-            UndoDropDown = new DropDownList();
             UndoDropDown.Placement = PlacementMode.Bottom;
-            RedoDropDown = new DropDownList();
             RedoDropDown.Placement = PlacementMode.Bottom;
-            DropDownPopup = null;
         }
 
         private void OnDropDownUndo(object sender, ExecutedRoutedEventArgs e)
         {
-            UndoDropDown.SetAssociatedList(UndoRedoManager != null ? UndoRedoManager.UndoList : null);
+            UndoDropDown.SetAssociatedList(UndoRedoManager?.UndoList);
             DropDownPopup = UndoDropDown;
-            OnDropDown(e.OriginalSource as FrameworkElement);
+            OnDropDown((FrameworkElement)e.OriginalSource);
         }
 
         private void OnDropDownRedo(object sender, ExecutedRoutedEventArgs e)
         {
-            RedoDropDown.SetAssociatedList(UndoRedoManager != null ? UndoRedoManager.RedoList : null);
+            RedoDropDown.SetAssociatedList(UndoRedoManager?.RedoList);
             DropDownPopup = RedoDropDown;
-            OnDropDown(e.OriginalSource as FrameworkElement);
+            OnDropDown((FrameworkElement)e.OriginalSource);
         }
 
         private void OnDropDown(FrameworkElement OriginalSource)
         {
-            FrameworkElement PlacementTarget = OriginalSource;
+            Debug.Assert(DropDownPopup == UndoDropDown || DropDownPopup == RedoDropDown);
+
+            FrameworkElement? PlacementTarget = OriginalSource;
             while (PlacementTarget != null)
             {
                 if (PlacementTarget is ExtendedToolBarButton)
@@ -279,8 +279,8 @@ namespace CustomControls
             }
         }
 
-        public DropDownList UndoDropDown { get; private set; }
-        public DropDownList RedoDropDown { get; private set; }
+        public DropDownList UndoDropDown { get; private set; } = new DropDownList();
+        public DropDownList RedoDropDown { get; private set; } = new DropDownList();
         #endregion
 
         #region Custom Menus
@@ -302,41 +302,36 @@ namespace CustomControls
 
         protected virtual void OnWindowMenuOpening(object sender, RoutedEventArgs e)
         {
-            MenuItem WindowMenu;
-            if ((WindowMenu = sender as MenuItem) != null)
+            if (sender is MenuItem WindowMenu && WindowMenu.FindName("ListWindowsMenu") is MenuItem ListWindowMenu)
             {
-                MenuItem ListWindowMenu = WindowMenu.FindName("ListWindowsMenu") as MenuItem;
-                if (ListWindowMenu != null)
+                int WindowListIndex = WindowMenu.Items.IndexOf(ListWindowMenu);
+                if (WindowListIndex > 0)
                 {
-                    int WindowListIndex = WindowMenu.Items.IndexOf(ListWindowMenu);
-                    if (WindowListIndex > 0)
+                    int FirstWindow = WindowListIndex - 1;
+                    while (FirstWindow > 0 && !(WindowMenu.Items[FirstWindow] is Separator))
+                        FirstWindow--;
+
+                    FirstWindow++;
+                    for (int i = 0; i < WindowListIndex - FirstWindow; i++)
+                        WindowMenu.Items.RemoveAt(FirstWindow);
+
+                    if (OpenDocuments != null)
                     {
-                        int FirstWindow = WindowListIndex - 1;
-                        while (FirstWindow > 0 && !(WindowMenu.Items[FirstWindow] is Separator))
-                            FirstWindow--;
-
-                        FirstWindow++;
-                        for (int i = 0; i < WindowListIndex - FirstWindow; i++)
-                            WindowMenu.Items.RemoveAt(FirstWindow);
-
-                        if (OpenDocuments != null)
+                        int i = 0;
+                        foreach (IDocument Document in OpenDocuments)
                         {
-                            int i = 0;
-                            foreach (IDocument Document in OpenDocuments)
-                            {
-                                MenuItem NewWindowItem = new MenuItem();
-                                NewWindowItem.Header = (i + 1).ToString(CultureInfo.CurrentCulture) + " " + Document.Path.HeaderName + (Document.IsDirty ? "*" : "");
-                                NewWindowItem.DataContext = Document;
-                                NewWindowItem.Click += OnSelectWindowMenuClicked;
+                            MenuItem NewWindowItem = new MenuItem();
+                            NewWindowItem.Header = (i + 1).ToString(CultureInfo.CurrentCulture) + " " + Document.Path.HeaderName + (Document.IsDirty ? "*" : "");
+                            NewWindowItem.DataContext = Document;
+                            NewWindowItem.Click += OnSelectWindowMenuClicked;
 
-                                if (Document == ActiveDocument)
-                                    NewWindowItem.IsChecked = true;
+                            if (Document == ActiveDocument)
+                                NewWindowItem.IsChecked = true;
 
-                                WindowMenu.Items.Insert(FirstWindow + i, NewWindowItem);
+                            WindowMenu.Items.Insert(FirstWindow + i, NewWindowItem);
 
-                                if (++i >= 10)
-                                    break;
-                            }
+                            if (++i >= 10)
+                                break;
                         }
                     }
                 }
@@ -345,24 +340,18 @@ namespace CustomControls
 
         protected virtual void OnSelectWindowMenuClicked(object sender, RoutedEventArgs e)
         {
-            MenuItem AsMenuItem;
-            if ((AsMenuItem = sender as MenuItem) != null)
-            {
-                IDocument ActiveDocument;
-                if ((ActiveDocument = AsMenuItem.DataContext as IDocument) != null)
-                    NotifyDocumentActivated(ActiveDocument);
-            }
+            if (sender is MenuItem AsMenuItem && AsMenuItem.DataContext is IDocument ActiveDocument)
+                NotifyDocumentActivated(ActiveDocument);
         }
         #endregion
 
         #region Buttons
         protected virtual void OnIsActiveChanged(object sender, RoutedEventArgs e)
         {
-            FrameworkElement Element = sender as FrameworkElement;
+            FrameworkElement? Element = sender as FrameworkElement;
             while (Element != null)
             {
-                ToolBarTray AsToolBarTray;
-                if ((AsToolBarTray = Element as ToolBarTray) != null)
+                if (Element is ToolBarTray AsToolBarTray)
                 {
                     PrettyItemsControl.MakeToolBarTrayPretty(AsToolBarTray);
                     break;

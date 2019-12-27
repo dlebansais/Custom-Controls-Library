@@ -10,11 +10,10 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values != null && values.Length > 0 && (values[0] is ICommand))
+            if (values != null && values.Length > 0 && (values[0] is ICommand Command))
             {
-                ICommand Command = (ICommand)values[0];
-                IDocument ActiveDocument = null;
-                string ApplicationName = null;
+                IDocument? ActiveDocument = null;
+                string? ApplicationName = null;
 
                 for (int i = 1; i < values.Length; i++)
                 {
@@ -27,50 +26,50 @@ namespace Converters
 
                 return GetItemHeader(Command, ActiveDocument, ApplicationName);
             }
-
-            return null;
+            else
+                throw new ArgumentOutOfRangeException(nameof(values));
         }
 
-        protected virtual string GetItemHeader(ICommand command, IDocument activeDocument, string applicationName)
+        protected virtual string GetItemHeader(ICommand command, IDocument? activeDocument, string? applicationName)
         {
-            string ItemHeader = null;
+            string ItemHeader;
 
-            ActiveDocumentRoutedCommand AsActiveDocumentCommand;
-            LocalizedRoutedCommand AsLocalizedRoutedCommand;
-            ExtendedRoutedCommand AsExtendedRoutedCommand;
-            RoutedUICommand AsUICommand;
-
-            if ((AsActiveDocumentCommand = command as ActiveDocumentRoutedCommand) != null)
+            switch (command)
             {
-                if (activeDocument == null)
-                    ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
-                else
-                {
-                    string CommandTextFormat = AsActiveDocumentCommand.MenuHeader;
-                    if (CommandTextFormat != null)
+                case ActiveDocumentRoutedCommand AsActiveDocumentCommand:
+                    if (activeDocument == null)
+                        ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
+                    else
+                    {
+                        string CommandTextFormat = AsActiveDocumentCommand.MenuHeader;
                         ItemHeader = string.Format(CultureInfo.CurrentCulture, CommandTextFormat, activeDocument.Path.HeaderName);
-                }
+                    }
+                    break;
+
+                case LocalizedRoutedCommand AsLocalizedRoutedCommand:
+                    ItemHeader = AsLocalizedRoutedCommand.MenuHeader;
+                    if (ItemHeader.Contains(LocalizedRoutedCommand.ApplicationNamePattern) && applicationName != null)
+                        ItemHeader = ItemHeader.Replace(LocalizedRoutedCommand.ApplicationNamePattern, applicationName);
+                    break;
+
+                case ExtendedRoutedCommand AsExtendedRoutedCommand:
+                    ItemHeader = AsExtendedRoutedCommand.MenuHeader;
+                    break;
+
+                case RoutedUICommand AsUICommand:
+                    ItemHeader = AsUICommand.Text;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
             }
-
-            else if ((AsLocalizedRoutedCommand = command as LocalizedRoutedCommand) != null)
-            {
-                ItemHeader = AsLocalizedRoutedCommand.MenuHeader;
-                if (ItemHeader.Contains(LocalizedRoutedCommand.ApplicationNamePattern) && applicationName != null)
-                    ItemHeader = ItemHeader.Replace(LocalizedRoutedCommand.ApplicationNamePattern, applicationName);
-            }
-
-            else if ((AsExtendedRoutedCommand = command as ExtendedRoutedCommand) != null)
-                ItemHeader = AsExtendedRoutedCommand.MenuHeader;
-
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-                ItemHeader = AsUICommand.Text;
 
             return ItemHeader;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

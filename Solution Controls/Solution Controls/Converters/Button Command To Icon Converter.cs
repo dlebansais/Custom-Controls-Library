@@ -15,40 +15,40 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ICommand AsCommand;
-            if ((AsCommand = value as ICommand) != null)
+            if (value is ICommand AsCommand)
                 return GetItemIcon(AsCommand);
             else
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(value));
         }
 
         protected virtual Image GetItemIcon(ICommand command)
         {
-            Image ItemIcon = null;
+            Image ItemIcon;
 
-            ExtendedRoutedCommand AsExtendedCommand;
-            RoutedUICommand AsUICommand;
-
-            if ((AsExtendedCommand = command as ExtendedRoutedCommand) != null)
+            switch (command)
             {
-                Image Icon = new Image() { Source = AsExtendedCommand.ImageSource, Width = 16.0, Height = 16.0 };
-                ItemIcon = Icon;
-            }
+                case ExtendedRoutedCommand AsExtendedRoutedCommand:
+                    Image Icon = new Image() { Source = AsExtendedRoutedCommand.ImageSource, Width = 16.0, Height = 16.0 };
+                    ItemIcon = Icon;
+                    break;
 
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-            {
-                string AssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-                string UriPath = "pack://application:,,,/" + AssemblyName + ";component/Resources/Icons/" + AsUICommand.Name + ".png";
+                case RoutedUICommand AsUICommand:
+                    string AssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+                    string UriPath = "pack://application:,,,/" + AssemblyName + ";component/Resources/Icons/" + AsUICommand.Name + ".png";
 
-                try
-                {
-                    BitmapImage ImageResource = new BitmapImage(new Uri(UriPath));
-                    ItemIcon = new Image { Source = ImageResource, Width = 16.0, Height = 16.0 };
-                }
-                catch (IOException)
-                {
-                    ItemIcon = null;
-                }
+                    try
+                    {
+                        BitmapImage ImageResource = new BitmapImage(new Uri(UriPath));
+                        ItemIcon = new Image { Source = ImageResource, Width = 16.0, Height = 16.0 };
+                    }
+                    catch (IOException)
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(command));
+                    }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
             }
 
             return ItemIcon;
@@ -56,7 +56,7 @@ namespace Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

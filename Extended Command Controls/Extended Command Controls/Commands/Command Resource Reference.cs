@@ -15,41 +15,20 @@ namespace CustomControls
     {
         #region Init
         /// <summary>
-        ///     Cached location of the assembly.
+        /// The default <see cref="CommandResourceReference"/>.
         /// </summary>
-        private Assembly InitResourceAssembly;
-        /// <summary>
-        ///     Cached location of a type used to find resources in the assembly.
-        /// </summary>
-        private Type InitResourceSource;
-        /// <summary>
-        ///     Cached location of a <see cref="ResourceManager"/> used to find strings in the assembly.
-        /// </summary>
-        private ResourceManager InitResourceManager;
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="CommandResourceReference"/> class.
-        /// </summary>
-        public CommandResourceReference()
-        {
-            InitResourceAssembly = null;
-            InitResourceSource = null;
-            InitResourceManager = null;
-        }
+        public static CommandResourceReference Default { get; } = new CommandResourceReference();
 
         /// <summary>
         ///     Fills the cache when called for the first times. Does nothing on subsequent calls.
         /// </summary>
         private void Initialize()
         {
-            if (InitResourceAssembly == null)
+            if (InitResourceSource == typeof(object))
             {
                 AssemblyName InitAssemblyName = new AssemblyName(AssemblyName);
                 InitResourceAssembly = Assembly.Load(InitAssemblyName);
-            }
 
-            if (InitResourceSource == null && InitResourceAssembly != null)
-            {
                 string[] ResourceNames = InitResourceAssembly.GetManifestResourceNames();
 
                 foreach (string ResourceName in ResourceNames)
@@ -59,10 +38,9 @@ namespace CustomControls
                         if (InitResourceSource != null)
                             break;
                     }
-            }
 
-            if (InitResourceManager == null && InitResourceSource != null)
                 InitResourceManager = new ResourceManager(InitResourceSource);
+            }
         }
         #endregion
 
@@ -70,15 +48,15 @@ namespace CustomControls
         /// <summary>
         ///     Gets or sets the name of the assembly.
         /// </summary>
-        public string AssemblyName { get; set; }
+        public string AssemblyName { get; set; } = string.Empty;
         /// <summary>
         ///     Gets or sets the extension of resource files to find within the assembly.
         /// </summary>
-        public string ResourceExtension { get; set; }
+        public string ResourceExtension { get; set; } = string.Empty;
         /// <summary>
         ///     Gets or sets the path to icon resources within the assembly.
         /// </summary>
-        public string IconPath { get; set; }
+        public string IconPath { get; set; } = string.Empty;
         #endregion
 
         #region Client Interface
@@ -87,15 +65,8 @@ namespace CustomControls
         /// </summary>
         public string GetString(string name)
         {
-            if (name == null)
-                return null;
-
             Initialize();
-
-            if (InitResourceManager != null)
-                return InitResourceManager.GetString(name, CultureInfo.CurrentCulture);
-            else
-                return null;
+            return InitResourceManager.GetString(name, CultureInfo.CurrentCulture);
         }
 
         /// <summary>
@@ -104,12 +75,6 @@ namespace CustomControls
         public ImageSource GetImageSource(string name)
         {
             Initialize();
-
-            if (name == null)
-                return null;
-
-            if (InitResourceAssembly == null)
-                return null;
 
             string AssemblyName = InitResourceAssembly.GetName().Name;
             string UriPath = "pack://application:,,,/" + AssemblyName + ";component/" + IconPath + name;
@@ -121,9 +86,24 @@ namespace CustomControls
             }
             catch (IOException)
             {
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(name));
             }
         }
+        #endregion
+
+        #region Implementation
+        /// <summary>
+        ///     Cached location of the assembly.
+        /// </summary>
+        private Assembly InitResourceAssembly = Assembly.GetExecutingAssembly();
+        /// <summary>
+        ///     Cached location of a type used to find resources in the assembly.
+        /// </summary>
+        private Type InitResourceSource = typeof(object);
+        /// <summary>
+        ///     Cached location of a <see cref="ResourceManager"/> used to find strings in the assembly.
+        /// </summary>
+        private ResourceManager InitResourceManager = new ResourceManager(typeof(object));
         #endregion
     }
 }

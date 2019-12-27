@@ -151,8 +151,7 @@ namespace CustomControls
         /// </parameters>
         private object ConvertedValue(object value)
         {
-            string AsString;
-            if ((AsString = value as string) != null && EnumBinding != null)
+            if (value is string AsString && EnumBinding != null)
             {
                 Type EnumType = EnumBinding.GetType();
                 if (EnumType.IsEnum)

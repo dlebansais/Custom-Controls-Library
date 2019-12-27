@@ -18,7 +18,7 @@ namespace CustomControls
 
         public IRootPath RootPath { get { return ((DocumentRemovedEventContext)EventContext).RootPath; } }
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> DeletedTree { get { return ((DocumentRemovedEventContext)EventContext).DeletedTree; } }
-        public object ClientInfo { get { return ((DocumentRemovedEventContext)EventContext).ClientInfo; } }
+        public object? ClientInfo { get { return ((DocumentRemovedEventContext)EventContext).ClientInfo; } }
         
         public virtual void NotifyCompletedAsync(Dispatcher dispatcher)
         {

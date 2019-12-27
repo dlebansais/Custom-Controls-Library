@@ -297,9 +297,6 @@ namespace CustomControls
         /// </summary>
         private void InitializeEditing()
         {
-            StartEditingTimer = new Timer(new TimerCallback(StartEditingTimerCallback));
-            IsSelectionActiveDescriptor = DependencyPropertyDescriptor.FromProperty(Selector.IsSelectionActiveProperty, typeof(EditableTextBlock));
-
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new InitPositioningHandler(InitPositioning));
         }
 
@@ -405,6 +402,7 @@ namespace CustomControls
         /// </summary>
         private void InitPositioning()
         {
+            StartEditingTimer = new Timer(new TimerCallback(StartEditingTimerCallback));
             ctrlTextBox.Padding = new Thickness(Math.Max(0.0, ctrlTextBox.Padding.Left - 1), Math.Max(0.0, ctrlTextBox.Padding.Top - 1), Math.Max(0.0, ctrlTextBox.Padding.Right - 1), Math.Max(0.0, ctrlTextBox.Padding.Bottom - 1));
         }
 
@@ -421,12 +419,12 @@ namespace CustomControls
         /// <summary>
         ///     Timer used to schedule even event when the user clicks the control.
         /// </summary>
-        private Timer StartEditingTimer;
+        private Timer StartEditingTimer = new Timer(new TimerCallback((object parameter) => { }));
 
         /// <summary>
         ///     Represent the IsSelectionActive attached property.
         /// </summary>
-        private DependencyPropertyDescriptor IsSelectionActiveDescriptor;
+        private DependencyPropertyDescriptor IsSelectionActiveDescriptor = DependencyPropertyDescriptor.FromProperty(Selector.IsSelectionActiveProperty, typeof(EditableTextBlock));
         #endregion
 
         #region Implementation
@@ -436,7 +434,6 @@ namespace CustomControls
         private void InitializeImplementation()
         {
             ResetClickCount();
-            LastFocusedParent = null;
         }
 
         /// <summary>
@@ -487,14 +484,13 @@ namespace CustomControls
         ///     Search in the parent chain a UIElement that has the focus.
         /// </summary>
         /// <returns>TRUE if a parent has the focus, FALSE if none was found.</returns>
-        private UIElement FocusedParent()
+        private UIElement? FocusedParent()
         {
             DependencyObject Current = this;
 
             while (Current != null)
             {
-                UIElement AsUIElement;
-                if ((AsUIElement = Current as UIElement) != null)
+                if (Current is UIElement AsUIElement)
                     if (AsUIElement.IsFocused)
                         return AsUIElement;
 
@@ -550,7 +546,7 @@ namespace CustomControls
             }
         }
 
-        private UIElement LastFocusedParent;
+        private UIElement? LastFocusedParent = null;
         #endregion
 
         #region Click Count
@@ -587,26 +583,22 @@ namespace CustomControls
 
         #region Implementation of IDisposable
         /// <summary>
-        ///     Called when an object should release its resources.
+        /// Called when an object should release its resources.
         /// </summary>
         /// <param name="isDisposing">Indicates if resources must be disposed now.</param>
         protected virtual void Dispose(bool isDisposing)
         {
-            if (isDisposing)
-                DisposeNow();
-        }
-
-        private void DisposeNow()
-        {
-            if (StartEditingTimer != null)
+            if (!IsDisposed)
             {
-                StartEditingTimer.Dispose();
-                StartEditingTimer = null;
+                IsDisposed = true;
+
+                if (isDisposing)
+                    DisposeNow();
             }
         }
 
         /// <summary>
-        ///     Called when an object should release its resources.
+        /// Called when an object should release its resources.
         /// </summary>
         public void Dispose()
         {
@@ -615,21 +607,25 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Object destructor
+        /// Object destructor.
         /// </summary>
         ~EditableTextBlock()
         {
             Dispose(false);
         }
+
+        /// <summary>
+        /// True after <see cref="Dispose(bool)"/> has been invoked.
+        /// </summary>
+        private bool IsDisposed = false;
+
+        /// <summary>
+        /// Disposes of every reference that must be cleaned up.
+        /// </summary>
+        private void DisposeNow()
+        {
+            StartEditingTimer.Dispose();
+        }
         #endregion
     }
-    /*
-     * History
-     * . Added validation code for ClickDelay
-     * . Moved from Initialized events to named nested controls.
-     * . Improved calculation of the TextBox location and size, to handle exotic margins and paddings.
-     * . Moved calculations from code to binding to minimize the amount of hard-coded stuff.
-     * . Added documentation.
-     * . Added a check on the parent control, to handle focusable and not focusable ones.
-     */
 }

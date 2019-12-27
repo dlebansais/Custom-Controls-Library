@@ -37,8 +37,8 @@ namespace CustomControls
         #region Events
         private void OnViewLoaded(object sender, RoutedEventArgs e)
         {
-            SplitView Ctrl = sender as SplitView;
-            ViewLoadedEventArgs Args = e as ViewLoadedEventArgs;
+            SplitView Ctrl = (SplitView)sender;
+            ViewLoadedEventArgs Args = (ViewLoadedEventArgs)e;
             FrameworkElement View = Args.ViewContent;
 
             View.LayoutTransform = new ScaleTransform();
@@ -46,13 +46,12 @@ namespace CustomControls
 
         private void OnZoomChanged(object sender, RoutedEventArgs e)
         {
-            SplitView Ctrl = sender as SplitView;
-            ZoomChangedEventArgs Args = e as ZoomChangedEventArgs;
+            SplitView Ctrl = (SplitView)sender;
+            ZoomChangedEventArgs Args = (ZoomChangedEventArgs)e;
             FrameworkElement View = Args.ViewContent;
             double Zoom = Args.Zoom;
 
-            ScaleTransform ZoomTransform;
-            if ((ZoomTransform = View.LayoutTransform as ScaleTransform) != null)
+            if (View.LayoutTransform is ScaleTransform ZoomTransform)
             {
                 ZoomTransform.ScaleX = Zoom;
                 ZoomTransform.ScaleY = Zoom;
@@ -61,7 +60,7 @@ namespace CustomControls
         #endregion
 
         #region Implementation of INotifyPropertyChanged
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         public void NotifyPropertyChanged(string propertyName)
         {

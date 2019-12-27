@@ -30,6 +30,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <NoWarn>0436</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -41,6 +42,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <NoWarn>0436</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
@@ -52,6 +54,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <NoWarn>0436;CA1303</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
@@ -63,6 +66,7 @@
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
     <NoWarn>0436</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -174,6 +178,7 @@
       <DependentUpon>SolutionToolBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Tree Nodes\Path\Document Path.cs" />
+    <Compile Include="Tree Nodes\Path\EmptyPath.cs" />
     <Compile Include="Tree Nodes\Path\Folder Path.cs" />
     <Compile Include="Tree Nodes\Path\Item Path.cs" />
     <Compile Include="Tree Nodes\Path\Root Path.cs" />

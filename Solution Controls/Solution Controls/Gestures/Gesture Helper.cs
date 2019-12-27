@@ -16,22 +16,23 @@ namespace CustomControls
 
             Dictionary<string, string> GestureTable = GetGestureTable(source);
 
-            string GestureText = null;
+            string GestureText = string.Empty;
 
-            ExtendedRoutedCommand AsExtendedCommand;
-            RoutedUICommand AsUICommand;
-
-            if ((AsExtendedCommand = command as ExtendedRoutedCommand) != null)
+            switch (command)
             {
-                if (AsExtendedCommand.MenuHeader != null && GestureTable.ContainsKey(AsExtendedCommand.MenuHeader))
-                    GestureText = GestureTable[AsExtendedCommand.MenuHeader];
-            }
+                case ExtendedRoutedCommand AsExtendedCommand:
+                    if (AsExtendedCommand.MenuHeader != null && GestureTable.ContainsKey(AsExtendedCommand.MenuHeader))
+                        GestureText = GestureTable[AsExtendedCommand.MenuHeader];
+                    break;
 
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-            {
-                string DisplayString;
-                if (GetCustomGestureText(AsUICommand, GestureTable, out DisplayString) || GetSystemGestureText(AsUICommand, source, out DisplayString))
-                    GestureText = DisplayString;
+                case RoutedUICommand AsUICommand:
+                    string DisplayString;
+                    if (GetCustomGestureText(AsUICommand, GestureTable, out DisplayString) || GetSystemGestureText(AsUICommand, source, out DisplayString))
+                        GestureText = DisplayString;
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
             }
 
             return GestureText;
@@ -47,23 +48,22 @@ namespace CustomControls
                 return true;
             }
 
-            DisplayString = null;
+            DisplayString = string.Empty;
             return false;
         }
 
         private static bool GetSystemGestureText(RoutedUICommand Command, FrameworkElement Source, out string DisplayString)
         {
-            IGestureSource AsGestureSource;
-            if ((AsGestureSource = Source as IGestureSource) != null)
+            if (Source is IGestureSource AsGestureSource)
             {
-                IGestureTranslator Translator = AsGestureSource.GestureTranslator;
+                IGestureTranslator? Translator = AsGestureSource.GestureTranslator;
                 if (Translator != null)
                     foreach (InputGesture Gesture in Command.InputGestures)
                         if (GestureToText(Gesture, Translator, out DisplayString))
                             return true;
             }
 
-            DisplayString = null;
+            DisplayString = string.Empty;
             return false;
         }
         #endregion
@@ -71,23 +71,18 @@ namespace CustomControls
         #region Gesture Table
         private static Dictionary<string, string> GetGestureTable(FrameworkElement Source)
         {
-            if (Source == null)
-                throw new ArgumentNullException(nameof(Source));
-
             Dictionary<string, string> GestureTable = new Dictionary<string, string>();
             FrameworkElement Element = Source;
-            IGestureTranslator Translator = null;
+            IGestureTranslator? Translator = null;
 
-            for (; ; )
+            for (;;)
             {
-                IGestureSource AsGestureSource;
-                if ((AsGestureSource = Element as IGestureSource) != null)
+                if (Element is IGestureSource AsGestureSource)
                     Translator = AsGestureSource.GestureTranslator;
 
                 ParseKeyBindings(Element.InputBindings, Translator, GestureTable);
 
-                FrameworkElement AsParentElement;
-                if ((AsParentElement = Element.Parent as FrameworkElement) != null)
+                if (Element.Parent is FrameworkElement AsParentElement)
                     Element = AsParentElement;
                 else
                     break;
@@ -96,76 +91,69 @@ namespace CustomControls
             return GestureTable;
         }
 
-        private static void ParseKeyBindings(InputBindingCollection InputBindings, IGestureTranslator Translator, Dictionary<string, string> GestureTable)
+        private static void ParseKeyBindings(InputBindingCollection InputBindings, IGestureTranslator? Translator, Dictionary<string, string> GestureTable)
         {
             foreach (InputBinding Binding in InputBindings)
-            {
-                KeyBinding AsKeyBinding;
-                if ((AsKeyBinding = Binding as KeyBinding) != null)
+                if (Binding is KeyBinding AsKeyBinding)
                     ParseKeyBinding(AsKeyBinding, Translator, GestureTable);
-            }
         }
 
-        private static void ParseKeyBinding(KeyBinding Binding, IGestureTranslator Translator, Dictionary<string, string> GestureTable)
+        private static void ParseKeyBinding(KeyBinding Binding, IGestureTranslator? Translator, Dictionary<string, string> GestureTable)
         {
-            string Key;
-            ExtendedRoutedCommand AsExtendedCommand;
-            RoutedUICommand AsUICommand;
+            string Key = string.Empty;
 
-            if ((AsExtendedCommand = Binding.Command as ExtendedRoutedCommand) != null)
-                Key = AsExtendedCommand.MenuHeader;
-
-            else if ((AsUICommand = Binding.Command as RoutedUICommand) != null)
-                Key = GestureHelper.ApplicationCommandName(AsUICommand);
-
-            else
-                Key = null;
-
-            if (Key != null && !GestureTable.ContainsKey(Key))
+            switch (Binding.Command)
             {
-                string GestureText;
-                if (GestureToText(Binding.Gesture, Translator, out GestureText))
-                    GestureTable.Add(Key, GestureText);
+                case ExtendedRoutedCommand AsExtendedCommand:
+                    Key = AsExtendedCommand.MenuHeader;
+                    break;
+
+                case RoutedUICommand AsUICommand:
+                    Key = GestureHelper.ApplicationCommandName(AsUICommand);
+                    break;
             }
+
+            if (Key.Length > 0 && !GestureTable.ContainsKey(Key))
+                if (GestureToText(Binding.Gesture, Translator, out string GestureText))
+                    GestureTable.Add(Key, GestureText);
         }
 
-        private static bool GestureToText(InputGesture Gesture, IGestureTranslator Translator, out string GestureText)
+        private static bool GestureToText(InputGesture Gesture, IGestureTranslator? Translator, out string GestureText)
         {
-            KeyGesture AsKeyGesture;
-            if ((AsKeyGesture = Gesture as KeyGesture) != null)
+            if (Gesture is KeyGesture AsKeyGesture)
             {
                 string LocalizedText = AsKeyGesture.GetDisplayStringForCulture(CultureInfo.CurrentCulture);
-                if (LocalizedText != null && LocalizedText.Length > 0)
+                if (LocalizedText.Length > 0)
                 {
                     GestureText = PostTranslateText(Translator, LocalizedText);
                     return true;
                 }
 
-                if (AsKeyGesture.DisplayString != null && AsKeyGesture.DisplayString.Length > 0)
+                if (AsKeyGesture.DisplayString.Length > 0 && AsKeyGesture.DisplayString.Length > 0)
                 {
                     GestureText = PostTranslateText(Translator, AsKeyGesture.DisplayString);
                     return true;
                 }
             }
 
-            GestureText = null;
+            GestureText = string.Empty;
             return false;
         }
 
-        private static string PostTranslateText(IGestureTranslator Translator, string Text)
+        private static string PostTranslateText(IGestureTranslator? Translator, string Text)
         {
-            if (Translator == null)
-                return Text;
-            else
+            if (Translator != null)
                 return Translator.PostTranslate(Text);
+            else
+                return Text;
         }
 
         public static string ApplicationCommandName(RoutedCommand command)
         {
-            if (command != null)
-                return "ApplicationCommand." + command.Name;
-            else
-                return null;
+            if (command == null)
+                throw new ArgumentNullException(nameof(command));
+
+            return "ApplicationCommand." + command.Name;
         }
         #endregion
 

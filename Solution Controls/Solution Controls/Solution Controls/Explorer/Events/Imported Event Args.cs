@@ -9,48 +9,31 @@ namespace CustomControls
         public ImportedEventArgs(RoutedEvent routedEvent, SolutionPackage package, string solutionName)
             : base(routedEvent)
         {
-            if (solutionName == null)
-                throw new ArgumentNullException(nameof(solutionName));
-
-            this.Package = package;
-            this.RootPath = null;
-            this.CurrentFolderPath = null;
-            this.Name = solutionName;
-            this.Content = null;
+            Package = package;
+            RootPath = new EmptyPath();
+            CurrentFolderPath = new EmptyPath();
+            Name = solutionName;
+            Content = Array.Empty<byte>();
         }
 
         public ImportedEventArgs(RoutedEvent routedEvent, SolutionPackage package, IRootPath rootPath, IFolderPath currentFolderPath, string folderName)
             : base(routedEvent)
         {
-            if (rootPath == null)
-                throw new ArgumentNullException(nameof(rootPath));
-            if (folderName == null)
-                throw new ArgumentNullException(nameof(folderName));
-
-            this.Package = package;
-            this.RootPath = rootPath;
-            this.CurrentFolderPath = currentFolderPath;
-            this.Name = folderName;
-            this.Content = null;
+            Package = package;
+            RootPath = rootPath;
+            CurrentFolderPath = currentFolderPath;
+            Name = folderName;
+            Content = Array.Empty<byte>();
         }
 
         public ImportedEventArgs(RoutedEvent routedEvent, SolutionPackage package, IRootPath rootPath, IFolderPath currentFolderPath, string itemName, byte[] content)
             : base(routedEvent)
         {
-            if (rootPath == null)
-                throw new ArgumentNullException(nameof(rootPath));
-            if (currentFolderPath == null)
-                throw new ArgumentNullException(nameof(currentFolderPath));
-            if (itemName == null)
-                throw new ArgumentNullException(nameof(itemName));
-            if (content == null)
-                throw new ArgumentNullException(nameof(content));
-
-            this.Package = package;
-            this.RootPath = rootPath;
-            this.CurrentFolderPath = currentFolderPath;
-            this.Name = itemName;
-            this.Content = content;
+            Package = package;
+            RootPath = rootPath;
+            CurrentFolderPath = currentFolderPath;
+            Name = itemName;
+            Content = content;
         }
         #endregion
 

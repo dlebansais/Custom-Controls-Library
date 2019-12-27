@@ -34,32 +34,29 @@ namespace CustomControls
         {
             for (int i = 0; i < ItemsCollection.Items.Count; i++)
             {
-                MenuItem AsMenuItem;
-                FrameworkElement AsFrameworkElement;
-
-                if ((AsMenuItem = ItemsCollection.Items[i] as MenuItem) != null)
+                switch (ItemsCollection.Items[i])
                 {
-                    if (AsMenuItem.Items.Count > 0)
-                        AsMenuItem.Visibility = Visibility.Visible;
-                }
+                    case MenuItem AsMenuItem:
+                        if (AsMenuItem.Items.Count > 0)
+                            AsMenuItem.Visibility = Visibility.Visible;
+                        break;
 
-                else if ((AsFrameworkElement = ItemsCollection.Items[i] as FrameworkElement) != null)
-                    AsFrameworkElement.Visibility = Visibility.Visible;
+                    case FrameworkElement AsFrameworkElement:
+                        AsFrameworkElement.Visibility = Visibility.Visible;
+                        break;
+                }
             }
         }
 
         private static void ModifyAllSubmenus(ItemsControl ItemsCollection, ModifyMenuHandler Handler)
         {
             for (int i = 0; i < ItemsCollection.Items.Count; i++)
-            {
-                MenuItem AsMenuItem;
-                if ((AsMenuItem = ItemsCollection.Items[i] as MenuItem) != null)
+                if (ItemsCollection.Items[i] is MenuItem AsMenuItem)
                     if (AsMenuItem.Items.Count > 0)
                     {
                         ModifyAllSubmenus(AsMenuItem, Handler);
                         Handler(AsMenuItem);
                     }
-            }
         }
 
         private delegate void ModifyMenuHandler(MenuItem MenuItem);
@@ -69,8 +66,7 @@ namespace CustomControls
             bool AllCollapsed = true;
             for (int i = 0; i < MenuItem.Items.Count; i++)
             {
-                MenuItem Submenu;
-                if ((Submenu = MenuItem.Items[i] as MenuItem) != null)
+                if (MenuItem.Items[i] is MenuItem Submenu)
                     if (Submenu.Visibility == Visibility.Visible)
                     {
                         AllCollapsed = false;
@@ -88,8 +84,7 @@ namespace CustomControls
         {
             for (int i = 0; i < ItemsCollection.Items.Count; i++)
             {
-                Separator AsSeparator;
-                if ((AsSeparator = ItemsCollection.Items[i] as Separator) != null)
+                if (ItemsCollection.Items[i] is Separator AsSeparator)
                     AsSeparator.Visibility = Visibility.Visible;
             }
         }
@@ -112,14 +107,11 @@ namespace CustomControls
             bool Exit = false;
 
             for (int i = 0; i < Items.Count && !Exit; i++)
-            {
-                FrameworkElement AsFrameworkElement;
-                if ((AsFrameworkElement = Browser(Items, i) as FrameworkElement) != null)
+                if (Browser(Items, i) is FrameworkElement AsFrameworkElement)
                 {
                     if (AsFrameworkElement.Visibility == Visibility.Visible)
                     {
-                        Separator AsSeparator;
-                        if ((AsSeparator = AsFrameworkElement as Separator) != null)
+                        if (AsFrameworkElement is Separator AsSeparator)
                             AsSeparator.Visibility = Visibility.Collapsed;
                         else
                             Exit = true;
@@ -127,21 +119,18 @@ namespace CustomControls
                 }
                 else
                     Exit = true;
-            }
         }
 
         private static void HideDuplicateSeparators(ItemsControl ItemCollection)
         {
             ItemCollection Items = ItemCollection.Items;
-            Separator PreviousVisibleSeparator = null;
+            Separator? PreviousVisibleSeparator = null;
 
             for (int i = 0; i < Items.Count; i++)
             {
                 FrameworkElement ElementItem = (FrameworkElement)Items[i];
                 if (ElementItem.Visibility == Visibility.Visible)
-                {
-                    Separator AsSeparator;
-                    if ((AsSeparator = Items[i] as Separator) != null)
+                    if (Items[i] is Separator AsSeparator)
                     {
                         if (PreviousVisibleSeparator != null)
                             PreviousVisibleSeparator.Visibility = Visibility.Collapsed;
@@ -150,7 +139,6 @@ namespace CustomControls
                     }
                     else
                         PreviousVisibleSeparator = null;
-                }
             }
         }
     }

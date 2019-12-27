@@ -31,13 +31,14 @@ namespace Converters
             if (value is bool)
                 BooleanValue = (bool)value;
             else if (value is bool?)
-                BooleanValue = ((bool?)value).HasValue ? ((bool?)value).Value : false;
+                BooleanValue = ((bool?)value) ?? false;
             else
-                BooleanValue = false;
+                throw new ArgumentOutOfRangeException(nameof(value));
 
-            CompositeCollection CollectionOfItems = parameter as CompositeCollection;
-
-            return CollectionOfItems != null ? (BooleanValue ? CollectionOfItems[1] : CollectionOfItems[0]) : null;
+            if (parameter is CompositeCollection CollectionOfItems && CollectionOfItems.Count > 1)
+                return BooleanValue ? CollectionOfItems[1] : CollectionOfItems[0];
+            else
+                throw new ArgumentOutOfRangeException(nameof(parameter));
         }
 
         /// <summary>
@@ -49,7 +50,7 @@ namespace Converters
         /// <param name="culture">This parameter is not used.</param>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

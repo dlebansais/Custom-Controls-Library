@@ -53,7 +53,6 @@ namespace CustomControls
         /// </summary>
         public ExtendedToolBar()
         {
-            InitializeCheckedButtons();
             InitializeHandlers();
         }
         #endregion
@@ -136,14 +135,6 @@ namespace CustomControls
 
         #region Checked Buttons
         /// <summary>
-        ///     Initializes the list of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
-        /// </summary>
-        private void InitializeCheckedButtons()
-        {
-            AllButtons = new ObservableCollection<ExtendedToolBarItem>();
-        }
-
-        /// <summary>
         ///     Updates the list of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
         /// </summary>
         /// <param name="e">This parameter is not used.</param>
@@ -154,9 +145,7 @@ namespace CustomControls
             AllButtons.Clear();
 
             foreach (object Item in Items)
-            {
-                ExtendedToolBarButton AsExtendedToolBarButton;
-                if ((AsExtendedToolBarButton = Item as ExtendedToolBarButton) != null)
+                if (Item is ExtendedToolBarButton AsExtendedToolBarButton)
                 {
                     bool IsCommandGroupEnabled = ExtendedToolBar.IsCommandGroupEnabled(AsExtendedToolBarButton.Command);
                     if (IsCommandGroupEnabled)
@@ -165,7 +154,6 @@ namespace CustomControls
                         AllButtons.Add(NewMenuItem);
                     }
                 }
-            }
         }
 
         /// <summary>
@@ -178,12 +166,10 @@ namespace CustomControls
         /// </returns>
         public static bool IsCommandGroupEnabled(ICommand command)
         {
-            ExtendedRoutedCommand AsExtendedCommand;
-            if ((AsExtendedCommand = command as ExtendedRoutedCommand) != null)
-                if (AsExtendedCommand.CommandGroup != null)
-                    return AsExtendedCommand.CommandGroup.IsEnabled;
-
-            return true;
+            if (command is ExtendedRoutedCommand AsExtendedCommand)
+                return AsExtendedCommand.CommandGroup.IsEnabled;
+            else
+                return true;
         }
 
         /// <summary>
@@ -192,7 +178,7 @@ namespace CustomControls
         /// <returns>
         ///     The collection of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
         /// </returns>
-        public ObservableCollection<ExtendedToolBarItem> AllButtons { get; private set; }
+        public ObservableCollection<ExtendedToolBarItem> AllButtons { get; } = new ObservableCollection<ExtendedToolBarItem>();
         #endregion
 
         #region Implementation
@@ -204,23 +190,17 @@ namespace CustomControls
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             if (VisualTreeHelper.GetChildrenCount(this) > 0)
-            {
-                FrameworkElement FirstChild;
-                if ((FirstChild = VisualTreeHelper.GetChild(this, 0) as FrameworkElement) != null)
+                if (VisualTreeHelper.GetChild(this, 0) is FrameworkElement FirstChild)
                 {
-                    ToggleButton AddRemoveButton;
-                    if ((AddRemoveButton = FirstChild.FindName("AddRemoveButton") as ToggleButton) != null)
+                    if (FirstChild.FindName("AddRemoveButton") is ToggleButton AddRemoveButton)
                         AddRemoveButton.Checked += OnAddRemoveButtonChecked;
 
-                    ToggleButton OverflowButton;
-                    if ((OverflowButton = FirstChild.FindName("OverflowButton") as ToggleButton) != null)
+                    if (FirstChild.FindName("OverflowButton") is ToggleButton OverflowButton)
                         OverflowButton.Unchecked += OnOverflowButtonUnchecked;
 
-                    MenuItem ResetToolBarMenuItem;
-                    if ((ResetToolBarMenuItem = FirstChild.FindName("ResetToolBarMenuItem") as MenuItem) != null)
+                    if (FirstChild.FindName("ResetToolBarMenuItem") is MenuItem ResetToolBarMenuItem)
                         ResetToolBarMenuItem.Click += OnResetToolBarClicked;
                 }
-            }
         }
 
         /// <summary>
@@ -230,8 +210,7 @@ namespace CustomControls
         /// <param name="e">This parameter is not used</param>
         protected virtual void OnAddRemoveButtonChecked(object sender, RoutedEventArgs e)
         {
-            ToggleButton AddRemoveButton;
-            if ((AddRemoveButton = sender as ToggleButton) != null)
+            if (sender is ToggleButton AddRemoveButton)
                 AddRemoveButton.IsEnabled = false;
         }
 
@@ -242,20 +221,13 @@ namespace CustomControls
         /// <param name="e">This parameter is not used</param>
         protected virtual void OnOverflowButtonUnchecked(object sender, RoutedEventArgs e)
         {
-            ToggleButton OverflowButton;
-            if ((OverflowButton = sender as ToggleButton) != null)
-            {
-                FrameworkElement ParentControl;
-                if ((ParentControl = OverflowButton.Parent as FrameworkElement) != null)
-                {
-                    ToggleButton AddRemoveButton;
-                    if ((AddRemoveButton = ParentControl.FindName("AddRemoveButton") as ToggleButton) != null)
+            if (sender is ToggleButton OverflowButton)
+                if (OverflowButton.Parent is FrameworkElement ParentControl)
+                    if (ParentControl.FindName("AddRemoveButton") is ToggleButton AddRemoveButton)
                     {
                         AddRemoveButton.IsChecked = false;
                         AddRemoveButton.IsEnabled = true;
                     }
-                }
-            }
         }
 
         /// <summary>

@@ -12,26 +12,24 @@ namespace Converters
         {
             int IndexValue = (int)value;
 
-            CompositeCollection ArrayParameter = parameter as CompositeCollection;
-            if (ArrayParameter != null && ArrayParameter.Count > 0)
+            if (parameter is CompositeCollection ArrayParameter && ArrayParameter.Count > 0)
             {
                 Random r = new Random(IndexValue);
                 int Index = r.Next(ArrayParameter.Count);
                 object Result = ArrayParameter[Index];
 
-                Image AsImage;
-                if ((AsImage = Result as Image) != null)
+                if (Result is Image AsImage)
                     return AsImage.Source;
                 else
                     return Result;
             }
             else
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(parameter));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

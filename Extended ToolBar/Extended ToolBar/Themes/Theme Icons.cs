@@ -33,27 +33,21 @@ namespace CustomControls
         {
             if (resourceAssembly == null)
                 throw new ArgumentNullException(nameof(resourceAssembly));
-            if (iconPath == null)
-                throw new ArgumentNullException(nameof(iconPath));
 
-            if (key != null)
+            string AssemblyName = resourceAssembly.GetName().Name;
+            string UriPath = "pack://application:,,,/" + AssemblyName + ";component" + iconPath + "/" + key + ".png";
+
+            try
             {
-                string AssemblyName = resourceAssembly.GetName().Name;
-                string UriPath = "pack://application:,,,/" + AssemblyName + ";component" + iconPath + "/" + key + ".png";
-
-                try
-                {
-                    BitmapImage ImageResource = new BitmapImage(new Uri(UriPath));
-                    return ImageResource;
-                }
-                catch (IOException e)
-                {
-                    Debug.Print(e.Message);
-                    Debug.Print("Icon Path: " + UriPath);
-                }
+                BitmapImage ImageResource = new BitmapImage(new Uri(UriPath));
+                return ImageResource;
             }
-
-            return null;
+            catch (IOException e)
+            {
+                Debug.Print(e.Message);
+                Debug.Print("Icon Path: " + UriPath);
+                throw new ArgumentOutOfRangeException(nameof(key));
+            }
         }
 
         /// <summary>
@@ -74,11 +68,16 @@ namespace CustomControls
         /// <param name="key">The key used to locate the resource in the assembly.</param>
         public static Image GetIcon(Assembly resourceAssembly, string iconPath, string key)
         {
-            ImageSource ImageResource = GetImageSource(resourceAssembly, iconPath, key);
-            if (ImageResource != null)
+            try
+            {
+                ImageSource ImageResource = GetImageSource(resourceAssembly, iconPath, key);
                 return new Image { Source = ImageResource, Width = 16.0, Height = 16.0 };
-            else
-                return null;
+            }
+            catch (IOException e)
+            {
+                Debug.WriteLine(e.Message);
+                throw new ArgumentOutOfRangeException(nameof(key));
+            }
         }
     }
 }

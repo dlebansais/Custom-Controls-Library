@@ -11,36 +11,40 @@ namespace Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ICommand AsCommand;
-            if ((AsCommand = value as ICommand) != null)
+            if (value is ICommand AsCommand)
                 return GetItemText(AsCommand);
             else
-                return null;
+                throw new ArgumentOutOfRangeException(nameof(value));
         }
 
         protected virtual string GetItemText(ICommand command)
         {
-            string ItemHeader = null;
+            string ItemHeader;
 
-            ActiveDocumentRoutedCommand AsActiveDocumentCommand;
-            ExtendedRoutedCommand AsExtendedRoutedCommand;
-            RoutedUICommand AsUICommand;
+            switch (command)
+            {
+                case ActiveDocumentRoutedCommand AsActiveDocumentCommand:
+                    ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
+                    break;
 
-            if ((AsActiveDocumentCommand = command as ActiveDocumentRoutedCommand) != null)
-                ItemHeader = AsActiveDocumentCommand.InactiveMenuHeader;
+                case ExtendedRoutedCommand AsExtendedRoutedCommand:
+                    ItemHeader = AsExtendedRoutedCommand.MenuHeader;
+                    break;
 
-            else if ((AsExtendedRoutedCommand = command as ExtendedRoutedCommand) != null)
-                ItemHeader = AsExtendedRoutedCommand.MenuHeader;
+                case RoutedUICommand AsUICommand:
+                    ItemHeader = AsUICommand.Text;
+                    break;
 
-            else if ((AsUICommand = command as RoutedUICommand) != null)
-                ItemHeader = AsUICommand.Text;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(command));
+            }
 
             return ItemHeader;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return null;
+            return value;
         }
     }
 }

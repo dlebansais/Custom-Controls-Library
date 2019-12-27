@@ -16,7 +16,7 @@ namespace CustomControls
         }
 
         public IDocument Document { get { return ((ErrorFocusedEventContext)EventContext).Document; } }
-        public object ErrorLocation { get { return ((ErrorFocusedEventContext)EventContext).ErrorLocation; } }
+        public object? ErrorLocation { get { return ((ErrorFocusedEventContext)EventContext).ErrorLocation; } }
         
         public virtual void NotifyCompletedAsync(Dispatcher dispatcher)
         {

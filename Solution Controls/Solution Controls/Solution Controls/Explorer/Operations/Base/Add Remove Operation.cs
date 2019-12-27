@@ -69,40 +69,38 @@ namespace CustomControls
                 {
                     ITreeNodePath Path = PathList[i];
                     IPathConnection Connection = pathTable[Path];
-                    IFolderPath ParentPath = Connection.ParentPath;
+                    IFolderPath? ParentPath = Connection.ParentPath;
 
-                    if (FlatFolderTable.ContainsKey(ParentPath))
+                    if (ParentPath != null && FlatFolderTable.ContainsKey(ParentPath))
                     {
                         PathList.RemoveAt(i);
 
                         ISolutionFolder ParentFolder = FlatFolderTable[ParentPath];
                         ISolutionTreeNodeCollection ChildrenCollection = (ISolutionTreeNodeCollection)ParentFolder.Children;
-
-                        IFolderPath AsFolderPath;
-                        IItemPath AsItemPath;
                         bool IsHandled = false;
 
-                        if ((AsFolderPath = Path as IFolderPath) != null)
+                        switch (Path)
                         {
-                            IFolderProperties Properties = (IFolderProperties)Connection.Properties;
+                            case IFolderPath AsFolderPath:
+                                IFolderProperties FolderProperties = (IFolderProperties)Connection.Properties;
 
-                            ISolutionFolder NewFolder = CreateSolutionFolder(ParentFolder, AsFolderPath, Properties);
-                            ChildrenCollection.Add(NewFolder);
+                                ISolutionFolder NewFolder = CreateSolutionFolder(ParentFolder, AsFolderPath, FolderProperties);
+                                ChildrenCollection.Add(NewFolder);
 
-                            if (Connection.IsExpanded)
-                                AddExpandedFolder(NewFolder);
+                                if (Connection.IsExpanded)
+                                    AddExpandedFolder(NewFolder);
 
-                            IsHandled = true;
-                        }
+                                IsHandled = true;
+                                break;
 
-                        else if ((AsItemPath = Path as IItemPath) != null)
-                        {
-                            IItemProperties Properties = (IItemProperties)Connection.Properties;
+                            case IItemPath AsItemPath:
+                                IItemProperties ItemProperties = (IItemProperties)Connection.Properties;
 
-                            ISolutionItem NewItem = CreateSolutionItem(ParentFolder, AsItemPath, Properties);
-                            ChildrenCollection.Add(NewItem);
+                                ISolutionItem NewItem = CreateSolutionItem(ParentFolder, AsItemPath, ItemProperties);
+                                ChildrenCollection.Add(NewItem);
 
-                            IsHandled = true;
+                                IsHandled = true;
+                                break;
                         }
 
                         Debug.Assert(IsHandled);
@@ -131,20 +129,23 @@ namespace CustomControls
             {
                 ITreeNodePath Path = Entry.Key;
                 IPathConnection Connection = Entry.Value;
-                IFolderPath ParentPath = Connection.ParentPath;
+                IFolderPath? ParentPath = Connection.ParentPath;
 
-                ISolutionFolder ParentFolder = FlatFolderTable[ParentPath];
-                ISolutionTreeNodeCollection ChildrenCollection = (ISolutionTreeNodeCollection)ParentFolder.Children;
+                if (ParentPath != null)
+                {
+                    ISolutionFolder ParentFolder = FlatFolderTable[ParentPath];
+                    ISolutionTreeNodeCollection ChildrenCollection = (ISolutionTreeNodeCollection)ParentFolder.Children;
 
-                foreach (ISolutionTreeNode Child in ChildrenCollection)
-                    if (Child.Path.IsEqual(Path))
-                    {
-                        ChildrenCollection.Remove(Child);
-                        break;
-                    }
+                    foreach (ISolutionTreeNode Child in ChildrenCollection)
+                        if (Child.Path.IsEqual(Path))
+                        {
+                            ChildrenCollection.Remove(Child);
+                            break;
+                        }
 
-                if (!ModifiedCollectionList.Contains(ChildrenCollection))
-                    ModifiedCollectionList.Add(ChildrenCollection);
+                    if (!ModifiedCollectionList.Contains(ChildrenCollection))
+                        ModifiedCollectionList.Add(ChildrenCollection);
+                }
             }
 
             foreach (ISolutionTreeNodeCollection ChildrenCollection in ModifiedCollectionList)

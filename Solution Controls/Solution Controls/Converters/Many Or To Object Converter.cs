@@ -8,9 +8,6 @@ namespace Converters
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (parameter == null)
-                throw new ArgumentNullException(nameof(parameter));
-
             bool BooleanValue = false;
 
             if (values != null)
@@ -37,14 +34,15 @@ namespace Converters
                     }
                 }
 
-            CompositeCollection CollectionOfItems = parameter as CompositeCollection;
-
-            return BooleanValue ? CollectionOfItems[1] : CollectionOfItems[0];
+            if (parameter is CompositeCollection CollectionOfItems && CollectionOfItems.Count > 1)
+                return BooleanValue ? CollectionOfItems[1] : CollectionOfItems[0];
+            else
+                throw new ArgumentOutOfRangeException(nameof(parameter));
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return null;
+            return Array.Empty<object>();
         }
     }
 }

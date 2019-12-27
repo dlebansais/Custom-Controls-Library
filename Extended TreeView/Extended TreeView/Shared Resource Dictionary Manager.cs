@@ -9,16 +9,16 @@ namespace CustomControls
         {
             get
             {
-                if (_SharedDictionary == null)
+                if (_SharedDictionary.Count == 0)
                 {
                     Uri ResourceLocater = new Uri("/ExtendedTreeView;component/themes/generic.xaml", UriKind.Relative);
-                    _SharedDictionary = Application.LoadComponent(ResourceLocater) as ResourceDictionary;
+                    _SharedDictionary = (ResourceDictionary)Application.LoadComponent(ResourceLocater);
                 }
 
                 return _SharedDictionary;
             }
         }
 
-        private static ResourceDictionary _SharedDictionary;
+        private static ResourceDictionary _SharedDictionary = new ResourceDictionary();
     }
 }

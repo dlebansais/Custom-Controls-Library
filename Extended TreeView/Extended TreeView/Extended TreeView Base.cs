@@ -24,8 +24,8 @@ namespace CustomControls
         #endregion
 
         #region Default Styles
-        public static Style DefaultStyle { get; private set; }
-        public static Style DefaultItemContainerStyle { get; private set; }
+        public static Style DefaultStyle { get; private set; } = new Style();
+        public static Style DefaultItemContainerStyle { get; private set; } = new Style();
         #endregion
 
         #region Custom properties and events
@@ -207,7 +207,7 @@ namespace CustomControls
             remove { RemoveHandler(PreviewDropCompletedEvent, value); }
         }
 
-        protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, IList cloneList)
+        protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, IList? cloneList)
         {
             DropCompletedEventArgs Args = new DropCompletedEventArgs(PreviewDropCompletedEvent, DragSource, dropDestinationItem, cloneList);
             RaiseEvent(Args);
@@ -222,7 +222,7 @@ namespace CustomControls
             remove { RemoveHandler(DropCompletedEvent, value); }
         }
 
-        protected virtual void NotifyDropCompleted(object dropDestinationItem, IList cloneList)
+        protected virtual void NotifyDropCompleted(object dropDestinationItem, IList? cloneList)
         {
             DropCompletedEventArgs Args = new DropCompletedEventArgs(DropCompletedEvent, DragSource, dropDestinationItem, cloneList);
             RaiseEvent(Args);
@@ -286,25 +286,25 @@ namespace CustomControls
         static ExtendedTreeViewBase()
         {
             OverrideAncestorMetadata();
-            InitializeCursors();
         }
 
         protected ExtendedTreeViewBase()
         {
-            DefaultStyle = TryFindResource(typeof(ExtendedTreeViewBase)) as Style;
-            DefaultItemContainerStyle = TryFindResource(typeof(ExtendedTreeViewItemBase)) as Style;
-
-            if (DefaultStyle == null && DefaultItemContainerStyle == null)
+            if (TryFindResource(typeof(ExtendedTreeViewBase)) is Style DirectDefaultStyle && TryFindResource(typeof(ExtendedTreeViewItemBase)) is Style DirectDefaultItemContainerStyle)
+            {
+                DefaultStyle = DirectDefaultStyle;
+                DefaultItemContainerStyle = DirectDefaultItemContainerStyle;
+            }
+            else
             {
                 Resources.MergedDictionaries.Add(SharedResourceDictionaryManager.SharedDictionary);
 
-                DefaultStyle = TryFindResource(typeof(ExtendedTreeViewBase)) as Style;
-                DefaultItemContainerStyle = TryFindResource(typeof(ExtendedTreeViewItemBase)) as Style;
+                DefaultStyle = (Style)FindResource(typeof(ExtendedTreeViewBase));
+                DefaultItemContainerStyle = (Style)FindResource(typeof(ExtendedTreeViewItemBase));
             }
 
             InitAncestor();
             InitializeImplementation();
-            InitSelection();
             InitializeContextMenu();
 
             Initialized += OnInitialized; // Dirty trick to avoid warning CA2214.
@@ -399,24 +399,23 @@ namespace CustomControls
 
         protected static void OverrideMetadataItemsSource()
         {
-            ItemsControl.ItemsSourceProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.NotDataBindable, null, new CoerceValueCallback(CoerceItemsSource), true));
+            ItemsSourceProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.NotDataBindable, null, new CoerceValueCallback(CoerceItemsSource), true));
         }
 
         protected static void OverrideMetadataDefaultStyleKey()
         {
-            ItemsControl.DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(typeof(ExtendedTreeViewBase)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(typeof(ExtendedTreeViewBase)));
         }
 
-        protected static object CoerceItemsSource(DependencyObject modifiedObject, object value)
+        protected static object? CoerceItemsSource(DependencyObject modifiedObject, object value)
         {
-            if (modifiedObject == null)
-                throw new ArgumentNullException(nameof(modifiedObject));
-
-            ExtendedTreeViewBase ctrl = (ExtendedTreeViewBase)modifiedObject;
-            return ctrl.CoerceItemsSource(value);
+            if (modifiedObject is ExtendedTreeViewBase ctrl)
+                return ctrl.CoerceItemsSource(value);
+            else
+                throw new ArgumentOutOfRangeException(nameof(modifiedObject));
         }
 
-        protected virtual object CoerceItemsSource(object value)
+        protected virtual object? CoerceItemsSource(object value)
         {
             if (value == VisibleChildren)
                 return value;
@@ -453,15 +452,13 @@ namespace CustomControls
         #endregion
 
         #region Properties
-        protected ObservableCollection<object> VisibleChildren { get; private set; }
-        protected Dictionary<object, IList> ExpandedChildren { get; private set; }
+        protected ObservableCollection<object> VisibleChildren { get; } = new ObservableCollection<object>();
+        protected Dictionary<object, IList> ExpandedChildren { get; } = new Dictionary<object, IList>();
         #endregion
 
         #region Implementation
         private void InitializeImplementation()
         {
-            VisibleChildren = new ObservableCollection<object>();
-            ExpandedChildren = new Dictionary<object, IList>();
             ItemsSource = VisibleChildren;
         }
 
@@ -503,26 +500,26 @@ namespace CustomControls
             NotifyCollectionModified(TreeViewCollectionOperation.Insert);
         }
 
-        protected virtual void InsertChildren(IInsertItemContext context, object item, object parentItem)
+        protected virtual void InsertChildren(IInsertItemContext context, object item, object? parentItem)
         {
+            if (context == null)
+                throw new ArgumentNullException(nameof(context));
+
             IList Children = GetItemChildren(item);
             bool IsExpanded = IsItemExpandedAtStart || (parentItem == null && IsRootAlwaysExpanded);
 
             if (IsExpanded)
                 ExpandedChildren.Add(item, Children);
 
-            if (context != null)
-            {
-                InternalInsert(context.ShownIndex, item);
-                context.NextIndex();
-            }
+            InternalInsert(context.ShownIndex, item);
+            context.NextIndex();
 
             if (IsExpanded)
                 foreach (object ChildItem in Children)
                     InsertChildren(context, ChildItem, item);
         }
 
-        protected virtual void RemoveChildren(IRemoveItemContext context, object item, object parentItem)
+        protected virtual void RemoveChildren(IRemoveItemContext context, object item, object? parentItem)
         {
             ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
 
@@ -560,7 +557,7 @@ namespace CustomControls
         protected virtual void HandleChildrenChanged(object item, NotifyCollectionChangedEventArgs e)
         {
             if (e == null)
-                return;
+                throw new ArgumentNullException(nameof(e));
 
             switch (e.Action)
             {
@@ -715,7 +712,7 @@ namespace CustomControls
 
             if (IsExpanded(item))
             {
-                object ParentItem = GetItemParent(item);
+                object? ParentItem = GetItemParent(item);
 
                 int StartIndex;
                 int RemoveCount;
@@ -766,12 +763,12 @@ namespace CustomControls
         #region Misc
         protected virtual ExtendedTreeViewItemBase ContainerFromItem(object item)
         {
-            return ItemContainerGenerator.ContainerFromItem(item) as ExtendedTreeViewItemBase;
+            return (ExtendedTreeViewItemBase)ItemContainerGenerator.ContainerFromItem(item);
         }
 
         protected virtual ExtendedTreeViewItemBase ContainerFromIndex(int index)
         {
-            return ItemContainerGenerator.ContainerFromIndex(index) as ExtendedTreeViewItemBase;
+            return (ExtendedTreeViewItemBase)ItemContainerGenerator.ContainerFromIndex(index);
         }
 
         protected virtual int CountPreviousChildrenExpanded(object item, int index, int excludedIndex)
@@ -873,7 +870,7 @@ namespace CustomControls
         {
             int Level = -1;
 
-            object CurrentItem = item;
+            object? CurrentItem = item;
             while (CurrentItem != null)
             {
                 Level++;
@@ -886,12 +883,6 @@ namespace CustomControls
         public static bool IsDropOver(ExtendedTreeViewItemBase itemContainer)
         {
             return itemContainer == DropTargetContainer;
-        }
-
-        private void InitSelection()
-        {
-            LastSelectedItem = null;
-            LastClickedItem = null;
         }
 
         public void ClickPreviousItem(object item)
@@ -940,7 +931,7 @@ namespace CustomControls
                     if (IsShiftDown())
                     {
                         int FirstIndex = VisibleChildren.IndexOf(item);
-                        int LastIndex = (IsLastSelectedItemSet ? VisibleChildren.IndexOf(LastSelectedItem) : FirstIndex);
+                        int LastIndex = (LastSelectedItem != null && IsLastSelectedItemSet ? VisibleChildren.IndexOf(LastSelectedItem) : FirstIndex);
 
                         if (FirstIndex >= 0 && LastIndex >= 0)
                         {
@@ -1078,28 +1069,27 @@ namespace CustomControls
             }
         }
 
-        protected virtual ExtendedTreeViewItemBase GetEventSourceItem(RoutedEventArgs e)
+        protected virtual ExtendedTreeViewItemBase? GetEventSourceItem(RoutedEventArgs e)
         {
-            if (e != null)
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
+
+            DependencyObject? Current = e.OriginalSource as DependencyObject;
+            while (Current != null)
             {
-                DependencyObject Current = e.OriginalSource as DependencyObject;
-                while (Current != null)
-                {
-                    ExtendedTreeViewItemBase AsContainerItem;
-                    if ((AsContainerItem = Current as ExtendedTreeViewItemBase) != null)
-                        return AsContainerItem;
+                if (Current is ExtendedTreeViewItemBase AsContainerItem)
+                    return AsContainerItem;
 
-                    if (Current is ToggleButton)
-                        return null;
+                if (Current is ToggleButton)
+                    return null;
 
-                    Current = VisualTreeHelper.GetParent(Current);
-                }
+                Current = VisualTreeHelper.GetParent(Current);
             }
 
             return null;
         }
 
-        protected virtual ExtendedTreeViewItemBase GetTarget(DragEventArgs e)
+        protected virtual ExtendedTreeViewItemBase? GetTarget(DragEventArgs e)
         {
             return GetEventSourceItem(e);
         }
@@ -1172,19 +1162,17 @@ namespace CustomControls
             LastClickedItem = null;
         }
 
-        protected object LastSelectedItem { get; private set; }
-        protected object LastClickedItem { get; private set; }
+        protected object? LastSelectedItem { get; private set; }
+        protected object? LastClickedItem { get; private set; }
         #endregion
 
         #region Cursors
-        protected static void InitializeCursors()
+        protected static Cursor InitializeCursor(int cursorIndex)
         {
             string SystemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
             string Ole32Path = Path.Combine(SystemPath, "ole32.dll");
 
-            DefaultCursorForbidden = LoadCursorFromResourceFile(Ole32Path, 1);
-            DefaultCursorMove = LoadCursorFromResourceFile(Ole32Path, 2);
-            DefaultCursorCopy = LoadCursorFromResourceFile(Ole32Path, 3);
+            return LoadCursorFromResourceFile(Ole32Path, cursorIndex);
         }
 
         protected static Cursor LoadCursorFromResourceFile(string filePath, int resourceId)
@@ -1193,9 +1181,9 @@ namespace CustomControls
             return CursorFromResource.AsCursor;
         }
 
-        protected static Cursor DefaultCursorForbidden { get; private set; }
-        protected static Cursor DefaultCursorMove { get; private set; }
-        protected static Cursor DefaultCursorCopy { get; private set; }
+        protected static Cursor DefaultCursorForbidden { get; } = InitializeCursor(1);
+        protected static Cursor DefaultCursorMove { get; } = InitializeCursor(2);
+        protected static Cursor DefaultCursorCopy { get; } = InitializeCursor(3);
         #endregion
 
         #region Mouse Events
@@ -1249,20 +1237,20 @@ namespace CustomControls
 
         protected virtual void DragAfterMouseMove(MouseEventArgs e)
         {
-            if (e != null)
-            {
-                if (AllowDragDrop && e.LeftButton == MouseButtonState.Pressed && (Keyboard.FocusedElement is ExtendedTreeViewItemBase))
-                    if (IsCopyPossible)
-                    {
-                        ExtendedTreeViewItemBase ItemContainer = GetEventSourceItem(e);
-                        if (ItemContainer != null)
-                        {
-                            DebugMessage("Drag Started");
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
 
-                            DragSource.DragAfterMouseMove(e);
-                        }
+            if (AllowDragDrop && e.LeftButton == MouseButtonState.Pressed && (Keyboard.FocusedElement is ExtendedTreeViewItemBase))
+                if (IsCopyPossible)
+                {
+                    ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(e);
+                    if (ItemContainer != null)
+                    {
+                        DebugMessage("Drag Started");
+
+                        DragSource.DragAfterMouseMove(e);
                     }
-            }
+                }
         }
 
         protected virtual void UpdateIsDragDropPossible()
@@ -1292,18 +1280,21 @@ namespace CustomControls
             if (FirstItem == Content)
                 return false;
 
-            object FirstItemParent = GetItemParent(FirstItem);
+            object? FirstItemParent = GetItemParent(FirstItem);
 
-            if (GetItemsWithSameParent(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
+            if (FirstItemParent != null)
             {
-                canonicSelectedItemList.DraggedItemParent = FirstItemParent;
-                return true;
-            }
+                if (GetItemsWithSameParent(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
+                {
+                    canonicSelectedItemList.DraggedItemParent = FirstItemParent;
+                    return true;
+                }
 
-            if (GetItemsInSameBranch(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
-            {
-                canonicSelectedItemList.DraggedItemParent = FirstItemParent;
-                return true;
+                if (GetItemsInSameBranch(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
+                {
+                    canonicSelectedItemList.DraggedItemParent = FirstItemParent;
+                    return true;
+                }
             }
 
             return false;
@@ -1422,7 +1413,7 @@ namespace CustomControls
             Debug.Assert(IsHandled);
         }
 
-        protected virtual IList FlatItemList(IList other)
+        protected virtual IList FlatItemList(IList? other)
         {
             IList Result = CreateItemList();
 
@@ -1443,7 +1434,7 @@ namespace CustomControls
         {
             if (e != null)
             {
-                Cursor FeedbackCursor;
+                Cursor? FeedbackCursor;
 
                 if (UseDefaultCursors)
                     FeedbackCursor = null;
@@ -1503,50 +1494,50 @@ namespace CustomControls
 
         protected override void OnDrop(DragEventArgs e)
         {
-            if (e != null)
+            if (e == null)
+                throw new ArgumentNullException(nameof(e));
+
+            e.Effects = GetAllowedDropEffects(e);
+            e.Handled = true;
+
+            if (e.Effects != DragDropEffects.None)
             {
-                e.Effects = GetAllowedDropEffects(e);
-                e.Handled = true;
+                ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(e);
+                IDragSourceControl AsDragSource = (IDragSourceControl)e.Data.GetData(DragSource.GetType());
+                object? SourceItem = AsDragSource.DragParentItem;
+                IList? ItemList = AsDragSource.ItemList;
+                object? DestinationItem = ItemContainer != null ? ItemContainer.Content : null;
 
-                if (e.Effects != DragDropEffects.None)
+                UnselectAll();
+
+                if (SourceItem != null && DestinationItem != null)
                 {
-                    ExtendedTreeViewItemBase ItemContainer = GetEventSourceItem(e);
-                    IDragSourceControl AsDragSource = e.Data.GetData(DragSource.GetType()) as IDragSourceControl;
-                    object SourceItem = AsDragSource.DragParentItem;
-                    IList ItemList = AsDragSource.ItemList;
-                    object DestinationItem = ItemContainer.Content;
-
-                    UnselectAll();
-
-                    if (SourceItem != null)
+                    if (e.Effects == DragDropEffects.Copy)
                     {
-                        if (e.Effects == DragDropEffects.Copy)
-                        {
-                            IList CloneList = CreateItemList();
-                            NotifyPreviewDropCompleted(DestinationItem, CloneList);
-                            DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
-                            NotifyDropCompleted(DestinationItem, CloneList);
-                        }
-
-                        else if (e.Effects == DragDropEffects.Move)
-                        {
-                            NotifyPreviewDropCompleted(DestinationItem, null);
-                            DragDropMove(SourceItem, DestinationItem, ItemList);
-                            NotifyDropCompleted(DestinationItem, null);
-                        }
-
-                        Expand(DestinationItem);
+                        IList CloneList = CreateItemList();
+                        NotifyPreviewDropCompleted(DestinationItem, CloneList);
+                        DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
+                        NotifyDropCompleted(DestinationItem, CloneList);
                     }
+
+                    else if (e.Effects == DragDropEffects.Move)
+                    {
+                        NotifyPreviewDropCompleted(DestinationItem, null);
+                        DragDropMove(SourceItem, DestinationItem, ItemList);
+                        NotifyDropCompleted(DestinationItem, null);
+                    }
+
+                    Expand(DestinationItem);
                 }
             }
         }
 
         protected virtual DragDropEffects GetAllowedDropEffects(DragEventArgs e)
         {
-            IDragSourceControl AsDragSource = ValidDragSourceFromArgs(e);
+            IDragSourceControl? AsDragSource = ValidDragSourceFromArgs(e);
             if (AsDragSource != null)
             {
-                object DropDestinationItem = ValidDropDestinationFromArgs(e, AsDragSource);
+                object? DropDestinationItem = ValidDropDestinationFromArgs(e, AsDragSource);
                 if (DropDestinationItem != null)
                 {
                     PermissionToken permission = new PermissionToken();
@@ -1562,7 +1553,7 @@ namespace CustomControls
 
         protected virtual void UpdateCurrentDropTarget(DragEventArgs e, bool isLeaving)
         {
-            ExtendedTreeViewItemBase DropTarget;
+            ExtendedTreeViewItemBase? DropTarget;
             if (isLeaving)
                 DropTarget = null;
             else
@@ -1570,9 +1561,9 @@ namespace CustomControls
 
             if (DropTargetContainer != DropTarget)
             {
-                ExtendedTreeViewItemBase OldDropTarget = DropTargetContainer;
+                ExtendedTreeViewItemBase? OldDropTarget = DropTargetContainer;
                 DropTargetContainer = DropTarget;
-                ExtendedTreeViewItemBase NewDropTarget = DropTargetContainer;
+                ExtendedTreeViewItemBase? NewDropTarget = DropTargetContainer;
 
                 if (OldDropTarget != null)
                     OldDropTarget.UpdateIsDropOver();
@@ -1606,7 +1597,7 @@ namespace CustomControls
         protected delegate void ClearCurrentDropTargetHandler();
         protected virtual void OnClearCurrentDropTarget()
         {
-            ExtendedTreeViewItemBase OldDropTarget = DropTargetContainer;
+            ExtendedTreeViewItemBase? OldDropTarget = DropTargetContainer;
             DropTargetContainer = null;
             DropTargetContainerIndex = -1;
 
@@ -1614,15 +1605,15 @@ namespace CustomControls
                 OldDropTarget.UpdateIsDropOver();
         }
 
-        protected virtual IDragSourceControl ValidDragSourceFromArgs(DragEventArgs e)
+        protected virtual IDragSourceControl? ValidDragSourceFromArgs(DragEventArgs e)
         {
             if (e == null)
-                return null;
+                throw new ArgumentNullException(nameof(e));
 
             if (!e.Data.GetDataPresent(DragSource.GetType()))
                 return null;
 
-            IDragSourceControl AsDragSource = e.Data.GetData(DragSource.GetType()) as IDragSourceControl;
+            IDragSourceControl? AsDragSource = e.Data.GetData(DragSource.GetType()) as IDragSourceControl;
             if (AsDragSource == null)
                 return null;
 
@@ -1632,14 +1623,14 @@ namespace CustomControls
             if (AsDragSource.RootItem.GetType() != Content.GetType())
                 return null;
 
-            IList FlatItemList = AsDragSource.FlatItemList;
+            IList? FlatItemList = AsDragSource.FlatItemList;
             if (FlatItemList == null || FlatItemList.Count == 0)
                 return null;
 
             return AsDragSource;
         }
 
-        protected virtual object ValidDropDestinationFromArgs(DragEventArgs e, IDragSourceControl asDragSource)
+        protected virtual object? ValidDropDestinationFromArgs(DragEventArgs e, IDragSourceControl asDragSource)
         {
             if (DropTargetContainer == null || e == null || asDragSource == null)
                 return null;
@@ -1653,8 +1644,8 @@ namespace CustomControls
                 if (!e.AllowedEffects.HasFlag(DragDropEffects.Copy) || !e.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
                     return null;
 
-            IList FlatItemList = asDragSource.FlatItemList;
-            if (FlatItemList.Contains(DropDestinationItem))
+            IList? FlatItemList = asDragSource.FlatItemList;
+            if (FlatItemList != null && FlatItemList.Contains(DropDestinationItem))
                 return null;
 
             return DropDestinationItem;
@@ -1681,8 +1672,8 @@ namespace CustomControls
                 return DragDropEffects.None;
         }
 
-        private IDragSourceControl DragSource;
-        private static ExtendedTreeViewItemBase DropTargetContainer;
+        private IDragSourceControl DragSource = new EmptyDragSourceControl();
+        private static ExtendedTreeViewItemBase? DropTargetContainer;
         private static int DropTargetContainerIndex;
         #endregion
 
@@ -1690,7 +1681,6 @@ namespace CustomControls
         private void InitializeContextMenu()
         {
             CurrentlyFocusedContainer = null;
-            MarkedContainerList = new Collection<ExtendedTreeViewItemBase>();
         }
 
         public void ContainerLostFocus()
@@ -1722,8 +1712,7 @@ namespace CustomControls
 
         protected virtual void OnIsKeyboardFocusWithinChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            ContextMenu AsContextMenu;
-            if ((AsContextMenu = Keyboard.FocusedElement as ContextMenu) != null)
+            if (Keyboard.FocusedElement is ContextMenu AsContextMenu)
             {
                 ClearAllContainerTags();
 
@@ -1740,8 +1729,7 @@ namespace CustomControls
 
         protected virtual void OnContextMenuClosed(object sender, RoutedEventArgs e)
         {
-            ContextMenu AsContextMenu;
-            if ((AsContextMenu = sender as ContextMenu) != null)
+            if (sender is ContextMenu AsContextMenu)
             {
                 AsContextMenu.Closed -= OnContextMenuClosed;
                 ClearAllContainerTags();
@@ -1770,19 +1758,19 @@ namespace CustomControls
             MarkedContainerList.Clear();
         }
 
-        protected ExtendedTreeViewItemBase CurrentlyFocusedContainer { get; private set; }
-        protected Collection<ExtendedTreeViewItemBase> MarkedContainerList { get; private set; }
+        protected ExtendedTreeViewItemBase? CurrentlyFocusedContainer { get; private set; }
+        protected Collection<ExtendedTreeViewItemBase> MarkedContainerList { get; } = new Collection<ExtendedTreeViewItemBase>();
         #endregion
 
         #region Descendant Interface
-        protected abstract object GetItemParent(object item);
+        protected abstract object? GetItemParent(object item);
         protected abstract int GetItemChildrenCount(object item);
         protected abstract IList GetItemChildren(object item);
         protected abstract object GetItemChild(object item, int index);
         protected abstract void InstallHandlers(object item);
         protected abstract void UninstallHandlers(object item);
-        protected abstract void DragDropMove(object sourceItem, object destinationItem, IList itemList);
-        protected abstract void DragDropCopy(object sourceItem, object destinationItem, IList itemList, IList cloneList);
+        protected abstract void DragDropMove(object sourceItem, object destinationItem, IList? itemList);
+        protected abstract void DragDropCopy(object sourceItem, object destinationItem, IList? itemList, IList cloneList);
 
         protected virtual IList CreateItemList()
         {

@@ -4,17 +4,17 @@ namespace CustomControls
 {
     public class DocumentRemovedEventContext
     {
-        public DocumentRemovedEventContext(IRootPath rootPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> deletedTree, bool isUndoRedo, object clientInfo)
+        public DocumentRemovedEventContext(IRootPath rootPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> deletedTree, bool isUndoRedo, object? clientInfo)
         {
-            this.RootPath = rootPath;
-            this.DeletedTree = deletedTree;
-            this.IsUndoRedo = isUndoRedo;
-            this.ClientInfo = clientInfo;
+            RootPath = rootPath;
+            DeletedTree = deletedTree;
+            IsUndoRedo = isUndoRedo;
+            ClientInfo = clientInfo;
         }
 
-        public IRootPath RootPath { get; private set; }
-        public IReadOnlyDictionary<ITreeNodePath, IPathConnection> DeletedTree { get; private set; }
-        public bool IsUndoRedo { get; private set; }
-        public object ClientInfo { get; private set; }
+        public IRootPath RootPath { get; }
+        public IReadOnlyDictionary<ITreeNodePath, IPathConnection> DeletedTree { get; }
+        public bool IsUndoRedo { get; }
+        public object? ClientInfo { get; }
     }
 }
