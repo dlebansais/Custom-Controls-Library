@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Windows.Data;
+
     /// <summary>
     /// Identity string converter.
     /// </summary>
@@ -13,10 +13,10 @@ namespace Converters
         /// <summary>
         /// Identity string converter.
         /// </summary>
-        /// <param name="value">The value to convert.</param>
-        /// <param name="targetType">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="value">The value produced by the binding source.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>
         /// The value of <paramref name="value"/>.
         /// </returns>
@@ -28,10 +28,13 @@ namespace Converters
         /// <summary>
         /// Identity string back converter.
         /// </summary>
-        /// <param name="value">This parameter is not used.</param>
-        /// <param name="targetType">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// The value of <paramref name="value"/>.
+        /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;

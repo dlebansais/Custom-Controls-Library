@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Globalization;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents a combo box with specific support for enum types.
     /// <para>Implemented as a derived class of the <see cref="ComboBox"/> parent.</para>
@@ -32,17 +32,19 @@ namespace CustomControls
         /// </returns>
         public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register("EnumBinding", typeof(object), typeof(EnumComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Gets or sets the enum property to bind on.
         /// <para>This is a replacement for the ComboBox.ItemsSource property.</para>
         /// </summary>
         /// <example>
-        /// Example: for a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
+        /// For a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
         /// <code>
         /// <para>&lt;EnumComboBox EnumBinding="{Binding Path=MyEnumValue}"/&gt;</para>
         /// </code>
         /// </example>
         [Bindable(true)]
+#pragma warning restore SA1629 // Documentation text should end with a period
         public object EnumBinding
         {
             get { return (object)GetValue(EnumBindingProperty); }
@@ -152,9 +154,7 @@ namespace CustomControls
         /// <summary>
         /// Override the <see cref="MeasureOverride"/> event handler, to accommodate for the largest enum value name.
         /// </summary>
-        /// <parameters>
         /// <param name="constraint">The maximum size that the method can return.</param>
-        /// </parameters>
         /// <returns>
         /// The size of the control, up to the maximum specified by constraint.
         /// </returns>
@@ -223,9 +223,7 @@ namespace CustomControls
         /// <summary>
         /// Override the <see cref="OnSelectionChanged"/> event handler, to update the bound enum property.
         /// </summary>
-        /// <parameters>
         /// <param name="e">Provides data for <see cref="SelectionChangedEventArgs"/>.</param>
-        /// </parameters>
         protected override void OnSelectionChanged(SelectionChangedEventArgs e)
         {
             base.OnSelectionChanged(e);
