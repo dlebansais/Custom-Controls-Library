@@ -1,13 +1,13 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows.Controls;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+
     /// <summary>
     /// Gets image sources and icons from resources in an assembly.
     /// </summary>
@@ -18,6 +18,7 @@ namespace CustomControls
         /// </summary>
         /// <param name="resourceAssembly">The assembly where to find the image source.</param>
         /// <param name="key">The key used to locate the resource in the assembly.</param>
+        /// <returns>The image source.</returns>
         public static ImageSource GetImageSource(Assembly resourceAssembly, string key)
         {
             return GetImageSource(resourceAssembly, "/Resources/Icons", key);
@@ -29,6 +30,7 @@ namespace CustomControls
         /// <param name="resourceAssembly">The assembly where to find the image source.</param>
         /// <param name="iconPath">The path to resources in the assembly.</param>
         /// <param name="key">The key used to locate the resource in the assembly.</param>
+        /// <returns>The image source.</returns>
         public static ImageSource GetImageSource(Assembly resourceAssembly, string iconPath, string key)
         {
             if (resourceAssembly == null)
@@ -55,6 +57,7 @@ namespace CustomControls
         /// </summary>
         /// <param name="resourceAssembly">The assembly where to find the icon.</param>
         /// <param name="key">The key used to locate the resource in the assembly.</param>
+        /// <returns>The icon.</returns>
         public static Image GetIcon(Assembly resourceAssembly, string key)
         {
             return GetIcon(resourceAssembly, "/Resources/Icons", key);
@@ -66,6 +69,7 @@ namespace CustomControls
         /// <param name="resourceAssembly">The assembly where to find the icon.</param>
         /// <param name="iconPath">The path to resources in the assembly.</param>
         /// <param name="key">The key used to locate the resource in the assembly.</param>
+        /// <returns>The icon.</returns>
         public static Image GetIcon(Assembly resourceAssembly, string iconPath, string key)
         {
             try

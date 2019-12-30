@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Xaml;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Xaml;
+
     /// <summary>
     /// Represents a tool bar with a localized name.
     /// </summary>
@@ -28,7 +28,7 @@ namespace CustomControls
         public static readonly DependencyProperty ToolBarNameProperty = DependencyProperty.Register("ToolBarName", typeof(string), typeof(ExtendedToolBar), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// The localized name of the toolbar. Can be null.
+        /// Gets or sets the localized name of the toolbar. Can be null.
         /// </summary>
         public string ToolBarName
         {
@@ -40,7 +40,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        /// Initializes the <see cref="ExtendedToolBar"/> class.
+        /// Initializes static members of the <see cref="ExtendedToolBar"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Can't be done inline - too complex")]
         static ExtendedToolBar()
@@ -106,7 +106,7 @@ namespace CustomControls
                 if (e.Message == null) // To make the code analyzer happy. Since the doc of XamlServices.Save() doesn't specify any exception, this should safe, right?...
                     throw;
 
-                return "";
+                return string.Empty;
             }
         }
 
@@ -206,8 +206,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the "Add or Remove Button" button is checked.
         /// </summary>
-        /// <param name="sender">The button object</param>
-        /// <param name="e">This parameter is not used</param>
+        /// <param name="sender">The button object.</param>
+        /// <param name="e">This parameter is not used.</param>
         protected virtual void OnAddRemoveButtonChecked(object sender, RoutedEventArgs e)
         {
             if (sender is ToggleButton AddRemoveButton)
@@ -217,8 +217,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the toolbar overflow button is unchecked.
         /// </summary>
-        /// <param name="sender">The button object</param>
-        /// <param name="e">This parameter is not used</param>
+        /// <param name="sender">The button object.</param>
+        /// <param name="e">This parameter is not used.</param>
         protected virtual void OnOverflowButtonUnchecked(object sender, RoutedEventArgs e)
         {
             if (sender is ToggleButton OverflowButton)
@@ -233,8 +233,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the "Reset ToolBar" button is clicked.
         /// </summary>
-        /// <param name="sender">The button object</param>
-        /// <param name="e">This parameter is not used</param>
+        /// <param name="sender">The button object.</param>
+        /// <param name="e">This parameter is not used.</param>
         protected virtual void OnResetToolBarClicked(object sender, RoutedEventArgs e)
         {
             if (IsResetConfirmedByUser())
@@ -262,7 +262,7 @@ namespace CustomControls
             }
 
             MessageBoxResult Result = MessageBox.Show(Question, Title, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return (Result == MessageBoxResult.Yes);
+            return Result == MessageBoxResult.Yes;
         }
         #endregion
     }

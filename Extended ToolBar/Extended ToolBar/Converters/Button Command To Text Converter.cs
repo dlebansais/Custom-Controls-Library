@@ -1,11 +1,11 @@
-﻿using CustomControls;
-using System;
-using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Input;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using CustomControls;
+
     /// <summary>
     /// Converter from a <see cref="ICommand"/> to a menu header string.
     /// </summary>
@@ -16,9 +16,9 @@ namespace Converters
         /// Converts from a <see cref="ICommand"/> to a menu header string.
         /// </summary>
         /// <param name="value">The <see cref="ICommand"/> object to convert.</param>
-        /// <param name="targetType">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>
         /// If <paramref name="value"/> is a valid <see cref="ICommand"/> object, the converter returns its menu header as a string.
         /// Otherwise, this method returns null.
@@ -53,7 +53,7 @@ namespace Converters
                 case LocalizedRoutedCommand AsLocalizedRoutedCommand:
                     ItemHeader = AsLocalizedRoutedCommand.MenuHeader;
                     if (ItemHeader.Contains(LocalizedRoutedCommand.ApplicationNamePattern))
-                        ItemHeader = ItemHeader.Replace(LocalizedRoutedCommand.ApplicationNamePattern, "");
+                        ItemHeader = ItemHeader.Replace(LocalizedRoutedCommand.ApplicationNamePattern, string.Empty);
                     break;
 
                 case ExtendedRoutedCommand AsExtendedRoutedCommand:
@@ -74,10 +74,11 @@ namespace Converters
         /// <summary>
         /// This method is not used and will always return null.
         /// </summary>
-        /// <param name="value">This parameter is not used.</param>
-        /// <param name="targetType">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>A converted value.</returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
