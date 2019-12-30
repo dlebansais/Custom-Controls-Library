@@ -1,13 +1,13 @@
-﻿using Converters;
-using System;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using Converters;
+
     /// <summary>
     /// Represents a radio button with specific support for enum types.
     /// <para>Implemented as a derived class of the <see cref="RadioButton"/> parent.</para>
@@ -29,6 +29,7 @@ namespace CustomControls
         /// </returns>
         public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register("EnumBinding", typeof(object), typeof(EnumRadioButton), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
         /// Gets or sets the enum property to bind on.
         /// <para>In combination with the <see cref="EnumValue"/> property, this is a replacement for the RadioButton.IsChecked property.</para>
@@ -41,6 +42,7 @@ namespace CustomControls
         /// </code>
         /// </example>
         [Bindable(true)]
+#pragma warning restore SA1629 // Documentation text should end with a period
         public object EnumBinding
         {
             get { return (object)GetValue(EnumBindingProperty); }
@@ -70,8 +72,9 @@ namespace CustomControls
         /// </returns>
         public static readonly DependencyProperty EnumValueProperty = DependencyProperty.Register("EnumValue", typeof(object), typeof(EnumRadioButton), new UIPropertyMetadata(null));
 
+#pragma warning disable SA1629 // Documentation text should end with a period
         /// <summary>
-        /// The enum value this radio button value is associated to.
+        /// Gets or sets the enum value this radio button value is associated to.
         /// <para>In combination with the <see cref="EnumBinding"/> property, this is a replacement for the RadioButton.IsChecked property.</para>
         /// </summary>
         /// <example>
@@ -82,6 +85,7 @@ namespace CustomControls
         /// </code>
         /// </example>
         [Browsable(true)]
+#pragma warning restore SA1629 // Documentation text should end with a period
         public object EnumValue
         {
             get { return (object)GetValue(EnumValueProperty); }
@@ -127,9 +131,7 @@ namespace CustomControls
         /// Override the <see cref="OnChecked"/> event handler, to modify the enum property bound to the <see cref="EnumBinding"/> dependency property when this radio button is checked.
         /// <para>The enum property bound to the <see cref="EnumBinding"/> property is set to the value designed by the <see cref="EnumValue"/> property at the time of the click.</para>
         /// </summary>
-        /// <parameters>
-        /// <param name="e">Provides data for <see cref="RoutedEventArgs"/></param>
-        /// </parameters>
+        /// <param name="e">Provides data for <see cref="RoutedEventArgs"/>.</param>
         protected override void OnChecked(RoutedEventArgs e)
         {
             base.OnChecked(e);

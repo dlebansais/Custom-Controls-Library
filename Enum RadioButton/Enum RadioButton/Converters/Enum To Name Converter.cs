@@ -1,12 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Globalization;
-using System.Reflection;
-using System.Resources;
-using System.Windows.Data;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.Reflection;
+    using System.Resources;
+    using System.Windows.Data;
+
     /// <summary>
     /// Converter from an enum value to its localized name.
     /// This class implements localization as follow:
@@ -19,12 +19,15 @@ namespace Converters
     internal class EnumToNameConverter : IValueConverter
     {
         /// <summary>
-        /// Convert from an enum value to its localized name.
+        /// Converts from an enum value to its localized name.
         /// </summary>
-        /// <param name="value">The enum value to convert.</param>
-        /// <param name="targetType">This parameter is not used.</param>
+        /// <param name="value">The value produced by the binding source.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">A string representing the name of some type. Resources will be taken from the assembly where that type is declared.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// The converted value.
+        /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Type EnumType = value.GetType();
@@ -41,10 +44,13 @@ namespace Converters
         /// <summary>
         /// This method is not used and will always return null.
         /// </summary>
-        /// <param name="value">This parameter is not used.</param>
-        /// <param name="targetType">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="value">The value that is produced by the binding target.</param>
+        /// <param name="targetType">The type to convert to.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// The converted value.
+        /// </returns>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             return value;
