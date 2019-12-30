@@ -1,7 +1,7 @@
-﻿using System.Windows.Media;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents a command that extracts associated resources from localized standard resources.
     /// </summary>

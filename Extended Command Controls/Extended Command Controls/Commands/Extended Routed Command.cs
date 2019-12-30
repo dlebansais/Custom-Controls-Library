@@ -1,8 +1,8 @@
-﻿using System.Windows.Input;
-using System.Windows.Media;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows.Input;
+    using System.Windows.Media;
+
     /// <summary>
     /// Represents a command with information to find associated resources.
     /// </summary>

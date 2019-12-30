@@ -1,13 +1,13 @@
-﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Resources;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using System.Reflection;
+    using System.Resources;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
+
     /// <summary>
     /// Represents an object that can extract string and icon resources from an assembly specified by name.
     /// </summary>
@@ -15,7 +15,7 @@ namespace CustomControls
     {
         #region Init
         /// <summary>
-        /// The default <see cref="CommandResourceReference"/>.
+        /// Gets the default <see cref="CommandResourceReference"/>.
         /// </summary>
         public static CommandResourceReference Default { get; } = new CommandResourceReference();
 
@@ -63,6 +63,8 @@ namespace CustomControls
         /// <summary>
         /// Gets a localized string from the assembly by its resource name.
         /// </summary>
+        /// <param name="name">The resource name.</param>
+        /// <returns>The localized string.</returns>
         public string GetString(string name)
         {
             Initialize();
@@ -72,6 +74,8 @@ namespace CustomControls
         /// <summary>
         /// Gets a localized image source from the assembly by its resource name.
         /// </summary>
+        /// <param name="name">The resource name.</param>
+        /// <returns>The localized image.</returns>
         public ImageSource GetImageSource(string name)
         {
             Initialize();

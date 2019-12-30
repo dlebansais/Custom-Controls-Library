@@ -1,9 +1,9 @@
-﻿using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+
     /// <summary>
     /// Represents a button with additional properties indicating if it should be displayed in a tool bar.
     /// </summary>
@@ -20,7 +20,7 @@ namespace CustomControls
         public static readonly DependencyProperty ReferenceProperty = DependencyProperty.Register("Reference", typeof(CommandResourceReference), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// The reference to an assembly where to find resources associated to the button.
+        /// Gets or sets The reference to an assembly where to find resources associated to the button.
         /// Used when the command does not have enough information to locate these resources. For instance, if the command is one of the ApplicationCommands.
         /// Can be null otherwise.
         /// </summary>
@@ -40,6 +40,7 @@ namespace CustomControls
         public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register("IsCheckable", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsCheckableChanged));
 
         /// <summary>
+        /// Gets or sets a value indicating whether the user can check the button as visible.
         /// True, the user can check the button as visible or uncheck it as hidden in the tool bar.
         /// False, the button is always visible.
         /// </summary>
@@ -78,6 +79,7 @@ namespace CustomControls
         public static readonly DependencyProperty IsDefaultActiveProperty = DependencyProperty.Register("IsDefaultActive", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsDefaultActiveChanged));
 
         /// <summary>
+        /// Gets or sets a value indicating whether the default setting  is True.
         /// True, the default setting for the <see cref="IsActive"/> property is True.
         /// False, the default setting for the <see cref="IsActive"/> property is False.
         /// </summary>
@@ -116,6 +118,7 @@ namespace CustomControls
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsActiveChanged));
 
         /// <summary>
+        /// Gets or sets a value indicating whether the the button is visible.
         /// True, the button is visible in the tool bar.
         /// False, the button is hidden.
         /// </summary>
@@ -175,9 +178,8 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        /// Initializes the <see cref="ExtendedToolBarButton"/> class.
+        /// Initializes static members of the <see cref="ExtendedToolBarButton"/> class.
         /// </summary>
-        [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static ExtendedToolBarButton()
         {
             OverrideAncestorMetadata();
