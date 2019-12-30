@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Cancelation Token.cs" />
     <Compile Include="Canonic Selection.cs" />
+    <Compile Include="Cursors\NativeMethods.cs" />
     <Compile Include="Cursors\Cursor Resource.cs" />
     <Compile Include="EmptyDragSourceControl.cs" />
     <Compile Include="Extended Tree Node Collection.cs" />
@@ -172,10 +173,12 @@
     <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"
 call "$(SolutionDir)signfile.bat" "$(SolutionDir)" "$(ConfigurationName)-$(PlatformName)" "$(TargetPath)"</PostBuildEvent>
     <NoWarn>CA1010</NoWarn>
+    <DocumentationFile>bin\x64\Release\ExtendedTreeView.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"</PostBuildEvent>
     <NoWarn>CA1010</NoWarn>
+    <DocumentationFile>bin\x64\Debug\ExtendedTreeView.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionDir)" "$(SolutionPath)"</PreBuildEvent>

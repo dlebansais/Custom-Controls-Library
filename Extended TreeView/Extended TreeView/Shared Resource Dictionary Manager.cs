@@ -1,24 +1,30 @@
-﻿using System;
-using System.Windows;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Windows;
+
+    /// <summary>
+    /// Represents the manager of a dictionary of shared resources.
+    /// </summary>
     internal static class SharedResourceDictionaryManager
     {
+        /// <summary>
+        /// Gets the resource dictionary.
+        /// </summary>
         internal static ResourceDictionary SharedDictionary
         {
             get
             {
-                if (_SharedDictionary.Count == 0)
+                if (SharedDictionaryInternal.Count == 0)
                 {
                     Uri ResourceLocater = new Uri("/ExtendedTreeView;component/themes/generic.xaml", UriKind.Relative);
-                    _SharedDictionary = (ResourceDictionary)Application.LoadComponent(ResourceLocater);
+                    SharedDictionaryInternal = (ResourceDictionary)Application.LoadComponent(ResourceLocater);
                 }
 
-                return _SharedDictionary;
+                return SharedDictionaryInternal;
             }
         }
 
-        private static ResourceDictionary _SharedDictionary = new ResourceDictionary();
+        private static ResourceDictionary SharedDictionaryInternal = new ResourceDictionary();
     }
 }
