@@ -18,7 +18,7 @@
         /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
         /// <param name="sourceType">A System.Type that represents the type you want to convert from.</param>
         /// <returns>
-        /// True if <paramref name="sourceType"/> is <see cref="String"/>, or if the base converter can perform the conversion; otherwise, false.
+        /// True if <paramref name="sourceType"/> is <see cref="string"/>, or if the base converter can perform the conversion; otherwise, false.
         /// </returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -79,7 +79,7 @@
             if (value is ActiveCommandCollection AsActiveCommandCollection)
                 if (destinationType == typeof(string))
                 {
-                    string Result = "";
+                    string Result = string.Empty;
 
                     foreach (ActiveCommand Command in AsActiveCommandCollection)
                     {
@@ -87,7 +87,6 @@
                             Result += ",";
 
                         Result += Command.Name;
-
                     }
 
                     return Result;

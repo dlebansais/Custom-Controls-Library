@@ -1,7 +1,6 @@
 ﻿namespace CustomControls
 {
     using System;
-    using System.Collections.Generic;
     using System.Runtime.InteropServices;
 
     /// <summary>
@@ -20,27 +19,23 @@
         public const uint RT_STRING = 6;
 
         /// <summary>
-        /// Loads a DLL in memory
+        /// Loads a DLL in memory.
         /// </summary>
-        /// <parameters>
         /// <param name="lpFileName">Path to the file to load.</param>
         /// <param name="hFile">This parameter is not used.</param>
         /// <param name="dwFlags">If LOAD_LIBRARY_AS_DATAFILE is specified, loads the file as data rather than executable code.</param>
-        /// </parameters>
         /// <returns>
         /// A handle to the loaded file.
         /// </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern IntPtr LoadLibraryEx([MarshalAs(UnmanagedType.LPWStr)]string lpFileName, IntPtr hFile, UInt32 dwFlags);
+        public static extern IntPtr LoadLibraryEx([MarshalAs(UnmanagedType.LPWStr)]string lpFileName, IntPtr hFile, uint dwFlags);
 
         /// <summary>
         /// Looks for a resource by its identifier in a file.
         /// </summary>
-        /// <parameters>
         /// <param name="hModule">Handle of the loaded file.</param>
         /// <param name="lpID">Identifier of the resource to find.</param>
         /// <param name="lpType">Type of the resource.</param>
-        /// </parameters>
         /// <returns>
         /// A handle to the resource.
         /// </returns>
@@ -48,12 +43,10 @@
         public static extern IntPtr FindResource(IntPtr hModule, IntPtr lpID, IntPtr lpType);
 
         /// <summary>
-        /// Loads a resource in memory
+        /// Loads a resource in memory.
         /// </summary>
-        /// <parameters>
         /// <param name="hModule">Handle of the loaded file.</param>
         /// <param name="hResInfo">Handle to the resource to load.</param>
-        /// </parameters>
         /// <returns>
         /// A handle to the block loaded in memory.
         /// </returns>
@@ -61,12 +54,10 @@
         public static extern IntPtr LoadResource(IntPtr hModule, IntPtr hResInfo);
 
         /// <summary>
-        /// Gets the size of a resource
+        /// Gets the size of a resource.
         /// </summary>
-        /// <parameters>
         /// <param name="hModule">Handle of the loaded file.</param>
         /// <param name="hResInfo">Handle to the resource to load.</param>
-        /// </parameters>
         /// <returns>
         /// The size of the resource, in bytes.
         /// </returns>
@@ -76,9 +67,7 @@
         /// <summary>
         /// Frees a loaded DLL from memory.
         /// </summary>
-        /// <parameters>
         /// <param name="hMod">Handle of the library to free.</param>
-        /// </parameters>
         /// <returns>
         /// The returned value can be ignored.
         /// </returns>

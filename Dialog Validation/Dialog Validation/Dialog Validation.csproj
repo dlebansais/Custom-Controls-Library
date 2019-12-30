@@ -82,6 +82,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active Command Collection.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandTryAgain.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandHelp.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandClose.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandIgnore.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandNo.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandContinue.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandYes.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandRetry.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandAbort.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandCancel.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandOk.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandCancelBase.cs" />
+    <Compile Include="ActiveCommands\ActiveCommandOkBase.cs" />
     <Compile Include="ActiveCommands\Active Command.cs" />
     <Compile Include="Converters\Active Command Collection Type Converter.cs" />
     <Compile Include="Converters\Active Command To Content Converter.cs" />
@@ -124,6 +137,7 @@ call "$(SolutionDir)signfile.bat" "$(SolutionDir)" "$(ConfigurationName)-$(Platf
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"</PostBuildEvent>
+    <DocumentationFile>bin\x64\Debug\DialogValidation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionDir)" "$(SolutionPath)"</PreBuildEvent>

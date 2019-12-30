@@ -24,7 +24,7 @@
 
         #region Properties
         /// <summary>
-        /// Gets a flag indicating if the collection was changed after initialisation.
+        /// Gets a value indicating whether the collection was changed after initialisation.
         /// </summary>
         /// <remarks>
         /// Allows the caller to distinguish between an empty and an uninitialized collection.
@@ -36,10 +36,8 @@
         /// <summary>
         /// Called when the content of the collection has changed.
         /// </summary>
-        /// <parameters>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">Arguments for the associated event.</param>
-        /// </parameters>
         protected virtual void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             SetCollectionModified();

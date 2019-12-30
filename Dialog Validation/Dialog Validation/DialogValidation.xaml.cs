@@ -101,7 +101,7 @@
         public static readonly DependencyProperty IsLocalizedProperty = DependencyProperty.Register("IsLocalized", typeof(bool), typeof(DialogValidation), new PropertyMetadata(false));
 
         /// <summary>
-        /// Gets or sets a flag to indicate if buttons should display the english or localized text.
+        /// Gets or sets a value indicating whether buttons should display the english or localized text.
         /// </summary>
         public bool IsLocalized
         {
@@ -634,6 +634,7 @@
         /// <summary>
         /// Creates and initializes a <see cref="ActiveCommandCollection"/> object.
         /// </summary>
+        /// <returns>The created object instance.</returns>
         protected virtual ActiveCommandCollection CreateActiveCommandCollection()
         {
             return new ActiveCommandCollection();
@@ -652,9 +653,15 @@
             return LoadStringFromResourceFile(User32Path, 51);
         }
 
-        internal static IList<string> LoadStringFromResourceFile(string FilePath, uint ResourceID)
+        /// <summary>
+        /// Loads a string from a resource file by ID.
+        /// </summary>
+        /// <param name="filePath">Path to the resource file.</param>
+        /// <param name="resourceID">Resource ID.</param>
+        /// <returns>The list of localized strings for this ID.</returns>
+        internal static IList<string> LoadStringFromResourceFile(string filePath, uint resourceID)
         {
-            StringResource StringFromResource = new StringResource(FilePath, ResourceID);
+            StringResource StringFromResource = new StringResource(filePath, resourceID);
             StringFromResource.Load();
 
             return StringFromResource.AsStrings;

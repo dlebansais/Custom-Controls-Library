@@ -83,14 +83,14 @@
         public static readonly ActiveCommand Continue = new ActiveCommandContinue();
 
         /// <summary>
-        /// A collection of all known commands.
+        /// Gets a collection of all known commands.
         /// </summary>
-        public static ICollection<ActiveCommand> AllCommands { get { return new Collection<ActiveCommand>(_AllCommands); } }
-        private static readonly ActiveCommand[] _AllCommands = new ActiveCommand[] { Ok, Cancel, Abort, Retry, Ignore, Yes, No, Close, Help, TryAgain, Continue };
+        public static ICollection<ActiveCommand> AllCommands { get { return new Collection<ActiveCommand>(new ActiveCommand[] { Ok, Cancel, Abort, Retry, Ignore, Yes, No, Close, Help, TryAgain, Continue }); } }
         #endregion
 
         #region Init
         /// <summary>
+        /// Initializes a new instance of the <see cref="ActiveCommand"/> class.
         /// Ensure only the static objects exist and no other can be created.
         /// </summary>
         protected ActiveCommand()
@@ -115,175 +115,14 @@
         public abstract RoutedUICommand Command { get; }
 
         /// <summary>
-        /// Gets a flag that indicates if a button using this command should be a default button.
+        /// Gets a value indicating whether a button using this command should be a default button.
         /// </summary>
         public virtual bool IsDefault { get { return false; } }
 
         /// <summary>
-        /// Gets a flag that indicates if a button using this command should be a cancel button.
+        /// Gets a value indicating whether a button using this command should be a cancel button.
         /// </summary>
         public virtual bool IsCancel { get { return false; } }
         #endregion
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the OK command.
-    /// </summary>
-    public class ActiveCommandOkBase : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandOkBase"/> object.</summary>
-        public override string Name { get { return "Ok"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandOkBase"/> object.</summary>
-        public override string FriendlyName { get { return "OK"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandOkBase"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandOk; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the OK command with a flag to indicate a button associated to this command should be a default button.
-    /// </summary>
-    public class ActiveCommandOk : ActiveCommandOkBase
-    {
-        /// <summary>
-        /// Gets a flag that indicates that a button using this command should be a default button.
-        /// </summary>
-        public override bool IsDefault { get { return true; } }
-    }
-
-    /// <summary>Represents the <see cref="ActiveCommand"/> object for the Cancel command.</summary>
-    public class ActiveCommandCancelBase : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandCancelBase"/> object.</summary>
-        public override string Name { get { return "Cancel"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandCancelBase"/> object.</summary>
-        public override string FriendlyName { get { return "Cancel"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandCancelBase"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandCancel; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Cancel command with a flag to indicate a button associated to this command should be a cancel button.
-    /// </summary>
-    public class ActiveCommandCancel : ActiveCommandCancelBase
-    {
-        /// <summary>Gets a flag that indicates that a button using this command should be a cancel button.</summary>
-        public override bool IsCancel { get { return true; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Abort command.
-    /// </summary>
-    public class ActiveCommandAbort : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandAbort"/> object.</summary>
-        public override string Name { get { return "Abort"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandAbort"/> object.</summary>
-        public override string FriendlyName { get { return "_Abort"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandAbort"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandAbort; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Retry command.
-    /// </summary>
-    public class ActiveCommandRetry : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandRetry"/> object.</summary>
-        public override string Name { get { return "Retry"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandRetry"/> object.</summary>
-        public override string FriendlyName { get { return "_Retry"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandRetry"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandRetry; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Ignore command.
-    /// </summary>
-    public class ActiveCommandIgnore : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandIgnore"/> object.</summary>
-        public override string Name { get { return "Ignore"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandIgnore"/> object.</summary>
-        public override string FriendlyName { get { return "_Ignore"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandIgnore"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandIgnore; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Yes command.
-    /// </summary>
-    public class ActiveCommandYes : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandYes"/> object.</summary>
-        public override string Name { get { return "Yes"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandYes"/> object.</summary>
-        public override string FriendlyName { get { return "_Yes"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandYes"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandYes; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the No command.
-    /// </summary>
-    public class ActiveCommandNo : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandNo"/> object.</summary>
-        public override string Name { get { return "No"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandNo"/> object.</summary>
-        public override string FriendlyName { get { return "_No"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandNo"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandNo; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Close command.
-    /// </summary>
-    public class ActiveCommandClose : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandClose"/> object.</summary>
-        public override string Name { get { return "Close"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandClose"/> object.</summary>
-        public override string FriendlyName { get { return "_Close"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandClose"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandClose; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Help command.
-    /// </summary>
-    public class ActiveCommandHelp : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandHelp"/> object.</summary>
-        public override string Name { get { return "Help"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandHelp"/> object.</summary>
-        public override string FriendlyName { get { return "Help"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandHelp"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandHelp; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Try Again command.
-    /// </summary>
-    public class ActiveCommandTryAgain : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandTryAgain"/> object.</summary>
-        public override string Name { get { return "TryAgain"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandTryAgain"/> object.</summary>
-        public override string FriendlyName { get { return "_Try Again"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandTryAgain"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandTryAgain; } }
-    }
-
-    /// <summary>
-    /// Represents the <see cref="ActiveCommand"/> object for the Continue command.
-    /// </summary>
-    public class ActiveCommandContinue : ActiveCommand
-    {
-        /// <summary>Gets the neutral name of the <see cref="ActiveCommandContinue"/> object.</summary>
-        public override string Name { get { return "Continue"; } }
-        /// <summary>Gets the localized name of the <see cref="ActiveCommandContinue"/> object.</summary>
-        public override string FriendlyName { get { return "_Continue"; } }
-        /// <summary>Gets the routed command of the <see cref="ActiveCommandContinue"/> object.</summary>
-        public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandContinue; } }
     }
 }

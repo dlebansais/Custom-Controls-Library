@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Runtime.InteropServices;
+
     /// <summary>
     /// Represents a list of string resources loaded from a files.
     /// </summary>
@@ -13,14 +13,12 @@ namespace CustomControls
         /// <summary>
         /// Initializes a new instance of the <see cref="StringResource"/> class.
         /// </summary>
-        /// <parameters>
-        /// <param name="FilePath">Path to the file to read.</param>
-        /// <param name="ResourceID">Identifier of the resources.</param>
-        /// </parameters>
-        public StringResource(string FilePath, uint ResourceID)
+        /// <param name="filePath">Path to the file to read.</param>
+        /// <param name="resourceID">Identifier of the resources.</param>
+        public StringResource(string filePath, uint resourceID)
         {
-            this.FilePath = FilePath;
-            this.ResourceID = ResourceID;
+            FilePath = filePath;
+            ResourceID = resourceID;
 
             AsStrings = new List<string>();
         }
@@ -41,17 +39,17 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        /// Path to the file resources are loaded from.
+        /// Gets the path to the file resources are loaded from.
         /// </summary>
         public string FilePath { get; private set; }
 
         /// <summary>
-        /// Identifier used to find and load resources in the file.
+        /// Gets the identifier used to find and load resources in the file.
         /// </summary>
         public uint ResourceID { get; private set; }
 
         /// <summary>
-        /// Loaded string resources.
+        /// Gets the loaded string resources.
         /// </summary>
         public IList<string> AsStrings { get; private set; }
         #endregion
@@ -60,6 +58,7 @@ namespace CustomControls
         /// <summary>
         /// Load the file containing the resources in memory.
         /// </summary>
+        /// <returns>Handle to the loaded file.</returns>
         protected virtual IntPtr LoadFile()
         {
             IntPtr hMod = NativeMethods.LoadLibraryEx(FilePath, IntPtr.Zero, NativeMethods.LOAD_LIBRARY_AS_DATAFILE);
@@ -69,6 +68,8 @@ namespace CustomControls
         /// <summary>
         /// Load the string resources and fill the AsStrings property.
         /// </summary>
+        /// <param name="hMod">Handle of the resource to load.</param>
+        /// <returns>True if the resource has been loaded successfully; Otherwise, false.</returns>
         protected virtual bool LoadStringValues(IntPtr hMod)
         {
             IntPtr hResDir = NativeMethods.FindResource(hMod, (IntPtr)ResourceID, (IntPtr)NativeMethods.RT_STRING);
@@ -89,7 +90,7 @@ namespace CustomControls
                 ushort Length = BitConverter.ToUInt16(bPtr, Offset);
                 Offset += 2;
 
-                string Value = "";
+                string Value = string.Empty;
                 for (int j = 0; j < Length && Offset + 2 < size; j++)
                 {
                     Value += BitConverter.ToChar(bPtr, Offset);
@@ -110,6 +111,7 @@ namespace CustomControls
         /// <summary>
         /// Frees loaded handles from memory.
         /// </summary>
+        /// <param name="hMod">Handle to free.</param>
         protected virtual void FreeHandles(IntPtr hMod)
         {
             NativeMethods.FreeLibrary(hMod);

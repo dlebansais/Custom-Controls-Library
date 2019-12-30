@@ -15,12 +15,12 @@
         /// <summary>
         /// Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
         /// </summary>
-        /// <param name="values">The values to convert.</param>
-        /// <param name="targetType">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="values">The array of values that the source bindings in the <see cref="MultiBinding"/> produces. The value <see cref="System.Windows.DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param>
+        /// <param name="targetType">The type of the binding target property.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
         /// <returns>
-        /// A System.Object that represents the converted value
+        /// A System.Object that represents the converted value.
         /// </returns>
         /// <remarks>
         /// <para>The first value must be a <see cref="DialogValidation"/>.</para>
@@ -71,17 +71,18 @@
         }
 
         /// <summary>
-        /// This method is not used and will always return null.
+        /// Converts a binding target value to the source binding values.
         /// </summary>
-        /// <param name="value">This parameter is not used.</param>
-        /// <param name="targetTypes">This parameter is not used.</param>
-        /// <param name="parameter">This parameter is not used.</param>
-        /// <param name="culture">This parameter is not used.</param>
+        /// <param name="value">The value that the binding target produces.</param>
+        /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
+        /// <param name="parameter">The converter parameter to use.</param>
+        /// <param name="culture">The culture to use in the converter.</param>
+        /// <returns>
+        /// An array of values that have been converted from the target value back to the source values.
+        /// </returns>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             return Array.Empty<object>();
         }
     }
 }
-
-
