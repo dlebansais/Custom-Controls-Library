@@ -1,15 +1,15 @@
-﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+
     /// <summary>
-    /// Represents a scroll with specific support for binding to a scrollviewer
+    /// Represents a scroll with specific support for binding to a scrollviewer.
     /// <para>Implemented as a derived class of the <see cref="ScrollBar"/> parent.</para>
     /// </summary>
     /// <remarks>
@@ -59,8 +59,8 @@ namespace CustomControls
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedScrollBar"/> class.
         /// </summary>
-        public ExtendedScrollBar() 
-            : base() 
+        public ExtendedScrollBar()
+            : base()
         {
         }
         #endregion
@@ -81,21 +81,21 @@ namespace CustomControls
             switch (Orientation)
             {
                 case Orientation.Horizontal:
-                    SetBinding(ScrollBar.MaximumProperty, (new Binding("ScrollableWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
-                    SetBinding(ScrollBar.ViewportSizeProperty, (new Binding("ViewportWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
+                    SetBinding(ScrollBar.MaximumProperty, new Binding("ScrollableWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
+                    SetBinding(ScrollBar.ViewportSizeProperty, new Binding("ViewportWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
                     IsHandled = true;
                     break;
 
                 case Orientation.Vertical:
-                    SetBinding(ScrollBar.MaximumProperty, (new Binding("ScrollableHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
-                    SetBinding(ScrollBar.ViewportSizeProperty, (new Binding("ViewportHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay }));
+                    SetBinding(ScrollBar.MaximumProperty, new Binding("ScrollableHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
+                    SetBinding(ScrollBar.ViewportSizeProperty, new Binding("ViewportHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
                     IsHandled = true;
                     break;
             }
 
             Debug.Assert(IsHandled);
 
-            LargeChange = 242; 
+            LargeChange = 242;
             SmallChange = 16;
         }
 
@@ -106,15 +106,15 @@ namespace CustomControls
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">Describes a change in the scrolling state.</param>
         /// </parameters>
-        private void BoundScrollChanged(object sender, ScrollChangedEventArgs e) 
+        private void BoundScrollChanged(object sender, ScrollChangedEventArgs e)
         {
             if (e == null)
                 throw new ArgumentNullException(nameof(e));
 
             bool IsHandled = false;
 
-            switch (Orientation) 
-            { 
+            switch (Orientation)
+            {
                 case Orientation.Horizontal:
                     Value = e.HorizontalOffset;
                     IsHandled = true;
@@ -123,7 +123,7 @@ namespace CustomControls
                 case Orientation.Vertical:
                     Value = e.VerticalOffset;
                     IsHandled = true;
-                    break; 
+                    break;
             }
 
             Debug.Assert(IsHandled);
