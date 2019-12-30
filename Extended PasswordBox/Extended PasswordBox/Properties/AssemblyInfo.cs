@@ -38,6 +38,6 @@ using System.Windows.Markup;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.352")]
-[assembly: AssemblyFileVersion("1.0.0.48")]
+[assembly: AssemblyVersion("1.0.0.353")]
+[assembly: AssemblyFileVersion("1.0.0.49")]
 [assembly: NeutralResourcesLanguageAttribute("en")]
