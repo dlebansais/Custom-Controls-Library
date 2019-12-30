@@ -42,3 +42,6 @@ before_build:
 # path to Visual Studio solution or project
 build:
   project: Custom-Controls-Library.sln
+
+platform: x64
+configuration: Release
