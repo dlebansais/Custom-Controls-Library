@@ -38,4 +38,3 @@ before_build:
 # path to Visual Studio solution or project
 build:
   project: Custom-Controls-Library.sln
-  project: Test-Custom-Controls-Library.sln
