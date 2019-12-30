@@ -33,7 +33,7 @@ matrix:
 
 # scripts to run before build
 before_build:
-  - nuget restore
+  - nuget restore Custom-Controls-Library.sln
 
 # path to Visual Studio solution or project
 build:
