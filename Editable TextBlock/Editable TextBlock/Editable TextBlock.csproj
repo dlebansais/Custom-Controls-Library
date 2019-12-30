@@ -82,7 +82,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cancelation Token.cs" />
+    <Compile Include="Cancellation Token.cs" />
     <Compile Include="Edit Leave Event Args.cs" />
     <Compile Include="Editable TextBlock Event Args.cs" />
     <Compile Include="EditableTextBlock.xaml.cs">
@@ -121,6 +121,7 @@ call "$(SolutionDir)signfile.bat" "$(SolutionDir)" "$(ConfigurationName)-$(Platf
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"</PostBuildEvent>
+    <DocumentationFile>bin\x64\Debug\EditableTextBlock.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionDir)" "$(SolutionPath)"</PreBuildEvent>

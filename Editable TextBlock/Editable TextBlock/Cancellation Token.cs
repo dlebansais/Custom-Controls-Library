@@ -17,7 +17,7 @@
 
         #region Properties
         /// <summary>
-        /// Get a value that indicates if the associated operation has been canceled by any handler.
+        /// Gets a value indicating whether the associated operation has been canceled by any handler.
         /// </summary>
         /// <returns>True indicates that a handler has canceled the operation. False indicates that the operation associated to the event should be completed.</returns>
         public bool IsCanceled { get; private set; }

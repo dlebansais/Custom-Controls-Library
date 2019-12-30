@@ -1,19 +1,18 @@
-﻿using System;
-using System.ComponentModel;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.ComponentModel;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+
     /// <summary>
     /// Represents a text block that can be edited, for instance to rename a file.
     /// Implemented as a normal, styleable TextBlock replaced by a TextBox when the user clicks on it.
-    /// 
     /// Features:
     /// . The delay between click and editing can be changed.
     /// . The focus must be on a parent of the TextBlock for editing to occur.
@@ -47,7 +46,7 @@ namespace CustomControls
         public static readonly DependencyProperty ClickDelayProperty = DependencyProperty.Register("ClickDelay", typeof(TimeSpan), typeof(EditableTextBlock), new FrameworkPropertyMetadata(DefaultEditDelay), new ValidateValueCallback(IsValidClickDelay));
 
         /// <summary>
-        /// The delay between a click and the actual switch to editing mode.
+        /// Gets or sets The delay between a click and the actual switch to editing mode.
         /// There is a minimum delay corresponding to the system double-click time.
         /// Only a time span greater than or equal to zero is valid.
         /// </summary>
@@ -57,6 +56,11 @@ namespace CustomControls
             set { SetValue(ClickDelayProperty, value); }
         }
 
+        /// <summary>
+        /// Checks if a click delay is valid.
+        /// </summary>
+        /// <param name="value">The instance to check.</param>
+        /// <returns>True if the delay is valid; Otherwise, false.</returns>
         internal static bool IsValidClickDelay(object value)
         {
             TimeSpan Delay = (TimeSpan)value;
@@ -73,6 +77,7 @@ namespace CustomControls
         public static readonly DependencyProperty EditableProperty = DependencyProperty.Register("Editable", typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(true));
 
         /// <summary>
+        /// Gets or sets a value indicating whether the user can click on the control to start editing.
         /// True, the user can click on the control to start editing (or the application can initiate it any other way).
         /// False, the control cannot be edited and the value of IsEditing is ignored.
         /// </summary>
@@ -92,6 +97,7 @@ namespace CustomControls
         public static readonly DependencyProperty IsEditingProperty = DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(false, OnIsEditingChanged));
 
         /// <summary>
+        /// Gets or sets a value indicating whether the text is being edited.
         /// True, the text is being edited. The application can start editing by writing this value.
         /// False, the text is displayed as a normal TextBlock.
         /// </summary>
@@ -146,9 +152,7 @@ namespace CustomControls
         /// <summary>
         /// Sends a <see cref="EditEnter"/> event.
         /// </summary>
-        /// <parameters>
         /// <param name="cancellation">A token to hold cancellation information.</param>
-        /// </parameters>
         protected virtual void NotifyEditEnter(CancellationToken cancellation)
         {
             EditableTextBlockEventArgs Args = CreateEditEnterEvent(ctrlTextBlock.Text, cancellation);
@@ -190,10 +194,8 @@ namespace CustomControls
         /// <summary>
         /// Sends a <see cref="EditLeave"/> event.
         /// </summary>
-        /// <parameters>
         /// <param name="cancellation">A token to hold cancellation information.</param>
         /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
-        /// </parameters>
         protected virtual void NotifyEditLeave(CancellationToken cancellation, bool isEditCanceled)
         {
             EditLeaveEventArgs Args = CreateEditLeaveEvent(ctrlTextBox.Text, cancellation, isEditCanceled);
@@ -203,11 +205,9 @@ namespace CustomControls
         /// <summary>
         /// Creates arguments for the EditLeave routed event.
         /// </summary>
-        /// <parameter>
         /// <param name="newText">The current content of the control.</param>
-        /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
         /// <param name="cancellation">A token to hold cancellation information.</param>
-        /// </parameter>
+        /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
         /// <returns>The EditableTextBlockEventArgs object created.</returns>
         protected virtual EditLeaveEventArgs CreateEditLeaveEvent(string newText, CancellationToken cancellation, bool isEditCanceled)
         {
@@ -221,10 +221,10 @@ namespace CustomControls
         /// <returns>
         /// The identifier for the <see cref="Text"/> dependency property.
         /// </returns>
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(EditableTextBlock), new FrameworkPropertyMetadata(String.Empty));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(EditableTextBlock), new FrameworkPropertyMetadata(string.Empty));
 
         /// <summary>
-        /// The text displayed by the control. Does not change while the user is editing it.
+        /// Gets or sets the text displayed by the control. Does not change while the user is editing it.
         /// The new value is reported after the user has pressed the Return key.
         /// </summary>
         public string Text
@@ -256,10 +256,8 @@ namespace CustomControls
         /// <summary>
         /// Sends a <see cref="TextChanged"/> event.
         /// </summary>
-        /// <parameters>
         /// <param name="newText">The current content of the control.</param>
         /// <param name="cancellation">A token to hold cancellation information.</param>
-        /// </parameters>
         protected virtual void NotifyTextChanged(string newText, CancellationToken cancellation)
         {
             EditableTextBlockEventArgs Args = CreateTextChangedEvent(newText, cancellation);
@@ -409,8 +407,8 @@ namespace CustomControls
         /// <summary>
         /// Cancel editing the control if focus moved to another focus zone.
         /// </summary>
-        /// <param name="sender">This parameter is not used.</param>
-        /// <param name="e">This parameter is not used.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An object that contains no event data.</param>
         private void OnIsSelectionActiveChanged(object sender, EventArgs e)
         {
             OnStopEditing();
@@ -429,7 +427,7 @@ namespace CustomControls
 
         #region Implementation
         /// <summary>
-        /// Proceeds to the initialization of properties related to the control implementation
+        /// Proceeds to the initialization of properties related to the control implementation.
         /// </summary>
         private void InitializeImplementation()
         {
@@ -439,8 +437,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the user clicks the left mouse button.
         /// </summary>
-        /// <param name="sender">This parameter is not used.</param>
-        /// <param name="e">This parameter is not used.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An object that contains no event data.</param>
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e == null)
@@ -464,8 +462,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the user releases the left mouse button.
         /// </summary>
-        /// <param name="sender">This parameter is not used.</param>
-        /// <param name="e">This parameter is not used.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An object that contains no event data.</param>
         private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             IncrementClickCount();
@@ -503,8 +501,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the edit box looses focus.
         /// </summary>
-        /// <param name="sender">This parameter is not used.</param>
-        /// <param name="e">This parameter is not used.</param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An object that contains no event data.</param>
         private void OnEditLostFocus(object sender, RoutedEventArgs e)
         {
             OnStopEditing();
@@ -513,7 +511,7 @@ namespace CustomControls
         /// <summary>
         /// Called when the user presses a key on the keyboard.
         /// </summary>
-        /// <param name="sender">This parameter is not used.</param>
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">State of the key pressed.</param>
         private void OnEditPreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -551,7 +549,7 @@ namespace CustomControls
 
         #region Click Count
         /// <summary>
-        /// Reset the click count to its base value
+        /// Reset the click count to its base value.
         /// </summary>
         private void ResetClickCount()
         {
@@ -607,7 +605,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        /// Object destructor.
+        /// Finalizes an instance of the <see cref="EditableTextBlock"/> class.
         /// </summary>
         ~EditableTextBlock()
         {
