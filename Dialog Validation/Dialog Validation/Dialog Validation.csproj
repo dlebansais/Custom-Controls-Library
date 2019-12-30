@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Active Command Collection.cs" />
-    <Compile Include="Active Command.cs" />
+    <Compile Include="ActiveCommands\Active Command.cs" />
     <Compile Include="Converters\Active Command Collection Type Converter.cs" />
     <Compile Include="Converters\Active Command To Content Converter.cs" />
     <Compile Include="Converters\Active Command Type Converter.cs" />
@@ -116,9 +116,7 @@
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ActiveCommands\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"
