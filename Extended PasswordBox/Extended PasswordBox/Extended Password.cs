@@ -1,7 +1,7 @@
-﻿using System.Security;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Security;
+
     /// <summary>
     /// Represents a password with security information.
     /// </summary>
@@ -10,9 +10,7 @@ namespace CustomControls
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedPassword"/> class.
         /// </summary>
-        /// <parameters>
         /// <param name="password">A plain text password.</param>
-        /// </parameters>
         /// <remarks>
         /// The resulting object is considered not secure and the <see cref="IsSecure"/> property will return False.
         /// </remarks>
@@ -24,9 +22,7 @@ namespace CustomControls
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtendedPassword"/> class.
         /// </summary>
-        /// <parameters>
         /// <param name="securePassword">A secure password.</param>
-        /// </parameters>
         /// <remarks>
         /// The resulting object is considered secure and the <see cref="IsSecure"/> property will return True.
         /// </remarks>
@@ -38,7 +34,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        /// Indicates if the password is secure and which property to use to read the password.
+        /// Gets a value indicating whether the password is secure and which property to use to read the password.
         /// </summary>
         /// <returns>
         /// True if the password is secure, and then password should then be read using the <see cref="SecurePassword"/> property.
@@ -47,7 +43,7 @@ namespace CustomControls
         public bool IsSecure { get; private set; } = false;
 
         /// <summary>
-        /// A plain text password.
+        /// Gets a plain text password.
         /// </summary>
         /// <returns>
         /// The password as a plain text string. Null if the <see cref="IsSecure"/> property is True.
@@ -55,7 +51,7 @@ namespace CustomControls
         public string Password { get; private set; } = string.Empty;
 
         /// <summary>
-        /// A secure password.
+        /// Gets a secure password.
         /// </summary>
         /// <returns>
         /// The password as a secure string. Null if the <see cref="IsSecure"/> property is False.

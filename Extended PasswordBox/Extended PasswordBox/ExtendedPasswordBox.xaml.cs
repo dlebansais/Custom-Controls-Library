@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-using System.Security;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.ComponentModel;
+    using System.Security;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+
     /// <summary>
     /// Represents a password box that can optionally display the password characters.
     /// <para>Implemented as user control with a <see cref="PasswordBox"/> and a <see cref="TextBox"/> for displayed characters.</para>
@@ -72,7 +72,7 @@ namespace CustomControls
         public static readonly DependencyProperty ShowPasswordProperty = DependencyProperty.Register("ShowPassword", typeof(bool), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(false, OnShowPasswordChanged));
 
         /// <summary>
-        /// Gets or sets the flag indicating if the password should be displayed as plain text.
+        /// Gets or sets a value indicating whether the password should be displayed as plain text.
         /// </summary>
         public bool ShowPassword
         {
@@ -103,7 +103,7 @@ namespace CustomControls
             else
             {
                 passPassword.Password = textPassword.Text;
-                passPassword.SelectAll(); 
+                passPassword.SelectAll();
                 textPassword.Text = null;
             }
 
@@ -122,7 +122,7 @@ namespace CustomControls
         public static readonly DependencyProperty IsPasswordEmptyProperty = IsPasswordEmptyPropertyKey.DependencyProperty;
 
         /// <summary>
-        /// Gets a value indicating if the password is currently empty.
+        /// Gets a value indicating whether the password is currently empty.
         /// </summary>
         public bool IsPasswordEmpty
         {
@@ -147,6 +147,7 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
+        /// Gets a secure or plain text password.
         /// Checks if the password has been displayed in plain text, if there was a binding on the Text property or if the client has initialized it, and returns a secure or plain text password accordingly.
         /// </summary>
         /// <returns>
@@ -243,22 +244,22 @@ namespace CustomControls
             return Expression != null;
         }
 
-        private void UpdateTextProperty(string NewText)
+        private void UpdateTextProperty(string newText)
         {
             IsUserChange = true;
-            Text = NewText;
+            Text = newText;
             IsUserChange = false;
         }
 
-        private void UpdateIsPasswordEmptyProperty(string NewText)
+        private void UpdateIsPasswordEmptyProperty(string newText)
         {
-            bool IsEmpty = (NewText == null || NewText.Length == 0);
+            bool IsEmpty = newText == null || newText.Length == 0;
             SetValue(IsPasswordEmptyPropertyKey, IsEmpty);
         }
 
-        private void UpdateIsPasswordEmptyProperty(SecureString NewPassword)
+        private void UpdateIsPasswordEmptyProperty(SecureString newPassword)
         {
-            bool IsEmpty = (NewPassword.Length == 0);
+            bool IsEmpty = newPassword.Length == 0;
             SetValue(IsPasswordEmptyPropertyKey, IsEmpty);
         }
 
