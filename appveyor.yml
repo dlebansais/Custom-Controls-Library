@@ -28,6 +28,7 @@ matrix:
 
 # exclude configuration from the matrix. Works similarly to 'allow_failures' but build not even being started for excluded combination.
   exclude:
+    - platform: Any CPU
     - platform: x64
       configuration: Debug
 
