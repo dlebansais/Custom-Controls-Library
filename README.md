@@ -1,8 +1,10 @@
+# Custom Controls Library
+[![Build status](https://ci.appveyor.com/api/projects/status/rw44co5aw3ijifei?svg=true)](https://ci.appveyor.com/project/dlebansais/custom-controls-library)
+
+A set of miscellaneous WPF custom controls
+
 # Download
 Latest version of all files can be downloaded from /Release/x64, except the busy indicator (see below).
-
-# Custom Controls Library
-A set of miscellaneous WPF custom controls
 
 ## Busy Indicator
 A simple control to indicate that the application is busy. This .xaml and .cs are intended to be copied directly in the target solution.
