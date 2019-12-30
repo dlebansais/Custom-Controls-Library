@@ -13,22 +13,22 @@ using System.Xaml;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents a tool bar with a localized name.
+    /// Represents a tool bar with a localized name.
     /// </summary>
     public class ExtendedToolBar : ToolBar
     {
         #region Custom properties and events
         #region ToolBar Name
         /// <summary>
-        ///     Identifies the <see cref="ToolBarName"/> dependency property.
+        /// Identifies the <see cref="ToolBarName"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ToolBarName"/> dependency property.
+        /// The identifier for the <see cref="ToolBarName"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ToolBarNameProperty = DependencyProperty.Register("ToolBarName", typeof(string), typeof(ExtendedToolBar), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        ///     The localized name of the toolbar. Can be null.
+        /// The localized name of the toolbar. Can be null.
         /// </summary>
         public string ToolBarName
         {
@@ -40,7 +40,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes the <see cref="ExtendedToolBar"/> class.
+        /// Initializes the <see cref="ExtendedToolBar"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Can't be done inline - too complex")]
         static ExtendedToolBar()
@@ -49,7 +49,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ExtendedToolBar"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedToolBar"/> class.
         /// </summary>
         public ExtendedToolBar()
         {
@@ -59,7 +59,7 @@ namespace CustomControls
 
         #region Ancestor Interface
         /// <summary>
-        ///     Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
+        /// Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
         /// </summary>
         protected static void OverrideAncestorMetadata()
         {
@@ -67,7 +67,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
+        /// Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
         /// </summary>
         protected static void OverrideMetadataDefaultStyleKey()
         {
@@ -77,7 +77,7 @@ namespace CustomControls
 
         #region Client Interface
         /// <summary>
-        ///     Returns all buttons in the toolbar to their default active value.
+        /// Returns all buttons in the toolbar to their default active value.
         /// </summary>
         public virtual void Reset()
         {
@@ -86,10 +86,10 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Serializes the active state of buttons in the toolbar.
+        /// Serializes the active state of buttons in the toolbar.
         /// </summary>
         /// <returns>
-        ///     A string containing the toolbar state.
+        /// A string containing the toolbar state.
         /// </returns>
         public virtual string SerializeActiveButtons()
         {
@@ -111,7 +111,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Deserializes the active state of buttons in the toolbar.
+        /// Deserializes the active state of buttons in the toolbar.
         /// </summary>
         /// <param name="xamlData">A string containing the new state of the toolbar.</param>
         public virtual void DeserializeActiveButtons(string xamlData)
@@ -135,7 +135,7 @@ namespace CustomControls
 
         #region Checked Buttons
         /// <summary>
-        ///     Updates the list of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
+        /// Updates the list of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
         /// </summary>
         /// <param name="e">This parameter is not used.</param>
         protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
@@ -157,12 +157,12 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Checks if a command belongs to a group associated to an enabled feature.
+        /// Checks if a command belongs to a group associated to an enabled feature.
         /// </summary>
         /// <param name="command">The <see cref="ICommand"/> command object.</param>
         /// <returns>
-        ///     True if the command is not associated to any feature, or if that feature is enabled.
-        ///     False if the command belongs to a group associated to a feature, and that feature is disabled.
+        /// True if the command is not associated to any feature, or if that feature is enabled.
+        /// False if the command belongs to a group associated to a feature, and that feature is disabled.
         /// </returns>
         public static bool IsCommandGroupEnabled(ICommand command)
         {
@@ -173,10 +173,10 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets the collection of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
+        /// Gets the collection of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
         /// </summary>
         /// <returns>
-        ///     The collection of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
+        /// The collection of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
         /// </returns>
         public ObservableCollection<ExtendedToolBarItem> AllButtons { get; } = new ObservableCollection<ExtendedToolBarItem>();
         #endregion
@@ -204,7 +204,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the "Add or Remove Button" button is checked.
+        /// Called when the "Add or Remove Button" button is checked.
         /// </summary>
         /// <param name="sender">The button object</param>
         /// <param name="e">This parameter is not used</param>
@@ -215,7 +215,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the toolbar overflow button is unchecked.
+        /// Called when the toolbar overflow button is unchecked.
         /// </summary>
         /// <param name="sender">The button object</param>
         /// <param name="e">This parameter is not used</param>
@@ -231,7 +231,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the "Reset ToolBar" button is clicked.
+        /// Called when the "Reset ToolBar" button is clicked.
         /// </summary>
         /// <param name="sender">The button object</param>
         /// <param name="e">This parameter is not used</param>
@@ -242,11 +242,11 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the user has confirmed or canceled the reset.
+        /// Called when the user has confirmed or canceled the reset.
         /// </summary>
         /// <returns>
-        ///     True if confirmed.
-        ///     False if canceled.
+        /// True if confirmed.
+        /// False if canceled.
         /// </returns>
         private bool IsResetConfirmedByUser()
         {

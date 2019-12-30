@@ -24,14 +24,14 @@ namespace CustomControls
     ///   . The TextBox looses the focus.
     ///   . The selector (listbox) hosting the control becomes inactive.
     ///   . The user press one of the following keys:
-    ///       . Return, to validate the change.
-    ///       . Escape, to cancel the change.
+    ///   . Return, to validate the change.
+    ///   . Escape, to cancel the change.
     /// </summary>
     public partial class EditableTextBlock : UserControl, IDisposable
     {
         #region Constants
         /// <summary>
-        ///     Delay before editing happens, to ignore double-click.
+        /// Delay before editing happens, to ignore double-click.
         /// </summary>
         public static readonly TimeSpan DefaultEditDelay = TimeSpan.FromSeconds(0.4);
         #endregion
@@ -39,17 +39,17 @@ namespace CustomControls
         #region Custom properties and events
         #region ClickDelay
         /// <summary>
-        ///     Identifies the <see cref="ClickDelay"/> dependency property.
+        /// Identifies the <see cref="ClickDelay"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ClickDelay"/> dependency property.
+        /// The identifier for the <see cref="ClickDelay"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ClickDelayProperty = DependencyProperty.Register("ClickDelay", typeof(TimeSpan), typeof(EditableTextBlock), new FrameworkPropertyMetadata(DefaultEditDelay), new ValidateValueCallback(IsValidClickDelay));
 
         /// <summary>
-        ///     The delay between a click and the actual switch to editing mode.
-        ///     There is a minimum delay corresponding to the system double-click time.
-        ///     Only a time span greater than or equal to zero is valid.
+        /// The delay between a click and the actual switch to editing mode.
+        /// There is a minimum delay corresponding to the system double-click time.
+        /// Only a time span greater than or equal to zero is valid.
         /// </summary>
         public TimeSpan ClickDelay
         {
@@ -65,16 +65,16 @@ namespace CustomControls
         #endregion
         #region Editable
         /// <summary>
-        ///     Identifies the <see cref="Editable"/> dependency property.
+        /// Identifies the <see cref="Editable"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="Editable"/> dependency property.
+        /// The identifier for the <see cref="Editable"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty EditableProperty = DependencyProperty.Register("Editable", typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(true));
 
         /// <summary>
-        ///     True, the user can click on the control to start editing (or the application can initiate it any other way).
-        ///     False, the control cannot be edited and the value of IsEditing is ignored.
+        /// True, the user can click on the control to start editing (or the application can initiate it any other way).
+        /// False, the control cannot be edited and the value of IsEditing is ignored.
         /// </summary>
         public bool Editable
         {
@@ -84,16 +84,16 @@ namespace CustomControls
         #endregion
         #region Is Editing
         /// <summary>
-        ///     Identifies the <see cref="IsEditing"/> dependency property.
+        /// Identifies the <see cref="IsEditing"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsEditing"/> dependency property.
+        /// The identifier for the <see cref="IsEditing"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty IsEditingProperty = DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(false, OnIsEditingChanged));
 
         /// <summary>
-        ///     True, the text is being edited. The application can start editing by writing this value.
-        ///     False, the text is displayed as a normal TextBlock.
+        /// True, the text is being edited. The application can start editing by writing this value.
+        /// False, the text is displayed as a normal TextBlock.
         /// </summary>
         public bool IsEditing
         {
@@ -102,7 +102,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsEditing"/> dependency property is changed on <paramref name="modifiedObject"/>.
+        /// Called when the <see cref="IsEditing"/> dependency property is changed on <paramref name="modifiedObject"/>.
         /// </summary>
         /// <param name="modifiedObject">The object that had its property modified.</param>
         /// <param name="e">Information about the change.</param>
@@ -113,7 +113,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsEditing"/> dependency property is changed.
+        /// Called when the <see cref="IsEditing"/> dependency property is changed.
         /// </summary>
         private void OnIsEditingChanged()
         {
@@ -126,16 +126,16 @@ namespace CustomControls
         #endregion
         #region Edit Enter event
         /// <summary>
-        ///     Identifies the <see cref="EditEnter"/> routed event.
+        /// Identifies the <see cref="EditEnter"/> routed event.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="EditEnter"/> routed event.
+        /// The identifier for the <see cref="EditEnter"/> routed event.
         /// </returns>
         public static readonly RoutedEvent EditEnterEvent = EventManager.RegisterRoutedEvent("EditEnter", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
 
         /// <summary>
-        ///     Sent when the control is about to enter editing mode because of a user action (clicking the control).
-        ///     If canceled, the control does not enter editing mode and IsEditing remains false.
+        /// Sent when the control is about to enter editing mode because of a user action (clicking the control).
+        /// If canceled, the control does not enter editing mode and IsEditing remains false.
         /// </summary>
         public event RoutedEventHandler EditEnter
         {
@@ -144,7 +144,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends a <see cref="EditEnter"/> event.
+        /// Sends a <see cref="EditEnter"/> event.
         /// </summary>
         /// <parameters>
         /// <param name="cancellation">A token to hold cancellation information.</param>
@@ -156,7 +156,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Creates arguments for the EditEnter routed event.
+        /// Creates arguments for the EditEnter routed event.
         /// </summary>
         /// <param name="textToEdit">The current content of the control.</param>
         /// <param name="cancellation">A token to hold cancellation information.</param>
@@ -168,18 +168,18 @@ namespace CustomControls
         #endregion
         #region Edit Leave event
         /// <summary>
-        ///     Identifies the <see cref="EditLeave"/> routed event.
+        /// Identifies the <see cref="EditLeave"/> routed event.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="EditLeave"/> routed event.
+        /// The identifier for the <see cref="EditLeave"/> routed event.
         /// </returns>
         public static readonly RoutedEvent EditLeaveEvent = EventManager.RegisterRoutedEvent("EditLeave", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
 
         /// <summary>
-        ///     Sent when the control is about to leave editing mode because of a user action (hitting the Return or Escape key, or changing the focus)
-        ///     If the user has validated the new text (with the Return key), IsEditCanceled is false, otherwise it is true.
-        ///     Leaving edit mode can only be canceled if IsEditCanceled is false.
-        ///     If canceled, the control does not leave editing mode and IsEditing remains true.
+        /// Sent when the control is about to leave editing mode because of a user action (hitting the Return or Escape key, or changing the focus)
+        /// If the user has validated the new text (with the Return key), IsEditCanceled is false, otherwise it is true.
+        /// Leaving edit mode can only be canceled if IsEditCanceled is false.
+        /// If canceled, the control does not leave editing mode and IsEditing remains true.
         /// </summary>
         public event RoutedEventHandler EditLeave
         {
@@ -188,7 +188,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends a <see cref="EditLeave"/> event.
+        /// Sends a <see cref="EditLeave"/> event.
         /// </summary>
         /// <parameters>
         /// <param name="cancellation">A token to hold cancellation information.</param>
@@ -201,7 +201,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Creates arguments for the EditLeave routed event.
+        /// Creates arguments for the EditLeave routed event.
         /// </summary>
         /// <parameter>
         /// <param name="newText">The current content of the control.</param>
@@ -216,16 +216,16 @@ namespace CustomControls
         #endregion
         #region Text
         /// <summary>
-        ///     Identifies the <see cref="Text"/> dependency property.
+        /// Identifies the <see cref="Text"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="Text"/> dependency property.
+        /// The identifier for the <see cref="Text"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(EditableTextBlock), new FrameworkPropertyMetadata(String.Empty));
 
         /// <summary>
-        ///     The text displayed by the control. Does not change while the user is editing it.
-        ///     The new value is reported after the user has pressed the Return key.
+        /// The text displayed by the control. Does not change while the user is editing it.
+        /// The new value is reported after the user has pressed the Return key.
         /// </summary>
         public string Text
         {
@@ -235,17 +235,17 @@ namespace CustomControls
         #endregion
         #region Text Changed event
         /// <summary>
-        ///     Identifies the <see cref="TextChanged"/> routed event.
+        /// Identifies the <see cref="TextChanged"/> routed event.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="TextChanged"/> routed event.
+        /// The identifier for the <see cref="TextChanged"/> routed event.
         /// </returns>
         public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent("TextChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
 
         /// <summary>
-        ///     Reports that the user pressed the Return key to validate a change. The Text content may have not been modified.
-        ///     The control has left editing mode before this event is sent.
-        ///     If canceled, the previous text is not replaced.
+        /// Reports that the user pressed the Return key to validate a change. The Text content may have not been modified.
+        /// The control has left editing mode before this event is sent.
+        /// If canceled, the previous text is not replaced.
         /// </summary>
         public event RoutedEventHandler TextChanged
         {
@@ -254,7 +254,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends a <see cref="TextChanged"/> event.
+        /// Sends a <see cref="TextChanged"/> event.
         /// </summary>
         /// <parameters>
         /// <param name="newText">The current content of the control.</param>
@@ -267,7 +267,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Creates arguments for the TextChanged routed event.
+        /// Creates arguments for the TextChanged routed event.
         /// </summary>
         /// <param name="newText">The current content of the control.</param>
         /// <param name="cancellation">A token to hold cancellation information.</param>
@@ -281,7 +281,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="EditableTextBlock"/> class.
+        /// Initializes a new instance of the <see cref="EditableTextBlock"/> class.
         /// </summary>
         public EditableTextBlock()
         {
@@ -293,7 +293,7 @@ namespace CustomControls
 
         #region Editing
         /// <summary>
-        ///     Proceeds to the initialization of properties related to editing.
+        /// Proceeds to the initialization of properties related to editing.
         /// </summary>
         private void InitializeEditing()
         {
@@ -301,7 +301,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Schedule a timer event to switch to editing mode after a given time.
+        /// Schedule a timer event to switch to editing mode after a given time.
         /// </summary>
         private void ScheduleStartEditing()
         {
@@ -317,7 +317,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Cancel the timer event scheduled by ScheduleStartEditing, for instance in case of a double-click.
+        /// Cancel the timer event scheduled by ScheduleStartEditing, for instance in case of a double-click.
         /// </summary>
         private void CancelStartEditing()
         {
@@ -325,8 +325,8 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the timer event scheduled by ScheduleStartEditing occurs.
-        ///     Executed in the context of a timer thread. Reschedule the event to run in the graphic thread context.
+        /// Called when the timer event scheduled by ScheduleStartEditing occurs.
+        /// Executed in the context of a timer thread. Reschedule the event to run in the graphic thread context.
         /// </summary>
         /// <param name="parameter">This parameter is not used.</param>
         private void StartEditingTimerCallback(object parameter)
@@ -335,14 +335,14 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Handler of a rescheduled timer event.
+        /// Handler of a rescheduled timer event.
         /// </summary>
         private delegate void StartEditingHandler();
 
         /// <summary>
-        ///     Called when the timer event scheduled by ScheduleStartEditing occurs.
-        ///     Executed in the context of the graphic thread.
-        ///     Attempt to switch the control to editing state, if IsEditable is true and no event handler cancels it.
+        /// Called when the timer event scheduled by ScheduleStartEditing occurs.
+        /// Executed in the context of the graphic thread.
+        /// Attempt to switch the control to editing state, if IsEditable is true and no event handler cancels it.
         /// </summary>
         protected virtual void OnStartEditing()
         {
@@ -354,7 +354,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Switch the control to non-editing state. This is not cancellable.
+        /// Switch the control to non-editing state. This is not cancellable.
         /// </summary>
         protected virtual void OnStopEditing()
         {
@@ -365,7 +365,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Changes the internal TextBlock and TextBox controls to visually show the edit box.
+        /// Changes the internal TextBlock and TextBox controls to visually show the edit box.
         /// </summary>
         private void SwitchToTextBox()
         {
@@ -382,7 +382,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Changes the internal TextBlock and TextBox controls to visually hide the edit box.
+        /// Changes the internal TextBlock and TextBox controls to visually hide the edit box.
         /// </summary>
         private void SwitchToTextBlock()
         {
@@ -393,12 +393,12 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Handler of a first initialization event.
+        /// Handler of a first initialization event.
         /// </summary>
         private delegate void InitPositioningHandler();
 
         /// <summary>
-        ///     Initializes the control once to align the TextBlock and TextBox controls.
+        /// Initializes the control once to align the TextBlock and TextBox controls.
         /// </summary>
         private void InitPositioning()
         {
@@ -407,7 +407,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Cancel editing the control if focus moved to another focus zone.
+        /// Cancel editing the control if focus moved to another focus zone.
         /// </summary>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">This parameter is not used.</param>
@@ -417,19 +417,19 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Timer used to schedule even event when the user clicks the control.
+        /// Timer used to schedule even event when the user clicks the control.
         /// </summary>
         private Timer StartEditingTimer = new Timer(new TimerCallback((object parameter) => { }));
 
         /// <summary>
-        ///     Represent the IsSelectionActive attached property.
+        /// Represent the IsSelectionActive attached property.
         /// </summary>
         private DependencyPropertyDescriptor IsSelectionActiveDescriptor = DependencyPropertyDescriptor.FromProperty(Selector.IsSelectionActiveProperty, typeof(EditableTextBlock));
         #endregion
 
         #region Implementation
         /// <summary>
-        ///     Proceeds to the initialization of properties related to the control implementation
+        /// Proceeds to the initialization of properties related to the control implementation
         /// </summary>
         private void InitializeImplementation()
         {
@@ -437,7 +437,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the user clicks the left mouse button.
+        /// Called when the user clicks the left mouse button.
         /// </summary>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">This parameter is not used.</param>
@@ -462,7 +462,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the user releases the left mouse button.
+        /// Called when the user releases the left mouse button.
         /// </summary>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">This parameter is not used.</param>
@@ -481,7 +481,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Search in the parent chain a UIElement that has the focus.
+        /// Search in the parent chain a UIElement that has the focus.
         /// </summary>
         /// <returns>TRUE if a parent has the focus, FALSE if none was found.</returns>
         private UIElement? FocusedParent()
@@ -501,7 +501,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the edit box looses focus.
+        /// Called when the edit box looses focus.
         /// </summary>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">This parameter is not used.</param>
@@ -511,7 +511,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the user presses a key on the keyboard.
+        /// Called when the user presses a key on the keyboard.
         /// </summary>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">State of the key pressed.</param>
@@ -551,7 +551,7 @@ namespace CustomControls
 
         #region Click Count
         /// <summary>
-        ///     Reset the click count to its base value
+        /// Reset the click count to its base value
         /// </summary>
         private void ResetClickCount()
         {
@@ -559,7 +559,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Increment the click count to take the user click into account.
+        /// Increment the click count to take the user click into account.
         /// </summary>
         private void IncrementClickCount()
         {
@@ -567,7 +567,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Check that this is a simple click.
+        /// Check that this is a simple click.
         /// </summary>
         /// <returns>True if the user click is not a double click.</returns>
         private bool IsClickCountSimple()
@@ -576,7 +576,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Contains a count of mouse clicks, used to decide when it is time to start editing.
+        /// Contains a count of mouse clicks, used to decide when it is time to start editing.
         /// </summary>
         private int UpClickCount;
         #endregion

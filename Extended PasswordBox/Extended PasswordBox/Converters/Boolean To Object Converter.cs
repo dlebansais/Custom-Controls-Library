@@ -6,14 +6,14 @@ using System.Windows.Data;
 namespace Converters
 {
     /// <summary>
-    ///     Converter from a boolean or nullable boolean to the first or second objects in a collection.
+    /// Converter from a boolean or nullable boolean to the first or second objects in a collection.
     /// </summary>
     [ValueConversion(typeof(bool), typeof(object))]
     [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification = "Instanciated in Xaml")]
     internal class BooleanToObjectConverter : IValueConverter
     {
         /// <summary>
-        ///     Converter from a boolean or nullable boolean to the first or second objects in a collection.
+        /// Converter from a boolean or nullable boolean to the first or second objects in a collection.
         /// </summary>
         /// <param name="value">The value produced by the binding source.</param>
         /// <param name="targetType">The type of the binding target property.</param>
@@ -42,7 +42,7 @@ namespace Converters
         }
 
         /// <summary>
-        ///     This method is not used and will always return null.
+        /// This method is not used and will always return null.
         /// </summary>
         /// <param name="value">This parameter is not used.</param>
         /// <param name="targetType">This parameter is not used.</param>

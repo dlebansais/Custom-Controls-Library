@@ -9,7 +9,7 @@ using System.Windows.Media.Imaging;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents an object that can extract string and icon resources from an assembly specified by name.
+    /// Represents an object that can extract string and icon resources from an assembly specified by name.
     /// </summary>
     public class CommandResourceReference
     {
@@ -20,7 +20,7 @@ namespace CustomControls
         public static CommandResourceReference Default { get; } = new CommandResourceReference();
 
         /// <summary>
-        ///     Fills the cache when called for the first times. Does nothing on subsequent calls.
+        /// Fills the cache when called for the first times. Does nothing on subsequent calls.
         /// </summary>
         private void Initialize()
         {
@@ -46,22 +46,22 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Gets or sets the name of the assembly.
+        /// Gets or sets the name of the assembly.
         /// </summary>
         public string AssemblyName { get; set; } = string.Empty;
         /// <summary>
-        ///     Gets or sets the extension of resource files to find within the assembly.
+        /// Gets or sets the extension of resource files to find within the assembly.
         /// </summary>
         public string ResourceExtension { get; set; } = string.Empty;
         /// <summary>
-        ///     Gets or sets the path to icon resources within the assembly.
+        /// Gets or sets the path to icon resources within the assembly.
         /// </summary>
         public string IconPath { get; set; } = string.Empty;
         #endregion
 
         #region Client Interface
         /// <summary>
-        ///     Gets a localized string from the assembly by its resource name.
+        /// Gets a localized string from the assembly by its resource name.
         /// </summary>
         public string GetString(string name)
         {
@@ -70,7 +70,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets a localized image source from the assembly by its resource name.
+        /// Gets a localized image source from the assembly by its resource name.
         /// </summary>
         public ImageSource GetImageSource(string name)
         {
@@ -93,15 +93,15 @@ namespace CustomControls
 
         #region Implementation
         /// <summary>
-        ///     Cached location of the assembly.
+        /// Cached location of the assembly.
         /// </summary>
         private Assembly InitResourceAssembly = Assembly.GetExecutingAssembly();
         /// <summary>
-        ///     Cached location of a type used to find resources in the assembly.
+        /// Cached location of a type used to find resources in the assembly.
         /// </summary>
         private Type InitResourceSource = typeof(object);
         /// <summary>
-        ///     Cached location of a <see cref="ResourceManager"/> used to find strings in the assembly.
+        /// Cached location of a <see cref="ResourceManager"/> used to find strings in the assembly.
         /// </summary>
         private ResourceManager InitResourceManager = new ResourceManager(typeof(object));
         #endregion

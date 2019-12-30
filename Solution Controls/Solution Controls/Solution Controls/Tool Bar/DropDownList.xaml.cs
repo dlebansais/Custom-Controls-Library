@@ -84,7 +84,7 @@ namespace CustomControls
 
         #region Implementation of INotifyPropertyChanged
         /// <summary>
-        ///     Implements the PropertyChanged event.
+        /// Implements the PropertyChanged event.
         /// </summary>
         //[field: NonSerialized()]
         public event PropertyChangedEventHandler? PropertyChanged;

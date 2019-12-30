@@ -1,19 +1,19 @@
-﻿using Converters;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.ComponentModel;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.ComponentModel;
+    using Converters;
+
     /// <summary>
-    ///     Represents a collection of <see cref="ActiveCommand"/> objects.
+    /// Represents a collection of <see cref="ActiveCommand"/> objects.
     /// </summary>
     [TypeConverter(typeof(ActiveCommandCollectionTypeConverter))]
     public class ActiveCommandCollection : ObservableCollection<ActiveCommand>
     {
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ActiveCommandCollection"/> class.
+        /// Initializes a new instance of the <see cref="ActiveCommandCollection"/> class.
         /// </summary>
         public ActiveCommandCollection()
         {
@@ -24,17 +24,17 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Gets a flag indicating if the collection was changed after initialisation.
+        /// Gets a flag indicating if the collection was changed after initialisation.
         /// </summary>
         /// <remarks>
-        ///     Allows the caller to distinguish between an empty and an uninitialized collection.
+        /// Allows the caller to distinguish between an empty and an uninitialized collection.
         /// </remarks>
         public bool IsCollectionModified { get; private set; }
         #endregion
 
         #region Implementation
         /// <summary>
-        ///     Called when the content of the collection has changed.
+        /// Called when the content of the collection has changed.
         /// </summary>
         /// <parameters>
         /// <param name="sender">This parameter is not used.</param>
@@ -46,7 +46,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Marks the collection as modified.
+        /// Marks the collection as modified.
         /// </summary>
         protected virtual void SetCollectionModified()
         {

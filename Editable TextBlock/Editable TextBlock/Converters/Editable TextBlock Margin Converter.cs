@@ -7,13 +7,13 @@ using System.Windows.Data;
 namespace Converters
 {
     /// <summary>
-    ///     Represents the converter that converts the current margin, border and padding of the <see cref="CustomControls.EditableTextBlock"/> control to a margin.
+    /// Represents the converter that converts the current margin, border and padding of the <see cref="CustomControls.EditableTextBlock"/> control to a margin.
     /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification = "Instantiated in Xaml")]
     internal class EditableTextBlockMarginConverter : IMultiValueConverter
     {
         /// <summary>
-        ///     Converts the current margin, border and padding of the <see cref="CustomControls.EditableTextBlock"/> control to a margin.
+        /// Converts the current margin, border and padding of the <see cref="CustomControls.EditableTextBlock"/> control to a margin.
         /// </summary>
         /// <param name="values">The values to convert. The first value indicates if the control is being edited, the second and third values are the margin and padding of the TextBlock part respectively, the fourth and fifth values are the border and padding of the TextBox part respectively.</param>
         /// <param name="targetType">This parameter is not used.</param>
@@ -55,7 +55,7 @@ namespace Converters
         }
 
         /// <summary>
-        ///     This method is not used.
+        /// This method is not used.
         /// </summary>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {

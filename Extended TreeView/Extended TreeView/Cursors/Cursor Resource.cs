@@ -7,22 +7,22 @@ using System.Windows.Input;
 namespace CustomControls
 {
     /// <summary>
-    ///     Contains unmanaged methods to read resources from a file.
+    /// Contains unmanaged methods to read resources from a file.
     /// </summary>
     internal static class NativeMethods
     {
         /// <summary>
-        ///     Flag to indicate the file should be loaded as data and not as executable code.
+        /// Flag to indicate the file should be loaded as data and not as executable code.
         /// </summary>
         public const uint LOAD_LIBRARY_AS_DATAFILE = 0x00000002;
 
         /// <summary>
-        ///     Flag to indicate a cursor resource.
+        /// Flag to indicate a cursor resource.
         /// </summary>
         public const uint RT_CURSOR = 1;
 
         /// <summary>
-        ///     Flag to indicate a cursor group resource.
+        /// Flag to indicate a cursor group resource.
         /// </summary>
         public const uint RT_GROUP_CURSOR = RT_CURSOR + 11;
 
@@ -46,7 +46,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Loads a DLL in memory
+        /// Loads a DLL in memory
         /// </summary>
         /// <parameters>
         /// <param name="lpFileName">Path to the file to load.</param>
@@ -54,13 +54,13 @@ namespace CustomControls
         /// <param name="dwFlags">If LOAD_LIBRARY_AS_DATAFILE is specified, loads the file as data rather than executable code.</param>
         /// </parameters>
         /// <returns>
-        ///     A handle to the loaded file.
+        /// A handle to the loaded file.
         /// </returns>
         [DllImport("kernel32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
         public static extern IntPtr LoadLibraryEx([MarshalAs(UnmanagedType.LPWStr)]string lpFileName, IntPtr hFile, UInt32 dwFlags);
 
         /// <summary>
-        ///     Looks for a resource by its identifier in a file.
+        /// Looks for a resource by its identifier in a file.
         /// </summary>
         /// <parameters>
         /// <param name="hModule">Handle of the loaded file.</param>
@@ -68,45 +68,45 @@ namespace CustomControls
         /// <param name="lpType">Type of the resource.</param>
         /// </parameters>
         /// <returns>
-        ///     A handle to the resource.
+        /// A handle to the resource.
         /// </returns>
         [DllImport("kernel32.dll")]
         public static extern IntPtr FindResource(IntPtr hModule, IntPtr lpID, IntPtr lpType);
 
         /// <summary>
-        ///     Loads a resource in memory
+        /// Loads a resource in memory
         /// </summary>
         /// <parameters>
         /// <param name="hModule">Handle of the loaded file.</param>
         /// <param name="hResInfo">Handle to the resource to load.</param>
         /// </parameters>
         /// <returns>
-        ///     A handle to the block loaded in memory.
+        /// A handle to the block loaded in memory.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern IntPtr LoadResource(IntPtr hModule, IntPtr hResInfo);
 
         /// <summary>
-        ///     Gets the size of a resource
+        /// Gets the size of a resource
         /// </summary>
         /// <parameters>
         /// <param name="hModule">Handle of the loaded file.</param>
         /// <param name="hResInfo">Handle to the resource to load.</param>
         /// </parameters>
         /// <returns>
-        ///     The size of the resource, in bytes.
+        /// The size of the resource, in bytes.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         public static extern uint SizeofResource(IntPtr hModule, IntPtr hResInfo);
 
         /// <summary>
-        ///     Frees a loaded DLL from memory.
+        /// Frees a loaded DLL from memory.
         /// </summary>
         /// <parameters>
         /// <param name="hMod">Handle of the library to free.</param>
         /// </parameters>
         /// <returns>
-        ///     The returned value can be ignored.
+        /// The returned value can be ignored.
         /// </returns>
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
@@ -114,20 +114,20 @@ namespace CustomControls
     }
 
     /// <summary>
-    ///     Represents a list of string resources loaded from a files.
+    /// Represents a list of string resources loaded from a files.
     /// </summary>
     internal class CursorResource
     {
         #region Constants
         /// <summary>
-        ///     Default width and height when no preference is provided in the constructor.
+        /// Default width and height when no preference is provided in the constructor.
         /// </summary>
         public const int DefaultPreferredSize = 32;
         #endregion
 
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CursorResource"/> class.
+        /// Initializes a new instance of the <see cref="CursorResource"/> class.
         /// </summary>
         /// <parameters>
         /// <param name="FilePath">Path to the file to read.</param>
@@ -139,7 +139,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="CursorResource"/> class.
+        /// Initializes a new instance of the <see cref="CursorResource"/> class.
         /// </summary>
         /// <parameters>
         /// <param name="filePath">Path to the file to read.</param>
@@ -154,7 +154,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Loads the cursor resources.
+        /// Loads the cursor resources.
         /// </summary>
         public virtual void Load()
         {
@@ -179,29 +179,29 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Path to the file resources are loaded from.
+        /// Path to the file resources are loaded from.
         /// </summary>
         public string FilePath { get; private set; }
 
         /// <summary>
-        ///     Identifier used to find and load resources in the file.
+        /// Identifier used to find and load resources in the file.
         /// </summary>
         public uint ResourceID { get; private set; }
 
         /// <summary>
-        ///     Width and height of the preferred size, in pixels.
+        /// Width and height of the preferred size, in pixels.
         /// </summary>
         public int PreferredSize { get; private set; }
 
         /// <summary>
-        ///     Loaded cursor resources.
+        /// Loaded cursor resources.
         /// </summary>
         public Cursor AsCursor { get; private set; } = Cursors.None;
         #endregion
 
         #region Implementation
         /// <summary>
-        ///     Load the file containing the resources in memory.
+        /// Load the file containing the resources in memory.
         /// </summary>
         protected virtual IntPtr LoadFile()
         {
@@ -210,7 +210,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Load the cursor directory with images.
+        /// Load the cursor directory with images.
         /// </summary>
         protected virtual bool LoadDirectory(IntPtr hMod, out NativeMethods.FileHeader Header, out List<NativeMethods.FileRecord> RecordList)
         {
@@ -329,7 +329,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Frees loaded handles from memory.
+        /// Frees loaded handles from memory.
         /// </summary>
         protected virtual void FreeHandles(IntPtr hMod)
         {

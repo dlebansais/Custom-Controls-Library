@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents a list of string resources loaded from a files.
+    /// Represents a list of string resources loaded from a files.
     /// </summary>
     internal class StringResource
     {
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="StringResource"/> class.
+        /// Initializes a new instance of the <see cref="StringResource"/> class.
         /// </summary>
         /// <parameters>
         /// <param name="FilePath">Path to the file to read.</param>
@@ -26,7 +26,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Loads the string resources.
+        /// Loads the string resources.
         /// </summary>
         public void Load()
         {
@@ -41,24 +41,24 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Path to the file resources are loaded from.
+        /// Path to the file resources are loaded from.
         /// </summary>
         public string FilePath { get; private set; }
 
         /// <summary>
-        ///     Identifier used to find and load resources in the file.
+        /// Identifier used to find and load resources in the file.
         /// </summary>
         public uint ResourceID { get; private set; }
 
         /// <summary>
-        ///     Loaded string resources.
+        /// Loaded string resources.
         /// </summary>
         public IList<string> AsStrings { get; private set; }
         #endregion
 
         #region Implementation
         /// <summary>
-        ///     Load the file containing the resources in memory.
+        /// Load the file containing the resources in memory.
         /// </summary>
         protected virtual IntPtr LoadFile()
         {
@@ -67,7 +67,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Load the string resources and fill the AsStrings property.
+        /// Load the string resources and fill the AsStrings property.
         /// </summary>
         protected virtual bool LoadStringValues(IntPtr hMod)
         {
@@ -108,7 +108,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Frees loaded handles from memory.
+        /// Frees loaded handles from memory.
         /// </summary>
         protected virtual void FreeHandles(IntPtr hMod)
         {

@@ -1,10 +1,10 @@
-﻿using CustomControls;
-using System;
-using System.ComponentModel;
-using System.Globalization;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.ComponentModel;
+    using System.Globalization;
+    using CustomControls;
+
     /// <summary>
     /// Converter from a string to a collection of <see cref="ActiveCommand"/>.
     /// </summary>

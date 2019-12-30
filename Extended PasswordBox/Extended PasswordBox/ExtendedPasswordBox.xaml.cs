@@ -7,7 +7,7 @@ using System.Windows.Data;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents a password box that can optionally display the password characters.
+    /// Represents a password box that can optionally display the password characters.
     /// <para>Implemented as user control with a <see cref="PasswordBox"/> and a <see cref="TextBox"/> for displayed characters.</para>
     /// </summary>
     /// <remarks>
@@ -22,15 +22,15 @@ namespace CustomControls
         #region Custom properties and events
         #region Text
         /// <summary>
-        ///     Identifies the <see cref="Text"/> dependency property.
+        /// Identifies the <see cref="Text"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="Text"/> dependency property.
+        /// The identifier for the <see cref="Text"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTextChanged));
 
         /// <summary>
-        ///     Gets or sets the password.
+        /// Gets or sets the password.
         /// </summary>
         [Bindable(true)]
         public string Text
@@ -64,15 +64,15 @@ namespace CustomControls
         #endregion
         #region Show Password
         /// <summary>
-        ///     Identifies the <see cref="ShowPassword"/> dependency property.
+        /// Identifies the <see cref="ShowPassword"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ShowPassword"/> dependency property.
+        /// The identifier for the <see cref="ShowPassword"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ShowPasswordProperty = DependencyProperty.Register("ShowPassword", typeof(bool), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(false, OnShowPasswordChanged));
 
         /// <summary>
-        ///     Gets or sets the flag indicating if the password should be displayed as plain text.
+        /// Gets or sets the flag indicating if the password should be displayed as plain text.
         /// </summary>
         public bool ShowPassword
         {
@@ -114,15 +114,15 @@ namespace CustomControls
         private static readonly DependencyPropertyKey IsPasswordEmptyPropertyKey = DependencyProperty.RegisterReadOnly("IsPasswordEmpty", typeof(bool), typeof(ExtendedPasswordBox), new PropertyMetadata(true));
 
         /// <summary>
-        ///     Identifies the <see cref="IsPasswordEmpty"/> dependency property.
+        /// Identifies the <see cref="IsPasswordEmpty"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsPasswordEmpty"/> dependency property.
+        /// The identifier for the <see cref="IsPasswordEmpty"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty IsPasswordEmptyProperty = IsPasswordEmptyPropertyKey.DependencyProperty;
 
         /// <summary>
-        ///     Gets a value indicating if the password is currently empty.
+        /// Gets a value indicating if the password is currently empty.
         /// </summary>
         public bool IsPasswordEmpty
         {
@@ -133,7 +133,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ExtendedPasswordBox"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedPasswordBox"/> class.
         /// </summary>
         public ExtendedPasswordBox()
         {
@@ -147,12 +147,12 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Checks if the password has been displayed in plain text, if there was a binding on the Text property or if the client has initialized it, and returns a secure or plain text password accordingly.
+        /// Checks if the password has been displayed in plain text, if there was a binding on the Text property or if the client has initialized it, and returns a secure or plain text password accordingly.
         /// </summary>
         /// <returns>
-        ///     An <see cref="ExtendedPassword"/> object with the following properties:
-        ///     <para>If the password has been displayed in plain text, if there was a binding on the Text property or if the client has initialized it, the returned object is a plain text password.</para>
-        ///     <para>Otherwise, the returned object is a secure password.</para>
+        /// An <see cref="ExtendedPassword"/> object with the following properties:
+        /// <para>If the password has been displayed in plain text, if there was a binding on the Text property or if the client has initialized it, the returned object is a plain text password.</para>
+        /// <para>Otherwise, the returned object is a secure password.</para>
         /// </returns>
         public ExtendedPassword Password
         {
@@ -168,7 +168,7 @@ namespace CustomControls
 
         #region Client Interface
         /// <summary>
-        ///     Replaces the original Focus() method to move the focus to the control shown to the user (either the PasswordBox, or the TextBox if the password is shown).
+        /// Replaces the original Focus() method to move the focus to the control shown to the user (either the PasswordBox, or the TextBox if the password is shown).
         /// </summary>
         public new void Focus()
         {
@@ -179,7 +179,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Force the password to be plain text. This doesn't show the password to the use, but marks it as plain text if it was still secure.
+        /// Force the password to be plain text. This doesn't show the password to the use, but marks it as plain text if it was still secure.
         /// </summary>
         public void MarkAsInsecure()
         {

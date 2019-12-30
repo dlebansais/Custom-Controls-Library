@@ -1,24 +1,24 @@
-﻿using CustomControls;
-using System;
-using System.ComponentModel;
-using System.Globalization;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.ComponentModel;
+    using System.Globalization;
+    using CustomControls;
+
     /// <summary>
-    ///     Converter from a string to a <see cref="ActiveCommand"/>.
+    /// Converter from a string to a <see cref="ActiveCommand"/>.
     /// </summary>
 #pragma warning disable CA1812
     internal class ActiveCommandTypeConverter : TypeConverter
 #pragma warning restore CA1812
     {
         /// <summary>
-        ///     Compares a name with known command names and execute a handler if found.
+        /// Compares a name with known command names and execute a handler if found.
         /// </summary>
         /// <param name="name">The command name to compare.</param>
         /// <param name="handler">A handler to execute if a command is found.</param>
         /// <returns>
-        ///     True if a match is found; otherwise, false.
+        /// True if a match is found; otherwise, false.
         /// </returns>
         public static bool TryParseName(string name, Action<ActiveCommand> handler)
         {
@@ -33,12 +33,12 @@ namespace Converters
         }
 
         /// <summary>
-        ///     Tell the system this converter can convert a string to a <see cref="ActiveCommand"/>.
+        /// Tell the system this converter can convert a string to a <see cref="ActiveCommand"/>.
         /// </summary>
         /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
         /// <param name="sourceType">A System.Type that represents the type you want to convert from.</param>
         /// <returns>
-        ///     True if <paramref name="sourceType"/> is <see cref="String"/>, or if the base converter can perform the conversion; otherwise, false.
+        /// True if <paramref name="sourceType"/> is <see cref="String"/>, or if the base converter can perform the conversion; otherwise, false.
         /// </returns>
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType)
         {
@@ -49,16 +49,16 @@ namespace Converters
         }
 
         /// <summary>
-        ///     Converts the given object to the type of this converter, using the specified context and culture information.
+        /// Converts the given object to the type of this converter, using the specified context and culture information.
         /// </summary>
         /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
         /// <param name="culture">The System.Globalization.CultureInfo to use as the current culture.</param>
         /// <param name="value">The System.Object to convert.</param>
         /// <returns>
-        ///     An <see cref="ActiveCommand"/> that represents the converted value.
+        /// An <see cref="ActiveCommand"/> that represents the converted value.
         /// </returns>
         /// <remarks>
-        ///     Compare a name with known command names and return the courresponding <see cref="ActiveCommand"/>.
+        /// Compare a name with known command names and return the courresponding <see cref="ActiveCommand"/>.
         /// </remarks>
         public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {

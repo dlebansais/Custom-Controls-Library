@@ -9,7 +9,7 @@ using System.Windows.Data;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents a scroll with specific support for binding to a scrollviewer
+    /// Represents a scroll with specific support for binding to a scrollviewer
     /// <para>Implemented as a derived class of the <see cref="ScrollBar"/> parent.</para>
     /// </summary>
     /// <remarks>
@@ -21,15 +21,15 @@ namespace CustomControls
         #region Custom properties and events
         #region Bound Scroll Viewer
         /// <summary>
-        ///     Identifies the <see cref="BoundScrollViewer"/> dependency property.
+        /// Identifies the <see cref="BoundScrollViewer"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="BoundScrollViewer"/> dependency property.
+        /// The identifier for the <see cref="BoundScrollViewer"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty BoundScrollViewerProperty = DependencyProperty.Register("BoundScrollViewer", typeof(ScrollViewer), typeof(ExtendedScrollBar), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnBoundScrollViewerPropertyChanged)));
 
         /// <summary>
-        ///     Gets or sets the scroll viewer property to bind on.
+        /// Gets or sets the scroll viewer property to bind on.
         /// </summary>
         [Bindable(true)]
         public ScrollViewer BoundScrollViewer
@@ -57,7 +57,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ExtendedScrollBar"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedScrollBar"/> class.
         /// </summary>
         public ExtendedScrollBar() 
             : base() 
@@ -67,7 +67,7 @@ namespace CustomControls
 
         #region Implementation
         /// <summary>
-        ///     Binds the Minimum, Maximum and ViewportSize properties to the new ScrollViewer.
+        /// Binds the Minimum, Maximum and ViewportSize properties to the new ScrollViewer.
         /// </summary>
         private void UpdateBindings()
         {
@@ -100,7 +100,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when changes are detected to the scroll position, extent, or viewport size.
+        /// Called when changes are detected to the scroll position, extent, or viewport size.
         /// </summary>
         /// <parameters>
         /// <param name="sender">This parameter is not used.</param>
@@ -130,7 +130,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called as content scrolls in a scrollbar when the user moves the thumb by using the mouse.
+        /// Called as content scrolls in a scrollbar when the user moves the thumb by using the mouse.
         /// </summary>
         /// <parameters>
         /// <param name="sender">This parameter is not used.</param>

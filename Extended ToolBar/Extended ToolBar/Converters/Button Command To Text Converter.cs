@@ -7,21 +7,21 @@ using System.Windows.Input;
 namespace Converters
 {
     /// <summary>
-    ///     Converter from a <see cref="ICommand"/> to a menu header string.
+    /// Converter from a <see cref="ICommand"/> to a menu header string.
     /// </summary>
     [ValueConversion(typeof(ICommand), typeof(string))]
     public class ButtonCommandToTextConverter : IValueConverter
     {
         /// <summary>
-        ///     Converts from a <see cref="ICommand"/> to a menu header string.
+        /// Converts from a <see cref="ICommand"/> to a menu header string.
         /// </summary>
         /// <param name="value">The <see cref="ICommand"/> object to convert.</param>
         /// <param name="targetType">This parameter is not used.</param>
         /// <param name="parameter">This parameter is not used.</param>
         /// <param name="culture">This parameter is not used.</param>
         /// <returns>
-        ///     If <paramref name="value"/> is a valid <see cref="ICommand"/> object, the converter returns its menu header as a string.
-        ///     Otherwise, this method returns null.
+        /// If <paramref name="value"/> is a valid <see cref="ICommand"/> object, the converter returns its menu header as a string.
+        /// Otherwise, this method returns null.
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -32,13 +32,13 @@ namespace Converters
         }
 
         /// <summary>
-        ///     Converts from a <see cref="ICommand"/> to a menu header string.
+        /// Converts from a <see cref="ICommand"/> to a menu header string.
         /// </summary>
         /// <param name="command">The <see cref="ICommand"/> object to convert.</param>
         /// <returns>
-        ///     If <paramref name="command"/> is an instance of one of the types that have an associated key to obtain a menu header, it returns this string.
-        ///     Otherwise, if the command is a <see cref="RoutedUICommand"/> it returns its text (already localized by the system).
-        ///     Otherwise, this method returns null.
+        /// If <paramref name="command"/> is an instance of one of the types that have an associated key to obtain a menu header, it returns this string.
+        /// Otherwise, if the command is a <see cref="RoutedUICommand"/> it returns its text (already localized by the system).
+        /// Otherwise, this method returns null.
         /// </returns>
         private static string GetItemText(ICommand command)
         {
@@ -72,7 +72,7 @@ namespace Converters
         }
 
         /// <summary>
-        ///     This method is not used and will always return null.
+        /// This method is not used and will always return null.
         /// </summary>
         /// <param name="value">This parameter is not used.</param>
         /// <param name="targetType">This parameter is not used.</param>

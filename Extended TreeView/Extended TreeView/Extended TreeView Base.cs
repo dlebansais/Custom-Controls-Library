@@ -311,7 +311,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the control has been initialized and before properties are set.
+        /// Called when the control has been initialized and before properties are set.
         /// </summary>
         /// <parameters>
         /// <param name="sender">This parameter is not used.</param>

@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Markup;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Markup;
+
     /// <summary>
-    ///     Represents a set of buttons for dialog boxes with commonly used commands.
+    /// Represents a set of buttons for dialog boxes with commonly used commands.
     /// <para>Implemented as a user control with a <see cref="ItemsControl"/> container for buttons.</para>
     /// </summary>
     /// <remarks>
-    ///     Documentation available in Dialogvalidation.pdf.
+    /// Documentation available in Dialogvalidation.pdf.
     /// </remarks>
     [ContentProperty("ActiveCommands")]
     [DefaultProperty("ActiveCommands")]
@@ -24,67 +24,67 @@ namespace CustomControls
     {
         #region Globals
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a OK command.
+        /// <see cref="RoutedCommand"/> object for a OK command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandOk = CreateDefaultCommand(ActiveCommand.Ok.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Cancel command.
+        /// <see cref="RoutedCommand"/> object for a Cancel command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandCancel = CreateDefaultCommand(ActiveCommand.Cancel.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Abort command.
+        /// <see cref="RoutedCommand"/> object for a Abort command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandAbort = CreateDefaultCommand(ActiveCommand.Abort.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Retry command.
+        /// <see cref="RoutedCommand"/> object for a Retry command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandRetry = CreateDefaultCommand(ActiveCommand.Retry.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Ignore command.
+        /// <see cref="RoutedCommand"/> object for a Ignore command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandIgnore = CreateDefaultCommand(ActiveCommand.Ignore.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Yes command.
+        /// <see cref="RoutedCommand"/> object for a Yes command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandYes = CreateDefaultCommand(ActiveCommand.Yes.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a No command.
+        /// <see cref="RoutedCommand"/> object for a No command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandNo = CreateDefaultCommand(ActiveCommand.No.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Close command.
+        /// <see cref="RoutedCommand"/> object for a Close command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandClose = CreateDefaultCommand(ActiveCommand.Close.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Help command.
+        /// <see cref="RoutedCommand"/> object for a Help command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandHelp = CreateDefaultCommand(ActiveCommand.Help.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Try Again command.
+        /// <see cref="RoutedCommand"/> object for a Try Again command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandTryAgain = CreateDefaultCommand(ActiveCommand.TryAgain.Name);
 
         /// <summary>
-        ///     <see cref="RoutedCommand"/> object for a Continue command.
+        /// <see cref="RoutedCommand"/> object for a Continue command.
         /// </summary>
         [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
         public static readonly RoutedUICommand DefaultCommandContinue = CreateDefaultCommand(ActiveCommand.Continue.Name);
@@ -93,15 +93,15 @@ namespace CustomControls
         #region Custom properties and events
         #region Is Localized
         /// <summary>
-        ///     Identifies the <see cref="IsLocalized"/> dependency property.
+        /// Identifies the <see cref="IsLocalized"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsLocalized"/> dependency property.
+        /// The identifier for the <see cref="IsLocalized"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty IsLocalizedProperty = DependencyProperty.Register("IsLocalized", typeof(bool), typeof(DialogValidation), new PropertyMetadata(false));
 
         /// <summary>
-        ///     Gets or sets a flag to indicate if buttons should display the english or localized text.
+        /// Gets or sets a flag to indicate if buttons should display the english or localized text.
         /// </summary>
         public bool IsLocalized
         {
@@ -111,15 +111,15 @@ namespace CustomControls
         #endregion
         #region Active Commands
         /// <summary>
-        ///     Identifies the <see cref="ActiveCommands"/> dependency property.
+        /// Identifies the <see cref="ActiveCommands"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ActiveCommands"/> dependency property.
+        /// The identifier for the <see cref="ActiveCommands"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ActiveCommandsProperty = DependencyProperty.Register("ActiveCommands", typeof(ActiveCommandCollection), typeof(DialogValidation), new PropertyMetadata(null));
 
         /// <summary>
-        ///     Gets or sets the list of commands to activate. This will display as many buttons as there are active commands.
+        /// Gets or sets the list of commands to activate. This will display as many buttons as there are active commands.
         /// </summary>
         [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification="Collection must be R/W to allow Xaml syntax")]
         public ActiveCommandCollection ActiveCommands
@@ -129,11 +129,11 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets the current set of active commands.
+        /// Gets the current set of active commands.
         /// </summary>
         /// <remarks>
-        ///     Until the <see cref="ActiveCommands"/> property is set, this property returns the default set, which is OK and Cancel.
-        ///     After the <see cref="ActiveCommands"/> property is set, this property returns the content of the <see cref="ActiveCommands"/> property.
+        /// Until the <see cref="ActiveCommands"/> property is set, this property returns the default set, which is OK and Cancel.
+        /// After the <see cref="ActiveCommands"/> property is set, this property returns the content of the <see cref="ActiveCommands"/> property.
         /// </remarks>
         public IEnumerable ActualActiveCommands
         {
@@ -147,21 +147,21 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     The default collection of commands as loaded by the static constructor.
+        /// The default collection of commands as loaded by the static constructor.
         /// </summary>
         private static IEnumerable DefaultCommandCollection = InitDefaultCommandCollection();
         #endregion
         #region Orientation
         /// <summary>
-        ///     Identifies the <see cref="Orientation"/> dependency property.
+        /// Identifies the <see cref="Orientation"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="Orientation"/> dependency property.
+        /// The identifier for the <see cref="Orientation"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(DialogValidation), new PropertyMetadata(Orientation.Horizontal));
 
         /// <summary>
-        ///     Gets or sets the orientation (horizontal or vertical) of buttons.
+        /// Gets or sets the orientation (horizontal or vertical) of buttons.
         /// </summary>
         public Orientation Orientation
         {
@@ -171,15 +171,15 @@ namespace CustomControls
         #endregion
         #region Command OK
         /// <summary>
-        ///     Identifies the <see cref="CommandOk"/> dependency property.
+        /// Identifies the <see cref="CommandOk"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandOk"/> dependency property.
+        /// The identifier for the <see cref="CommandOk"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandOkProperty = DependencyProperty.Register("CommandOk", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandOk));
 
         /// <summary>
-        ///     Gets or sets the command to use for OK buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for OK buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandOk
         {
@@ -189,15 +189,15 @@ namespace CustomControls
         #endregion
         #region Content OK
         /// <summary>
-        ///     Identifies the <see cref="ContentOk"/> dependency property.
+        /// Identifies the <see cref="ContentOk"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentOk"/> dependency property.
+        /// The identifier for the <see cref="ContentOk"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentOkProperty = DependencyProperty.Register("ContentOk", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for OK buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for OK buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentOk
         {
@@ -207,15 +207,15 @@ namespace CustomControls
         #endregion
         #region Command Cancel
         /// <summary>
-        ///     Identifies the <see cref="CommandCancel"/> dependency property.
+        /// Identifies the <see cref="CommandCancel"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandCancel"/> dependency property.
+        /// The identifier for the <see cref="CommandCancel"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandCancelProperty = DependencyProperty.Register("CommandCancel", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandCancel));
 
         /// <summary>
-        ///     Gets or sets the command to use for Cancel buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Cancel buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandCancel
         {
@@ -225,15 +225,15 @@ namespace CustomControls
         #endregion
         #region Content Cancel
         /// <summary>
-        ///     Identifies the <see cref="ContentCancel"/> dependency property.
+        /// Identifies the <see cref="ContentCancel"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentCancel"/> dependency property.
+        /// The identifier for the <see cref="ContentCancel"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentCancelProperty = DependencyProperty.Register("ContentCancel", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Cancel buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Cancel buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentCancel
         {
@@ -243,15 +243,15 @@ namespace CustomControls
         #endregion
         #region Command Abort
         /// <summary>
-        ///     Identifies the <see cref="CommandAbort"/> dependency property.
+        /// Identifies the <see cref="CommandAbort"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandAbort"/> dependency property.
+        /// The identifier for the <see cref="CommandAbort"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandAbortProperty = DependencyProperty.Register("CommandAbort", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandAbort));
 
         /// <summary>
-        ///     Gets or sets the command to use for Abort buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Abort buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandAbort
         {
@@ -261,15 +261,15 @@ namespace CustomControls
         #endregion
         #region Content Abort
         /// <summary>
-        ///     Identifies the <see cref="ContentAbort"/> dependency property.
+        /// Identifies the <see cref="ContentAbort"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentAbort"/> dependency property.
+        /// The identifier for the <see cref="ContentAbort"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentAbortProperty = DependencyProperty.Register("ContentAbort", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Abort buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Abort buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentAbort
         {
@@ -279,15 +279,15 @@ namespace CustomControls
         #endregion
         #region Command Retry
         /// <summary>
-        ///     Identifies the <see cref="CommandRetry"/> dependency property.
+        /// Identifies the <see cref="CommandRetry"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandRetry"/> dependency property.
+        /// The identifier for the <see cref="CommandRetry"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandRetryProperty = DependencyProperty.Register("CommandRetry", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandRetry));
 
         /// <summary>
-        ///     Gets or sets the command to use for Retry buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Retry buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandRetry
         {
@@ -297,15 +297,15 @@ namespace CustomControls
         #endregion
         #region Content Retry
         /// <summary>
-        ///     Identifies the <see cref="ContentRetry"/> dependency property.
+        /// Identifies the <see cref="ContentRetry"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentRetry"/> dependency property.
+        /// The identifier for the <see cref="ContentRetry"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentRetryProperty = DependencyProperty.Register("ContentRetry", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Retry buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Retry buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentRetry
         {
@@ -315,15 +315,15 @@ namespace CustomControls
         #endregion
         #region Command Ignore
         /// <summary>
-        ///     Identifies the <see cref="CommandIgnore"/> dependency property.
+        /// Identifies the <see cref="CommandIgnore"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandIgnore"/> dependency property.
+        /// The identifier for the <see cref="CommandIgnore"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandIgnoreProperty = DependencyProperty.Register("CommandIgnore", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandIgnore));
 
         /// <summary>
-        ///     Gets or sets the command to use for Ignore buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Ignore buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandIgnore
         {
@@ -333,15 +333,15 @@ namespace CustomControls
         #endregion
         #region Content Ignore
         /// <summary>
-        ///     Identifies the <see cref="ContentIgnore"/> dependency property.
+        /// Identifies the <see cref="ContentIgnore"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentIgnore"/> dependency property.
+        /// The identifier for the <see cref="ContentIgnore"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentIgnoreProperty = DependencyProperty.Register("ContentIgnore", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Ignore buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Ignore buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentIgnore
         {
@@ -351,15 +351,15 @@ namespace CustomControls
         #endregion
         #region Command Yes
         /// <summary>
-        ///     Identifies the <see cref="CommandYes"/> dependency property.
+        /// Identifies the <see cref="CommandYes"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandYes"/> dependency property.
+        /// The identifier for the <see cref="CommandYes"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandYesProperty = DependencyProperty.Register("CommandYes", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandYes));
 
         /// <summary>
-        ///     Gets or sets the command to use for Yes buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Yes buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandYes
         {
@@ -369,15 +369,15 @@ namespace CustomControls
         #endregion
         #region Content Yes
         /// <summary>
-        ///     Identifies the <see cref="ContentYes"/> dependency property.
+        /// Identifies the <see cref="ContentYes"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentYes"/> dependency property.
+        /// The identifier for the <see cref="ContentYes"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentYesProperty = DependencyProperty.Register("ContentYes", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Yes buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Yes buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentYes
         {
@@ -387,15 +387,15 @@ namespace CustomControls
         #endregion
         #region Command No
         /// <summary>
-        ///     Identifies the <see cref="CommandNo"/> dependency property.
+        /// Identifies the <see cref="CommandNo"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandNo"/> dependency property.
+        /// The identifier for the <see cref="CommandNo"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandNoProperty = DependencyProperty.Register("CommandNo", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandNo));
 
         /// <summary>
-        ///     Gets or sets the command to use for No buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for No buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandNo
         {
@@ -405,15 +405,15 @@ namespace CustomControls
         #endregion
         #region Content No
         /// <summary>
-        ///     Identifies the <see cref="ContentNo"/> dependency property.
+        /// Identifies the <see cref="ContentNo"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentNo"/> dependency property.
+        /// The identifier for the <see cref="ContentNo"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentNoProperty = DependencyProperty.Register("ContentNo", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for No buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for No buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentNo
         {
@@ -423,15 +423,15 @@ namespace CustomControls
         #endregion
         #region Command Close
         /// <summary>
-        ///     Identifies the <see cref="CommandClose"/> dependency property.
+        /// Identifies the <see cref="CommandClose"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandClose"/> dependency property.
+        /// The identifier for the <see cref="CommandClose"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandCloseProperty = DependencyProperty.Register("CommandClose", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandClose));
 
         /// <summary>
-        ///     Gets or sets the command to use for Close buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Close buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandClose
         {
@@ -441,15 +441,15 @@ namespace CustomControls
         #endregion
         #region Content Close
         /// <summary>
-        ///     Identifies the <see cref="ContentClose"/> dependency property.
+        /// Identifies the <see cref="ContentClose"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentClose"/> dependency property.
+        /// The identifier for the <see cref="ContentClose"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentCloseProperty = DependencyProperty.Register("ContentClose", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Close buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Close buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentClose
         {
@@ -459,15 +459,15 @@ namespace CustomControls
         #endregion
         #region Command Help
         /// <summary>
-        ///     Identifies the <see cref="CommandHelp"/> dependency property.
+        /// Identifies the <see cref="CommandHelp"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandHelp"/> dependency property.
+        /// The identifier for the <see cref="CommandHelp"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandHelpProperty = DependencyProperty.Register("CommandHelp", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandHelp));
 
         /// <summary>
-        ///     Gets or sets the command to use for Help buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Help buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandHelp
         {
@@ -477,15 +477,15 @@ namespace CustomControls
         #endregion
         #region Content Help
         /// <summary>
-        ///     Identifies the <see cref="ContentHelp"/> dependency property.
+        /// Identifies the <see cref="ContentHelp"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentHelp"/> dependency property.
+        /// The identifier for the <see cref="ContentHelp"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentHelpProperty = DependencyProperty.Register("ContentHelp", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Help buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Help buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentHelp
         {
@@ -495,15 +495,15 @@ namespace CustomControls
         #endregion
         #region Command TryAgain
         /// <summary>
-        ///     Identifies the <see cref="CommandTryAgain"/> dependency property.
+        /// Identifies the <see cref="CommandTryAgain"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandTryAgain"/> dependency property.
+        /// The identifier for the <see cref="CommandTryAgain"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandTryAgainProperty = DependencyProperty.Register("CommandTryAgain", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandTryAgain));
 
         /// <summary>
-        ///     Gets or sets the command to use for Try Again buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Try Again buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandTryAgain
         {
@@ -513,15 +513,15 @@ namespace CustomControls
         #endregion
         #region Content TryAgain
         /// <summary>
-        ///     Identifies the <see cref="ContentTryAgain"/> dependency property.
+        /// Identifies the <see cref="ContentTryAgain"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentTryAgain"/> dependency property.
+        /// The identifier for the <see cref="ContentTryAgain"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentTryAgainProperty = DependencyProperty.Register("ContentTryAgain", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Try Again buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Try Again buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentTryAgain
         {
@@ -531,15 +531,15 @@ namespace CustomControls
         #endregion
         #region Command Continue
         /// <summary>
-        ///     Identifies the <see cref="CommandContinue"/> dependency property.
+        /// Identifies the <see cref="CommandContinue"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="CommandContinue"/> dependency property.
+        /// The identifier for the <see cref="CommandContinue"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty CommandContinueProperty = DependencyProperty.Register("CommandContinue", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandContinue));
 
         /// <summary>
-        ///     Gets or sets the command to use for Continue buttons. The initial value is the corresponding static default command.
+        /// Gets or sets the command to use for Continue buttons. The initial value is the corresponding static default command.
         /// </summary>
         public ICommand CommandContinue
         {
@@ -549,15 +549,15 @@ namespace CustomControls
         #endregion
         #region Continue Content
         /// <summary>
-        ///     Identifies the <see cref="ContentContinue"/> dependency property.
+        /// Identifies the <see cref="ContentContinue"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ContentContinue"/> dependency property.
+        /// The identifier for the <see cref="ContentContinue"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ContentContinueProperty = DependencyProperty.Register("ContentContinue", typeof(object), typeof(DialogValidation));
 
         /// <summary>
-        ///     Gets or sets the content to use for Continue buttons. The default value is the English or localized name string for this command.
+        /// Gets or sets the content to use for Continue buttons. The default value is the English or localized name string for this command.
         /// </summary>
         public object ContentContinue
         {
@@ -569,7 +569,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Gets default commands to use when the client does not specifically define them.
+        /// Gets default commands to use when the client does not specifically define them.
         /// </summary>
         private static List<ActiveCommand> InitDefaultCommandCollection()
         {
@@ -581,7 +581,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Creates a default command.
+        /// Creates a default command.
         /// </summary>
         private static RoutedUICommand CreateDefaultCommand(string text)
         {
@@ -592,7 +592,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="DialogValidation"/> class.
+        /// Initializes a new instance of the <see cref="DialogValidation"/> class.
         /// </summary>
         public DialogValidation()
         {
@@ -601,7 +601,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the control has been initialized and before properties are set.
+        /// Called when the control has been initialized and before properties are set.
         /// </summary>
         /// <parameters>
         /// <param name="sender">This parameter is not used.</param>
@@ -613,7 +613,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Initializes the default commands and localized names.
+        /// Initializes the default commands and localized names.
         /// </summary>
         private void InitializeCommands()
         {
@@ -632,7 +632,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Creates and initializes a <see cref="ActiveCommandCollection"/> object.
+        /// Creates and initializes a <see cref="ActiveCommandCollection"/> object.
         /// </summary>
         protected virtual ActiveCommandCollection CreateActiveCommandCollection()
         {
@@ -642,7 +642,7 @@ namespace CustomControls
 
         #region Strings
         /// <summary>
-        ///     Locates and loads localized strings to be used as localized command names.
+        /// Locates and loads localized strings to be used as localized command names.
         /// </summary>
         private static IList<string> InitializeStrings()
         {
@@ -661,7 +661,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Initializes a ContentXXX dependency property with a localized string.
+        /// Initializes a ContentXXX dependency property with a localized string.
         /// </summary>
         private void InitializeDefaultString(DependencyProperty contentProperty, int index)
         {
@@ -670,7 +670,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets the list of localized string for command friendly names, as loaded by the static constructor.
+        /// Gets the list of localized string for command friendly names, as loaded by the static constructor.
         /// </summary>
         private static IList<string> DefaultLocalizedStrings = InitializeStrings();
         #endregion

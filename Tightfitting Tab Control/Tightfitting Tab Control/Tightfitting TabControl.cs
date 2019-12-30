@@ -5,14 +5,14 @@ using System.Windows.Controls;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents <see cref="TabControl"/> that starts with a size large enough to contains all its <see cref="TabItem"/> items.
+    /// Represents <see cref="TabControl"/> that starts with a size large enough to contains all its <see cref="TabItem"/> items.
     /// <para>Implemented as a derived class of the <see cref="TabControl"/> parent.</para>
     /// </summary>
     public class TightfittingTabControl : TabControl
     {
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="TightfittingTabControl"/> class.
+        /// Initializes a new instance of the <see cref="TightfittingTabControl"/> class.
         /// </summary>
         public TightfittingTabControl()
         {
@@ -29,7 +29,7 @@ namespace CustomControls
 
         #region Clycling through pages
         /// <summary>
-        ///     Event triggered when the control is resized to fit all pages.
+        /// Event triggered when the control is resized to fit all pages.
         /// </summary>
         public event EventHandler? CyclingCompleted;
 

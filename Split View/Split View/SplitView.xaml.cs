@@ -26,7 +26,7 @@ namespace CustomControls
     {
         #region Constants
         /// <summary>
-        ///     The maximum number of views that can be visible simultaneously. This control only supports two views.
+        /// The maximum number of views that can be visible simultaneously. This control only supports two views.
         /// </summary>
         public const int MaxContent = 2;
         #endregion
@@ -34,15 +34,15 @@ namespace CustomControls
         #region Custom properties and events
         #region Cell Template
         /// <summary>
-        ///     Identifies the <see cref="ViewTemplate"/> dependency property.
+        /// Identifies the <see cref="ViewTemplate"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ViewTemplate"/> dependency property.
+        /// The identifier for the <see cref="ViewTemplate"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ViewTemplateProperty = DependencyProperty.Register("ViewTemplate", typeof(DataTemplate), typeof(SplitView), new PropertyMetadata(null));
 
         /// <summary>
-        ///     Gets or sets the <see cref="DataTemplate"/> used to display each view.
+        /// Gets or sets the <see cref="DataTemplate"/> used to display each view.
         /// </summary>
         public DataTemplate ViewTemplate
         {
@@ -53,15 +53,15 @@ namespace CustomControls
         #region Zoom Options
         private static readonly DependencyPropertyKey ZoomOptionsPropertyKey = DependencyProperty.RegisterReadOnly("ZoomOptions", typeof(Collection<double>), typeof(SplitView), new PropertyMetadata(null));
         /// <summary>
-        ///     Identifies the <see cref="ZoomOptions"/> dependency property.
+        /// Identifies the <see cref="ZoomOptions"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="ZoomOptions"/> dependency property.
+        /// The identifier for the <see cref="ZoomOptions"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ZoomOptionsProperty = ZoomOptionsPropertyKey.DependencyProperty;
 
         /// <summary>
-        ///     Gets a collection of zooms that can be applied to each view separately.
+        /// Gets a collection of zooms that can be applied to each view separately.
         /// </summary>
         public Collection<double> ZoomOptions
         {
@@ -70,12 +70,12 @@ namespace CustomControls
         #endregion
         #region Content Loaded
         /// <summary>
-        ///     Identifies the ViewLoaded routed event.
+        /// Identifies the ViewLoaded routed event.
         /// </summary>
         public static readonly RoutedEvent ViewLoadedEvent = EventManager.RegisterRoutedEvent("ViewLoaded", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
         /// <summary>
-        ///     Sent when a view has been loaded.
+        /// Sent when a view has been loaded.
         /// </summary>
         public event RoutedEventHandler ViewLoaded
         {
@@ -84,7 +84,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends the <see cref="ViewLoaded"/> event.
+        /// Sends the <see cref="ViewLoaded"/> event.
         /// </summary>
         /// <parameters>
         /// <param name="viewContent">The control representing the view that has been loaded.</param>
@@ -97,12 +97,12 @@ namespace CustomControls
         #endregion
         #region Content Unloaded
         /// <summary>
-        ///     Identifies the ViewUnloaded routed event.
+        /// Identifies the ViewUnloaded routed event.
         /// </summary>
         public static readonly RoutedEvent ViewUnloadedEvent = EventManager.RegisterRoutedEvent("ViewUnloaded", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
         /// <summary>
-        ///     Sent when a view has been unloaded.
+        /// Sent when a view has been unloaded.
         /// </summary>
         public event RoutedEventHandler ViewUnloaded
         {
@@ -111,7 +111,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends the <see cref="ViewUnloaded"/> event.
+        /// Sends the <see cref="ViewUnloaded"/> event.
         /// </summary>
         /// <parameters>
         /// <param name="viewContent">The control representing the view that has been unloaded.</param>
@@ -124,12 +124,12 @@ namespace CustomControls
         #endregion
         #region Top Row Visibility Changed
         /// <summary>
-        ///     Identifies the TopRowVisibilityChanged routed event.
+        /// Identifies the TopRowVisibilityChanged routed event.
         /// </summary>
         public static readonly RoutedEvent TopRowVisibilityChangedEvent = EventManager.RegisterRoutedEvent("TopRowVisibilityChanged", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
         /// <summary>
-        ///     Sent when the top row view has becomed visible or collapsed.
+        /// Sent when the top row view has becomed visible or collapsed.
         /// </summary>
         public event RoutedEventHandler TopRowVisibilityChanged
         {
@@ -138,7 +138,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends the <see cref="TopRowVisibilityChanged"/> event.
+        /// Sends the <see cref="TopRowVisibilityChanged"/> event.
         /// </summary>
         protected virtual void NotifyTopRowVisibilityChanged()
         {
@@ -148,12 +148,12 @@ namespace CustomControls
         #endregion
         #region Zoom Changed
         /// <summary>
-        ///     Identifies the ZoomChanged routed event.
+        /// Identifies the ZoomChanged routed event.
         /// </summary>
         public static readonly RoutedEvent ZoomChangedEvent = EventManager.RegisterRoutedEvent("ZoomChanged", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
         /// <summary>
-        ///     Sent when the zoom of one of the views has changed.
+        /// Sent when the zoom of one of the views has changed.
         /// </summary>
         public event RoutedEventHandler ZoomChanged
         {
@@ -162,14 +162,14 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends the <see cref="ViewUnloaded"/> event.
+        /// Sends the <see cref="ViewUnloaded"/> event.
         /// </summary>
         /// <parameters>
         /// <param name="viewContent">The control representing the view to which the new zoom applies.</param>
         /// <param name="zoom">The new zoom value.</param>
         /// </parameters>
         /// <remarks>
-        ///     A value of <paramref name="zoom"/>=1.0 means no zoom (or 100%).
+        /// A value of <paramref name="zoom"/>=1.0 means no zoom (or 100%).
         /// </remarks>
         protected virtual void NotifyZoomChanged(FrameworkElement viewContent, double zoom)
         {
@@ -181,7 +181,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="SplitView"/> class.
+        /// Initializes a new instance of the <see cref="SplitView"/> class.
         /// </summary>
         public SplitView()
         {
@@ -199,18 +199,18 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Gets a flag indicating if the two views are visible.
+        /// Gets a flag indicating if the two views are visible.
         /// </summary>
         /// <returns>
-        ///     True if the two views are visible. False otherwise.
+        /// True if the two views are visible. False otherwise.
         /// </returns>
         public bool IsTopRowVisible { get; private set; }
 
         /// <summary>
-        ///     Gets a value indicating if the control can be returned to a single view.
+        /// Gets a value indicating if the control can be returned to a single view.
         /// </summary>
         /// <returns>
-        ///     True if the control can be returned to a single view. False otherwise.
+        /// True if the control can be returned to a single view. False otherwise.
         /// </returns>
         public bool IsSplitRemovable
         {
@@ -226,13 +226,13 @@ namespace CustomControls
 
         #region Client Interface
         /// <summary>
-        ///     Gets a value indicating if a view is visible.
+        /// Gets a value indicating if a view is visible.
         /// </summary>
         /// <parameters>
         /// <param name="rowIndex">The zero-based index of the row. The top row is at index 0.</param>
         /// </parameters>
         /// <returns>
-        ///     True if the view at index <paramref name="rowIndex"/> is visible. False otherwise.
+        /// True if the view at index <paramref name="rowIndex"/> is visible. False otherwise.
         /// </returns>
         public bool IsRowVisible(int rowIndex)
         {
@@ -243,7 +243,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Split the control in two views.
+        /// Split the control in two views.
         /// </summary>
         public void Split()
         {
@@ -288,7 +288,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Removes any split and returns the control to a single view state.
+        /// Removes any split and returns the control to a single view state.
         /// </summary>
         public void RemoveSplit()
         {
@@ -320,7 +320,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Return the control at the specified row.
+        /// Return the control at the specified row.
         /// </summary>
         public FrameworkElement? GetRowContent(int rowIndex)
         {
@@ -531,7 +531,7 @@ namespace CustomControls
 
         #region Implementation of INotifyPropertyChanged
         /// <summary>
-        ///     Implements the PropertyChanged event.
+        /// Implements the PropertyChanged event.
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 

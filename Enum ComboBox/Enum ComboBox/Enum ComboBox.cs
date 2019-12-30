@@ -10,7 +10,7 @@ using System.Windows.Media;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents a combo box with specific support for enum types.
+    /// Represents a combo box with specific support for enum types.
     /// <para>Implemented as a derived class of the <see cref="ComboBox"/> parent.</para>
     /// </summary>
     /// <remarks>
@@ -24,20 +24,20 @@ namespace CustomControls
         #region Custom properties and events
         #region Enum Binding
         /// <summary>
-        ///     Identifies the <see cref="EnumBinding"/> dependency property.
+        /// Identifies the <see cref="EnumBinding"/> dependency property.
         /// </summary>
         ///
         /// <returns>
-        ///     The identifier for the <see cref="EnumBinding"/> dependency property.
+        /// The identifier for the <see cref="EnumBinding"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register("EnumBinding", typeof(object), typeof(EnumComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
 
         /// <summary>
-        ///     Gets or sets the enum property to bind on.
+        /// Gets or sets the enum property to bind on.
         /// <para>This is a replacement for the ComboBox.ItemsSource property.</para>
         /// </summary>
         /// <example>
-        ///     Example: for a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
+        /// Example: for a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
         /// <code>
         /// <para>&lt;EnumComboBox EnumBinding="{Binding Path=MyEnumValue}"/&gt;</para>
         /// </code>
@@ -73,16 +73,16 @@ namespace CustomControls
         #endregion
         #region Name Converter
         /// <summary>
-        ///     Identifies the <see cref="NameConverter"/> dependency property.
+        /// Identifies the <see cref="NameConverter"/> dependency property.
         /// </summary>
         ///
         /// <returns>
-        ///     The identifier for the <see cref="NameConverter"/> dependency property.
+        /// The identifier for the <see cref="NameConverter"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty NameConverterProperty = DependencyProperty.Register("NameConverter", typeof(IValueConverter), typeof(EnumComboBox), new PropertyMetadata(new Converters.IdentityStringConverter()));
 
         /// <summary>
-        ///     Gets or sets the converter to use to convert an enum value to its localized content (usually a string).
+        /// Gets or sets the converter to use to convert an enum value to its localized content (usually a string).
         /// </summary>
         public IValueConverter NameConverter
         {
@@ -92,16 +92,16 @@ namespace CustomControls
         #endregion
         #region Name Converter Parameter
         /// <summary>
-        ///     Identifies the <see cref="NameConverterParameter"/> dependency property.
+        /// Identifies the <see cref="NameConverterParameter"/> dependency property.
         /// </summary>
         ///
         /// <returns>
-        ///     The identifier for the <see cref="NameConverterParameter"/> dependency property.
+        /// The identifier for the <see cref="NameConverterParameter"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty NameConverterParameterProperty = DependencyProperty.Register("NameConverterParameter", typeof(object), typeof(EnumComboBox), new PropertyMetadata(null));
 
         /// <summary>
-        ///     Gets or sets the converter parameter to use when converting an enum value to its localized content.
+        /// Gets or sets the converter parameter to use when converting an enum value to its localized content.
         /// </summary>
         public object NameConverterParameter
         {
@@ -111,16 +111,16 @@ namespace CustomControls
         #endregion
         #region Name Converter Culture
         /// <summary>
-        ///     Identifies the <see cref="NameConverterCulture"/> dependency property.
+        /// Identifies the <see cref="NameConverterCulture"/> dependency property.
         /// </summary>
         ///
         /// <returns>
-        ///     The identifier for the <see cref="NameConverterCulture"/> dependency property.
+        /// The identifier for the <see cref="NameConverterCulture"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty NameConverterCultureProperty = DependencyProperty.Register("NameConverterCulture", typeof(CultureInfo), typeof(EnumComboBox), new PropertyMetadata(CultureInfo.CurrentCulture));
 
         /// <summary>
-        ///     Gets or sets the converter culture to use when converting an enum value to its localized content.
+        /// Gets or sets the converter culture to use when converting an enum value to its localized content.
         /// </summary>
         public CultureInfo NameConverterCulture
         {
@@ -132,7 +132,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes a new instance of the <see cref="EnumComboBox"/> class.
+        /// Initializes a new instance of the <see cref="EnumComboBox"/> class.
         /// </summary>
         public EnumComboBox()
         {
@@ -143,20 +143,20 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        ///     Gets the collection of localized value names displayed in the combo box.
+        /// Gets the collection of localized value names displayed in the combo box.
         /// </summary>
         public ObservableCollection<string> EnumNameCollection { get; private set; }
         #endregion
 
         #region Ancestor Interface
         /// <summary>
-        ///     Override the <see cref="MeasureOverride"/> event handler, to accommodate for the largest enum value name.
+        /// Override the <see cref="MeasureOverride"/> event handler, to accommodate for the largest enum value name.
         /// </summary>
         /// <parameters>
         /// <param name="constraint">The maximum size that the method can return.</param>
         /// </parameters>
         /// <returns>
-        ///     The size of the control, up to the maximum specified by constraint.
+        /// The size of the control, up to the maximum specified by constraint.
         /// </returns>
         protected override Size MeasureOverride(Size constraint)
         {
@@ -201,13 +201,13 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Calculates the size of an enum value localized string.
+        /// Calculates the size of an enum value localized string.
         /// </summary>
         /// <parameters>
         /// <param name="text">The localized string corresponding to one of the enum values.</param>
         /// </parameters>
         /// <returns>
-        ///     The width and height of the string, including trailing whitespaces.
+        /// The width and height of the string, including trailing whitespaces.
         /// </returns>
         private Size GetTextSize(string text)
         {
@@ -221,7 +221,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Override the <see cref="OnSelectionChanged"/> event handler, to update the bound enum property.
+        /// Override the <see cref="OnSelectionChanged"/> event handler, to update the bound enum property.
         /// </summary>
         /// <parameters>
         /// <param name="e">Provides data for <see cref="SelectionChangedEventArgs"/>.</param>
@@ -247,7 +247,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets a value that indicate if the enum bound to the <see cref="EnumBinding"/> dependency property is being modified as a result of a user's action such as selecting a new value.
+        /// Gets a value that indicate if the enum bound to the <see cref="EnumBinding"/> dependency property is being modified as a result of a user's action such as selecting a new value.
         /// </summary>
         /// <returns>
         /// <para>True if the user is a author of the change to the enum bound to the <see cref="EnumBinding"/> dependency property.</para>
@@ -258,10 +258,10 @@ namespace CustomControls
 
         #region Implementation
         /// <summary>
-        ///     Gets the zero-based position of the current value of <see cref="EnumBinding"/> among all possible values.
+        /// Gets the zero-based position of the current value of <see cref="EnumBinding"/> among all possible values.
         /// </summary>
         /// <returns>
-        ///     The index as an integer, -1 if there is no enum bound to <see cref="EnumBinding"/> or if it has an invalid value.
+        /// The index as an integer, -1 if there is no enum bound to <see cref="EnumBinding"/> or if it has an invalid value.
         /// </returns>
         private int EnumBindingAsIndex
         {
@@ -286,7 +286,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Resets properties used to display content in the combo box.
+        /// Resets properties used to display content in the combo box.
         /// </summary>
         private void ResetContent()
         {
@@ -295,13 +295,13 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Update properties used to display content in the combo box with new values.
+        /// Update properties used to display content in the combo box with new values.
         /// </summary>
         /// <parameters>
         /// <param name="enumType">The type of the enum bound to the <see cref="EnumBinding"/> dependency property.</param>
         /// </parameters>
         /// <remarks>
-        ///     This will display a new set of localized strings in the drop-down part of the combo box, and select one of them if appropriate.
+        /// This will display a new set of localized strings in the drop-down part of the combo box, and select one of them if appropriate.
         /// </remarks>
         private void UpdateContent(Type enumType)
         {
@@ -328,7 +328,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets the culture that was used during conversion of enum values to their localized names.
+        /// Gets the culture that was used during conversion of enum values to their localized names.
         /// </summary>
         private CultureInfo ConversionCulture = CultureInfo.CurrentCulture;
         #endregion

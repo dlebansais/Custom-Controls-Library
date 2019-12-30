@@ -1,7 +1,7 @@
 ﻿namespace CustomControls
 {
     /// <summary>
-    ///     Contains permission information.
+    /// Contains permission information.
     /// </summary>
     public class PermissionToken
     {
@@ -17,7 +17,7 @@
 
         #region Properties
         /// <summary>
-        ///     Get a value that indicates if the associated operation has been authorized by any handler.
+        /// Get a value that indicates if the associated operation has been authorized by any handler.
         /// </summary>
         /// <returns>True indicates that a handler has allowed the operation. False indicates that the operation associated to the event is denied.</returns>
         public bool IsAllowed { get; private set; }
@@ -25,7 +25,7 @@
 
         #region Client Interface
         /// <summary>
-        ///     Allows a handler to deny the operation notified by the event associated to this object.
+        /// Allows a handler to deny the operation notified by the event associated to this object.
         /// </summary>
         public virtual void Deny()
         {

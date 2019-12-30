@@ -1,26 +1,26 @@
-﻿using CustomControls;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Globalization;
+    using System.Windows.Data;
+    using CustomControls;
+
     /// <summary>
-    ///     Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
+    /// Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
     /// </summary>
     [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification="Instanciated in Xaml")]
     internal class ActiveCommandToContentConverter : IMultiValueConverter
     {
         /// <summary>
-        ///     Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
+        /// Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
         /// </summary>
         /// <param name="values">The values to convert.</param>
         /// <param name="targetType">This parameter is not used.</param>
         /// <param name="parameter">This parameter is not used.</param>
         /// <param name="culture">This parameter is not used.</param>
         /// <returns>
-        ///     A System.Object that represents the converted value
+        /// A System.Object that represents the converted value
         /// </returns>
         /// <remarks>
         /// <para>The first value must be a <see cref="DialogValidation"/>.</para>

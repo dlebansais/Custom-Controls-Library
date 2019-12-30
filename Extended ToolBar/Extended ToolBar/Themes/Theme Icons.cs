@@ -9,12 +9,12 @@ using System.Windows.Media.Imaging;
 namespace CustomControls
 {
     /// <summary>
-    ///     Gets image sources and icons from resources in an assembly.
+    /// Gets image sources and icons from resources in an assembly.
     /// </summary>
     public static class ThemeIcons
     {
         /// <summary>
-        ///     Gets an image sources from resources in an assembly.
+        /// Gets an image sources from resources in an assembly.
         /// </summary>
         /// <param name="resourceAssembly">The assembly where to find the image source.</param>
         /// <param name="key">The key used to locate the resource in the assembly.</param>
@@ -24,7 +24,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets an image sources from resources in an assembly.
+        /// Gets an image sources from resources in an assembly.
         /// </summary>
         /// <param name="resourceAssembly">The assembly where to find the image source.</param>
         /// <param name="iconPath">The path to resources in the assembly.</param>
@@ -51,7 +51,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets an icon from resources in an assembly.
+        /// Gets an icon from resources in an assembly.
         /// </summary>
         /// <param name="resourceAssembly">The assembly where to find the icon.</param>
         /// <param name="key">The key used to locate the resource in the assembly.</param>
@@ -61,7 +61,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Gets an icon from resources in an assembly.
+        /// Gets an icon from resources in an assembly.
         /// </summary>
         /// <param name="resourceAssembly">The assembly where to find the icon.</param>
         /// <param name="iconPath">The path to resources in the assembly.</param>

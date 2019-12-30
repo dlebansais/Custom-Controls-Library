@@ -5,24 +5,24 @@ using System.Windows.Controls;
 namespace CustomControls
 {
     /// <summary>
-    ///     Represents a button with additional properties indicating if it should be displayed in a tool bar.
+    /// Represents a button with additional properties indicating if it should be displayed in a tool bar.
     /// </summary>
     public class ExtendedToolBarButton : Button
     {
         #region Custom properties and events
         #region Reference
         /// <summary>
-        ///     Identifies the <see cref="Reference"/> dependency property.
+        /// Identifies the <see cref="Reference"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="Reference"/> dependency property.
+        /// The identifier for the <see cref="Reference"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty ReferenceProperty = DependencyProperty.Register("Reference", typeof(CommandResourceReference), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        ///     The reference to an assembly where to find resources associated to the button.
-        ///     Used when the command does not have enough information to locate these resources. For instance, if the command is one of the ApplicationCommands.
-        ///     Can be null otherwise.
+        /// The reference to an assembly where to find resources associated to the button.
+        /// Used when the command does not have enough information to locate these resources. For instance, if the command is one of the ApplicationCommands.
+        /// Can be null otherwise.
         /// </summary>
         public CommandResourceReference Reference
         {
@@ -32,16 +32,16 @@ namespace CustomControls
         #endregion
         #region Is Checkable
         /// <summary>
-        ///     Identifies the <see cref="IsCheckable"/> dependency property.
+        /// Identifies the <see cref="IsCheckable"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsCheckable"/> dependency property.
+        /// The identifier for the <see cref="IsCheckable"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register("IsCheckable", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsCheckableChanged));
 
         /// <summary>
-        ///     True, the user can check the button as visible or uncheck it as hidden in the tool bar.
-        ///     False, the button is always visible.
+        /// True, the user can check the button as visible or uncheck it as hidden in the tool bar.
+        /// False, the button is always visible.
         /// </summary>
         public bool IsCheckable
         {
@@ -50,7 +50,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsCheckable"/> dependency property is changed on <paramref name="modifiedObject"/>.
+        /// Called when the <see cref="IsCheckable"/> dependency property is changed on <paramref name="modifiedObject"/>.
         /// </summary>
         /// <param name="modifiedObject">The object that had its property modified.</param>
         /// <param name="e">Information about the change.</param>
@@ -61,7 +61,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsCheckable"/> dependency property is changed.
+        /// Called when the <see cref="IsCheckable"/> dependency property is changed.
         /// </summary>
         private void OnIsCheckableChanged()
         {
@@ -70,16 +70,16 @@ namespace CustomControls
         #endregion
         #region Is Default Active
         /// <summary>
-        ///     Identifies the <see cref="IsDefaultActive"/> dependency property.
+        /// Identifies the <see cref="IsDefaultActive"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsDefaultActive"/> dependency property.
+        /// The identifier for the <see cref="IsDefaultActive"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty IsDefaultActiveProperty = DependencyProperty.Register("IsDefaultActive", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsDefaultActiveChanged));
 
         /// <summary>
-        ///     True, the default setting for the <see cref="IsActive"/> property is True.
-        ///     False, the default setting for the <see cref="IsActive"/> property is False.
+        /// True, the default setting for the <see cref="IsActive"/> property is True.
+        /// False, the default setting for the <see cref="IsActive"/> property is False.
         /// </summary>
         public bool IsDefaultActive
         {
@@ -88,7 +88,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsDefaultActive"/> dependency property is changed on <paramref name="modifiedObject"/>.
+        /// Called when the <see cref="IsDefaultActive"/> dependency property is changed on <paramref name="modifiedObject"/>.
         /// </summary>
         /// <param name="modifiedObject">The object that had its property modified.</param>
         /// <param name="e">Information about the change.</param>
@@ -99,7 +99,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsDefaultActive"/> dependency property is changed.
+        /// Called when the <see cref="IsDefaultActive"/> dependency property is changed.
         /// </summary>
         private void OnIsDefaultActiveChanged()
         {
@@ -108,16 +108,16 @@ namespace CustomControls
         #endregion
         #region Is Active
         /// <summary>
-        ///     Identifies the <see cref="IsActive"/> dependency property.
+        /// Identifies the <see cref="IsActive"/> dependency property.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsActive"/> dependency property.
+        /// The identifier for the <see cref="IsActive"/> dependency property.
         /// </returns>
         public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsActiveChanged));
 
         /// <summary>
-        ///     True, the button is visible in the tool bar.
-        ///     False, the button is hidden.
+        /// True, the button is visible in the tool bar.
+        /// False, the button is hidden.
         /// </summary>
         public bool IsActive
         {
@@ -126,7 +126,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsActive"/> dependency property is changed on <paramref name="modifiedObject"/>.
+        /// Called when the <see cref="IsActive"/> dependency property is changed on <paramref name="modifiedObject"/>.
         /// </summary>
         /// <param name="modifiedObject">The object that had its property modified.</param>
         /// <param name="e">Information about the change.</param>
@@ -137,7 +137,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the <see cref="IsActive"/> dependency property is changed.
+        /// Called when the <see cref="IsActive"/> dependency property is changed.
         /// </summary>
         private void OnIsActiveChanged()
         {
@@ -147,15 +147,15 @@ namespace CustomControls
         #endregion
         #region Is Active Changed
         /// <summary>
-        ///     Identifies the <see cref="IsActiveChanged"/> routed event.
+        /// Identifies the <see cref="IsActiveChanged"/> routed event.
         /// </summary>
         /// <returns>
-        ///     The identifier for the <see cref="IsActiveChanged"/> routed event.
+        /// The identifier for the <see cref="IsActiveChanged"/> routed event.
         /// </returns>
         public static readonly RoutedEvent IsActiveChangedEvent = EventManager.RegisterRoutedEvent("IsActiveChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedToolBarButton));
 
         /// <summary>
-        ///     Sent when the <see cref="IsActive"/> has changed.
+        /// Sent when the <see cref="IsActive"/> has changed.
         /// </summary>
         public event RoutedEventHandler IsActiveChanged
         {
@@ -164,7 +164,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Sends a <see cref="IsActiveChanged"/> event.
+        /// Sends a <see cref="IsActiveChanged"/> event.
         /// </summary>
         protected virtual void NotifyIsActiveChanged()
         {
@@ -175,7 +175,7 @@ namespace CustomControls
 
         #region Init
         /// <summary>
-        ///     Initializes the <see cref="ExtendedToolBarButton"/> class.
+        /// Initializes the <see cref="ExtendedToolBarButton"/> class.
         /// </summary>
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
         static ExtendedToolBarButton()
@@ -184,7 +184,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="ExtendedToolBarButton"/> class.
+        /// Initializes a new instance of the <see cref="ExtendedToolBarButton"/> class.
         /// </summary>
         public ExtendedToolBarButton()
         {
@@ -195,7 +195,7 @@ namespace CustomControls
 
         #region Ancestor Interface
         /// <summary>
-        ///     Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
+        /// Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
         /// </summary>
         private static void OverrideAncestorMetadata()
         {
@@ -204,7 +204,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
+        /// Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
         /// </summary>
         private static void OverrideMetadataDefaultStyleKey()
         {
@@ -212,7 +212,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Overrides the CommandKey metadata associated to the ancestor control with a new one associated to this control specifically.
+        /// Overrides the CommandKey metadata associated to the ancestor control with a new one associated to this control specifically.
         /// </summary>
         private static void OverrideMetadataCommandKey()
         {
@@ -220,7 +220,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the Command dependency property is changed on <paramref name="modifiedObject"/>.
+        /// Called when the Command dependency property is changed on <paramref name="modifiedObject"/>.
         /// </summary>
         /// <param name="modifiedObject">The object that had its property modified.</param>
         /// <param name="e">Information about the change.</param>
@@ -231,7 +231,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Called when the Command dependency property is changed.
+        /// Called when the Command dependency property is changed.
         /// </summary>
         private void OnCommandChanged()
         {
@@ -241,7 +241,7 @@ namespace CustomControls
 
         #region Client Interface
         /// <summary>
-        ///     Returns the <see cref="IsActive"/> dependency property to its default value.
+        /// Returns the <see cref="IsActive"/> dependency property to its default value.
         /// </summary>
         public virtual void ResetIsActive()
         {
@@ -251,7 +251,7 @@ namespace CustomControls
 
         #region Implementation
         /// <summary>
-        ///     Initializes the <see cref="IsActive"/> dependency property to its default value.
+        /// Initializes the <see cref="IsActive"/> dependency property to its default value.
         /// </summary>
         private void InitializeIsActive()
         {
@@ -259,7 +259,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        ///     Updates the button visibility according to the current value of its properties.
+        /// Updates the button visibility according to the current value of its properties.
         /// </summary>
         private void UpdateVisibility()
         {
