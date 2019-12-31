@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Windows.Threading;
+
     public class DocumentExportedEventArgs : SolutionPresenterEventArgs
     {
         private static int HandlerCount = 0;
@@ -20,7 +20,7 @@ namespace CustomControls
         public IReadOnlyCollection<IDocument> ExportedDocumentList { get { return (IReadOnlyCollection<IDocument>)((DocumentExportedEventContext)EventContext).ExportedDocumentList; } }
         public bool IsDestinationFolder { get { return ((DocumentExportedEventContext)EventContext).IsDestinationFolder; } }
         public string DestinationPath { get { return ((DocumentExportedEventContext)EventContext).DestinationPath; } }
-         
+
         public virtual void NotifyCompletedAsync(Dispatcher dispatcher)
         {
             IDocumentExportedCompletionArgs CompletionArgs = new DocumentExportedCompletionArgs();

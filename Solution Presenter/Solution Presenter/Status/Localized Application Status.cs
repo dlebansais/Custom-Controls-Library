@@ -1,10 +1,10 @@
-﻿using SolutionPresenterInternal.Properties;
-using System;
-using System.Diagnostics;
-using System.Globalization;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Diagnostics;
+    using System.Globalization;
+    using SolutionPresenterInternal.Properties;
+
     public class LocalizedApplicationStatus : ApplicationStatus
     {
         #region Init
@@ -27,7 +27,7 @@ namespace CustomControls
                 if (e == null)
                     throw;
                 else
-                    return "";
+                    return string.Empty;
             }
         }
         #endregion

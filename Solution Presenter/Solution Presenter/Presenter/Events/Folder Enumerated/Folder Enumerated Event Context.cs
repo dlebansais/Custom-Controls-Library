@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class FolderEnumeratedEventContext
     {
         public FolderEnumeratedEventContext(IFolderPath parentPath, ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context)

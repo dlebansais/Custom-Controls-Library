@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface ISolutionExportedCompletionArgs
     {
     }

@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Windows;
+    using System.Windows.Input;
+
     public partial class SaveAllWindow : Window
     {
         public SaveAllWindow()
@@ -25,12 +25,12 @@ namespace CustomControls
         public string DirtySolutionName { get; set; } = string.Empty;
         public MessageBoxResult Result { get; private set; } = MessageBoxResult.Cancel;
 
-        public string SaveText 
+        public string SaveText
         {
             get
             {
-                string Text = "";
-                string TabText = "";
+                string Text = string.Empty;
+                string TabText = string.Empty;
 
                 if (DirtySolutionName.Length > 0)
                 {

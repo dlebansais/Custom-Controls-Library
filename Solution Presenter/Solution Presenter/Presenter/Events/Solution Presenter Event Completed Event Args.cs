@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+
     public class SolutionPresenterEventCompletedEventArgs : EventArgs
     {
         public SolutionPresenterEventCompletedEventArgs(object eventContext, object completionArgs)

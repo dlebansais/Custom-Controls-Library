@@ -8,10 +8,10 @@
 
     internal class DocumentCreatedCompletionArgs : IDocumentCreatedCompletionArgs
     {
-        public DocumentCreatedCompletionArgs(IItemPath NewItemPath, IItemProperties NewItemProperties)
+        public DocumentCreatedCompletionArgs(IItemPath newItemPath, IItemProperties newItemProperties)
         {
-            this.NewItemPath = NewItemPath;
-            this.NewItemProperties = NewItemProperties;
+            NewItemPath = newItemPath;
+            NewItemProperties = newItemProperties;
         }
 
         public IItemPath NewItemPath { get; private set; }

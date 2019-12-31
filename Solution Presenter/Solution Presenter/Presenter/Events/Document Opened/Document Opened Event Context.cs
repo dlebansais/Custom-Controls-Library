@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class DocumentOpenedEventContext
     {
         public DocumentOpenedEventContext(DocumentOperation documentOperation, IFolderPath destinationFolderPath, IList<IDocumentPath> openedDocumentPathList, IList<IDocumentPath> documentPathList, object? errorLocation)

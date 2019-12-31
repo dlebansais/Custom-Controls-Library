@@ -1,9 +1,9 @@
-﻿using System;
-using System.Globalization;
-using System.Windows.Data;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Windows.Data;
+
     [ValueConversion(typeof(double), typeof(object))]
     public class DoubleToObjectConverter : IValueConverter
     {

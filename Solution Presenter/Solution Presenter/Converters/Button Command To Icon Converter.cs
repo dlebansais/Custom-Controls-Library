@@ -1,15 +1,15 @@
-﻿using CustomControls;
-using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media.Imaging;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Globalization;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Media.Imaging;
+    using CustomControls;
+
     [ValueConversion(typeof(ICommand), typeof(Image))]
     public class ButtonCommandToIconConverter : IValueConverter
     {

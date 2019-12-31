@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface IDocumentAddedCompletionArgs
     {
         IReadOnlyDictionary<IDocumentPath, IItemPath> AddedItemTable { get; }
@@ -16,10 +16,10 @@ namespace CustomControls
             this.AddedPropertiesTable = new Dictionary<IDocumentPath, IItemProperties>();
         }
 
-        public DocumentAddedCompletionArgs(IReadOnlyDictionary<IDocumentPath, IItemPath> AddedItemTable, IReadOnlyDictionary<IDocumentPath, IItemProperties> AddedPropertiesTable)
+        public DocumentAddedCompletionArgs(IReadOnlyDictionary<IDocumentPath, IItemPath> addedItemTable, IReadOnlyDictionary<IDocumentPath, IItemProperties> addedPropertiesTable)
         {
-            this.AddedItemTable = AddedItemTable;
-            this.AddedPropertiesTable = AddedPropertiesTable;
+            AddedItemTable = addedItemTable;
+            AddedPropertiesTable = addedPropertiesTable;
         }
 
         public IReadOnlyDictionary<IDocumentPath, IItemPath> AddedItemTable { get; private set; }

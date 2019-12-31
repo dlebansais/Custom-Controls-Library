@@ -1,11 +1,11 @@
-﻿using CustomControls;
-using System;
-using System.Globalization;
-using System.Windows.Data;
-using System.Windows.Input;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using CustomControls;
+
     [ValueConversion(typeof(ICommand), typeof(string))]
     public class ButtonCommandToTextConverter : IValueConverter
     {

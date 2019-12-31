@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class SolutionDeletedEventContext
     {
         public SolutionDeletedEventContext(IRootPath deletedRootPath, IReadOnlyCollection<ITreeNodePath>? deletedTree)

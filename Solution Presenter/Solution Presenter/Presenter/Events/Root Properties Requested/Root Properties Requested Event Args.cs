@@ -1,7 +1,7 @@
-﻿using System.Windows;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows;
+
     public class RootPropertiesRequestedEventArgs : SolutionPresenterEventArgs
     {
         private static int HandlerCount = 0;
@@ -15,7 +15,7 @@ namespace CustomControls
         }
 
         public IRootProperties Properties { get { return ((RootPropertiesRequestedEventContext)EventContext).Properties; } }
-        
+
         public virtual void NotifyCompleted()
         {
             IRootPropertiesRequestedCompletionArgs CompletionArgs = new RootPropertiesRequestedCompletionArgs();

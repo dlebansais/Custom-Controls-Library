@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+
     public class DocumentWindowEventArgs : EventArgs
     {
         public DocumentWindowEventArgs(IDocument document)

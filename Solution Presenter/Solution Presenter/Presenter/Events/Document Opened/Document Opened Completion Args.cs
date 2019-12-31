@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface IDocumentOpenedCompletionArgs
     {
         IReadOnlyList<IDocument> OpenedDocumentList { get; }
@@ -14,17 +14,17 @@ namespace CustomControls
             this.OpenedDocumentList = new List<IDocument>();
         }
 
-        public DocumentOpenedCompletionArgs(IDocument OpenedDocument)
+        public DocumentOpenedCompletionArgs(IDocument openedDocument)
         {
             List<IDocument> OpenedDocumentList = new List<IDocument>();
-            OpenedDocumentList.Add(OpenedDocument);
+            OpenedDocumentList.Add(openedDocument);
 
             this.OpenedDocumentList = OpenedDocumentList;
         }
 
-        public DocumentOpenedCompletionArgs(IReadOnlyList<IDocument> OpenedDocumentList)
+        public DocumentOpenedCompletionArgs(IReadOnlyList<IDocument> openedDocumentList)
         {
-            this.OpenedDocumentList = OpenedDocumentList;
+            OpenedDocumentList = openedDocumentList;
         }
 
         public IReadOnlyList<IDocument> OpenedDocumentList { get; private set; }

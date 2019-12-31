@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface IImportNewItemsRequestedCompletionArgs
     {
         IReadOnlyDictionary<object, IDocumentPath> OpenedDocumentTable { get; }
@@ -14,9 +14,9 @@ namespace CustomControls
             this.OpenedDocumentTable = new Dictionary<object, IDocumentPath>();
         }
 
-        public ImportNewItemsRequestedCompletionArgs(IReadOnlyDictionary<object, IDocumentPath> OpenedDocumentTable)
+        public ImportNewItemsRequestedCompletionArgs(IReadOnlyDictionary<object, IDocumentPath> openedDocumentTable)
         {
-            this.OpenedDocumentTable = OpenedDocumentTable;
+            OpenedDocumentTable = openedDocumentTable;
         }
 
         public IReadOnlyDictionary<object, IDocumentPath> OpenedDocumentTable { get; private set; }

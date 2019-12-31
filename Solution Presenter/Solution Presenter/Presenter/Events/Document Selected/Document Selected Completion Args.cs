@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface IDocumentSelectedCompletionArgs
     {
         IList<IDocumentPath> DocumentPathList { get; }
@@ -14,9 +14,9 @@ namespace CustomControls
             this.DocumentPathList = new List<IDocumentPath>();
         }
 
-        public DocumentSelectedCompletionArgs(IList<IDocumentPath> DocumentPathList)
+        public DocumentSelectedCompletionArgs(IList<IDocumentPath> documentPathList)
         {
-            this.DocumentPathList = DocumentPathList;
+            DocumentPathList = documentPathList;
         }
 
         public IList<IDocumentPath> DocumentPathList { get; private set; }

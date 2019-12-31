@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
-using System.Windows.Input;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Windows;
+    using System.Windows.Input;
+
     public partial class DocumentsWindow : Window
     {
         #region Init

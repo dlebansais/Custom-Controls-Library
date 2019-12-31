@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class NodePastedEventContext
     {
         public NodePastedEventContext(ITreeNodePath path, IFolderPath parentPath, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, Dictionary<ITreeNodePath, IFolderPath> updatedParentTable, IRootProperties rootProperties, bool isUndoRedo)

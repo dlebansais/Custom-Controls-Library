@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows;
+    using System.Windows.Threading;
+
     public class NodePastedEventArgs : SolutionPresenterEventArgs
     {
         private static int HandlerCount = 0;

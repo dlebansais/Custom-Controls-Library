@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+
     public partial class OptionsWindow : Window
     {
         #region Init
@@ -30,7 +23,7 @@ namespace CustomControls
 
             List<TabItem> TemplateList = new List<TabItem>();
             BackupTable = new Dictionary<IOptionPageDataContext, IOptionPageDataContext>();
-            
+
             TemplateList.Add((TabItem)FindResource("PageTheme"));
             TemplateList.Add((TabItem)FindResource("PageCompiler"));
             if (optionPages != null)
@@ -120,12 +113,10 @@ namespace CustomControls
 
         private void OnThemePageLoaded(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void OnCompilerPageLoaded(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

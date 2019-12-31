@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface IBuildSolutionRequestedCompletionArgs
     {
         IReadOnlyList<ICompilationError> ErrorList { get; }
@@ -14,9 +14,9 @@ namespace CustomControls
             this.ErrorList = new List<ICompilationError>();
         }
 
-        public BuildSolutionRequestedCompletionArgs(IReadOnlyList<ICompilationError> ErrorList)
+        public BuildSolutionRequestedCompletionArgs(IReadOnlyList<ICompilationError> errorList)
         {
-            this.ErrorList = ErrorList;
+            ErrorList = errorList;
         }
 
         public IReadOnlyList<ICompilationError> ErrorList { get; private set; }

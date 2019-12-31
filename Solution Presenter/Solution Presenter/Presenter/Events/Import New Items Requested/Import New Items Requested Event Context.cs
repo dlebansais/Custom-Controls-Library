@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class ImportNewItemsRequestedEventContext
     {
         public ImportNewItemsRequestedEventContext(Dictionary<object, IDocumentType> importedDocumentTable, IList<IDocumentPath> documentPathList)

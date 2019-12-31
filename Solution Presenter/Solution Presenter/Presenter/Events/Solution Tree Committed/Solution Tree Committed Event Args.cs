@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Windows.Threading;
+
     public class SolutionTreeCommittedEventArgs : SolutionPresenterEventArgs
     {
         private static int HandlerCount = 0;

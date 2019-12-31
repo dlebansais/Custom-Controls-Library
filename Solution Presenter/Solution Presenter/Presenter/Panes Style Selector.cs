@@ -1,8 +1,8 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows;
+    using System.Windows.Controls;
+
     public class SolutionPresenterPaneStyleSelector : StyleSelector
     {
         public Style DocumentPaneStyle { get; set; } = new Style();

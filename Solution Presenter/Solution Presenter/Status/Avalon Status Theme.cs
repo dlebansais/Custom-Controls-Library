@@ -1,12 +1,12 @@
-﻿using System;
-using System.Diagnostics;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Media;
-using Xceed.Wpf.AvalonDock.Themes;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Diagnostics;
+    using System.Windows;
+    using System.Windows.Data;
+    using System.Windows.Media;
+    using Xceed.Wpf.AvalonDock.Themes;
+
     public class AvalonStatusTheme : StatusTheme
     {
         #region Init

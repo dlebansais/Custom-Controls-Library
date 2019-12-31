@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class CommitInfo
     {
         public CommitInfo(CommitOption option, ICollection<ITreeNodePath>? dirtyItemList, ICollection<ITreeNodePath>? dirtyPropertiesList, ICollection<IDocument>? dirtyDocumentList)

@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Threading;
+
     public class SolutionPresenterEventArgs : RoutedEventArgs
     {
         public SolutionPresenterEventArgs(RoutedEvent routedEvent, object eventContext)

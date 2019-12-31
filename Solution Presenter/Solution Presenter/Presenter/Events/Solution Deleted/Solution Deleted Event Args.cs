@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+    using System.Windows;
+
     public class SolutionDeletedEventArgs : SolutionPresenterEventArgs
     {
         private static int HandlerCount = 0;

@@ -1,12 +1,12 @@
-﻿using CustomControls;
-using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Input;
-
-namespace Converters
+﻿namespace Converters
 {
+    using System;
+    using System.Globalization;
+    using System.Windows;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using CustomControls;
+
     public class ButtonCommandToGestureTextConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

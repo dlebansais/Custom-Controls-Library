@@ -1,26 +1,26 @@
-﻿using Microsoft.Win32;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
-using System.Diagnostics;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
-using UndoRedo;
-using Xceed.Wpf.AvalonDock.Controls;
-using Xceed.Wpf.AvalonDock.Layout;
-using Xceed.Wpf.AvalonDock.Layout.Serialization;
-using Xceed.Wpf.AvalonDock.Themes;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Collections.Specialized;
+    using System.Diagnostics;
+    using System.Globalization;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+    using Microsoft.Win32;
+    using UndoRedo;
+    using Xceed.Wpf.AvalonDock.Controls;
+    using Xceed.Wpf.AvalonDock.Layout;
+    using Xceed.Wpf.AvalonDock.Layout.Serialization;
+    using Xceed.Wpf.AvalonDock.Themes;
+
     public partial class SolutionPresenter : UserControl, IGestureSource, IActiveDocumentSource
     {
         #region Custom properties and events
@@ -291,9 +291,9 @@ namespace CustomControls
             remove { RemoveHandler(FolderEnumeratedEvent, value); FolderEnumeratedEventArgs.DecrementHandlerCount(); }
         }
 
-        private void NotifyFolderEnumerated(IFolderPath ParentPath, ICollection<IFolderPath> ParentPathList, IRootProperties RootProperties, ICollection<IFolderPath> ExpandedFolderList, object Context)
+        private void NotifyFolderEnumerated(IFolderPath parentPath, ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context)
         {
-            FolderEnumeratedEventContext EventContext = new FolderEnumeratedEventContext(ParentPath, ParentPathList, RootProperties, ExpandedFolderList, Context);
+            FolderEnumeratedEventContext EventContext = new FolderEnumeratedEventContext(parentPath, parentPathList, rootProperties, expandedFolderList, context);
 
             if (FolderEnumeratedEventArgs.HasHandler)
             {
@@ -1031,12 +1031,12 @@ namespace CustomControls
             NotifyDocumentClosed(DocumentOperation.Remove, ClosedDocumentList, ClosedTree, false, clientInfo);
         }
 
-        private IList<IDocument> FindOpenDocuments(IReadOnlyCollection<IDocumentPath> DocumentPathList)
+        private IList<IDocument> FindOpenDocuments(IReadOnlyCollection<IDocumentPath> documentPathList)
         {
             IList<IDocument> Result = new List<IDocument>();
 
             foreach (IDocument Document in OpenDocuments)
-                foreach (IDocumentPath DocumentPath in DocumentPathList)
+                foreach (IDocumentPath DocumentPath in documentPathList)
                     if (Document.Path.IsEqual(DocumentPath))
                     {
                         Result.Add(Document);
@@ -1057,7 +1057,7 @@ namespace CustomControls
         {
             string[] StateList = new string[] { SerializeDockManagerState(), SerializeToolBarState(), SerializePresenterState() };
 
-            string MergedState = "";
+            string MergedState = string.Empty;
             foreach (string State in StateList)
             {
                 if (MergedState.Length > 0)
@@ -1111,7 +1111,7 @@ namespace CustomControls
         {
             string[] StateList = new string[] { SerializeThemeState(), SerializeCompilerState() };
 
-            string MergedState = "";
+            string MergedState = string.Empty;
             foreach (string State in StateList)
             {
                 if (MergedState.Length > 0)
@@ -1461,7 +1461,7 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(e));
 
             SolutionOpenedEventContext EventContext = (SolutionOpenedEventContext)e.EventContext;
-            ISolutionOpenedCompletionArgs CompletionArgs = (ISolutionOpenedCompletionArgs)e.CompletionArgs; 
+            ISolutionOpenedCompletionArgs CompletionArgs = (ISolutionOpenedCompletionArgs)e.CompletionArgs;
             IRootPath OpenedRootPath = EventContext.OpenedRootPath;
             IRootProperties? OpenedRootProperties = CompletionArgs.OpenedRootProperties;
             IComparer<ITreeNodePath>? OpenedRootComparer = CompletionArgs.OpenedRootComparer;
@@ -1746,7 +1746,7 @@ namespace CustomControls
                         {
                             ImportedContentDescriptor ContentDescriptor = Descriptor.Import(FileName);
                             if (ContentDescriptor != null)
-                                ImportedDocumentTable.Add(ContentDescriptor.ImportedContent, ContentDescriptor .DocumentType);
+                                ImportedDocumentTable.Add(ContentDescriptor.ImportedContent, ContentDescriptor.DocumentType);
 
                             break;
                         }
@@ -1757,13 +1757,13 @@ namespace CustomControls
             }
         }
 
-        private void AddAllFiles(List<string> FileNames, string RootFolder, string Extension)
+        private void AddAllFiles(List<string> fileNames, string rootFolder, string extension)
         {
-            foreach (string FileName in Directory.GetFiles(RootFolder, "*." + Extension))
-                FileNames.Add(FileName);
+            foreach (string FileName in Directory.GetFiles(rootFolder, "*." + extension))
+                fileNames.Add(FileName);
 
-            foreach (string FolderName in Directory.GetDirectories(RootFolder))
-                AddAllFiles(FileNames, FolderName, Extension);
+            foreach (string FolderName in Directory.GetDirectories(rootFolder))
+                AddAllFiles(fileNames, FolderName, extension);
         }
 
         private DocumentTypeFilter GetFilters()
@@ -1779,7 +1779,7 @@ namespace CustomControls
                     DefaultExtension = Descriptor.FileExtension;
             }
 
-            string FilterString = "";
+            string FilterString = string.Empty;
             foreach (KeyValuePair<string, string> Entry in FileExtensionTable)
             {
                 if (FilterString.Length > 0)
@@ -1846,7 +1846,7 @@ namespace CustomControls
             if (DocumentImportDescriptors == null || DocumentImportDescriptors.Count == 0)
                 return;
 
-            string CompleteFilter = "";
+            string CompleteFilter = string.Empty;
             if (CompleteFilter.Length > 0)
                 CompleteFilter += "|";
             CompleteFilter += CompleteSolutionExtensionFilter;
@@ -1876,7 +1876,7 @@ namespace CustomControls
                 {
                     string SolutionName = Path.GetFileNameWithoutExtension(Dlg.FileName);
                     string QuestionFormat = SolutionPresenterInternal.Properties.Resources.ReplaceSolution;
-                    string Question = String.Format(CultureInfo.CurrentCulture, QuestionFormat, SolutionName);
+                    string Question = string.Format(CultureInfo.CurrentCulture, QuestionFormat, SolutionName);
 
                     if (MessageBox.Show(Question, Owner.Title, MessageBoxButton.OKCancel, MessageBoxImage.Question) == MessageBoxResult.OK)
                     {
@@ -2019,13 +2019,13 @@ namespace CustomControls
                 ExportSolution(ExportedRootPath);
         }
 
-        private void ExportSolution(IRootPath ExportedRootPath)
+        private void ExportSolution(IRootPath exportedRootPath)
         {
-            string DestinationPath = GetSolutionExportFileName(ExportedRootPath.FriendlyName);
+            string DestinationPath = GetSolutionExportFileName(exportedRootPath.FriendlyName);
             if (DestinationPath == null)
                 return;
 
-            NotifySolutionExported(ExportedRootPath, DestinationPath);
+            NotifySolutionExported(exportedRootPath, DestinationPath);
         }
 
         private string CompleteSolutionExtensionFilter
@@ -2207,7 +2207,9 @@ namespace CustomControls
             if (ThemeOption != optionDialog.Theme)
             {
                 ThemeOption = optionDialog.Theme;
+#if CHECKTHIS
                 //UpdateTheme();
+#endif
             }
 
             SaveBeforeCompiling = optionDialog.SaveBeforeCompiling;
@@ -2595,7 +2597,7 @@ namespace CustomControls
                 int Index = 1;
 
                 while (IsNameTaken(Children, TentativeName))
-                    TentativeName = String.Format(CultureInfo.CurrentCulture, SolutionPresenterInternal.Properties.Resources.NameCopy, originalName, Index++);
+                    TentativeName = string.Format(CultureInfo.CurrentCulture, SolutionPresenterInternal.Properties.Resources.NameCopy, originalName, Index++);
             }
 
             return TentativeName;
@@ -2698,7 +2700,7 @@ namespace CustomControls
             IFolderPath DestinationFolderPath = EventContext.DestinationFolderPath;
             IList<IDocumentPath> DocumentPathList = EventContext.DocumentPathList;
             object? ErrorLocation = EventContext.ErrorLocation;
-            IReadOnlyList < IDocument > OpenedDocumentList = CompletionArgs.OpenedDocumentList;
+            IReadOnlyList<IDocument> OpenedDocumentList = CompletionArgs.OpenedDocumentList;
 
             foreach (IDocument OpenedDocument in OpenedDocumentList)
             {
@@ -2830,7 +2832,7 @@ namespace CustomControls
                     IPathGroup PathGroup = new PathGroup(Data.PathTable, DestinationPath);
                     IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable = PathGroup.PathTable;
 
-                    Dictionary<ITreeNodePath, IFolderPath> ParentTable = new Dictionary<ITreeNodePath,IFolderPath>();
+                    Dictionary<ITreeNodePath, IFolderPath> ParentTable = new Dictionary<ITreeNodePath, IFolderPath>();
                     foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in PathTable)
                         if (Entry.Value.ParentPath is IFolderPath ParentPath)
                             ParentTable.Add(Entry.Key, ParentPath);
@@ -2884,7 +2886,9 @@ namespace CustomControls
                     if (AddedPath.FriendlyName != NewName)
                         AddedPath.ChangeFriendlyName(NewName);
 
-                    //IPathConnection AddedNodeData = pathTable[AddedPath];
+#if CHECKTHIS
+                    IPathConnection AddedNodeData = pathTable[AddedPath];
+#endif
                     parentTable.Remove(AddedPath);
 
                     NotifyNodePasted(AddedPath, ParentPath, pathTable, parentTable, RootProperties, isUndoRedo);
@@ -3035,10 +3039,10 @@ namespace CustomControls
         protected virtual bool IsDeleteSolutionConfirmed(string solutionName)
         {
             string QuestionFormat = SolutionPresenterInternal.Properties.Resources.SolutionWillBeDeleted;
-            string Question = String.Format(CultureInfo.CurrentCulture, QuestionFormat, solutionName);
+            string Question = string.Format(CultureInfo.CurrentCulture, QuestionFormat, solutionName);
 
             MessageBoxResult Result = MessageBox.Show(Question, Owner.Title, MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            return (Result == MessageBoxResult.OK);
+            return Result == MessageBoxResult.OK;
         }
 
         protected virtual void OnSolutionDeletedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -3123,7 +3127,7 @@ namespace CustomControls
             {
                 IFolderPath? DestinationPath = null;
 
-                Dictionary<ITreeNodePath, IFolderPath> ParentTable = new Dictionary<ITreeNodePath,IFolderPath>();
+                Dictionary<ITreeNodePath, IFolderPath> ParentTable = new Dictionary<ITreeNodePath, IFolderPath>();
                 foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in Args.PathTable)
                     if (Entry.Value.ParentPath is IFolderPath ParentPath)
                         ParentTable.Add(Entry.Key, ParentPath);
@@ -3300,7 +3304,7 @@ namespace CustomControls
                             IsSolutionOnlyDirtyProperties = true;
                     }
 
-            IsSolutionOnlyDirty = ((info.DirtyItemList != null && info.DirtyItemList.Count == 1) && DirtySolutionItem && (info.DirtyPropertiesList != null && info.DirtyPropertiesList.Count == 1) && DirtySolutionProperties);
+            IsSolutionOnlyDirty = info.DirtyItemList != null && info.DirtyItemList.Count == 1 && DirtySolutionItem && info.DirtyPropertiesList != null && info.DirtyPropertiesList.Count == 1 && DirtySolutionProperties;
 
             bool IsSolutionOnly = NoDocumentDirty && (IsSolutionOnlyDirtyItem || IsSolutionOnlyDirtyProperties || IsSolutionOnlyDirty);
 
@@ -3313,7 +3317,7 @@ namespace CustomControls
         protected virtual CommitOption IsSolutionOnlySaveConfirmed()
         {
             string QuestionFormat = SolutionPresenterInternal.Properties.Resources.ConfirmSaveSolutionChanges;
-            string Question = String.Format(CultureInfo.CurrentCulture, QuestionFormat, RootPath.FriendlyName);
+            string Question = string.Format(CultureInfo.CurrentCulture, QuestionFormat, RootPath.FriendlyName);
             MessageBoxResult Result = MessageBox.Show(Question, Owner.Title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
             return IsConfirmed(Result);
@@ -3327,7 +3331,7 @@ namespace CustomControls
             SaveAllWindow Dlg = new SaveAllWindow();
             Dlg.Owner = Owner;
 
-            if (info.DirtyItemList != null && info.DirtyItemList.Contains(RootPath) || info.DirtyPropertiesList != null && info.DirtyPropertiesList.Contains(RootPath))
+            if ((info.DirtyItemList != null && info.DirtyItemList.Contains(RootPath)) || (info.DirtyPropertiesList != null && info.DirtyPropertiesList.Contains(RootPath)))
                 Dlg.DirtySolutionName = RootPath.FriendlyName;
 
             if (info.DirtyItemList != null)
@@ -3383,7 +3387,7 @@ namespace CustomControls
                 throw new ArgumentNullException(nameof(savedDocument));
 
             string QuestionFormat = SolutionPresenterInternal.Properties.Resources.ConfirmSaveDocumentChanges;
-            string Question = String.Format(CultureInfo.CurrentCulture, QuestionFormat, savedDocument.Path.HeaderName);
+            string Question = string.Format(CultureInfo.CurrentCulture, QuestionFormat, savedDocument.Path.HeaderName);
             MessageBoxResult Result = MessageBox.Show(Question, Owner.Title, MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
             return IsConfirmed(Result);
@@ -3469,13 +3473,13 @@ namespace CustomControls
             }
         }
 
-        private static IPropertyEntry GetMergedStringProperty(List<ITreeNodeProperties> PropertiesList, PropertyInfo Info, string FriendlyName)
+        private static IPropertyEntry GetMergedStringProperty(List<ITreeNodeProperties> propertiesList, PropertyInfo info, string friendlyName)
         {
             string MergedText = string.Empty;
 
-            foreach (ITreeNodeProperties Properties in PropertiesList)
+            foreach (ITreeNodeProperties Properties in propertiesList)
             {
-                string NextText = (string)Info.GetValue(Properties);
+                string NextText = (string)info.GetValue(Properties);
 
                 if (MergedText.Length == 0)
                     MergedText = NextText;
@@ -3487,16 +3491,16 @@ namespace CustomControls
                 }
             }
 
-            return new StringPropertyEntry(PropertiesList, Info.Name, FriendlyName, MergedText);
+            return new StringPropertyEntry(propertiesList, info.Name, friendlyName, MergedText);
         }
 
-        private static IPropertyEntry GetMergedBoolProperty(List<ITreeNodeProperties> PropertiesList, PropertyInfo Info, string FriendlyName)
+        private static IPropertyEntry GetMergedBoolProperty(List<ITreeNodeProperties> propertiesList, PropertyInfo info, string friendlyName)
         {
             int MergedSelectedIndex = -1;
 
-            foreach (ITreeNodeProperties Properties in PropertiesList)
+            foreach (ITreeNodeProperties Properties in propertiesList)
             {
-                int NextSelectedIndex = ((bool)Info.GetValue(Properties) ? 1 : 0);
+                int NextSelectedIndex = (bool)info.GetValue(Properties) ? 1 : 0;
 
                 if (MergedSelectedIndex == -1)
                     MergedSelectedIndex = NextSelectedIndex;
@@ -3509,16 +3513,16 @@ namespace CustomControls
             }
 
             string[] EnumNames = new string[] { SolutionPresenterInternal.Properties.Resources.False, SolutionPresenterInternal.Properties.Resources.True };
-            return new EnumPropertyEntry(PropertiesList, Info.Name, FriendlyName, EnumNames, MergedSelectedIndex);
+            return new EnumPropertyEntry(propertiesList, info.Name, friendlyName, EnumNames, MergedSelectedIndex);
         }
 
-        private static IPropertyEntry GetMergedEnumProperty(List<ITreeNodeProperties> PropertiesList, PropertyInfo Info, string FriendlyName)
+        private static IPropertyEntry GetMergedEnumProperty(List<ITreeNodeProperties> propertiesList, PropertyInfo info, string friendlyName)
         {
             int MergedSelectedIndex = -1;
 
-            foreach (ITreeNodeProperties Properties in PropertiesList)
+            foreach (ITreeNodeProperties Properties in propertiesList)
             {
-                int NextSelectedIndex = (int)Info.GetValue(Properties);
+                int NextSelectedIndex = (int)info.GetValue(Properties);
 
                 if (MergedSelectedIndex == -1)
                     MergedSelectedIndex = NextSelectedIndex;
@@ -3530,8 +3534,8 @@ namespace CustomControls
                 }
             }
 
-            string[] EnumNames = Info.PropertyType.GetEnumNames();
-            return new EnumPropertyEntry(PropertiesList, Info.Name, FriendlyName, EnumNames, MergedSelectedIndex);
+            string[] EnumNames = info.PropertyType.GetEnumNames();
+            return new EnumPropertyEntry(propertiesList, info.Name, friendlyName, EnumNames, MergedSelectedIndex);
         }
 
         public ObservableCollection<IPropertyEntry> SolutionMergedProperties { get; } = new ObservableCollection<IPropertyEntry>();
@@ -3657,26 +3661,26 @@ namespace CustomControls
             LoadNestedTree(ParentPathList, rootProperties, expandedFolderList, context, new List<IFolderPath>());
         }
 
-        private void LoadNestedTree(ICollection<IFolderPath> ParentPathList, IRootProperties RootProperties, ICollection<IFolderPath> ExpandedFolderList, object Context, List<IFolderPath> ExpandedFolders)
+        private void LoadNestedTree(ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context, List<IFolderPath> expandedFolders)
         {
-            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new LoadTreeHandler(OnLoadTree), ParentPathList, RootProperties, ExpandedFolderList, Context, ExpandedFolders);
+            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new LoadTreeHandler(OnLoadTree), parentPathList, rootProperties, expandedFolderList, context, expandedFolders);
         }
 
-        private delegate void LoadTreeHandler(ICollection<IFolderPath> ParentPathList, IRootProperties RootProperties, ICollection<IFolderPath> ExpandedFolderList, object Context, List<IFolderPath> ExpandedFolders);
-        private void OnLoadTree(ICollection<IFolderPath> ParentPathList, IRootProperties RootProperties, ICollection<IFolderPath> ExpandedFolderList, object Context, List<IFolderPath> ExpandedFolders)
+        private delegate void LoadTreeHandler(ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context, List<IFolderPath> expandedFolders);
+        private void OnLoadTree(ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context, List<IFolderPath> expandedFolders)
         {
-            if (ParentPathList.Count == 0)
+            if (parentPathList.Count == 0)
             {
-                EndLoadSolutionTree(Context);
+                EndLoadSolutionTree(context);
                 return;
             }
 
-            IEnumerator<IFolderPath> Enumerator = ParentPathList.GetEnumerator();
+            IEnumerator<IFolderPath> Enumerator = parentPathList.GetEnumerator();
             Enumerator.MoveNext();
             IFolderPath ParentPath = Enumerator.Current;
-            ParentPathList.Remove(ParentPath);
+            parentPathList.Remove(ParentPath);
 
-            NotifyFolderEnumerated(ParentPath, ParentPathList, RootProperties, ExpandedFolderList, Context);
+            NotifyFolderEnumerated(ParentPath, parentPathList, rootProperties, expandedFolderList, context);
         }
 
         protected virtual void OnFolderEnumeratedComplete(object sender, SolutionPresenterEventCompletedEventArgs e)
@@ -3697,41 +3701,41 @@ namespace CustomControls
             Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new LoadChildrenHandler(OnLoadChildren), ParentPath, Children, ChildrenProperties, ParentPathList, RootProperties, ExpandedFolderList, Context);
         }
 
-        private delegate void LoadChildrenHandler(IFolderPath ParentPath, IReadOnlyList<ITreeNodePath> ChildrenPathList, IReadOnlyDictionary<ITreeNodePath, ITreeNodeProperties> ChildrenProperties, ICollection<IFolderPath> ParentPathList, IRootProperties RootProperties, ICollection<IFolderPath> ExpandedFolderList, object Context);
-        private void OnLoadChildren(IFolderPath ParentPath, IReadOnlyList<ITreeNodePath> ChildrenPathList, IReadOnlyDictionary<ITreeNodePath, ITreeNodeProperties> ChildrenProperties, ICollection<IFolderPath> ParentPathList, IRootProperties RootProperties, ICollection<IFolderPath> ExpandedFolderList, object Context)
+        private delegate void LoadChildrenHandler(IFolderPath parentPath, IReadOnlyList<ITreeNodePath> childrenPathList, IReadOnlyDictionary<ITreeNodePath, ITreeNodeProperties> childrenProperties, ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context);
+        private void OnLoadChildren(IFolderPath parentPath, IReadOnlyList<ITreeNodePath> childrenPathList, IReadOnlyDictionary<ITreeNodePath, ITreeNodeProperties> childrenProperties, ICollection<IFolderPath> parentPathList, IRootProperties rootProperties, ICollection<IFolderPath> expandedFolderList, object context)
         {
             Dictionary<ITreeNodePath, IPathConnection> AddedPathTable = new Dictionary<ITreeNodePath, IPathConnection>();
-            foreach (ITreeNodePath ChildPath in ChildrenPathList)
+            foreach (ITreeNodePath ChildPath in childrenPathList)
             {
                 bool IsExpanded = false;
 
                 if (ChildPath is IFolderPath AsFolderPath)
-                    foreach (IFolderPath Path in ExpandedFolderList)
+                    foreach (IFolderPath Path in expandedFolderList)
                         if (Path.IsEqual(AsFolderPath))
                         {
                             IsExpanded = true;
                             break;
                         }
 
-                AddedPathTable.Add(ChildPath, new PathConnection(ParentPath, ChildrenProperties[ChildPath], IsExpanded));
+                AddedPathTable.Add(ChildPath, new PathConnection(parentPath, childrenProperties[ChildPath], IsExpanded));
             }
 
             spcSolutionExplorer.AddTree(AddedPathTable);
 
             List<IFolderPath> FolderPathList = new List<IFolderPath>();
             List<IFolderPath> ExpandedFolders = new List<IFolderPath>();
-            foreach (ITreeNodePath ChildPath in ChildrenPathList)
+            foreach (ITreeNodePath ChildPath in childrenPathList)
                 if (ChildPath is IFolderPath AsFolderPath)
                 {
                     FolderPathList.Add(AsFolderPath);
 
-                    if (IsChildExpanded(ExpandedFolderList, AsFolderPath))
+                    if (IsChildExpanded(expandedFolderList, AsFolderPath))
                         ExpandedFolders.Add(AsFolderPath);
                 }
 
             foreach (IFolderPath Path in FolderPathList)
-                ParentPathList.Add(Path);
-            LoadNestedTree(ParentPathList, RootProperties, ExpandedFolderList, Context, ExpandedFolders);
+                parentPathList.Add(Path);
+            LoadNestedTree(parentPathList, rootProperties, expandedFolderList, context, ExpandedFolders);
         }
 
         protected virtual bool IsChildExpanded(ICollection<IFolderPath> expandedFolderList, IFolderPath folderPath)
@@ -3968,14 +3972,14 @@ namespace CustomControls
             }
         }
 
-        private void ChangeActiveDocument(int Direction)
+        private void ChangeActiveDocument(int direction)
         {
             if (ActiveDocument != null)
             {
                 int Index = FocusSortedDocuments.IndexOf(ActiveDocument);
                 if (Index >= 0)
                 {
-                    Index += Direction;
+                    Index += direction;
                     if (Index >= FocusSortedDocuments.Count)
                         Index = 0;
                     else if (Index < 0)
@@ -4006,26 +4010,26 @@ namespace CustomControls
             dockManager.ActiveContentChanged += OnActiveContentChanged;
         }
 
-        private bool IsToolVisible(string ContentId)
+        private bool IsToolVisible(string contentId)
         {
             foreach (ILayoutElement Item in dockManager.Layout.Descendents())
                 if (Item is LayoutAnchorable AsAnchorable)
-                    if (AsAnchorable.ContentId == ContentId)
+                    if (AsAnchorable.ContentId == contentId)
                         return AsAnchorable.IsVisible;
 
             return false;
         }
 
-        private void ShowTool(string ContentId, ToolOperation ToolOperation)
+        private void ShowTool(string contentId, ToolOperation toolOperation)
         {
             foreach (ILayoutElement Item in dockManager.Layout.Descendents())
                 if (Item is LayoutAnchorable AsAnchorable)
-                    if (AsAnchorable.ContentId == ContentId)
+                    if (AsAnchorable.ContentId == contentId)
                     {
-                        if (!AsAnchorable.IsVisible && ToolOperation != ToolOperation.Hide)
+                        if (!AsAnchorable.IsVisible && toolOperation != ToolOperation.Hide)
                             AsAnchorable.Show();
                         else if (AsAnchorable.IsVisible)
-                            if (ToolOperation == ToolOperation.Show)
+                            if (toolOperation == ToolOperation.Show)
                                 dockManager.ActiveContent = AsAnchorable.Content;
                             else
                                 AsAnchorable.Hide();
@@ -4039,9 +4043,9 @@ namespace CustomControls
             return GetActiveDockedControl(dockManager.Layout);
         }
 
-        private SplitView? GetActiveDockedControl(ILayoutElement Layout)
+        private SplitView? GetActiveDockedControl(ILayoutElement layout)
         {
-            switch (Layout)
+            switch (layout)
             {
                 case LayoutDocument AsDocument:
                     if (AsDocument.Content == dockManager.ActiveContent)
@@ -4122,7 +4126,7 @@ namespace CustomControls
 
             string ThemeAssembly = ThemeAssemblyTable[themeOption];
             string ThemeResource = ThemeResourceTable[themeOption];
-            string SourcePath = String.Format(CultureInfo.InvariantCulture, @"pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.{0};component/{1}", ThemeAssembly, ThemeResource);
+            string SourcePath = string.Format(CultureInfo.InvariantCulture, @"pack://application:,,,/Xceed.Wpf.AvalonDock.Themes.{0};component/{1}", ThemeAssembly, ThemeResource);
 
             ResourceDictionary NewDictionary = new ResourceDictionary();
             NewDictionary.Source = new Uri(SourcePath);

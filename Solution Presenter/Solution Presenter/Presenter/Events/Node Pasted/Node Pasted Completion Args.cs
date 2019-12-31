@@ -8,10 +8,10 @@
 
     internal class NodePastedCompletionArgs : INodePastedCompletionArgs
     {
-        public NodePastedCompletionArgs(ITreeNodePath NewPath, ITreeNodeProperties NewProperties)
+        public NodePastedCompletionArgs(ITreeNodePath newPath, ITreeNodeProperties newProperties)
         {
-            this.NewPath = NewPath;
-            this.NewProperties = NewProperties;
+            NewPath = newPath;
+            NewProperties = newProperties;
         }
 
         public ITreeNodePath NewPath { get; private set; }

@@ -1,7 +1,7 @@
-﻿using System.Windows;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows;
+
     public class SolutionSelectedEventArgs : SolutionPresenterEventArgs
     {
         private static int HandlerCount = 0;

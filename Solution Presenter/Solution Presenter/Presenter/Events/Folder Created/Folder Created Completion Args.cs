@@ -8,10 +8,10 @@
 
     internal class FolderCreatedCompletionArgs : IFolderCreatedCompletionArgs
     {
-        public FolderCreatedCompletionArgs(IFolderPath NewFolderPath, IFolderProperties NewFolderProperties)
+        public FolderCreatedCompletionArgs(IFolderPath newFolderPath, IFolderProperties newFolderProperties)
         {
-            this.NewFolderPath = NewFolderPath;
-            this.NewFolderProperties = NewFolderProperties;
+            NewFolderPath = newFolderPath;
+            NewFolderProperties = newFolderProperties;
         }
 
         public IFolderPath NewFolderPath { get; private set; }

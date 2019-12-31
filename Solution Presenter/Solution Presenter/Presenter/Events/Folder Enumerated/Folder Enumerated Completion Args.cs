@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     internal interface IFolderEnumeratedCompletionArgs
     {
         IReadOnlyList<ITreeNodePath> Children { get; }
@@ -16,10 +16,10 @@ namespace CustomControls
             this.ChildrenProperties = new Dictionary<ITreeNodePath, ITreeNodeProperties>();
         }
 
-        public FolderEnumeratedCompletionArgs(IReadOnlyList<ITreeNodePath> Children, IReadOnlyDictionary<ITreeNodePath, ITreeNodeProperties> ChildrenProperties)
+        public FolderEnumeratedCompletionArgs(IReadOnlyList<ITreeNodePath> children, IReadOnlyDictionary<ITreeNodePath, ITreeNodeProperties> childrenProperties)
         {
-            this.Children = Children;
-            this.ChildrenProperties = ChildrenProperties;
+            Children = children;
+            ChildrenProperties = childrenProperties;
         }
 
         public IReadOnlyList<ITreeNodePath> Children { get; private set; }

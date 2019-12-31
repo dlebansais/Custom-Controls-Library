@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.Generic;
+
     public class DocumentExportedEventContext
     {
         public DocumentExportedEventContext(DocumentOperation documentOperation, ICollection<IDocument> exportedDocumentList, bool isDestinationFolder, string destinationPath)
