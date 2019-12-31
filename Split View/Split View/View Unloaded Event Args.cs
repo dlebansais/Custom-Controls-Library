@@ -1,7 +1,7 @@
-﻿using System.Windows;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows;
+
     /// <summary>
     /// Contains state information and event data associated with the <see cref="SplitView.ViewUnloaded"/> event.
     /// </summary>
@@ -11,10 +11,8 @@ namespace CustomControls
         /// <summary>
         /// Initializes a new instance of the <see cref="ViewUnloadedEventArgs"/> class.
         /// </summary>
-        /// <parameters>
         /// <param name="routedEvent">The event this argument is associated to.</param>
         /// <param name="viewContent">The control representing the view that has been unloaded.</param>
-        /// </parameters>
         public ViewUnloadedEventArgs(RoutedEvent routedEvent, FrameworkElement viewContent)
             : base(routedEvent)
         {

@@ -1,7 +1,7 @@
-﻿using System.Windows;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Windows;
+
     /// <summary>
     /// Contains state information and event data associated with the <see cref="SplitView.ZoomChanged"/> event.
     /// </summary>
@@ -11,11 +11,9 @@ namespace CustomControls
         /// <summary>
         /// Initializes a new instance of the <see cref="ZoomChangedEventArgs"/> class.
         /// </summary>
-        /// <parameters>
         /// <param name="routedEvent">The event this argument is associated to.</param>
         /// <param name="viewContent">The control representing the view to which the new zoom applies.</param>
         /// <param name="zoom">The new zoom value.</param>
-        /// </parameters>
         /// <remarks>
         /// A value of <paramref name="zoom"/>=1.0 means no zoom (or 100%).
         /// </remarks>
@@ -29,10 +27,10 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        /// Gets the control representing the view to which the new zoom applies
+        /// Gets the control representing the view to which the new zoom applies.
         /// </summary>
         /// <returns>
-        /// The control representing the view to which the new zoom applies
+        /// The control representing the view to which the new zoom applies.
         /// </returns>
         public FrameworkElement ViewContent { get; private set; }
 

@@ -1,17 +1,16 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Data;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+
     /// <summary>
     /// <para>Represents a view of an arbitrary content that can be split horizontally in two views.</para>
     /// <para>Implemented as a user control with a <see cref="ViewTemplate"/> template for views.</para>
@@ -86,9 +85,7 @@ namespace CustomControls
         /// <summary>
         /// Sends the <see cref="ViewLoaded"/> event.
         /// </summary>
-        /// <parameters>
         /// <param name="viewContent">The control representing the view that has been loaded.</param>
-        /// </parameters>
         protected virtual void NotifyViewLoaded(FrameworkElement viewContent)
         {
             ViewLoadedEventArgs Args = new ViewLoadedEventArgs(ViewLoadedEvent, viewContent);
@@ -113,9 +110,7 @@ namespace CustomControls
         /// <summary>
         /// Sends the <see cref="ViewUnloaded"/> event.
         /// </summary>
-        /// <parameters>
         /// <param name="viewContent">The control representing the view that has been unloaded.</param>
-        /// </parameters>
         protected virtual void NotifyViewUnloaded(FrameworkElement viewContent)
         {
             ViewUnloadedEventArgs Args = new ViewUnloadedEventArgs(ViewUnloadedEvent, viewContent);
@@ -164,10 +159,8 @@ namespace CustomControls
         /// <summary>
         /// Sends the <see cref="ViewUnloaded"/> event.
         /// </summary>
-        /// <parameters>
         /// <param name="viewContent">The control representing the view to which the new zoom applies.</param>
         /// <param name="zoom">The new zoom value.</param>
-        /// </parameters>
         /// <remarks>
         /// A value of <paramref name="zoom"/>=1.0 means no zoom (or 100%).
         /// </remarks>
@@ -199,7 +192,7 @@ namespace CustomControls
 
         #region Properties
         /// <summary>
-        /// Gets a flag indicating if the two views are visible.
+        /// Gets a value indicating whether the two views are visible.
         /// </summary>
         /// <returns>
         /// True if the two views are visible. False otherwise.
@@ -207,7 +200,7 @@ namespace CustomControls
         public bool IsTopRowVisible { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating if the control can be returned to a single view.
+        /// Gets a value indicating whether the control can be returned to a single view.
         /// </summary>
         /// <returns>
         /// True if the control can be returned to a single view. False otherwise.
@@ -228,9 +221,7 @@ namespace CustomControls
         /// <summary>
         /// Gets a value indicating if a view is visible.
         /// </summary>
-        /// <parameters>
         /// <param name="rowIndex">The zero-based index of the row. The top row is at index 0.</param>
-        /// </parameters>
         /// <returns>
         /// True if the view at index <paramref name="rowIndex"/> is visible. False otherwise.
         /// </returns>
@@ -251,9 +242,9 @@ namespace CustomControls
             SplitTestOrExecute(true, out IsTestSuccessful);
         }
 
-        private void SplitTestOrExecute(bool IsExecute, out bool IsTestSuccessful)
+        private void SplitTestOrExecute(bool isExecute, out bool isTestSuccessful)
         {
-            IsTestSuccessful = false;
+            isTestSuccessful = false;
 
             if (!IsTopRowVisible)
             {
@@ -269,9 +260,9 @@ namespace CustomControls
                         {
                             if (gridInner.ActualHeight > (2 * (ScrollBottom.ActualHeight + splitterLine.Height)))
                             {
-                                IsTestSuccessful = true;
+                                isTestSuccessful = true;
 
-                                if (IsExecute)
+                                if (isExecute)
                                 {
                                     TopRow.Height = new GridLength(1.0, GridUnitType.Star);
                                     BottomRow.Height = new GridLength(1.0, GridUnitType.Star);
@@ -296,17 +287,17 @@ namespace CustomControls
             RemoveSplitTestOrExecute(true, out IsTestSuccessful);
         }
 
-        private void RemoveSplitTestOrExecute(bool IsExecute, out bool IsTestSuccessful)
+        private void RemoveSplitTestOrExecute(bool isExecute, out bool isTestSuccessful)
         {
-            IsTestSuccessful = false;
+            isTestSuccessful = false;
 
             if (IsTopRowVisible)
             {
                 if (gridInner.RowDefinitions.Count > 0 && gridInner.Children.Count > 0)
                 {
-                    IsTestSuccessful = true;
+                    isTestSuccessful = true;
 
-                    if (IsExecute)
+                    if (isExecute)
                     {
                         RowDefinition TopRow = gridInner.RowDefinitions[0];
                         TopRow.Height = new GridLength(0, GridUnitType.Star);
@@ -322,6 +313,8 @@ namespace CustomControls
         /// <summary>
         /// Return the control at the specified row.
         /// </summary>
+        /// <param name="rowIndex">The row index.</param>
+        /// <returns>the control at the specified row.</returns>
         public FrameworkElement? GetRowContent(int rowIndex)
         {
             ScrollViewer scrollViewer = (rowIndex == 0) ? viewer0 : viewer1;
@@ -370,7 +363,7 @@ namespace CustomControls
             NotifyViewUnloaded(ViewContent);
         }
 
-        private delegate void UpdateLengthHandler(FrameworkElement Element, Size AdjustedSize);
+        private delegate void UpdateLengthHandler(FrameworkElement element, Size adjustedSize);
 
         private void OnBottomScrollBar0SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -382,18 +375,18 @@ namespace CustomControls
             FixSiblingDimension(sender, "comboZoom1", UpdateHeightAndIndex, OnBottomScrollBar1SizeChanged);
         }
 
-        private void UpdateHeightAndIndex(FrameworkElement Element, Size AdjustedSize)
+        private void UpdateHeightAndIndex(FrameworkElement element, Size adjustedSize)
         {
-            Element.Height = AdjustedSize.Height;
+            element.Height = adjustedSize.Height;
 
-            if (Element is ComboBox AsComboBox)
+            if (element is ComboBox AsComboBox)
                 Dispatcher.BeginInvoke(DispatcherPriority.Normal, new UpdateIndexHandler(OnUpdateIndex), AsComboBox);
         }
 
-        private delegate void UpdateIndexHandler(ComboBox AsComboBox);
-        private void OnUpdateIndex(ComboBox AsComboBox)
+        private delegate void UpdateIndexHandler(ComboBox asComboBox);
+        private void OnUpdateIndex(ComboBox asComboBox)
         {
-            AsComboBox.SelectedIndex = 3;
+            asComboBox.SelectedIndex = 3;
         }
 
         private void OnRightScrollBarSizeChanged(object sender, SizeChangedEventArgs e)
@@ -401,14 +394,14 @@ namespace CustomControls
             FixSiblingDimension(sender, "buttonSplit", UpdateWidthAndHeight, OnRightScrollBarSizeChanged);
         }
 
-        private void UpdateWidthAndHeight(FrameworkElement Element, Size AdjustedSize)
+        private void UpdateWidthAndHeight(FrameworkElement element, Size adjustedSize)
         {
-            double Length = AdjustedSize.Width;
-            Element.Width = Length;
-            Element.Height = Length;
+            double Length = adjustedSize.Width;
+            element.Width = Length;
+            element.Height = Length;
         }
 
-        private static void FixSiblingDimension(object sender, string SiblingName, UpdateLengthHandler Handler, SizeChangedEventHandler EventHandler)
+        private static void FixSiblingDimension(object sender, string siblingName, UpdateLengthHandler handler, SizeChangedEventHandler eventHandler)
         {
             FrameworkElement SenderElement = (FrameworkElement)sender;
             Size AdjustedSize = new Size(SenderElement.ActualWidth, SenderElement.ActualHeight);
@@ -418,15 +411,15 @@ namespace CustomControls
             {
                 FrameworkElement CurrentElement = SenderElement;
 
-                for (;;)
+                while (true)
                 {
                     if (CurrentElement is Panel AsPanel)
                     {
-                        if (AsPanel.FindName(SiblingName) is FrameworkElement AsSibling)
+                        if (AsPanel.FindName(siblingName) is FrameworkElement AsSibling)
                             if (double.IsNaN(AsSibling.Height))
                             {
-                                SenderElement.SizeChanged -= EventHandler;
-                                Handler(AsSibling, AdjustedSize);
+                                SenderElement.SizeChanged -= eventHandler;
+                                handler(AsSibling, AdjustedSize);
                             }
 
                         break;
