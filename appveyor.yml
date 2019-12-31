@@ -26,15 +26,6 @@ init:
 matrix:
   fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
 
-# exclude configuration from the matrix. Works similarly to 'allow_failures' but build not even being started for excluded combination.
-  exclude:
-    - platform: x86
-      configuration: Debug
-    - platform: x86
-      configuration: Release
-    - platform: x64
-      configuration: Debug
-
 # scripts to run before build
 before_build:
   - nuget restore Custom-Controls-Library.sln

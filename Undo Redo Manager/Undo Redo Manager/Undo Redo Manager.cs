@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-
-namespace UndoRedo
+﻿namespace UndoRedo
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.Diagnostics;
+
     /// <summary>
     /// Contains information about operations that can be performed or reversed.
     /// </summary>
@@ -35,7 +35,7 @@ namespace UndoRedo
         public IReversibleOperation LastOperation { get; private set; } = IdentityOperation.Default;
 
         /// <summary>
-        /// Gets a value that indicate if there is an operation that can be reversed in <see cref="UndoList"/>.
+        /// Gets a value indicating whether there is an operation that can be reversed in <see cref="UndoList"/>.
         /// </summary>
         /// <returns>
         /// True if there is an operation that can be reversed in <see cref="UndoList"/>. False otherwise.
@@ -46,7 +46,7 @@ namespace UndoRedo
         }
 
         /// <summary>
-        /// Gets a value that indicate if there is an operation that can be performed in <see cref="RedoList"/>.
+        /// Gets a value indicating whether there is an operation that can be performed in <see cref="RedoList"/>.
         /// </summary>
         /// <returns>
         /// True if there is an operation that can be performed in <see cref="RedoList"/>. False otherwise.
@@ -71,6 +71,7 @@ namespace UndoRedo
         /// <summary>
         /// Adds an operation to <see cref="RedoList"/> but without performing it.
         /// </summary>
+        /// <param name="operation">The operation to add.</param>
         public virtual void AddOperation(IReversibleOperation operation)
         {
             if (operation == null)
@@ -84,6 +85,7 @@ namespace UndoRedo
         /// <summary>
         /// Adds an operation to <see cref="RedoList"/> and performs it.
         /// </summary>
+        /// <param name="operation">The operation to add and execute.</param>
         public virtual void AddAndExecuteOperation(IReversibleOperation operation)
         {
             if (operation == null)

@@ -6,17 +6,17 @@
     public interface IReversibleOperation
     {
         /// <summary>
-        /// Name of the operation
+        /// Gets the operation name.
         /// </summary>
         string Name { get; }
 
         /// <summary>
-        /// Execute the operation.
+        /// Executes the operation.
         /// </summary>
         void Redo();
 
         /// <summary>
-        /// Return the system to the state before the operation was executed.
+        /// Returns the system to the state before the operation was executed.
         /// </summary>
         void Undo();
     }
