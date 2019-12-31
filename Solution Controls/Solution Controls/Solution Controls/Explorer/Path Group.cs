@@ -1,18 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    /// <summary>
+    /// Represents a group of paths.
+    /// </summary>
     public interface IPathGroup
     {
+        /// <summary>
+        /// Gets the table of paths in the group.
+        /// </summary>
         IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable { get; }
+
+        /// <summary>
+        /// Gets the parent of paths in the group.
+        /// </summary>
         IFolderPath? GroupParentPath { get; }
     }
 
+    /// <summary>
+    /// Represents a group of paths.
+    /// </summary>
     public class PathGroup : IPathGroup
     {
         #region Init
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathGroup"/> class.
+        /// </summary>
+        /// <param name="path">The single member of the group.</param>
+        /// <param name="parentPath">The parent path.</param>
+        /// <param name="properties">Properties of the associated item.</param>
         public PathGroup(ITreeNodePath path, IFolderPath parentPath, ITreeNodeProperties properties)
         {
             if (path == null)
@@ -29,6 +48,10 @@ namespace CustomControls
             GroupParentPath = parentPath;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathGroup"/> class.
+        /// </summary>
+        /// <param name="pathTable">The table of items in the group.</param>
         public PathGroup(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             if (pathTable == null)
@@ -51,7 +74,7 @@ namespace CustomControls
                 {
                     if (GroupParentPath == null)
                         GroupParentPath = ParentPath;
- 
+
                     ParentPath = null;
                 }
 
@@ -62,6 +85,11 @@ namespace CustomControls
             this.GroupParentPath = GroupParentPath;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PathGroup"/> class.
+        /// </summary>
+        /// <param name="pathTable">The table of items in the group.</param>
+        /// <param name="groupParentPath">The specified parent path.</param>
         public PathGroup(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, IFolderPath groupParentPath)
         {
             if (groupParentPath == null)
@@ -91,6 +119,11 @@ namespace CustomControls
             GroupParentPath = groupParentPath;
         }
 
+        /// <summary>
+        /// Checks whether paths in a table have a common parent.
+        /// </summary>
+        /// <param name="pathTable">The table of items.</param>
+        /// <returns>True if items have a common parent; otherwise, false.</returns>
         public static bool HasCommonParent(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             if (pathTable == null)
@@ -107,7 +140,7 @@ namespace CustomControls
                     continue;
 
                 if (!IsNullParent.HasValue)
-                    IsNullParent = (ParentPath == null);
+                    IsNullParent = ParentPath == null;
 
                 else if (IsNullParent.Value != (ParentPath == null))
                     return false;
@@ -125,6 +158,11 @@ namespace CustomControls
             return true;
         }
 
+        /// <summary>
+        /// Checks whether paths in a table have no parents.
+        /// </summary>
+        /// <param name="pathTable">The table of items.</param>
+        /// <returns>True if items don't have any parent; otherwise, false.</returns>
         public static bool HasNullCommonParent(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             if (pathTable == null)
@@ -144,7 +182,14 @@ namespace CustomControls
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the table of paths in the group.
+        /// </summary>
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable { get; private set; }
+
+        /// <summary>
+        /// Gets the parent of paths in the group.
+        /// </summary>
         public IFolderPath? GroupParentPath { get; private set; }
         #endregion
     }

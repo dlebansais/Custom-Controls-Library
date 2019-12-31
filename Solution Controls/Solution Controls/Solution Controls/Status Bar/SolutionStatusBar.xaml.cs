@@ -1,23 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Threading;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.CompilerServices;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Threading;
+
+    /// <summary>
+    /// Represents a control displaying the status of a solution.
+    /// </summary>
     public partial class SolutionStatusBar : UserControl, INotifyPropertyChanged, IDisposable
     {
         #region Custom properties and events
         #region Theme
+        /// <summary>
+        /// Identifies the <see cref="Theme"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty ThemeProperty = DependencyProperty.Register("Theme", typeof(IStatusTheme), typeof(SolutionStatusBar), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the status theme.
+        /// </summary>
         public IStatusTheme Theme
         {
             get { return (IStatusTheme)GetValue(ThemeProperty); }
@@ -25,8 +34,14 @@ namespace CustomControls
         }
         #endregion
         #region Max Active Status Count
+        /// <summary>
+        /// Identifies the <see cref="MaxActiveStatusCount"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty MaxActiveStatusCountProperty = DependencyProperty.Register("MaxActiveStatusCount", typeof(int), typeof(SolutionStatusBar), new PropertyMetadata(5));
 
+        /// <summary>
+        /// Gets or sets the max active status count.
+        /// </summary>
         public int MaxActiveStatusCount
         {
             get { return (int)GetValue(MaxActiveStatusCountProperty); }
@@ -34,26 +49,44 @@ namespace CustomControls
         }
         #endregion
         #region Active Status List
-        private static readonly DependencyPropertyKey ActiveStatusListPropertyKey = DependencyProperty.RegisterReadOnly("ActiveStatusList", typeof(IReadOnlyCollection<IApplicationStatus>), typeof(SolutionStatusBar), new PropertyMetadata(null));
+        /// <summary>
+        /// Identifies the <see cref="ActiveStatusList"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty ActiveStatusListProperty = ActiveStatusListPropertyKey.DependencyProperty;
+        private static readonly DependencyPropertyKey ActiveStatusListPropertyKey = DependencyProperty.RegisterReadOnly("ActiveStatusList", typeof(IReadOnlyCollection<IApplicationStatus>), typeof(SolutionStatusBar), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets the list of active statuses.
+        /// </summary>
         public IReadOnlyCollection<IApplicationStatus> ActiveStatusList
         {
             get { return (IReadOnlyCollection<IApplicationStatus>)GetValue(ActiveStatusListProperty); }
         }
         #endregion
         #region Current Status
-        private static readonly DependencyPropertyKey CurrentStatusPropertyKey = DependencyProperty.RegisterReadOnly("CurrentStatus", typeof(IApplicationStatus), typeof(SolutionStatusBar), new PropertyMetadata(null));
+        /// <summary>
+        /// Identifies the <see cref="CurrentStatus"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty CurrentStatusProperty = CurrentStatusPropertyKey.DependencyProperty;
+        private static readonly DependencyPropertyKey CurrentStatusPropertyKey = DependencyProperty.RegisterReadOnly("CurrentStatus", typeof(IApplicationStatus), typeof(SolutionStatusBar), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets the current status.
+        /// </summary>
         public IApplicationStatus CurrentStatus
         {
             get { return (IApplicationStatus)GetValue(CurrentStatusProperty); }
         }
         #endregion
         #region Default Initializing Status
+        /// <summary>
+        /// Identifies the <see cref="DefaultInitializingStatus"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty DefaultInitializingStatusProperty = DependencyProperty.Register("DefaultInitializingStatus", typeof(IApplicationStatus), typeof(SolutionStatusBar), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the default status when initializing.
+        /// </summary>
         public IApplicationStatus DefaultInitializingStatus
         {
             get { return (IApplicationStatus)GetValue(DefaultInitializingStatusProperty); }
@@ -61,8 +94,14 @@ namespace CustomControls
         }
         #endregion
         #region Default Ready Status
+        /// <summary>
+        /// Identifies the <see cref="DefaultReadyStatus"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty DefaultReadyStatusProperty = DependencyProperty.Register("DefaultReadyStatus", typeof(IApplicationStatus), typeof(SolutionStatusBar), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the default ready status.
+        /// </summary>
         public IApplicationStatus DefaultReadyStatus
         {
             get { return (IApplicationStatus)GetValue(DefaultReadyStatusProperty); }
@@ -70,8 +109,14 @@ namespace CustomControls
         }
         #endregion
         #region Default Failure Status
+        /// <summary>
+        /// Identifies the <see cref="DefaultFailureStatus"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty DefaultFailureStatusProperty = DependencyProperty.Register("DefaultFailureStatus", typeof(IApplicationStatus), typeof(SolutionStatusBar), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the default failure status.
+        /// </summary>
         public IApplicationStatus DefaultFailureStatus
         {
             get { return (IApplicationStatus)GetValue(DefaultFailureStatusProperty); }
@@ -79,8 +124,14 @@ namespace CustomControls
         }
         #endregion
         #region Progress Value
+        /// <summary>
+        /// Identifies the <see cref="ProgressValue"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty ProgressValueProperty = DependencyProperty.Register("ProgressValue", typeof(double), typeof(SolutionStatusBar), new PropertyMetadata(0.0));
 
+        /// <summary>
+        /// Gets or sets the progress value.
+        /// </summary>
         public double ProgressValue
         {
             get { return (double)GetValue(ProgressValueProperty); }
@@ -88,8 +139,14 @@ namespace CustomControls
         }
         #endregion
         #region Progress Max
+        /// <summary>
+        /// Identifies the <see cref="ProgressMax"/> attached property.
+        /// </summary>
         public static readonly DependencyProperty ProgressMaxProperty = DependencyProperty.Register("ProgressMax", typeof(double), typeof(SolutionStatusBar), new PropertyMetadata(0.0));
 
+        /// <summary>
+        /// Gets or sets the maximum value for progress.
+        /// </summary>
         public double ProgressMax
         {
             get { return (double)GetValue(ProgressMaxProperty); }
@@ -99,6 +156,9 @@ namespace CustomControls
         #endregion
 
         #region Init
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SolutionStatusBar"/> class.
+        /// </summary>
         public SolutionStatusBar()
         {
             Initialized += OnInitialized; // Dirty trick to avoid warning CA2214.
@@ -112,10 +172,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the control has been initialized and before properties are set.
         /// </summary>
-        /// <parameters>
-        /// <param name="sender">This parameter is not used.</param>
-        /// <param name="e">This parameter is not used.</param>
-        /// </parameters>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnInitialized(object sender, EventArgs e)
         {
             InitializeTheme();
@@ -123,64 +181,80 @@ namespace CustomControls
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets a value indicating whether there is a caret.
+        /// </summary>
         public bool HasCaret
         {
-            get { return _HasCaret; }
+            get { return HasCaretInternal; }
             protected set
             {
-                if (_HasCaret != value)
+                if (HasCaretInternal != value)
                 {
-                    _HasCaret = value;
+                    HasCaretInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private bool _HasCaret;
+        private bool HasCaretInternal;
 
+        /// <summary>
+        /// Gets or sets the caret line.
+        /// </summary>
         public int CaretLine
         {
-            get { return _CaretLine; }
+            get { return CaretLineInternal; }
             protected set
             {
-                if (_CaretLine != value)
+                if (CaretLineInternal != value)
                 {
-                    _CaretLine = value;
+                    CaretLineInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private int _CaretLine;
+        private int CaretLineInternal;
 
+        /// <summary>
+        /// Gets or sets the caret column.
+        /// </summary>
         public int CaretColumn
         {
-            get { return _CaretColumn; }
+            get { return CaretColumnInternal; }
             protected set
             {
-                if (_CaretColumn != value)
+                if (CaretColumnInternal != value)
                 {
-                    _CaretColumn = value;
+                    CaretColumnInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private int _CaretColumn;
+        private int CaretColumnInternal;
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the caret is in override mode.
+        /// </summary>
         public bool IsCaretOverride
         {
-            get { return _IsCaretOverride; }
+            get { return IsCaretOverrideInternal; }
             protected set
             {
-                if (_IsCaretOverride != value)
+                if (IsCaretOverrideInternal != value)
                 {
-                    _IsCaretOverride = value;
+                    IsCaretOverrideInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private bool _IsCaretOverride;
+        private bool IsCaretOverrideInternal;
         #endregion
 
         #region Implementation
+        /// <summary>
+        /// Sets the last status message.
+        /// </summary>
+        /// <param name="lastStatus">The last status message.</param>
         protected virtual void SetLastStatusMessage(IApplicationStatus lastStatus)
         {
             SetValue(CurrentStatusPropertyKey, lastStatus);
@@ -188,6 +262,10 @@ namespace CustomControls
         #endregion
 
         #region Client Interface
+        /// <summary>
+        /// Sets the current status.
+        /// </summary>
+        /// <param name="status">The status.</param>
         public virtual void SetStatus(IApplicationStatus status)
         {
             if (status != null && !StatusList.Contains(status))
@@ -195,25 +273,34 @@ namespace CustomControls
             while (StatusList.Count > 1 && StatusList.Count > MaxActiveStatusCount)
                 StatusList.RemoveAt(0);
 
-            Dispatcher.BeginInvoke(new SetStatusHandler(OnSetStatus), status);
+            Dispatcher.BeginInvoke(new Action<IApplicationStatus>(OnSetStatus), status);
         }
 
-        protected delegate void SetStatusHandler(IApplicationStatus status);
+        /// <summary>
+        /// Updates the status after it's been changed with <see cref="SetStatus(IApplicationStatus)"/>.
+        /// </summary>
+        /// <param name="status">The status.</param>
         protected virtual void OnSetStatus(IApplicationStatus status)
         {
             SetLastStatusMessage(status);
             ClearProgress();
         }
 
+        /// <summary>
+        /// Resets the current status.
+        /// </summary>
+        /// <param name="status">The status.</param>
         public virtual void ResetStatus(IApplicationStatus status)
         {
             if (status != null && StatusList.Contains(status))
                 StatusList.Remove(status);
 
-            Dispatcher.BeginInvoke(new ResetStatusHandler(OnResetStatus));
+            Dispatcher.BeginInvoke(new Action(OnResetStatus));
         }
 
-        protected delegate void ResetStatusHandler();
+        /// <summary>
+        /// Updates the status after it's been changed with <see cref="ResetStatus(IApplicationStatus)"/>.
+        /// </summary>
         protected virtual void OnResetStatus()
         {
             IApplicationStatus LastStatus = (StatusList.Count > 0) ? StatusList[StatusList.Count - 1] : DefaultReadyStatus;
@@ -221,17 +308,25 @@ namespace CustomControls
             ClearProgress();
         }
 
+        /// <summary>
+        /// Sets the current status to failure.
+        /// </summary>
         public virtual void SetFailureStatus()
         {
-            Dispatcher.BeginInvoke(new SetFailureStatusHandler(OnSetFailureStatus));
+            Dispatcher.BeginInvoke(new Action(OnSetFailureStatus));
         }
 
-        protected delegate void SetFailureStatusHandler();
+        /// <summary>
+        /// Updates the status after it's been changed with <see cref="ResetStatus"/>.
+        /// </summary>
         protected virtual void OnSetFailureStatus()
         {
             SetLastStatusMessage(DefaultFailureStatus);
         }
 
+        /// <summary>
+        /// Clears the progress.
+        /// </summary>
         protected virtual void ClearProgress()
         {
             ProgressValue = 0;
@@ -240,6 +335,9 @@ namespace CustomControls
         #endregion
 
         #region Theme
+        /// <summary>
+        /// Initializes the theme.
+        /// </summary>
         protected virtual void InitializeTheme()
         {
             Theme = new StatusTheme();
@@ -267,22 +365,28 @@ namespace CustomControls
         #region Focus Tracker
         private void InitializeFocusTracker()
         {
-            _HasCaret = false;
-            _CaretLine = 0;
-            _CaretColumn = 0;
-            _IsCaretOverride = false;
+            HasCaretInternal = false;
+            CaretLineInternal = 0;
+            CaretColumnInternal = 0;
+            IsCaretOverrideInternal = false;
             FindFocusedOperation = null;
             TrackingStarted = false;
             FindFocusedTimer = new Timer(new TimerCallback(FindFocusedTimerCallback), this, TimeSpan.Zero, TimeSpan.FromSeconds(1));
         }
 
+        /// <summary>
+        /// Called when <see cref="FindFocusedTimer"/> elapses.
+        /// </summary>
+        /// <param name="parameter">The timer parameter.</param>
         protected virtual void FindFocusedTimerCallback(object parameter)
         {
             if (FindFocusedOperation == null || FindFocusedOperation.Status == DispatcherOperationStatus.Completed)
-                FindFocusedOperation = Dispatcher.BeginInvoke(new FindFocusedTimerHandler(OnFindFocusedTimer));
+                FindFocusedOperation = Dispatcher.BeginInvoke(new Action(OnFindFocusedTimer));
         }
 
-        protected delegate void FindFocusedTimerHandler();
+        /// <summary>
+        /// Called when <see cref="FindFocusedTimer"/> elapses.
+        /// </summary>
         protected virtual void OnFindFocusedTimer()
         {
             if (!TrackingStarted && Keyboard.FocusedElement is IInputElement FocusedElement)
@@ -292,12 +396,20 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Starts tracking the focus.
+        /// </summary>
+        /// <param name="focusedElement">The focused element.</param>
         protected virtual void StartTrackingFocus(IInputElement focusedElement)
         {
             TrackingStarted = true;
             AddHandlers(focusedElement);
         }
 
+        /// <summary>
+        /// Adds handlers to the focused element.
+        /// </summary>
+        /// <param name="focusedElement">The focused element.</param>
         protected virtual void AddHandlers(IInputElement focusedElement)
         {
             if (focusedElement == null)
@@ -314,6 +426,10 @@ namespace CustomControls
                 ResetCaretInfo();
         }
 
+        /// <summary>
+        /// Removes handlers from the focused element.
+        /// </summary>
+        /// <param name="focusedElement">The focused element.</param>
         protected virtual void RemoveHandlers(IInputElement focusedElement)
         {
             if (focusedElement == null)
@@ -325,6 +441,11 @@ namespace CustomControls
                 AsOldEditor.CaretPositionChanged -= OnCaretPositionChanged;
         }
 
+        /// <summary>
+        /// Called when the focused element has lost focus.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {
             if (e != null && e.NewFocus != null)
@@ -334,11 +455,20 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Called when the caret position has changed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnCaretPositionChanged(object sender, EventArgs e)
         {
             UpdateCaretInfo((IDocumentEditor)sender);
         }
 
+        /// <summary>
+        /// Updates caret info in the status bar.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
         protected virtual void UpdateCaretInfo(IDocumentEditor sender)
         {
             if (sender != null)
@@ -350,6 +480,9 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Resets the caret info.
+        /// </summary>
         protected virtual void ResetCaretInfo()
         {
             HasCaret = false;
@@ -358,8 +491,19 @@ namespace CustomControls
             IsCaretOverride = false;
         }
 
+        /// <summary>
+        /// Gets the dispatcher operation associated to <see cref="FindFocusedTimer"/>.
+        /// </summary>
         protected DispatcherOperation? FindFocusedOperation { get; private set; }
+
+        /// <summary>
+        /// Gets the timer updating focus info.
+        /// </summary>
         protected Timer FindFocusedTimer { get; private set; } = new Timer(new TimerCallback((object parameter) => { }));
+
+        /// <summary>
+        /// Gets a value indicating whether tracking the focus has started.
+        /// </summary>
         protected bool TrackingStarted { get; private set; }
         #endregion
 
@@ -369,13 +513,20 @@ namespace CustomControls
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        internal void NotifyPropertyChanged(string propertyName)
+        /// <summary>
+        /// Invoke handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property that changed.</param>
+        protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Default parameter is mandatory with [CallerMemberName]")]
-        internal void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
+        /// <summary>
+        /// Invoke handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property that changed.</param>
+        protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -407,7 +558,7 @@ namespace CustomControls
         }
 
         /// <summary>
-        /// Object destructor.
+        /// Finalizes an instance of the <see cref="SolutionStatusBar"/> class.
         /// </summary>
         ~SolutionStatusBar()
         {

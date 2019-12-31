@@ -1,28 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
+    /// <summary>
+    /// Represents an add or remove operation in a solution explorer.
+    /// </summary>
     internal abstract class AddRemoveOperation : SolutionExplorerOperation
     {
         #region Init
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddRemoveOperation"/> class.
+        /// </summary>
+        /// <param name="root">The root path.</param>
+        /// <param name="pathTable">The table of paths.</param>
         protected AddRemoveOperation(ISolutionRoot root, IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
             : base(root)
         {
             if (pathTable == null)
                 throw new ArgumentNullException(nameof(pathTable));
 
-            this.PathTable = pathTable;
+            PathTable = pathTable;
         }
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the table of paths.
+        /// </summary>
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this operation is adding something.
+        /// </summary>
         public abstract bool IsAdd { get; }
         #endregion
 
         #region Descendant Interface
+        /// <summary>
+        /// Creates a folder in a solution.
+        /// </summary>
+        /// <param name="parentFolder">The parent folder.</param>
+        /// <param name="path">The folder path.</param>
+        /// <param name="properties">The folder properties.</param>
+        /// <returns>The created folder.</returns>
         protected virtual ISolutionFolder CreateSolutionFolder(ISolutionFolder parentFolder, IFolderPath path, IFolderProperties properties)
         {
             if (parentFolder == null)
@@ -35,6 +57,13 @@ namespace CustomControls
             return new SolutionFolder(parentFolder, path, properties);
         }
 
+        /// <summary>
+        /// Creates an item in a solution.
+        /// </summary>
+        /// <param name="parentFolder">The parent folder.</param>
+        /// <param name="path">The item path.</param>
+        /// <param name="properties">The item properties.</param>
+        /// <returns>The created item.</returns>
         protected virtual ISolutionItem CreateSolutionItem(ISolutionFolder parentFolder, IItemPath path, IItemProperties properties)
         {
             if (parentFolder == null)
@@ -47,6 +76,10 @@ namespace CustomControls
             return new SolutionItem(path, parentFolder, properties);
         }
 
+        /// <summary>
+        /// Adds a table of path.
+        /// </summary>
+        /// <param name="pathTable">The table to add.</param>
         protected virtual void Add(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             if (pathTable == null)
@@ -117,6 +150,10 @@ namespace CustomControls
                 ChildrenCollection.Sort();
         }
 
+        /// <summary>
+        /// Removes a table of paths.
+        /// </summary>
+        /// <param name="pathTable">The table of paths.</param>
         protected virtual void Remove(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             if (pathTable == null)

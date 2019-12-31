@@ -581,7 +581,7 @@
         /// Invoke handlers of the <see cref="PropertyChanged"/> event.
         /// </summary>
         /// <param name="propertyName">Name of the property that changed.</param>
-        public void NotifyPropertyChanged(string propertyName)
+        protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -590,7 +590,7 @@
         /// Invoke handlers of the <see cref="PropertyChanged"/> event.
         /// </summary>
         /// <param name="propertyName">Name of the property that changed.</param>
-        public void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
+        protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

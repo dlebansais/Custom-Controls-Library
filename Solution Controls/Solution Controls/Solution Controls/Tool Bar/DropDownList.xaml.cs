@@ -1,37 +1,49 @@
-﻿using System;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using UndoRedo;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using UndoRedo;
+
+    /// <summary>
+    /// Represents a drop down control for undo and redo operations.
+    /// </summary>
     public partial class DropDownList : Popup, INotifyPropertyChanged
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DropDownList"/> class.
+        /// </summary>
         public DropDownList()
         {
             InitializeComponent();
             DataContext = this;
         }
 
-        public ObservableCollection<IReversibleOperation> AssociatedList 
+        /// <summary>
+        /// Gets the list of operations.
+        /// </summary>
+        public ObservableCollection<IReversibleOperation> AssociatedList
         {
-            get { return _AssociatedList; }
+            get { return AssociatedListInternal; }
             private set
             {
-                if (_AssociatedList != value)
+                if (AssociatedListInternal != value)
                 {
-                    _AssociatedList = value;
+                    AssociatedListInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private ObservableCollection<IReversibleOperation> _AssociatedList = new ObservableCollection<IReversibleOperation>();
+        private ObservableCollection<IReversibleOperation> AssociatedListInternal = new ObservableCollection<IReversibleOperation>();
 
+        /// <summary>
+        /// Gets the number of selected operations.
+        /// </summary>
         public int SelectedCount
         {
             get
@@ -48,6 +60,10 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Set the list of operations.
+        /// </summary>
+        /// <param name="associatedList">The list of operations.</param>
         public void SetAssociatedList(ObservableCollection<IReversibleOperation>? associatedList)
         {
             if (associatedList != null)
@@ -56,6 +72,10 @@ namespace CustomControls
                 this.AssociatedList = new ObservableCollection<IReversibleOperation>();
         }
 
+        /// <summary>
+        /// Selects operations in the list.
+        /// </summary>
+        /// <param name="lastSelectedScreenCoordinates">The screen coordinates of the last selected operation.</param>
         public void SelectUpTo(Point lastSelectedScreenCoordinates)
         {
             bool SetSelected = true;
@@ -73,6 +93,11 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Checks whether a coordinate is within the drop down box.
+        /// </summary>
+        /// <param name="lastClickScreenCoordinates">The coordinates.</param>
+        /// <returns>True if within the drop down box; otherwise, false.</returns>
         public bool IsWithin(Point lastClickScreenCoordinates)
         {
             Point TopLeft = listOperations.PointToScreen(new Point(0, 0));
@@ -86,11 +111,22 @@ namespace CustomControls
         /// <summary>
         /// Implements the PropertyChanged event.
         /// </summary>
-        //[field: NonSerialized()]
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Default parameter is mandatory with [CallerMemberName]")]
-        internal void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
+        /// <summary>
+        /// Invoke handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property that changed.</param>
+        protected void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        /// <summary>
+        /// Invoke handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property that changed.</param>
+        protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

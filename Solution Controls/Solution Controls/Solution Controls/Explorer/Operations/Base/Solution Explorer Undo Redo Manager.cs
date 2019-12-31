@@ -1,19 +1,11 @@
-﻿using UndoRedo;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using UndoRedo;
+
+    /// <summary>
+    /// Represents an undo/redo manager for a solution explorer.
+    /// </summary>
     public class SolutionExplorerUndoRedoManager : UndoRedoManager
     {
-        #region Init
-        public SolutionExplorerUndoRedoManager()
-        {
-        }
-        #endregion
-
-        #region Properties
-        #endregion
-
-        #region Client Interface
-        #endregion
     }
 }

@@ -1,11 +1,20 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+
+    /// <summary>
+    /// Represents a selector for property entry templates.
+    /// </summary>
     public class PropertyEntrySelector : DataTemplateSelector
     {
+        /// <summary>
+        /// Returns a template.
+        /// </summary>
+        /// <param name="item">The data object for which to select the template.</param>
+        /// <param name="container">The data-bound object.</param>
+        /// <returns>The template.</returns>
         public override DataTemplate? SelectTemplate(object item, DependencyObject container)
         {
             if (container == null)

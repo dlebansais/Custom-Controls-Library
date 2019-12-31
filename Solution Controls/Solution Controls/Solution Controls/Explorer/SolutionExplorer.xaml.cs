@@ -1,28 +1,37 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.IO;
-using System.IO.Compression;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Threading;
-using UndoRedo;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using System.Windows.Threading;
+    using UndoRedo;
+
+    /// <summary>
+    /// Represents a solution explorer control.
+    /// </summary>
     public partial class SolutionExplorer : UserControl, INotifyPropertyChanged
     {
         #region Custom properties and events
         #region Solution Icon
+        /// <summary>
+        /// Identifies the <see cref="SolutionIcon"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty SolutionIconProperty = DependencyProperty.Register("SolutionIcon", typeof(ImageSource), typeof(SolutionExplorer), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets the solution icon.
+        /// </summary>
         public ImageSource SolutionIcon
         {
             get { return (ImageSource)GetValue(SolutionIconProperty); }
@@ -30,35 +39,59 @@ namespace CustomControls
         }
         #endregion
         #region Root Path
-        private static readonly DependencyPropertyKey RootPathPropertyKey = DependencyProperty.RegisterReadOnly("RootPath", typeof(IRootPath), typeof(SolutionExplorer), new PropertyMetadata(null));
+        /// <summary>
+        /// Identifies the <see cref="RootPath"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty RootPathProperty = RootPathPropertyKey.DependencyProperty;
+        private static readonly DependencyPropertyKey RootPathPropertyKey = DependencyProperty.RegisterReadOnly("RootPath", typeof(IRootPath), typeof(SolutionExplorer), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets the root path.
+        /// </summary>
         public IRootPath RootPath
         {
             get { return (IRootPath)GetValue(RootPathProperty); }
         }
         #endregion
         #region Root Properties
-        private static readonly DependencyPropertyKey RootPropertiesPropertyKey = DependencyProperty.RegisterReadOnly("RootProperties", typeof(IRootProperties), typeof(SolutionExplorer), new PropertyMetadata(null));
+        /// <summary>
+        /// Identifies the <see cref="RootProperties"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty RootPropertiesProperty = RootPropertiesPropertyKey.DependencyProperty;
+        private static readonly DependencyPropertyKey RootPropertiesPropertyKey = DependencyProperty.RegisterReadOnly("RootProperties", typeof(IRootProperties), typeof(SolutionExplorer), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets the root properties.
+        /// </summary>
         public IRootProperties RootProperties
         {
             get { return (IRootProperties)GetValue(RootPropertiesProperty); }
         }
         #endregion
         #region Tree Node Comparer
-        private static readonly DependencyPropertyKey TreeNodeComparerPropertyKey = DependencyProperty.RegisterReadOnly("TreeNodeComparer", typeof(IComparer<ITreeNodePath>), typeof(SolutionExplorer), new PropertyMetadata(null));
+        /// <summary>
+        /// Identifies the <see cref="TreeNodeComparer"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty TreeNodeComparerProperty = TreeNodeComparerPropertyKey.DependencyProperty;
+        private static readonly DependencyPropertyKey TreeNodeComparerPropertyKey = DependencyProperty.RegisterReadOnly("TreeNodeComparer", typeof(IComparer<ITreeNodePath>), typeof(SolutionExplorer), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets the comparer for tree nodes.
+        /// </summary>
         public IComparer<ITreeNodePath> TreeNodeComparer
         {
             get { return (IComparer<ITreeNodePath>)GetValue(TreeNodeComparerProperty); }
         }
         #endregion
         #region Undo Redo Manager
+        /// <summary>
+        /// Identifies the <see cref="UndoRedoManager"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty UndoRedoManagerProperty = DependencyProperty.Register("UndoRedoManager", typeof(UndoRedoManager), typeof(SolutionExplorer), new PropertyMetadata(new UndoRedoManager()));
 
+        /// <summary>
+        /// Gets or sets the undo/redo manager of the solution.
+        /// </summary>
         public UndoRedoManager UndoRedoManager
         {
             get { return (UndoRedoManager)GetValue(UndoRedoManagerProperty); }
@@ -66,8 +99,14 @@ namespace CustomControls
         }
         #endregion
         #region Is Loading Tree
+        /// <summary>
+        /// Identifies the <see cref="IsLoadingTree"/> dependency property.
+        /// </summary>
         public static readonly DependencyProperty IsLoadingTreeProperty = DependencyProperty.Register("IsLoadingTree", typeof(bool), typeof(SolutionExplorer), new PropertyMetadata(null));
 
+        /// <summary>
+        /// Gets or sets a value indicating whether the folder tree is loading.
+        /// </summary>
         public bool IsLoadingTree
         {
             get { return (bool)GetValue(IsLoadingTreeProperty); }
@@ -75,14 +114,24 @@ namespace CustomControls
         }
         #endregion
         #region Context Menu Loaded
+        /// <summary>
+        /// Identifies the <see cref="ContextMenuLoaded"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent ContextMenuLoadedEvent = EventManager.RegisterRoutedEvent("ContextMenuLoaded", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs when the context menu is loaded.
+        /// </summary>
         public event RoutedEventHandler ContextMenuLoaded
         {
             add { AddHandler(ContextMenuLoadedEvent, value); }
             remove { RemoveHandler(ContextMenuLoadedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="ContextMenuLoaded"/> event.
+        /// </summary>
+        /// <param name="e">The event data.</param>
         protected virtual void NotifyContextMenuLoaded(RoutedEventArgs e)
         {
             if (e != null)
@@ -90,14 +139,25 @@ namespace CustomControls
         }
         #endregion
         #region Context Menu Opened
+        /// <summary>
+        /// Identifies the <see cref="ContextMenuOpened"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent ContextMenuOpenedEvent = EventManager.RegisterRoutedEvent("ContextMenuOpened", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs when the context menu is opened.
+        /// </summary>
         public event RoutedEventHandler ContextMenuOpened
         {
             add { AddHandler(ContextMenuOpenedEvent, value); }
             remove { RemoveHandler(ContextMenuOpenedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="ContextMenuOpened"/> event.
+        /// </summary>
+        /// <param name="selectedItems">The selected items.</param>
+        /// <param name="canShowCommandList">The list of commands that can be shown.</param>
         protected virtual void NotifyContextMenuOpened(IReadOnlyCollection<ITreeNodePath> selectedItems, ICollection<ExtendedRoutedCommand> canShowCommandList)
         {
             ContextMenuOpenedEventArgs Args = new ContextMenuOpenedEventArgs(ContextMenuOpenedEvent, selectedItems, canShowCommandList);
@@ -105,14 +165,26 @@ namespace CustomControls
         }
         #endregion
         #region Preview Name Changed
+        /// <summary>
+        /// Identifies the <see cref="PreviewNameChanged"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent PreviewNameChangedEvent = EventManager.RegisterRoutedEvent("PreviewNameChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs before the name is changed.
+        /// </summary>
         public event RoutedEventHandler PreviewNameChanged
         {
             add { AddHandler(PreviewNameChangedEvent, value); }
             remove { RemoveHandler(PreviewNameChangedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="PreviewNameChanged"/> event.
+        /// </summary>
+        /// <param name="path">The path to the item with name changed.</param>
+        /// <param name="oldName">The old name.</param>
+        /// <param name="newName">The new name.</param>
         protected virtual void NotifyPreviewNameChanged(ITreeNodePath path, string oldName, string newName)
         {
             NameChangedEventArgs Args = new NameChangedEventArgs(PreviewNameChangedEvent, path, oldName, newName, false);
@@ -120,14 +192,28 @@ namespace CustomControls
         }
         #endregion
         #region Name Changed
+        /// <summary>
+        /// Identifies the <see cref="NameChanged"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent NameChangedEvent = EventManager.RegisterRoutedEvent("NameChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs after the name is changed, or the operation was canceled.
+        /// </summary>
         public event RoutedEventHandler NameChanged
         {
             add { AddHandler(NameChangedEvent, value); }
             remove { RemoveHandler(NameChangedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="NameChanged"/> event.
+        /// </summary>
+        /// <param name="path">The path to the item with name changed.</param>
+        /// <param name="oldName">The old name.</param>
+        /// <param name="newName">The new name.</param>
+        /// <param name="isUndoRedo">True if the operation can be undone.</param>
+        /// <returns>True if the operation was canceled; otherwise, false.</returns>
         protected virtual bool NotifyNameChanged(ITreeNodePath path, string oldName, string newName, bool isUndoRedo)
         {
             NameChangedEventArgs Args = new NameChangedEventArgs(NameChangedEvent, path, oldName, newName, isUndoRedo);
@@ -137,14 +223,28 @@ namespace CustomControls
         }
         #endregion
         #region Moved
+        /// <summary>
+        /// Identifies the <see cref="Moved"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent MovedEvent = EventManager.RegisterRoutedEvent("Moved", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs when a folder is moved, or the operation was canceled.
+        /// </summary>
         public event RoutedEventHandler Moved
         {
             add { AddHandler(MovedEvent, value); }
             remove { RemoveHandler(MovedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="NameChanged"/> event.
+        /// </summary>
+        /// <param name="path">Path to the moved folder.</param>
+        /// <param name="oldParentPath">The path to the old parent.</param>
+        /// <param name="newParentPath">The path to the new parent.</param>
+        /// <param name="isUndoRedo">True if the operation can be undone.</param>
+        /// <returns>True if the operation was canceled; otherwise, false.</returns>
         protected virtual bool NotifyMoved(ITreeNodePath path, IFolderPath oldParentPath, IFolderPath newParentPath, bool isUndoRedo)
         {
             MovedEventArgs Args = new MovedEventArgs(MovedEvent, path, oldParentPath, newParentPath, isUndoRedo);
@@ -154,14 +254,27 @@ namespace CustomControls
         }
         #endregion
         #region Tree Changed
+        /// <summary>
+        /// Identifies the <see cref="TreeChanged"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent TreeChangedEvent = EventManager.RegisterRoutedEvent("TreeChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs when the folder tree has changed, or the operation was canceled.
+        /// </summary>
         public event RoutedEventHandler TreeChanged
         {
             add { AddHandler(TreeChangedEvent, value); }
             remove { RemoveHandler(TreeChangedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="TreeChanged"/> event.
+        /// </summary>
+        /// <param name="pathTable">The new tree.</param>
+        /// <param name="isAdd">True if the operation was to add a folder.</param>
+        /// <param name="isUndoRedo">True if the operation can be undone.</param>
+        /// <returns>True if the operation was canceled; otherwise, false.</returns>
         protected virtual bool NotifyTreeChanged(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable, bool isAdd, bool isUndoRedo)
         {
             TreeChangedEventArgs Args = new TreeChangedEventArgs(TreeChangedEvent, pathTable, isAdd, isUndoRedo);
@@ -171,8 +284,14 @@ namespace CustomControls
         }
         #endregion
         #region Selection Changed
+        /// <summary>
+        /// Identifies the <see cref="SelectionChanged"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent SelectionChangedEvent = ExtendedTreeViewBase.SelectionChangedEvent;
 
+        /// <summary>
+        /// Occurs when the selection has changed.
+        /// </summary>
         public event RoutedEventHandler SelectionChanged
         {
             add { AddHandler(SelectionChangedEvent, value); }
@@ -180,14 +299,26 @@ namespace CustomControls
         }
         #endregion
         #region Imported
+        /// <summary>
+        /// Identifies the <see cref="Imported"/> routed event.
+        /// </summary>
         public static readonly RoutedEvent ImportedEvent = EventManager.RegisterRoutedEvent("Imported", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(SolutionExplorer));
 
+        /// <summary>
+        /// Occurs when an object was imported.
+        /// </summary>
         public event RoutedEventHandler Imported
         {
             add { AddHandler(ImportedEvent, value); }
             remove { RemoveHandler(ImportedEvent, value); }
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="TreeChanged"/> event.
+        /// </summary>
+        /// <param name="package">The solution package.</param>
+        /// <param name="folderName">The folder name.</param>
+        /// <returns>The imported object path.</returns>
         protected virtual IRootPath NotifyImported(SolutionPackage package, string folderName)
         {
             ImportedEventArgs Args = new ImportedEventArgs(ImportedEvent, package, folderName);
@@ -196,6 +327,14 @@ namespace CustomControls
             return Args.RootPath;
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="TreeChanged"/> event.
+        /// </summary>
+        /// <param name="package">The solution package.</param>
+        /// <param name="rootPath">The root path.</param>
+        /// <param name="currentFolderPath">The current folder path.</param>
+        /// <param name="folderName">The folder name.</param>
+        /// <returns>The imported object path.</returns>
         protected virtual IFolderPath NotifyImported(SolutionPackage package, IRootPath rootPath, IFolderPath currentFolderPath, string folderName)
         {
             ImportedEventArgs Args = new ImportedEventArgs(ImportedEvent, package, rootPath, currentFolderPath, folderName);
@@ -204,6 +343,14 @@ namespace CustomControls
             return Args.CurrentFolderPath;
         }
 
+        /// <summary>
+        /// Invokes handlers of the <see cref="TreeChanged"/> event.
+        /// </summary>
+        /// <param name="package">The solution package.</param>
+        /// <param name="rootPath">The root path.</param>
+        /// <param name="currentFolderPath">The current folder path.</param>
+        /// <param name="itemName">The item name.</param>
+        /// <param name="content">The item content.</param>
         protected virtual void NotifyImported(SolutionPackage package, IRootPath rootPath, IFolderPath currentFolderPath, string itemName, byte[] content)
         {
             ImportedEventArgs Args = new ImportedEventArgs(ImportedEvent, package, rootPath, currentFolderPath, itemName, content);
@@ -213,9 +360,12 @@ namespace CustomControls
         #endregion
 
         #region Init
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SolutionExplorer"/> class.
+        /// </summary>
         public SolutionExplorer()
         {
-            _Root = null;
+            RootInternal = null;
             Initialized += OnInitialized; // Dirty trick to avoid warning CA2214.
             InitializeComponent();
         }
@@ -223,10 +373,8 @@ namespace CustomControls
         /// <summary>
         /// Called when the control has been initialized and before properties are set.
         /// </summary>
-        /// <parameters>
-        /// <param name="sender">This parameter is not used.</param>
-        /// <param name="e">This parameter is not used.</param>
-        /// </parameters>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">An object that contains no event data.</param>
         protected virtual void OnInitialized(object sender, EventArgs e)
         {
             InitializeDragDrop();
@@ -234,26 +382,32 @@ namespace CustomControls
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets the solution root.
+        /// </summary>
         public ISolutionRoot Root
         {
-            get 
+            get
             {
-                if (_Root != null)
-                    return _Root;
+                if (RootInternal != null)
+                    return RootInternal;
                 else
                     throw new InvalidOperationException();
             }
-            set 
+            set
             {
-                if (_Root != value)
+                if (RootInternal != value)
                 {
-                    _Root = value;
+                    RootInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private ISolutionRoot? _Root;
+        private ISolutionRoot? RootInternal;
 
+        /// <summary>
+        /// Gets the selected nodes.
+        /// </summary>
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> SelectedNodes
         {
             get
@@ -273,9 +427,12 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Gets the selected tree of nodes.
+        /// </summary>
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> SelectedTree
         {
-            get 
+            get
             {
                 Dictionary<ITreeNodePath, IPathConnection> PathConnectionTable = new Dictionary<ITreeNodePath, IPathConnection>();
                 RecursiveGetTree(treeviewSolutionExplorer.SelectedItems, PathConnectionTable);
@@ -284,23 +441,26 @@ namespace CustomControls
             }
         }
 
-        private void RecursiveGetTree(IList Items, Dictionary<ITreeNodePath, IPathConnection> PathConnectionTable)
+        private void RecursiveGetTree(IList items, Dictionary<ITreeNodePath, IPathConnection> pathConnectionTable)
         {
-            foreach (ISolutionTreeNode Child in Items)
+            foreach (ISolutionTreeNode Child in items)
             {
-                if (PathConnectionTable.ContainsKey(Child.Path))
+                if (pathConnectionTable.ContainsKey(Child.Path))
                     continue;
 
                 ISolutionFolder? ParentFolder = Child.Parent as ISolutionFolder;
                 IFolderPath? ParentPath = ParentFolder != null ? (IFolderPath)ParentFolder.Path : null;
 
-                PathConnectionTable.Add(Child.Path, new PathConnection(ParentPath, Child.Properties, treeviewSolutionExplorer.IsExpanded(Child)));
+                pathConnectionTable.Add(Child.Path, new PathConnection(ParentPath, Child.Properties, treeviewSolutionExplorer.IsExpanded(Child)));
 
                 if (Child is ISolutionFolder AsFolder)
-                    RecursiveGetTree(AsFolder.Children, PathConnectionTable);
+                    RecursiveGetTree(AsFolder.Children, pathConnectionTable);
             }
         }
 
+        /// <summary>
+        /// Gets the list of modified items.
+        /// </summary>
         public ICollection<ITreeNodePath> DirtyItems
         {
             get
@@ -312,19 +472,22 @@ namespace CustomControls
             }
         }
 
-        private ICollection<ITreeNodePath> GetDirtyItems(ISolutionTreeNode Base)
+        private ICollection<ITreeNodePath> GetDirtyItems(ISolutionTreeNode baseNode)
         {
             List<ITreeNodePath> DirtyItemList = new List<ITreeNodePath>();
 
-            if (Base.IsDirty)
-                DirtyItemList.Add(Base.Path);
+            if (baseNode.IsDirty)
+                DirtyItemList.Add(baseNode.Path);
 
-            foreach (ISolutionTreeNode Child in Base.Children)
+            foreach (ISolutionTreeNode Child in baseNode.Children)
                 DirtyItemList.AddRange(GetDirtyItems(Child));
 
             return DirtyItemList;
         }
 
+        /// <summary>
+        /// Gets the list of items with modified properties.
+        /// </summary>
         public ICollection<ITreeNodePath> DirtyProperties
         {
             get
@@ -336,19 +499,22 @@ namespace CustomControls
             }
         }
 
-        private ICollection<ITreeNodePath> GetDirtyProperties(ISolutionTreeNode Base)
+        private ICollection<ITreeNodePath> GetDirtyProperties(ISolutionTreeNode baseNode)
         {
             List<ITreeNodePath> DirtyPropertiesList = new List<ITreeNodePath>();
 
-            if (Base.Properties != null && Base.Properties.IsDirty)
-                DirtyPropertiesList.Add(Base.Path);
+            if (baseNode.Properties != null && baseNode.Properties.IsDirty)
+                DirtyPropertiesList.Add(baseNode.Path);
 
-            foreach (ISolutionTreeNode Child in Base.Children)
+            foreach (ISolutionTreeNode Child in baseNode.Children)
                 DirtyPropertiesList.AddRange(GetDirtyProperties(Child));
 
             return DirtyPropertiesList;
         }
 
+        /// <summary>
+        /// Gets the valid edit operation.
+        /// </summary>
         public ValidEditOperations ValidEditOperations
         {
             get
@@ -356,7 +522,7 @@ namespace CustomControls
                 bool IsSolutionSelected = false;
                 bool IsFolderSelected = false;
                 bool IsDocumentSelected = false;
-                bool IsSingleTarget = (treeviewSolutionExplorer.SelectedItems.Count == 1);
+                bool IsSingleTarget = treeviewSolutionExplorer.SelectedItems.Count == 1;
 
                 foreach (ISolutionTreeNode Item in treeviewSolutionExplorer.SelectedItems)
                 {
@@ -375,7 +541,7 @@ namespace CustomControls
                 if (DataObject != null)
                 {
                     ClipboardPathData? Data = DataObject.GetData(ClipboardPathData.SolutionExplorerClipboardPathFormat) as ClipboardPathData;
-                    CanPaste = (Data != null);
+                    CanPaste = Data != null;
                 }
                 else
                     CanPaste = false;
@@ -384,6 +550,9 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Gets the expanded list of folders.
+        /// </summary>
         public IList<IFolderPath> ExpandedFolderList
         {
             get
@@ -405,6 +574,9 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Gets the item following the last selected item.
+        /// </summary>
         public ITreeNodePath? ItemAfterLastSelected
         {
             get
@@ -423,6 +595,9 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Gets the selected folder.
+        /// </summary>
         public IFolderPath? SelectedFolder
         {
             get
@@ -435,16 +610,19 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Gets the list of items in the solution.
+        /// </summary>
         public ICollection<IItemPath> SolutionItems
         {
             get { return GetFlatChildrenItems(Root); }
         }
 
-        private List<IItemPath> GetFlatChildrenItems(ISolutionFolder Folder)
+        private List<IItemPath> GetFlatChildrenItems(ISolutionFolder folder)
         {
             List<IItemPath> Result = new List<IItemPath>();
 
-            foreach (ISolutionTreeNode Child in Folder.Children)
+            foreach (ISolutionTreeNode Child in folder.Children)
             {
                 switch (Child)
                 {
@@ -461,21 +639,33 @@ namespace CustomControls
             return Result;
         }
 
+        /// <summary>
+        /// Gets the menu separator in document menu.
+        /// </summary>
         public Separator DocumentMenuSeparator
         {
             get { return separatorAddDocumentStart; }
         }
 
+        /// <summary>
+        /// Gets the menu separator in item menu.
+        /// </summary>
         public Separator ContextMenuSeparator
         {
             get { return separatorContextMenuItem; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the last operation can be undone.
+        /// </summary>
         public bool CanUndo
         {
             get { return UndoRedoManager.CanUndo; }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether the last undone operation can be redone.
+        /// </summary>
         public bool CanRedo
         {
             get { return UndoRedoManager.CanRedo; }
@@ -483,18 +673,27 @@ namespace CustomControls
         #endregion
 
         #region Client Interface
+        /// <summary>
+        /// Resets the root.
+        /// </summary>
         public void ResetRoot()
         {
             SetValue(RootPathPropertyKey, null);
             SetValue(RootPropertiesPropertyKey, null);
             SetValue(TreeNodeComparerPropertyKey, null);
 
-            _Root = null;
+            RootInternal = null;
             NotifyThisPropertyChanged();
 
             UndoRedoManager.Reset();
         }
 
+        /// <summary>
+        /// Sets the solution root.
+        /// </summary>
+        /// <param name="newRootPath">Path to the new root.</param>
+        /// <param name="newRootProperties">New root properties.</param>
+        /// <param name="newComparer">New comparer to use for nodes.</param>
         public void SetRoot(IRootPath newRootPath, IRootProperties newRootProperties, IComparer<ITreeNodePath> newComparer)
         {
             SetValue(RootPathPropertyKey, newRootPath);
@@ -505,16 +704,31 @@ namespace CustomControls
             UndoRedoManager.Reset();
         }
 
+        /// <summary>
+        /// Creates the solution root from a path.
+        /// </summary>
+        /// <param name="path">The root path.</param>
+        /// <param name="properties">The root properties.</param>
+        /// <param name="comparer">The comparer to use for nodes.</param>
+        /// <returns>The created solutuon root.</returns>
         protected virtual ISolutionRoot CreateSolutionRoot(IRootPath path, IRootProperties properties, IComparer<ITreeNodePath> comparer)
         {
             return new SolutionRoot(path, properties, comparer);
         }
 
+        /// <summary>
+        /// Sets the focus to this control.
+        /// </summary>
         public new virtual void Focus()
         {
             treeviewSolutionExplorer.Focus();
         }
 
+        /// <summary>
+        /// Changes a name.
+        /// </summary>
+        /// <param name="path">The path to the item to change.</param>
+        /// <param name="newName">The new name.</param>
         public void ChangeName(ITreeNodePath path, string newName)
         {
             if (path == null)
@@ -538,6 +752,11 @@ namespace CustomControls
             NotifyNameChanged(Operation.Path, Operation.NewName, Operation.OldName, true);
         }
 
+        /// <summary>
+        /// Moves nodes.
+        /// </summary>
+        /// <param name="path">The source path.</param>
+        /// <param name="destinationPath">The destination path.</param>
         public void Move(ITreeNodePath path, IFolderPath destinationPath)
         {
             ISolutionTreeNode? Node = Root.FindTreeNode(path);
@@ -566,11 +785,18 @@ namespace CustomControls
             NotifyMoved(Operation.Path, (IFolderPath)Operation.OldParent.Path, (IFolderPath)Operation.NewParent.Path, true);
         }
 
+        /// <summary>
+        /// Expands a folder.
+        /// </summary>
+        /// <param name="folder">The folder to expand.</param>
         public void ExpandFolder(IFolderPath folder)
         {
             treeviewSolutionExplorer.Expand(folder);
         }
 
+        /// <summary>
+        /// Copy the solution to the clipboard.
+        /// </summary>
         public void Copy()
         {
             IReadOnlyDictionary<ITreeNodePath, IPathConnection> PathTable = SelectedTree;
@@ -582,6 +808,10 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Reads the clipboard to get the content of a solution.
+        /// </summary>
+        /// <returns>The solution data.</returns>
         public static ClipboardPathData? ReadClipboard()
         {
             IDataObject DataObject = Clipboard.GetDataObject();
@@ -591,23 +821,38 @@ namespace CustomControls
                 return null;
         }
 
+        /// <summary>
+        /// Undoes the last operation.
+        /// </summary>
         public void Undo()
         {
             UndoRedoManager.Undo();
             ExpandNewNodes((SolutionExplorerOperation)UndoRedoManager.LastOperation);
         }
 
+        /// <summary>
+        /// Redoes the last undone operation.
+        /// </summary>
         public void Redo()
         {
             UndoRedoManager.Redo();
             ExpandNewNodes((SolutionExplorerOperation)UndoRedoManager.LastOperation);
         }
 
+        /// <summary>
+        /// Select all items in the solution.
+        /// </summary>
         public void SelectAll()
         {
             treeviewSolutionExplorer.SelectAll();
         }
 
+        /// <summary>
+        /// Adds a folder to the solution.
+        /// </summary>
+        /// <param name="destinationFolderPath">The path to the destination.</param>
+        /// <param name="newFolderPath">The folder to add.</param>
+        /// <param name="newFolderProperties">The folder properties.</param>
         public void AddFolder(IFolderPath destinationFolderPath, IFolderPath newFolderPath, IFolderProperties newFolderProperties)
         {
             AddFolderOperation Operation = new AddFolderOperation(Root, destinationFolderPath, newFolderPath, newFolderProperties);
@@ -618,6 +863,12 @@ namespace CustomControls
             ExpandNewNodes(Operation);
         }
 
+        /// <summary>
+        /// Adds an item to the solution.
+        /// </summary>
+        /// <param name="destinationFolderPath">The path to the destination.</param>
+        /// <param name="newItemPath">The item to add.</param>
+        /// <param name="newItemProperties">The item properties.</param>
         public void AddItem(IFolderPath destinationFolderPath, IItemPath newItemPath, IItemProperties newItemProperties)
         {
             AddItemOperation Operation = new AddItemOperation(Root, destinationFolderPath, newItemPath, newItemProperties);
@@ -628,6 +879,10 @@ namespace CustomControls
             ExpandNewNodes(Operation);
         }
 
+        /// <summary>
+        /// Adds a tree to the solution.
+        /// </summary>
+        /// <param name="pathTable">The table of path to add.</param>
         public void AddTree(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             AddTreeOperation Operation = new AddTreeOperation(Root, pathTable);
@@ -638,6 +893,10 @@ namespace CustomControls
             ExpandNewNodes(Operation);
         }
 
+        /// <summary>
+        /// Deletes a tree from the solution.
+        /// </summary>
+        /// <param name="pathTable">The table of path to delete.</param>
         public void DeleteTree(IReadOnlyDictionary<ITreeNodePath, IPathConnection> pathTable)
         {
             RemoveTreeOperation Operation = new RemoveTreeOperation(Root, pathTable);
@@ -658,6 +917,10 @@ namespace CustomControls
             NotifyTreeChanged(Operation.PathTable, !Operation.IsAdd, true);
         }
 
+        /// <summary>
+        /// Selects a node of the solution.
+        /// </summary>
+        /// <param name="path">The node to select.</param>
         public void SetSelected(ITreeNodePath path)
         {
             treeviewSolutionExplorer.UnselectAll();
@@ -670,12 +933,19 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Clears flags indicating whether nodes are modified.
+        /// </summary>
         public void ClearDirtyItemsAndProperties()
         {
             if (Root != null)
                 ClearDirtyItemsAndProperties(Root);
         }
 
+        /// <summary>
+        /// Clears flags indicating whether nodes are modified in a folder.
+        /// </summary>
+        /// <param name="folder">The folder.</param>
         protected virtual void ClearDirtyItemsAndProperties(ISolutionFolder folder)
         {
             ClearNodeDirtyItemsAndProperties(folder);
@@ -690,6 +960,10 @@ namespace CustomControls
                 }
         }
 
+        /// <summary>
+        /// Clears flags indicating whether nodes are modified in a node.
+        /// </summary>
+        /// <param name="node">The node.</param>
         protected virtual void ClearNodeDirtyItemsAndProperties(ISolutionTreeNode node)
         {
             if (node != null)
@@ -702,6 +976,11 @@ namespace CustomControls
             }
         }
 
+        /// <summary>
+        /// Gets a table of items by their path.
+        /// </summary>
+        /// <param name="documentPathList">The table of paths to search.</param>
+        /// <returns>The table of items.</returns>
         public IReadOnlyDictionary<ITreeNodePath, IPathConnection> FindItemsByDocumentPath(IReadOnlyCollection<IDocumentPath> documentPathList)
         {
             if (documentPathList == null)
@@ -710,22 +989,22 @@ namespace CustomControls
             return FindItemsByDocumentPath(Root, documentPathList);
         }
 
-        private IReadOnlyDictionary<ITreeNodePath, IPathConnection> FindItemsByDocumentPath(ISolutionFolder Folder, IReadOnlyCollection<IDocumentPath> DocumentPathList)
+        private IReadOnlyDictionary<ITreeNodePath, IPathConnection> FindItemsByDocumentPath(ISolutionFolder folder, IReadOnlyCollection<IDocumentPath> documentPathList)
         {
             Dictionary<ITreeNodePath, IPathConnection> Result = new Dictionary<ITreeNodePath, IPathConnection>();
 
-            foreach (ISolutionTreeNode Child in Folder.Children)
+            foreach (ISolutionTreeNode Child in folder.Children)
                 switch (Child)
                 {
                     case ISolutionFolder AsFolder:
-                        IReadOnlyDictionary<ITreeNodePath, IPathConnection> InnerTree = FindItemsByDocumentPath(AsFolder, DocumentPathList);
+                        IReadOnlyDictionary<ITreeNodePath, IPathConnection> InnerTree = FindItemsByDocumentPath(AsFolder, documentPathList);
                         foreach (KeyValuePair<ITreeNodePath, IPathConnection> Entry in InnerTree)
                             Result.Add(Entry.Key, Entry.Value);
                         break;
 
                     case ISolutionItem AsItem:
                         IItemPath ItemPath = (IItemPath)AsItem.Path;
-                        foreach (IDocumentPath DocumentPath in DocumentPathList)
+                        foreach (IDocumentPath DocumentPath in documentPathList)
                             if (ItemPath.DocumentPath.IsEqual(DocumentPath))
                             {
                                 if (Child.Parent is ISolutionFolder ParentFolder)
@@ -738,6 +1017,11 @@ namespace CustomControls
             return Result;
         }
 
+        /// <summary>
+        /// Gets the properties of an item.
+        /// </summary>
+        /// <param name="path">The path to the item.</param>
+        /// <returns>The properties.</returns>
         public IItemProperties? GetItemProperties(IItemPath path)
         {
             if (Root.FindTreeNode(path) is ISolutionItem Item)
@@ -746,6 +1030,11 @@ namespace CustomControls
                 return null;
         }
 
+        /// <summary>
+        /// Gets children of a folder.
+        /// </summary>
+        /// <param name="folderPath">The folder path.</param>
+        /// <returns>The list of children.</returns>
         public IReadOnlyCollection<ITreeNodePath>? GetChildren(IFolderPath folderPath)
         {
             if (Root.FindTreeNode(folderPath) is ISolutionFolder ParentFolder)
@@ -761,6 +1050,11 @@ namespace CustomControls
                 return null;
         }
 
+        /// <summary>
+        /// Gets the tree at a folder.
+        /// </summary>
+        /// <param name="folderPath">The path to the folder.</param>
+        /// <returns>The tree of nodes.</returns>
         public IReadOnlyCollection<ITreeNodePath>? GetTree(IFolderPath folderPath)
         {
             if (Root.FindTreeNode(folderPath) is ISolutionFolder ParentFolder)
@@ -769,12 +1063,12 @@ namespace CustomControls
                 return null;
         }
 
-        private IReadOnlyCollection<ITreeNodePath> GetTree(ISolutionFolder ParentFolder)
+        private IReadOnlyCollection<ITreeNodePath> GetTree(ISolutionFolder parentFolder)
         {
             Collection<ITreeNodePath> Result = new Collection<ITreeNodePath>();
-            Result.Add(ParentFolder.Path);
+            Result.Add(parentFolder.Path);
 
-            foreach (SolutionTreeNode Child in ParentFolder.Children)
+            foreach (SolutionTreeNode Child in parentFolder.Children)
                 if (Child is ISolutionFolder AsFolder)
                 {
                     IReadOnlyCollection<ITreeNodePath> InnerTree = GetTree(AsFolder);
@@ -787,6 +1081,12 @@ namespace CustomControls
             return Result;
         }
 
+        /// <summary>
+        /// Gets the source of an event.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
+        /// <returns>The event source.</returns>
         public ITreeNodePath? GetEventSource(object sender, RoutedEventArgs e)
         {
             if (e == null)
@@ -799,6 +1099,9 @@ namespace CustomControls
             return null;
         }
 
+        /// <summary>
+        /// Triggers a rename operation of the focused item.
+        /// </summary>
         public void TriggerRename()
         {
             if (Keyboard.FocusedElement is ExtendedTreeViewItemBase AsItemBase)
@@ -809,26 +1112,34 @@ namespace CustomControls
             }
         }
 
-        private EditableTextBlock? FindEditableTextBlock(DependencyObject RootObject)
+        private EditableTextBlock? FindEditableTextBlock(DependencyObject rootObject)
         {
-            if (RootObject is EditableTextBlock AsEditableTextBlock)
+            if (rootObject is EditableTextBlock AsEditableTextBlock)
                 return AsEditableTextBlock;
 
-            int Count = VisualTreeHelper.GetChildrenCount(RootObject);
+            int Count = VisualTreeHelper.GetChildrenCount(rootObject);
             for (int i = 0; i < Count; i++)
             {
-                if (FindEditableTextBlock(VisualTreeHelper.GetChild(RootObject, i)) is EditableTextBlock ChildEdit)
+                if (FindEditableTextBlock(VisualTreeHelper.GetChild(rootObject, i)) is EditableTextBlock ChildEdit)
                     return ChildEdit;
             }
 
             return null;
         }
 
+        /// <summary>
+        /// Resets the undo redo manager.
+        /// </summary>
         public void ResetUndoRedo()
         {
             UndoRedoManager.Reset();
         }
 
+        /// <summary>
+        /// Creates a package for the solution.
+        /// </summary>
+        /// <param name="destinationPath">Path to the package file.</param>
+        /// <param name="contentTable">table of object content.</param>
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "If you think it's ok to dispose of my object, then I think it's ok to dispose of it twice, so FO")]
         public void CreateExportedSolutionPackage(string destinationPath, Dictionary<IDocumentPath, byte[]> contentTable)
         {
@@ -836,37 +1147,36 @@ namespace CustomControls
             {
                 using (ZipArchive Archive = new ZipArchive(fs, ZipArchiveMode.Create))
                 {
-                    InsertNodeContent(Archive, "", Root, contentTable);
+                    InsertNodeContent(Archive, string.Empty, Root, contentTable);
                 }
             }
         }
 
-        private static void InsertNodeContent(ZipArchive Archive, string FolderPathIn, ISolutionFolder ParentFolder, Dictionary<IDocumentPath, byte[]> ContentTable)
+        private static void InsertNodeContent(ZipArchive archive, string folderPathIn, ISolutionFolder parentFolder, Dictionary<IDocumentPath, byte[]> contentTable)
         {
-            foreach (SolutionTreeNode Child in ParentFolder.Children)
+            foreach (SolutionTreeNode Child in parentFolder.Children)
             {
                 switch (Child)
                 {
                     case ISolutionFolder AsFolder:
-                        string InnerFolderPath = FolderPathIn + AsFolder.Name;
-                        //Archive.CreateEntry(InnerFolderPath);
+                        string InnerFolderPath = folderPathIn + AsFolder.Name;
 
-                        InsertNodeContent(Archive, InnerFolderPath + @"\", AsFolder, ContentTable);
+                        InsertNodeContent(archive, InnerFolderPath + @"\", AsFolder, contentTable);
                         break;
 
                     case ISolutionItem AsItem:
-                        InsertItemContent(Archive, FolderPathIn, AsItem, ContentTable);
+                        InsertItemContent(archive, folderPathIn, AsItem, contentTable);
                         break;
                 }
             }
         }
 
-        private static void InsertItemContent(ZipArchive Archive, string FolderPathIn, ISolutionItem AsItem, Dictionary<IDocumentPath, byte[]> ContentTable)
+        private static void InsertItemContent(ZipArchive archive, string folderPathIn, ISolutionItem asItem, Dictionary<IDocumentPath, byte[]> contentTable)
         {
-            IItemPath Path = (IItemPath)AsItem.Path;
+            IItemPath Path = (IItemPath)asItem.Path;
             IDocumentPath ArchivedDocumentPath = Path.DocumentPath;
 
-            foreach (KeyValuePair<IDocumentPath, byte[]> Entry in ContentTable)
+            foreach (KeyValuePair<IDocumentPath, byte[]> Entry in contentTable)
                 if (ArchivedDocumentPath.IsEqual(Entry.Key))
                 {
                     byte[] Content = Entry.Value;
@@ -875,7 +1185,7 @@ namespace CustomControls
                     {
                         string ExportId = ArchivedDocumentPath.ExportId;
 
-                        ZipArchiveEntry ArchiveEntry = Archive.CreateEntry(FolderPathIn + ExportId);
+                        ZipArchiveEntry ArchiveEntry = archive.CreateEntry(folderPathIn + ExportId);
                         using (Stream ArchiveStream = ArchiveEntry.Open())
                         {
                             ms.CopyTo(ArchiveStream);
@@ -884,6 +1194,11 @@ namespace CustomControls
                 }
         }
 
+        /// <summary>
+        /// Reads a solution package.
+        /// </summary>
+        /// <param name="package">The solution package.</param>
+        /// <param name="destinationPath">Path to the package file.</param>
         [SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times", Justification = "If you think it's ok to dispose of my object, then I think it's ok to dispose of it twice, so FO")]
         public void ReadImportedSolutionPackage(SolutionPackage package, string destinationPath)
         {
@@ -891,8 +1206,6 @@ namespace CustomControls
             {
                 using (ZipArchive Archive = new ZipArchive(fs, ZipArchiveMode.Read))
                 {
-                    IRootPath RootPath = NotifyImported(package, Path.GetFileNameWithoutExtension(destinationPath));
-
                     List<string> EntryList = new List<string>();
                     foreach (ZipArchiveEntry Entry in Archive.Entries)
                     {
@@ -902,48 +1215,48 @@ namespace CustomControls
 
                     EntryList.Sort();
 
-                    ReadNodeContent(package, EntryList, Archive, "", RootPath, new EmptyPath());
+                    ReadNodeContent(package, EntryList, Archive, string.Empty, new EmptyPath());
                 }
             }
         }
 
-        private void ReadNodeContent(SolutionPackage Package, List<string> EntryList, ZipArchive Archive, string FolderPathIn, IRootPath RootPath, IFolderPath CurrentFolderPath)
+        private void ReadNodeContent(SolutionPackage package, List<string> entryList, ZipArchive archive, string folderPathIn, IFolderPath currentFolderPath)
         {
-            while (EntryList.Count > 0)
+            while (entryList.Count > 0)
             {
-                string NextEntry = EntryList[0];
-                if (!NextEntry.StartsWith(FolderPathIn, StringComparison.Ordinal))
+                string NextEntry = entryList[0];
+                if (!NextEntry.StartsWith(folderPathIn, StringComparison.Ordinal))
                     break;
 
-                int NextFolderIndex = NextEntry.IndexOf('\\', FolderPathIn.Length);
+                int NextFolderIndex = NextEntry.IndexOf('\\', folderPathIn.Length);
                 if (NextFolderIndex >= 0)
                 {
-                    IFolderPath CurrentPath = CurrentFolderPath;
-                    string NewFolderName = NextEntry.Substring(FolderPathIn.Length, NextFolderIndex - FolderPathIn.Length);
-                    IFolderPath NewFolderPath = NotifyImported(Package, RootPath, CurrentFolderPath, NewFolderName);
+                    IFolderPath CurrentPath = currentFolderPath;
+                    string NewFolderName = NextEntry.Substring(folderPathIn.Length, NextFolderIndex - folderPathIn.Length);
+                    IFolderPath NewFolderPath = NotifyImported(package, RootPath, currentFolderPath, NewFolderName);
 
-                    ReadNodeContent(Package, EntryList, Archive, FolderPathIn + NewFolderName + "\\", RootPath, NewFolderPath);
-                    CurrentFolderPath = CurrentPath;
+                    ReadNodeContent(package, entryList, archive, folderPathIn + NewFolderName + "\\", NewFolderPath);
+                    currentFolderPath = CurrentPath;
                 }
                 else
                 {
-                    EntryList.RemoveAt(0);
+                    entryList.RemoveAt(0);
 
-                    foreach (ZipArchiveEntry Entry in Archive.Entries)
+                    foreach (ZipArchiveEntry Entry in archive.Entries)
                         if (Entry.FullName == NextEntry)
                         {
-                            ReadArchivedItem(Package, Entry, CurrentFolderPath);
+                            ReadArchivedItem(package, Entry, currentFolderPath);
                             break;
                         }
                 }
             }
         }
 
-        private void ReadArchivedItem(SolutionPackage Package, ZipArchiveEntry Entry, IFolderPath CurrentFolderPath)
+        private void ReadArchivedItem(SolutionPackage package, ZipArchiveEntry entry, IFolderPath currentFolderPath)
         {
             byte[] Content;
 
-            using (Stream ArchiveStream = Entry.Open())
+            using (Stream ArchiveStream = entry.Open())
             {
                 using (MemoryStream ms = new MemoryStream())
                 {
@@ -952,21 +1265,36 @@ namespace CustomControls
                 }
             }
 
-            NotifyImported(Package, RootPath, CurrentFolderPath, Entry.Name, Content);
+            NotifyImported(package, RootPath, currentFolderPath, entry.Name, Content);
         }
         #endregion
 
         #region Menu
+        /// <summary>
+        /// Calleds when a context menu is loaded.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnContextMenuLoaded(object sender, RoutedEventArgs e)
         {
             NotifyContextMenuLoaded(e);
         }
 
+        /// <summary>
+        /// Calleds when a context submenu is opened.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnSubmenuOpened(object sender, RoutedEventArgs e)
         {
             PrettyItemsControl.MakeMenuPretty((ItemsControl)sender);
         }
 
+        /// <summary>
+        /// Calleds when a context menu is opened.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnContextMenuOpened(object sender, RoutedEventArgs e)
         {
             if (sender == null)
@@ -1005,6 +1333,10 @@ namespace CustomControls
             PrettyItemsControl.MakeMenuPretty(ExplorerContextMenu);
         }
 
+        /// <summary>
+        /// Shows a custom menu in a context menu.
+        /// </summary>
+        /// <param name="explorerContextMenu">The context menu.</param>
         protected virtual void ShowCustomMenus(ContextMenu explorerContextMenu)
         {
             if (explorerContextMenu != null)
@@ -1023,10 +1355,10 @@ namespace CustomControls
             }
         }
 
-        private List<ExtendedToolBarMenuItem> GetAddDocumentMenuItemList(ItemsControl ItemsCollection)
+        private List<ExtendedToolBarMenuItem> GetAddDocumentMenuItemList(ItemsControl itemsCollection)
         {
             List<ExtendedToolBarMenuItem> Result = new List<ExtendedToolBarMenuItem>();
-            foreach (object Item in ItemsCollection.Items)
+            foreach (object Item in itemsCollection.Items)
             {
                 if (Item is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                     if (AsExtendedToolBarMenuItem.Command is DocumentRoutedCommand)
@@ -1039,10 +1371,10 @@ namespace CustomControls
             return Result;
         }
 
-        private IList<ExtendedRoutedCommand> GetCanShowCommandList(ItemsControl ItemsCollection)
+        private IList<ExtendedRoutedCommand> GetCanShowCommandList(ItemsControl itemsCollection)
         {
             List<ExtendedRoutedCommand> Result = new List<ExtendedRoutedCommand>();
-            foreach (object Item in ItemsCollection.Items)
+            foreach (object Item in itemsCollection.Items)
             {
                 if (Item is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                     if (AsExtendedToolBarMenuItem.CanShow)
@@ -1056,18 +1388,18 @@ namespace CustomControls
             return Result;
         }
 
-        private void HideMenuItems(ItemsControl ItemsCollection, IList<ExtendedRoutedCommand> CanShowCommandList)
+        private void HideMenuItems(ItemsControl itemsCollection, IList<ExtendedRoutedCommand> canShowCommandList)
         {
-            foreach (object Item in ItemsCollection.Items)
+            foreach (object Item in itemsCollection.Items)
             {
                 if (Item is ExtendedToolBarMenuItem AsExtendedToolBarMenuItem)
                     if (AsExtendedToolBarMenuItem.CanShow)
                         if (AsExtendedToolBarMenuItem.Command is ExtendedRoutedCommand AsExtendedCommand)
-                            if (!CanShowCommandList.Contains(AsExtendedCommand))
+                            if (!canShowCommandList.Contains(AsExtendedCommand))
                                 AsExtendedToolBarMenuItem.CanShow = false;
 
                 if (Item is ItemsControl AsItemsCollection)
-                    HideMenuItems(AsItemsCollection, CanShowCommandList);
+                    HideMenuItems(AsItemsCollection, canShowCommandList);
             }
         }
         #endregion
@@ -1099,6 +1431,9 @@ namespace CustomControls
         #endregion
 
         #region Drag & Drop
+        /// <summary>
+        /// Initializes drag and drop.
+        /// </summary>
         protected virtual void InitializeDragDrop()
         {
         }
@@ -1173,18 +1508,18 @@ namespace CustomControls
         #endregion
 
         #region Undo/Redo
-        private void ExpandNewNodes(SolutionExplorerOperation Operation)
+        private void ExpandNewNodes(SolutionExplorerOperation operation)
         {
-            if (Operation == null)
-                throw new ArgumentNullException(nameof(Operation));
+            if (operation == null)
+                throw new ArgumentNullException(nameof(operation));
 
-            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new FollowOperationWithExpandHandler(OnFollowOperationWithExpand), Operation.ExpandedFolderList);
+            Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new FollowOperationWithExpandHandler(OnFollowOperationWithExpand), operation.ExpandedFolderList);
         }
 
-        private delegate void FollowOperationWithExpandHandler(IReadOnlyCollection<ISolutionFolder> ExpandedFolderList);
-        private void OnFollowOperationWithExpand(IReadOnlyCollection<ISolutionFolder> ExpandedFolderList)
+        private delegate void FollowOperationWithExpandHandler(IReadOnlyCollection<ISolutionFolder> expandedFolderList);
+        private void OnFollowOperationWithExpand(IReadOnlyCollection<ISolutionFolder> expandedFolderList)
         {
-            foreach (ISolutionFolder ExpandedFolder in ExpandedFolderList)
+            foreach (ISolutionFolder ExpandedFolder in expandedFolderList)
                 treeviewSolutionExplorer.Expand(ExpandedFolder);
         }
         #endregion
@@ -1195,13 +1530,20 @@ namespace CustomControls
         /// </summary>
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        internal void NotifyPropertyChanged(string propertyName)
+        /// <summary>
+        /// Invoke handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property that changed.</param>
+        protected void NotifyPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Default parameter is mandatory with [CallerMemberName]")]
-        internal void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
+        /// <summary>
+        /// Invoke handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">Name of the property that changed.</param>
+        protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }

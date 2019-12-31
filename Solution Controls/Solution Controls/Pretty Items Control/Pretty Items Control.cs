@@ -1,11 +1,18 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+
+    /// <summary>
+    /// Contains a set of tools to make collections of controls pretty.
+    /// </summary>
     public static class PrettyItemsControl
     {
+        /// <summary>
+        /// Makes a menu pretty.
+        /// </summary>
+        /// <param name="itemsCollection">The menu.</param>
         public static void MakeMenuPretty(ItemsControl itemsCollection)
         {
             if (itemsCollection == null)
@@ -18,6 +25,10 @@ namespace CustomControls
             HideDuplicateSeparators(itemsCollection);
         }
 
+        /// <summary>
+        /// Makes a toolbar tray pretty.
+        /// </summary>
+        /// <param name="toolBarTray">The toolbar tray.</param>
         public static void MakeToolBarTrayPretty(ToolBarTray toolBarTray)
         {
             if (toolBarTray != null)
@@ -30,11 +41,11 @@ namespace CustomControls
                 }
         }
 
-        private static void RestoreVisible(ItemsControl ItemsCollection)
+        private static void RestoreVisible(ItemsControl itemsCollection)
         {
-            for (int i = 0; i < ItemsCollection.Items.Count; i++)
+            for (int i = 0; i < itemsCollection.Items.Count; i++)
             {
-                switch (ItemsCollection.Items[i])
+                switch (itemsCollection.Items[i])
                 {
                     case MenuItem AsMenuItem:
                         if (AsMenuItem.Items.Count > 0)
@@ -48,25 +59,25 @@ namespace CustomControls
             }
         }
 
-        private static void ModifyAllSubmenus(ItemsControl ItemsCollection, ModifyMenuHandler Handler)
+        private static void ModifyAllSubmenus(ItemsControl itemsCollection, ModifyMenuHandler handler)
         {
-            for (int i = 0; i < ItemsCollection.Items.Count; i++)
-                if (ItemsCollection.Items[i] is MenuItem AsMenuItem)
+            for (int i = 0; i < itemsCollection.Items.Count; i++)
+                if (itemsCollection.Items[i] is MenuItem AsMenuItem)
                     if (AsMenuItem.Items.Count > 0)
                     {
-                        ModifyAllSubmenus(AsMenuItem, Handler);
-                        Handler(AsMenuItem);
+                        ModifyAllSubmenus(AsMenuItem, handler);
+                        handler(AsMenuItem);
                     }
         }
 
-        private delegate void ModifyMenuHandler(MenuItem MenuItem);
+        private delegate void ModifyMenuHandler(MenuItem menuItem);
 
-        private static void HideEmpty(MenuItem MenuItem)
+        private static void HideEmpty(MenuItem menuItem)
         {
             bool AllCollapsed = true;
-            for (int i = 0; i < MenuItem.Items.Count; i++)
+            for (int i = 0; i < menuItem.Items.Count; i++)
             {
-                if (MenuItem.Items[i] is MenuItem Submenu)
+                if (menuItem.Items[i] is MenuItem Submenu)
                     if (Submenu.Visibility == Visibility.Visible)
                     {
                         AllCollapsed = false;
@@ -75,39 +86,39 @@ namespace CustomControls
             }
 
             if (AllCollapsed)
-                MenuItem.Visibility = Visibility.Collapsed;
+                menuItem.Visibility = Visibility.Collapsed;
             else
-                MenuItem.Visibility = Visibility.Visible;
+                menuItem.Visibility = Visibility.Visible;
         }
 
-        private static void RestoreSeparators(ItemsControl ItemsCollection)
+        private static void RestoreSeparators(ItemsControl itemsCollection)
         {
-            for (int i = 0; i < ItemsCollection.Items.Count; i++)
+            for (int i = 0; i < itemsCollection.Items.Count; i++)
             {
-                if (ItemsCollection.Items[i] is Separator AsSeparator)
+                if (itemsCollection.Items[i] is Separator AsSeparator)
                     AsSeparator.Visibility = Visibility.Visible;
             }
         }
 
-        private delegate object ItemOfBrowser(ItemCollection Items, int Index);
+        private delegate object ItemOfBrowser(ItemCollection items, int index);
 
-        private static object FromTop(ItemCollection Items, int Index)
+        private static object FromTop(ItemCollection items, int index)
         {
-            return Items[Index];
+            return items[index];
         }
 
-        private static object FromBottom(ItemCollection Items, int Index)
+        private static object FromBottom(ItemCollection items, int index)
         {
-            return Items[Items.Count - Index - 1];
+            return items[items.Count - index - 1];
         }
 
-        private static void HideSeparators(ItemsControl ItemCollection, ItemOfBrowser Browser)
+        private static void HideSeparators(ItemsControl itemCollection, ItemOfBrowser browser)
         {
-            ItemCollection Items = ItemCollection.Items;
+            ItemCollection Items = itemCollection.Items;
             bool Exit = false;
 
             for (int i = 0; i < Items.Count && !Exit; i++)
-                if (Browser(Items, i) is FrameworkElement AsFrameworkElement)
+                if (browser(Items, i) is FrameworkElement AsFrameworkElement)
                 {
                     if (AsFrameworkElement.Visibility == Visibility.Visible)
                     {
@@ -121,9 +132,9 @@ namespace CustomControls
                     Exit = true;
         }
 
-        private static void HideDuplicateSeparators(ItemsControl ItemCollection)
+        private static void HideDuplicateSeparators(ItemsControl itemCollection)
         {
-            ItemCollection Items = ItemCollection.Items;
+            ItemCollection Items = itemCollection.Items;
             Separator? PreviousVisibleSeparator = null;
 
             for (int i = 0; i < Items.Count; i++)
