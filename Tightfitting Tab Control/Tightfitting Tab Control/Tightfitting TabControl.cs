@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System;
+    using System.Windows;
+    using System.Windows.Controls;
+
     /// <summary>
     /// Represents <see cref="TabControl"/> that starts with a size large enough to contains all its <see cref="TabItem"/> items.
     /// <para>Implemented as a derived class of the <see cref="TabControl"/> parent.</para>
