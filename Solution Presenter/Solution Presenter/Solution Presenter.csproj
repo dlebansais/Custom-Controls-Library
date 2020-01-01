@@ -224,7 +224,6 @@
     <Compile Include="Presenter\Events\Solution Opened\Solution Opened Event Context.cs" />
     <Compile Include="Presenter\Events\Solution Presenter Event Args.cs" />
     <Compile Include="Presenter\Events\Solution Presenter Event Completed Event Args.cs" />
-    <Compile Include="Presenter\Events\Solution Presenter Event Completed Handler.cs" />
     <Compile Include="Presenter\Events\Solution Selected\Solution Selected Completion Args.cs" />
     <Compile Include="Presenter\Events\Solution Selected\Solution Selected Event Args.cs" />
     <Compile Include="Presenter\Events\Solution Selected\Solution Selected Event Context.cs" />

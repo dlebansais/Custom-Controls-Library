@@ -7,9 +7,19 @@
     using System.Windows.Controls;
     using System.Windows.Input;
 
+    /// <summary>
+    /// Represents the window for options of a solution.
+    /// </summary>
     public partial class OptionsWindow : Window
     {
         #region Init
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OptionsWindow"/> class.
+        /// </summary>
+        /// <param name="optionPageIndex">The index of the page to display.</param>
+        /// <param name="theme">The theme to use.</param>
+        /// <param name="saveBeforeCompiling">True if documents must be saved before compiling.</param>
+        /// <param name="optionPages">The list of controls for each option category.</param>
         public OptionsWindow(int optionPageIndex, ThemeOption theme, bool saveBeforeCompiling, ICollection<TabItem> optionPages)
         {
             OptionPageIndex = optionPageIndex;
@@ -40,21 +50,49 @@
             Pages = TemplateList;
         }
 
+        /// <summary>
+        /// Called when the window is loaded.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">The event data.</param>
         protected virtual void OnLoaded(object sender, EventArgs e)
         {
             Title = Owner.Title;
             Icon = Owner.Icon;
         }
 
+        /// <summary>
+        /// Gets the table of backup data for each option category.
+        /// </summary>
         protected Dictionary<IOptionPageDataContext, IOptionPageDataContext> BackupTable { get; private set; }
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets the list of controls for option categories.
+        /// </summary>
         public ICollection<TabItem> Pages { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the selected tab.
+        /// </summary>
         public int OptionPageIndex { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display theme.
+        /// </summary>
         public ThemeOption Theme { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether documents must be saved before compiling.
+        /// </summary>
         public bool SaveBeforeCompiling { get; set; }
-        public TightfittingTabControl? UnusedCtrl { get; } // Don't remove this, it forces the load of the corresponding assembly. Otherwise, an exception is thrown before this window is displayed.
+
+        /// <summary>
+        /// Gets a dummy object.
+        /// Don't remove this, it forces the load of the corresponding assembly. Otherwise, an exception is thrown before this window is displayed.
+        /// </summary>
+        public TightfittingTabControl? UnusedCtrl { get; }
         #endregion
 
         #region Events

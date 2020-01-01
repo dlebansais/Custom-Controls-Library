@@ -2,18 +2,25 @@
 {
     using System.Windows;
 
-    public class SolutionSelectedEventArgs : SolutionPresenterEventArgs
+    /// <summary>
+    /// Represents the event data for a solution selected event.
+    /// </summary>
+    public class SolutionSelectedEventArgs : SolutionPresenterEventArgs<SolutionSelectedEventArgs>
     {
-        private static int HandlerCount = 0;
-        public static void IncrementHandlerCount() { HandlerCount++; }
-        public static void DecrementHandlerCount() { HandlerCount--; }
-        public static bool HasHandler { get { return HandlerCount > 0; } }
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SolutionSelectedEventArgs"/> class.
+        /// </summary>
+        /// <param name="routedEvent">The event that occured.</param>
+        /// <param name="eventContext">The event context.</param>
         public SolutionSelectedEventArgs(RoutedEvent routedEvent, SolutionSelectedEventContext eventContext)
             : base(routedEvent, eventContext)
         {
         }
 
+        /// <summary>
+        /// Notifies handlers that the operation is completed.
+        /// </summary>
+        /// <param name="selectedRootPath">The path to the selected solution.</param>
         public virtual void NotifyCompleted(IRootPath selectedRootPath)
         {
             ISolutionSelectedCompletionArgs CompletionArgs = new SolutionSelectedCompletionArgs(selectedRootPath);
