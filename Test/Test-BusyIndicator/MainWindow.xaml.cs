@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Threading;
+using System.Windows;
 
 namespace TestBusyIndicator
 {
@@ -8,6 +10,18 @@ namespace TestBusyIndicator
         {
             InitializeComponent();
             DataContext = this;
+
+            Timer StopTimer = new Timer(new TimerCallback(StopTimerCallback), this, TimeSpan.FromSeconds(5), Timeout.InfiniteTimeSpan);
+        }
+
+        private void StopTimerCallback(object parameter)
+        {
+            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnStopTimer));
+        }
+
+        private void OnStopTimer()
+        {
+            Close();
         }
     }
 }

@@ -1,4 +1,4 @@
-rem @echo off
+@echo off
 
 if not exist ".\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe" goto error1
 if "%WINAPPDRIVER_DIR%" == "" goto error2
@@ -7,13 +7,13 @@ if "%VSTESTPLATFORM_DIR%" == "" goto error3
 if not exist "%VSTESTPLATFORM_DIR%/VSTest.Console.exe" goto error3
 if not exist ".\Busy Indicator\bin\x64\Debug\BusyIndicator.dll" goto error4
 
-if exist .\Test\Test-BusyIndicator\obj\x64\Debug\Coverage-BusyIndicator-Debug_coverage.xml del .\Test\Test-BusyIndicator\obj\x64\Debug\Coverage-BusyIndicator-Debug_coverage.xml
+if exist .\Test\Coverage-BusyIndicator-Debug_coverage.xml del .\Test\Coverage-BusyIndicator-Debug_coverage.xml
 
 call .\coverage\app.bat Debug
 call .\coverage\wait.bat 20
 
 call ..\Certification\set_tokens.bat
-if exist .\Test\Test-BusyIndicator\obj\x64\Debug\Coverage-BusyIndicator-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Test-BusyIndicator\obj\x64\Debug\Coverage-BusyIndicator-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+if exist .\Test\Coverage-BusyIndicator-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-BusyIndicator-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
 :error1
