@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <CoverageSession xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="4.7.922.0">
-  <Summary numSequencePoints="68" visitedSequencePoints="22" numBranchPoints="24" visitedBranchPoints="7" sequenceCoverage="32.35" branchCoverage="29.17" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="6" minCrapScore="1" visitedClasses="3" numClasses="6" visitedMethods="5" numMethods="18" />
+  <Summary numSequencePoints="68" visitedSequencePoints="28" numBranchPoints="24" visitedBranchPoints="9" sequenceCoverage="41.18" branchCoverage="37.5" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="6" minCrapScore="1" visitedClasses="3" numClasses="6" visitedMethods="7" numMethods="18" />
   <Modules>
     <Module skippedDueTo="Filter" hash="1E-65-58-23-C5-A2-55-AB-00-58-0C-49-C3-CB-A8-FC-5F-BC-10-3C">
       <ModulePath>C:\WINDOWS\Microsoft.Net\assembly\GAC_64\mscorlib\v4.0_4.0.0.0__b77a5c561934e089\mscorlib.dll</ModulePath>
@@ -8,10 +8,10 @@
       <ModuleName>mscorlib</ModuleName>
       <Classes />
     </Module>
-    <Module hash="84-AE-69-FD-BA-7B-0A-73-0E-8F-49-B9-B4-5F-B8-F7-AB-B5-A6-1B">
-      <Summary numSequencePoints="68" visitedSequencePoints="22" numBranchPoints="24" visitedBranchPoints="7" sequenceCoverage="32.35" branchCoverage="29.17" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="6" minCrapScore="1" visitedClasses="3" numClasses="6" visitedMethods="5" numMethods="18" />
+    <Module hash="0C-D0-76-3D-1B-83-09-CC-DB-E0-85-1B-09-11-FC-C9-71-F1-41-5B">
+      <Summary numSequencePoints="68" visitedSequencePoints="28" numBranchPoints="24" visitedBranchPoints="9" sequenceCoverage="41.18" branchCoverage="37.5" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="6" minCrapScore="1" visitedClasses="3" numClasses="6" visitedMethods="7" numMethods="18" />
       <ModulePath>C:\Projects\Custom-Controls-Library\Test\Test-BusyIndicator\bin\x64\Debug\Test-BusyIndicator.exe</ModulePath>
-      <ModuleTime>2020-01-02T19:36:22.9057028Z</ModuleTime>
+      <ModuleTime>2020-01-02T19:44:05.6837737Z</ModuleTime>
       <ModuleName>Test-BusyIndicator</ModuleName>
       <Files>
         <File uid="1" fullPath="C:\Projects\Custom-Controls-Library\Test\Test-BusyIndicator\obj\x64\Debug\GeneratedInternalTypeHelper.g.cs" />
@@ -112,7 +112,7 @@
           </Methods>
         </Class>
         <Class>
-          <Summary numSequencePoints="19" visitedSequencePoints="11" numBranchPoints="6" visitedBranchPoints="3" sequenceCoverage="57.89" branchCoverage="50" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="2.09" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="2" numMethods="4" />
+          <Summary numSequencePoints="19" visitedSequencePoints="17" numBranchPoints="6" visitedBranchPoints="5" sequenceCoverage="89.47" branchCoverage="83.33" maxCyclomaticComplexity="2" minCyclomaticComplexity="1" maxCrapScore="2.09" minCrapScore="1" visitedClasses="1" numClasses="1" visitedMethods="4" numMethods="4" />
           <FullName>TestBusyIndicator.MainWindow</FullName>
           <Methods>
             <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="true" isStatic="false" isGetter="false" isSetter="false">
@@ -125,37 +125,37 @@
                 <SequencePoint vc="1" uspid="18" ordinal="1" offset="7" sl="10" sc="9" el="10" ec="10" bec="0" bev="0" fileid="2" />
                 <SequencePoint vc="1" uspid="19" ordinal="2" offset="8" sl="11" sc="13" el="11" ec="35" bec="0" bev="0" fileid="2" />
                 <SequencePoint vc="1" uspid="20" ordinal="3" offset="15" sl="12" sc="13" el="12" ec="32" bec="0" bev="0" fileid="2" />
-                <SequencePoint vc="1" uspid="21" ordinal="4" offset="23" sl="14" sc="13" el="14" ec="136" bec="0" bev="0" fileid="2" />
-                <SequencePoint vc="1" uspid="22" ordinal="5" offset="61" sl="15" sc="9" el="15" ec="10" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="21" ordinal="4" offset="23" sl="14" sc="13" el="14" ec="130" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="22" ordinal="5" offset="66" sl="15" sc="9" el="15" ec="10" bec="0" bev="0" fileid="2" />
               </SequencePoints>
               <BranchPoints />
               <MethodPoint xsi:type="SequencePoint" vc="1" uspid="17" ordinal="0" offset="0" sl="9" sc="9" el="9" ec="28" bec="0" bev="0" fileid="2" />
             </Method>
-            <Method visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="2" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
-              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken>100663304</MetadataToken>
               <Name>System.Void TestBusyIndicator.MainWindow::StopTimerCallback(System.Object)</Name>
               <FileRef uid="2" />
               <SequencePoints>
-                <SequencePoint vc="0" uspid="23" ordinal="0" offset="0" sl="18" sc="9" el="18" ec="10" bec="0" bev="0" fileid="2" />
-                <SequencePoint vc="0" uspid="24" ordinal="1" offset="1" sl="19" sc="13" el="19" ec="113" bec="0" bev="0" fileid="2" />
-                <SequencePoint vc="0" uspid="25" ordinal="2" offset="27" sl="20" sc="9" el="20" ec="10" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="23" ordinal="0" offset="0" sl="18" sc="9" el="18" ec="10" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="24" ordinal="1" offset="1" sl="19" sc="13" el="19" ec="113" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="25" ordinal="2" offset="27" sl="20" sc="9" el="20" ec="10" bec="0" bev="0" fileid="2" />
               </SequencePoints>
               <BranchPoints />
-              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="23" ordinal="0" offset="0" sl="18" sc="9" el="18" ec="10" bec="0" bev="0" fileid="2" />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="23" ordinal="0" offset="0" sl="18" sc="9" el="18" ec="10" bec="0" bev="0" fileid="2" />
             </Method>
-            <Method visited="false" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="0" branchCoverage="0" crapScore="2" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
-              <Summary numSequencePoints="3" visitedSequencePoints="0" numBranchPoints="1" visitedBranchPoints="0" sequenceCoverage="0" branchCoverage="0" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="2" minCrapScore="2" visitedClasses="0" numClasses="0" visitedMethods="0" numMethods="1" />
+            <Method visited="true" cyclomaticComplexity="1" nPathComplexity="0" sequenceCoverage="100" branchCoverage="100" crapScore="1" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
+              <Summary numSequencePoints="3" visitedSequencePoints="3" numBranchPoints="1" visitedBranchPoints="1" sequenceCoverage="100" branchCoverage="100" maxCyclomaticComplexity="1" minCyclomaticComplexity="1" maxCrapScore="1" minCrapScore="1" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />
               <MetadataToken>100663305</MetadataToken>
               <Name>System.Void TestBusyIndicator.MainWindow::OnStopTimer()</Name>
               <FileRef uid="2" />
               <SequencePoints>
-                <SequencePoint vc="0" uspid="26" ordinal="0" offset="0" sl="23" sc="9" el="23" ec="10" bec="0" bev="0" fileid="2" />
-                <SequencePoint vc="0" uspid="27" ordinal="1" offset="1" sl="24" sc="13" el="24" ec="21" bec="0" bev="0" fileid="2" />
-                <SequencePoint vc="0" uspid="28" ordinal="2" offset="8" sl="25" sc="9" el="25" ec="10" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="26" ordinal="0" offset="0" sl="23" sc="9" el="23" ec="10" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="27" ordinal="1" offset="1" sl="24" sc="13" el="24" ec="21" bec="0" bev="0" fileid="2" />
+                <SequencePoint vc="1" uspid="28" ordinal="2" offset="8" sl="25" sc="9" el="25" ec="10" bec="0" bev="0" fileid="2" />
               </SequencePoints>
               <BranchPoints />
-              <MethodPoint xsi:type="SequencePoint" vc="0" uspid="26" ordinal="0" offset="0" sl="23" sc="9" el="23" ec="10" bec="0" bev="0" fileid="2" />
+              <MethodPoint xsi:type="SequencePoint" vc="1" uspid="26" ordinal="0" offset="0" sl="23" sc="9" el="23" ec="10" bec="0" bev="0" fileid="2" />
             </Method>
             <Method visited="true" cyclomaticComplexity="2" nPathComplexity="2" sequenceCoverage="71.43" branchCoverage="66.67" crapScore="2.09" isConstructor="false" isStatic="false" isGetter="false" isSetter="false">
               <Summary numSequencePoints="7" visitedSequencePoints="5" numBranchPoints="3" visitedBranchPoints="2" sequenceCoverage="71.43" branchCoverage="66.67" maxCyclomaticComplexity="2" minCyclomaticComplexity="2" maxCrapScore="2.09" minCrapScore="2.09" visitedClasses="0" numClasses="0" visitedMethods="1" numMethods="1" />

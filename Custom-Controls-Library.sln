@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dialog Validation", "Dialog Validation\Dialog Validation\Dialog Validation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
 EndProject
@@ -55,7 +55,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tightfitting Tab Control", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Undo Redo Manager", "Undo Redo Manager\Undo Redo Manager\Undo Redo Manager.csproj", "{AEC24EC9-BE57-4219-A3D8-62826A6BC765}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Busy Indicator", "Busy Indicator\Busy Indicator.csproj", "{F0E68B94-E370-474E-B963-B7271E4FBF8B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusyIndicator", "BusyIndicator\BusyIndicator.csproj", "{F0E68B94-E370-474E-B963-B7271E4FBF8B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -188,5 +188,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06C6BCBE-BE16-41F7-A401-83A862DA0367}
 	EndGlobalSection
 EndGlobal
