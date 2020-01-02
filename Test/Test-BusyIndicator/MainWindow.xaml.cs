@@ -11,7 +11,7 @@ namespace TestBusyIndicator
             InitializeComponent();
             DataContext = this;
 
-            Timer StopTimer = new Timer(new TimerCallback(StopTimerCallback), this, TimeSpan.FromSeconds(5), Timeout.InfiniteTimeSpan);
+            StopTimer = new Timer(new TimerCallback(StopTimerCallback), this, TimeSpan.FromSeconds(5), Timeout.InfiniteTimeSpan);
         }
 
         private void StopTimerCallback(object parameter)
@@ -23,5 +23,7 @@ namespace TestBusyIndicator
         {
             Close();
         }
+
+        private Timer StopTimer;
     }
 }
