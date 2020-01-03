@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dialog Validation", "Dialog Validation\Dialog Validation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogValidation", "DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

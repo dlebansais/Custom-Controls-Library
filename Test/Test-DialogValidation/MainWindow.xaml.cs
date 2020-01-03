@@ -1,4 +1,4 @@
-﻿namespace TestBusyIndicator
+﻿namespace TestDialogValidation
 {
     using System;
     using System.Threading;

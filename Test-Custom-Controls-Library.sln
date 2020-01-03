@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended TreeView Demo", "E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-BusyIndicator", "Test\Test-BusyIndicator\Test-BusyIndicator.csproj", "{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-DialogValidation", "Test\Test-DialogValidation\Test-DialogValidation.csproj", "{32F0C528-7A29-4412-86ED-82EE5480C9DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -33,6 +35,10 @@ Global
 		{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}.Debug|x64.Build.0 = Debug|x64
 		{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}.Release|x64.ActiveCfg = Release|x64
 		{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}.Release|x64.Build.0 = Release|x64
+		{32F0C528-7A29-4412-86ED-82EE5480C9DF}.Debug|x64.ActiveCfg = Debug|x64
+		{32F0C528-7A29-4412-86ED-82EE5480C9DF}.Debug|x64.Build.0 = Debug|x64
+		{32F0C528-7A29-4412-86ED-82EE5480C9DF}.Release|x64.ActiveCfg = Release|x64
+		{32F0C528-7A29-4412-86ED-82EE5480C9DF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -6,14 +6,18 @@ if not exist "%WINAPPDRIVER_DIR%/WinAppDriver.exe" goto error2
 if "%VSTESTPLATFORM_DIR%" == "" goto error3
 if not exist "%VSTESTPLATFORM_DIR%/VSTest.Console.exe" goto error3
 if not exist ".\BusyIndicator\bin\x64\Debug\BusyIndicator.dll" goto error4
+if not exist ".\DialogValidation\bin\x64\Debug\DialogValidation.dll" goto error4
 
-if exist .\Test\Coverage-BusyIndicator-Debug_coverage.xml del .\Test\Coverage-BusyIndicator-Debug_coverage.xml
+if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
-call .\coverage\app.bat Debug
+call .\coverage\app.bat BusyIndicator Debug
+call .\coverage\wait.bat 20
+
+call .\coverage\app.bat DialogValidation Debug
 call .\coverage\wait.bat 20
 
 call ..\Certification\set_tokens.bat
-if exist .\Test\Coverage-BusyIndicator-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-BusyIndicator-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
 :error1
@@ -29,7 +33,7 @@ echo ERROR: Visual Studio 2019 not found. Example: set VSTESTPLATFORM_DIR=C:\Pro
 goto end
 
 :error4
-echo ERROR: BusyIndicator.dll not built.
+echo ERROR: Some assemblies not built.
 goto end
 
 :end

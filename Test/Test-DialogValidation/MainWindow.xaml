@@ -1,0 +1,11 @@
+﻿<Window x:Class="TestDialogValidation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="CustomControlsLibrary"
+        WindowStartupLocation="CenterScreen"
+        Title="Test-DialogValidation"
+        SizeToContent="WidthAndHeight">
+    <Grid>
+        <ctrl:DialogValidation HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

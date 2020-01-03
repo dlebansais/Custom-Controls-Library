@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TestBusyIndicator
+namespace TestDialogValidation
 {
     public partial class App : Application
     {
