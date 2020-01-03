@@ -92,14 +92,14 @@ The custom control supports the following buttons and their localized versions:
 + OK
 + Cancel
 + <ins>A</ins>bort
-+ <u>R</u>etry
-+ <u>I</u>gnore
-+ <u>Y</u>es
-+ <u>N</u>o
-+ <u>Cl</u>ose
++ <ins>R</ins>etry
++ <ins>I</ins>gnore
++ <ins>Y</ins>es
++ <ins>N</ins>o
++ <ins>Cl</ins>ose
 + Help
-+ <u>T</u>ry Again
-+ <u>C</u>ontinue
++ <ins>T</ins>ry Again
++ <ins>C</ins>ontinue
 
 Note how some letters are underlined. The localized buttons will have the proper letter underlined as well.
 
