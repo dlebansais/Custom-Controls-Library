@@ -6,7 +6,7 @@ if not exist "%WINAPPDRIVER_DIR%/WinAppDriver.exe" goto error2
 if "%VSTESTPLATFORM_DIR%" == "" goto error3
 if not exist "%VSTESTPLATFORM_DIR%/VSTest.Console.exe" goto error3
 if not exist ".\BusyIndicator\bin\x64\Debug\BusyIndicator.dll" goto error4
-if not exist ".\DialogValidation\bin\x64\Debug\DialogValidation.dll" goto error4
+if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\DialogValidation.dll" goto error4
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 

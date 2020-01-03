@@ -3,6 +3,7 @@
     using System;
     using System.Threading;
     using System.Windows;
+    using System.Windows.Input;
 
     public partial class MainWindow : Window
     {
@@ -25,5 +26,18 @@
         }
 
         private Timer StopTimer;
+
+        private void OnOk(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
+
+        private void OnCanExecuteOk(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
+        }
+
+        private void OnCancel(object sender, ExecutedRoutedEventArgs e)
+        {
+        }
     }
 }

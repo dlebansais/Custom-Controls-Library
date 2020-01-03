@@ -77,7 +77,7 @@
       <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
     <Reference Include="DialogValidation">
-      <HintPath>..\..\Dialog Validation\Dialog Validation\$(OutputPath)DialogValidation.dll</HintPath>
+      <HintPath>..\..\DialogValidation\DialogValidation\$(OutputPath)DialogValidation.dll</HintPath>
     </Reference>
     <Reference Include="EnumRadioButton">
       <HintPath>..\..\Enum RadioButton\Enum RadioButton\$(OutputPath)EnumRadioButton.dll</HintPath>
