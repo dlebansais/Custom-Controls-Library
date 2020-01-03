@@ -44,8 +44,7 @@ The buttons are disabled because they must be connected to your dialog box throu
     
 In the code above, OnOk, OnCanExecuteOk and OnCancel are methods you implemented in the dialog box. You are of course free to choose any name you want.
 
-"{x:Static ctrl:DialogValidation.DefaultCommandOk}" and "{x:Static
-ctrl:DialogValidation.DefaultCommandCancel}" are objects declared in the custom control, that you can use to activate the binding. You can also use your own commands (more on that later).
+`{x:Static ctrl:DialogValidation.DefaultCommandOk}` and `{x:Static ctrl:DialogValidation.DefaultCommandCancel}` are objects declared in the custom control, that you can use to activate the binding. You can also use your own commands (more on that later).
 
 Assuming OnCanExecuteOk disallows executing OnOk yet, the dialog box then looks like this:
 
@@ -54,13 +53,13 @@ Clicking the Cancel button will execute the code of OnCancel.
 # Customization
 The control is not limited to displaying OK and Cancel. This section demonstrates the various customization options available.
 
-# Localization
+## Localization
 If you set the IsLocalized property to true, buttons will display a localized text instead of the default English text. Localized strings are taken from OS language, more specifically from the good old user32.dll file.
 
 Here is a screenshot taken on a French Windows 7 OS:
 
-# Choice of buttons
-You select which buttons you want to see by changing the value of the ActiveCommands property.
+## Choice of buttons
+You select which buttons you want to see by changing the value of the *ActiveCommands* property.
 The full syntax is as follow:
 
 ```xaml
@@ -72,7 +71,7 @@ The full syntax is as follow:
 </ctrl:DialogValidation>
 ```
     
-The ActiveCommands property is the default content property, so you can use a shortcut version of the same syntax:
+The *ActiveCommands* property is the default content property, so you can use a shortcut version of the same syntax:
 
 ```xaml
 <ctrl:DialogValidation>
@@ -92,7 +91,7 @@ And finally, the custom control provides a converter from a comma-separated list
 The custom control supports the following buttons and their localized versions:
 + OK
 + Cancel
-+ <u>A</u>bort
++ <ins>A</ins>bort
 + <u>R</u>etry
 + <u>I</u>gnore
 + <u>Y</u>es
@@ -106,33 +105,32 @@ Note how some letters are underlined. The localized buttons will have the proper
 
 You specify in the list how the buttons are ordered. The same button can appear multiple times if that makes sense for your application.
 
-# Orientation
-The custom control is implemented as a Stackpanel, and you can specify its orientation with the Orientation property.
+## Orientation
+The custom control is implemented as a Stackpanel, and you can specify its orientation with the *Orientation* property.
 
 This allows you to show buttons horizontally (the default) or vertically.
 
-# Alignment
-By default, buttons are aligned on the right, but you can change that with the standard HorizontalContentAlignment property. Vertically displayed buttons are aligned to Bottom and you can also change the default with the VerticalContentAlignment property.
+## Alignment
+By default, buttons are aligned on the right, but you can change that with the standard *HorizontalContentAlignment* property. Vertically displayed buttons are aligned to Bottom and you can also change the default with the *VerticalContentAlignment* property.
 
-# Customizing commands
-In case you want to use the same command for one of the custom control buttons and some other command source in your application, you can either use (taking the example of the OK button)
-"{x:Static ctrl:DialogValidation.DefaultCommandOk}" for both, or use your own command. In that case, simply specify which object to use in the CommandOk (or any of the CommandXXX ) property. For instance:
+## Customizing commands
+In case you want to use the same command for one of the custom control buttons and some other command source in your application, you can either use (taking the example of the OK button) `{x:Static ctrl:DialogValidation.DefaultCommandOk}` for both, or use your own command. In that case, simply specify which object to use in the *CommandOk* (or any of the *CommandXXX* ) property. For instance:
 
 ```xaml
 <ctrl:DialogValidation CommandOk="{StaticResource MyCommand}"/>
 ```
 
-# Customizing content
-The content of each button can be customized with the ContentOk (or any of the ContentXXX) property.
+## Customizing content
+The content of each button can be customized with the *ContentOk* (or any of the *ContentXXX*) property.
 
 Important: customized content is active **only if IsLocalized is set to true**, and then every button is displayed with its localized or customized content. The point of this is to use a different string in peculiar circumstances where you need text different than the Windows text.
 
 Typically, if you start customizing buttons with something other than text, you probably want to create your own control anyway, so no support for more customization is offered here.
 
-# Default and Cancel buttons
-By default, the OK button has IsDefault=True, and the Cancel button IsCancel=True.
+## Default and Cancel buttons
+By default, the OK button has `IsDefault=True`, and the Cancel button `IsCancel=True`.
 
-To avoid this behavior, use either ActiveCommandOkBase or ActiveCommandCancelBase. For
+To avoid this behavior, use either *ActiveCommandOkBase* or *ActiveCommandCancelBase*. For
 example, the example below specifically keeps the IsDefault behavior of the OK button, and removes the IsCancel behavior. As a result, pressing the Escape key does not close the dialog box.
 
 ```xaml
