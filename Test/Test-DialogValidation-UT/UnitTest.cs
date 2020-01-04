@@ -24,21 +24,20 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            WindowsElement ButtonNoElement = Session.FindElementByName("OK");
-            ButtonNoElement.Click();
+            WindowsElement ButtonOKElement = Session.FindElementByName("OK");
+            ButtonOKElement.Click();
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            StopApp(Session);
-        }
+            WindowsElement CheckIsLocalizedElement = Session.FindElementByName("Is Localized");
+            CheckIsLocalizedElement.Click();
 
-        [TestMethod]
-        public void TestDefault2()
-        {
-            WindowsDriver<WindowsElement> Session = LaunchApp();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            WindowsElement ButtonNoElement = Session.FindElementByName("Cancel");
-            ButtonNoElement.Click();
+            WindowsElement ButtonCancelElement = Session.FindElementByName("Cancel");
+            ButtonCancelElement.Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
 
             StopApp(Session);
         }

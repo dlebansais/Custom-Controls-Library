@@ -27,3 +27,4 @@ comment:
 
 ignore:
   - "**/Properties/*.cs"
+  - "/Test/Test-DialogValidation/App.xaml.cs"

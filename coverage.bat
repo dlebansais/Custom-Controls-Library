@@ -18,9 +18,6 @@ start cmd /k .\coverage\start_winappdriver.bat
 call .\coverage\app.bat DialogValidation Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
 
-call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
-
 start cmd /c .\coverage\stop_winappdriver.bat
 
 call ..\Certification\set_tokens.bat

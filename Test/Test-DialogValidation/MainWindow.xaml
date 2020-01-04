@@ -9,7 +9,12 @@
         <CommandBinding Command="{x:Static ctrl:DialogValidation.DefaultCommandOk}" Executed="OnOk" CanExecute="OnCanExecuteOk"/>
         <CommandBinding Command="{x:Static ctrl:DialogValidation.DefaultCommandCancel}" Executed="OnCancel"/>
     </Window.CommandBindings>
-    <Grid>
-        <ctrl:DialogValidation HorizontalAlignment="Left" VerticalAlignment="Top" ActiveCommands="Ok, Cancel"/>
-    </Grid>
+    <DockPanel>
+        <ctrl:DialogValidation x:Name="ctrl" DockPanel.Dock="Bottom" HorizontalAlignment="Right" ActiveCommands="Ok, Cancel"/>
+        <GroupBox>
+            <StackPanel>
+                <CheckBox Checked="OnIsLocalizedSet" Unchecked="OnIsLocalizedCleared" IsChecked="{Binding Path=IsLocalized, ElementName=ctrl, Mode=OneWay}">Is Localized</CheckBox>
+            </StackPanel>
+        </GroupBox>
+    </DockPanel>
 </Window>

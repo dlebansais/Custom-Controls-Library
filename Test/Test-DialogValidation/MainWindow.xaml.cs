@@ -23,5 +23,15 @@
         private void OnCancel(object sender, ExecutedRoutedEventArgs e)
         {
         }
+
+        private void OnIsLocalizedSet(object sender, RoutedEventArgs e)
+        {
+            ctrl.IsLocalized = true;
+        }
+
+        private void OnIsLocalizedCleared(object sender, RoutedEventArgs e)
+        {
+            ctrl.IsLocalized = false;
+        }
     }
 }
