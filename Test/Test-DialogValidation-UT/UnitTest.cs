@@ -31,6 +31,8 @@
 
             WindowsElement CheckIsLocalizedElement = Session.FindElementByName("Is Localized");
             CheckIsLocalizedElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckIsLocalizedElement.Click();
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
