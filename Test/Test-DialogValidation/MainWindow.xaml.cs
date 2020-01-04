@@ -13,13 +13,20 @@
             InitializeComponent();
             DataContext = this;
 
-            NotifyPropertyChanged(nameof(IsHorizontal));
-
+            Loaded += OnLoaded;
             int CommandCount = 0;
             foreach (object Item in ctrl.ActualActiveCommands)
                 CommandCount++;
 
             Debug.Assert(CommandCount == 2);
+            Debug.WriteLine("Init Completed");
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            ctrl.ActiveCommands.Clear();
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Ok);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Cancel);
         }
 
         public bool IsYesAdded
