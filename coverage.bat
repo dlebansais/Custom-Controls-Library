@@ -10,14 +10,16 @@ if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\DialogValidation
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
-rem goto skip
 call .\coverage\app.bat BusyIndicator Debug
 call .\coverage\wait.bat 20
-:skip
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1,TestDefault2
+call .\coverage\app.bat DialogValidation Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
+
+call .\coverage\app.bat DialogValidation Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
 
 start cmd /c .\coverage\stop_winappdriver.bat
 

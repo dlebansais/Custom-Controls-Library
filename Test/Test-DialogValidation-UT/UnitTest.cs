@@ -45,8 +45,11 @@
 
         private WindowsDriver<WindowsElement> LaunchApp()
         {
+            Thread.Sleep(TimeSpan.FromSeconds(10));
+
             AppiumOptions appiumOptions = new AppiumOptions();
-            appiumOptions.AddAdditionalCapability("app", @".\Test\Test-DialogValidation\bin\x64\Debug\Test-DialogValidation.exe");
+            appiumOptions.AddAdditionalCapability("app", @"C:\Projects\Custom-Controls-Library\Test\Test-DialogValidation\bin\x64\Debug\Test-DialogValidation.exe");
+            appiumOptions.AddAdditionalCapability("appArguments", "ignore");
 
             return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
         }
