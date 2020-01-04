@@ -107,7 +107,9 @@
             Debug.Assert(Result != DependencyProperty.UnsetValue);
 
 #if DEBUG
-            object[] ConvertedBackValues = ConvertBack(Result, Array.Empty<Type>(), control, CultureInfo.CurrentCulture);
+            Type[] ConversionTargetTypes = new Type[] { typeof(DialogValidation), typeof(bool), typeof(ActiveCommand) };
+            object ConversionParameters = new object[] { control, command };
+            object[] ConvertedBackValues = ConvertBack(Result, ConversionTargetTypes, ConversionParameters, CultureInfo.CurrentCulture);
             Debug.Assert(ConvertedBackValues.Length > 2);
             Debug.Assert(ConvertedBackValues[0] == control);
             Debug.Assert(ConvertedBackValues[1] is bool ConvertedBackIsLocalized && ConvertedBackIsLocalized == isLocalized);
@@ -129,35 +131,22 @@
         /// </returns>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            DialogValidation Control = (DialogValidation)parameter;
+            Debug.Assert(targetTypes.Length > 2);
+            Debug.Assert(targetTypes[0] == typeof(DialogValidation));
+            Debug.Assert(targetTypes[1] == typeof(bool));
+            Debug.Assert(targetTypes[2] == typeof(ActiveCommand));
+
+            Debug.Assert(parameter is object[]);
+            object[] ConversionParameters = (object[])parameter;
+            Debug.Assert(ConversionParameters.Length > 1);
+            Debug.Assert(ConversionParameters[0] is DialogValidation);
+            Debug.Assert(ConversionParameters[1] is ActiveCommand);
+
+            DialogValidation Control = (DialogValidation)ConversionParameters[0];
             bool IsLocalized = Control.IsLocalized;
+            ActiveCommand Command = (ActiveCommand)ConversionParameters[1];
 
-            ICommand Command = Control.CommandOk;
-
-            if (value == Control.ContentOk)
-                Command = Control.CommandOk;
-            else if (value == Control.ContentCancel)
-                Command = Control.CommandCancel;
-            else if (value == Control.ContentAbort)
-                Command = Control.CommandAbort;
-            else if (value == Control.ContentRetry)
-                Command = Control.CommandRetry;
-            else if (value == Control.ContentIgnore)
-                Command = Control.CommandIgnore;
-            else if (value == Control.ContentYes)
-                Command = Control.CommandYes;
-            else if (value == Control.ContentNo)
-                Command = Control.CommandNo;
-            else if (value == Control.ContentClose)
-                Command = Control.CommandClose;
-            else if (value == Control.ContentHelp)
-                Command = Control.CommandHelp;
-            else if (value == Control.ContentTryAgain)
-                Command = Control.CommandTryAgain;
-            else if (value == Control.ContentContinue)
-                Command = Control.CommandContinue;
-
-            object[] Result = new object[3] { Control, IsLocalized, Command };
+            object[] Result = new object[] { Control, IsLocalized, Command };
             return Result;
         }
     }
