@@ -105,6 +105,51 @@
             ctrl.CommandCancel = new RoutedUICommand();
             Debug.Assert((string)ctrl.ContentCancel == "Cancel");
             ctrl.ContentCancel = "Cancel!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandAbort).Text == "Abort");
+            ctrl.CommandAbort = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentAbort == "_Abort");
+            ctrl.ContentAbort = "_Abort!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandRetry).Text == "Retry");
+            ctrl.CommandRetry = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentRetry == "_Retry");
+            ctrl.ContentRetry = "_Retry!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandIgnore).Text == "Ignore");
+            ctrl.CommandIgnore = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentIgnore == "_Ignore");
+            ctrl.ContentIgnore = "_Ignore!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandYes).Text == "Yes");
+            ctrl.CommandYes = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentYes == "_Yes");
+            ctrl.ContentYes = "_Yes!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandNo).Text == "No");
+            ctrl.CommandNo = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentNo == "_No");
+            ctrl.ContentNo = "_No!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandClose).Text == "Close");
+            ctrl.CommandClose = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentClose == "_Close");
+            ctrl.ContentClose = "_Close!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandHelp).Text == "Help");
+            ctrl.CommandHelp = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentHelp == "Help");
+            ctrl.ContentHelp = "Help!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandTryAgain).Text == "TryAgain");
+            ctrl.CommandTryAgain = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentTryAgain == "_Try Again");
+            ctrl.ContentTryAgain = "_Try Again!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandContinue).Text == "Continue");
+            ctrl.CommandContinue = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentContinue == "_Continue");
+            ctrl.ContentContinue = "_Continue!";
         }
 
         #region Implementation of INotifyPropertyChanged

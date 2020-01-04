@@ -689,8 +689,8 @@
         /// </summary>
         private void InitializeDefaultString(DependencyProperty contentProperty, int index)
         {
-            if (index >= 0 && index < DefaultLocalizedStrings.Count)
-                SetValue(contentProperty, DefaultLocalizedStrings[index]);
+            Debug.Assert(index >= 0 && index < DefaultLocalizedStrings.Count);
+            SetValue(contentProperty, DefaultLocalizedStrings[index]);
         }
 
         /// <summary>
@@ -711,7 +711,7 @@
         /// <param name="propertyName">The property name.</param>
         public void NotifyPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         #endregion
     }
