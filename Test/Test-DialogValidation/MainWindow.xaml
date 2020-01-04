@@ -10,7 +10,7 @@
         <CommandBinding Command="{x:Static ctrl:DialogValidation.DefaultCommandCancel}" Executed="OnCancel"/>
     </Window.CommandBindings>
     <DockPanel>
-        <ctrl:DialogValidation Visibility="Collapsed" ActiveCommands="Ok, Cancel"/>
+        <ctrl:DialogValidation Visibility="Collapsed" ActiveCommands="Ok, Cancel, Bad"/>
         <ctrl:DialogValidation x:Name="ctrl" DockPanel.Dock="Bottom" HorizontalAlignment="Right"/>
         <GroupBox>
             <StackPanel>

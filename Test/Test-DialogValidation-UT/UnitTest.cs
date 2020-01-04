@@ -26,43 +26,44 @@
 
             WindowsElement ButtonOKElement = Session.FindElementByName("OK");
             ButtonOKElement.Click();
-
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             WindowsElement ButtonCancelElement = Session.FindElementByName("Cancel");
             ButtonCancelElement.Click();
-
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             WindowsElement CheckIsLocalizedElement = Session.FindElementByName("Is Localized");
             CheckIsLocalizedElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
             CheckIsLocalizedElement.Click();
-
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             WindowsElement CheckAddYesElement = Session.FindElementByName("Add Yes");
             CheckAddYesElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
-            CheckAddYesElement.Click();
 
+            CheckIsLocalizedElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckIsLocalizedElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            CheckAddYesElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             WindowsElement CheckIsHorizontalElement = Session.FindElementByName("Horizontal");
             CheckIsHorizontalElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
             CheckIsHorizontalElement.Click();
-
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            CheckIsLocalizedElement = Session.FindElementByName("Is Localized");
             CheckIsLocalizedElement.Click();
-
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             WindowsElement ButtonSetCustomCommandsElement = Session.FindElementByName("Set Custom Commands");
             ButtonSetCustomCommandsElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
 
+            CheckAddYesElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             StopApp(Session);

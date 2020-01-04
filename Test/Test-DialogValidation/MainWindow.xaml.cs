@@ -1,5 +1,6 @@
 ﻿namespace TestDialogValidation
 {
+    using CustomControls;
     using System.ComponentModel;
     using System.Diagnostics;
     using System.Windows;
@@ -23,9 +24,15 @@
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            ctrl.ActiveCommands.Clear();
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Ok);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Cancel);
+            ActiveCommandCollection ActiveCommands = ctrl.ActiveCommands;
+
+            ActiveCommands.Clear();
+            ActiveCommands.Add(CustomControls.ActiveCommand.Ok);
+            ActiveCommands.Add(CustomControls.ActiveCommand.Cancel);
+
+            var Converter = TypeDescriptor.GetConverter(ActiveCommands);
+            Debug.Assert(Converter.CanConvertFrom(typeof(string)));
+            Debug.Assert(Converter.ConvertTo(ActiveCommands, typeof(string)) is string);
         }
 
         public bool IsYesAdded
@@ -172,7 +179,9 @@
 
         public void NotifyPropertyChanged(string propertyName)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
         #endregion
     }
