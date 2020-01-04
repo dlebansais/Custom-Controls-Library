@@ -106,7 +106,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>copy $(SolutionDir)BusyIndicator\BusyIndicator.xaml $(SolutionDir)Test\Test-BusyIndicator\BusyIndicator.xaml
-copy $(SolutionDir)BusyIndicator\BusyIndicator.xaml.cs $(SolutionDir)Test\Test-BusyIndicator\BusyIndicator.xaml.cs</PreBuildEvent>
+    <PreBuildEvent>copy $(SolutionDir)..\BusyIndicator\BusyIndicator.xaml $(SolutionDir)Test-BusyIndicator\BusyIndicator.xaml
+copy $(SolutionDir)..\BusyIndicator\BusyIndicator.xaml.cs $(SolutionDir)Test-BusyIndicator\BusyIndicator.xaml.cs</PreBuildEvent>
   </PropertyGroup>
 </Project>

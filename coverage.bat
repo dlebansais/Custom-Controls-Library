@@ -10,11 +10,16 @@ if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\DialogValidation
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
+rem goto skip
 call .\coverage\app.bat BusyIndicator Debug
 call .\coverage\wait.bat 20
+:skip
 
-call .\coverage\app.bat DialogValidation Debug
-call .\coverage\wait.bat 20
+start cmd /k .\coverage\start_winappdriver.bat
+
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1,TestDefault2
+
+start cmd /c .\coverage\stop_winappdriver.bat
 
 call ..\Certification\set_tokens.bat
 if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
