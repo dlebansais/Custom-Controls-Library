@@ -68,6 +68,24 @@
             StopApp(Session);
         }
 
+        [TestMethod]
+        public void TestDefault2()
+        {
+            WindowsDriver<WindowsElement> Session = LaunchApp();
+
+            WindowsElement CheckIsLocalizedElement = Session.FindElementByName("Is Localized");
+            CheckIsLocalizedElement.Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            WindowsElement ButtonSetCustomCommandsElement = Session.FindElementByName("Set Custom Commands");
+            ButtonSetCustomCommandsElement.Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            StopApp(Session);
+        }
+
         private WindowsDriver<WindowsElement> LaunchApp()
         {
             Thread.Sleep(TimeSpan.FromSeconds(10));
