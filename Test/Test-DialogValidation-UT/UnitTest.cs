@@ -29,6 +29,11 @@
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
+            WindowsElement ButtonCancelElement = Session.FindElementByName("Cancel");
+            ButtonCancelElement.Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             WindowsElement CheckIsLocalizedElement = Session.FindElementByName("Is Localized");
             CheckIsLocalizedElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
@@ -36,8 +41,17 @@
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            WindowsElement ButtonCancelElement = Session.FindElementByName("Cancel");
-            ButtonCancelElement.Click();
+            WindowsElement CheckAddYesElement = Session.FindElementByName("Add Yes");
+            CheckAddYesElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckAddYesElement.Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            WindowsElement CheckIsHorizontalElement = Session.FindElementByName("Horizontal");
+            CheckIsHorizontalElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckIsHorizontalElement.Click();
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
