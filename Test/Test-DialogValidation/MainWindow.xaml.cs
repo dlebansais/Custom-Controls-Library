@@ -13,13 +13,12 @@
             InitializeComponent();
             DataContext = this;
 
-            Loaded += OnLoaded;
             int CommandCount = 0;
             foreach (object Item in ctrl.ActualActiveCommands)
                 CommandCount++;
-
             Debug.Assert(CommandCount == 2);
-            Debug.WriteLine("Init Completed");
+
+            Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -31,7 +30,7 @@
 
         public bool IsYesAdded
         {
-            get { return ctrl.ActiveCommands.Count == 3; }
+            get { return ctrl.ActiveCommands.Count != 2; }
         }
 
         public bool IsHorizontal
@@ -67,13 +66,29 @@
         private void OnAddYesSet(object sender, RoutedEventArgs e)
         {
             Debug.Assert(ctrl.ActiveCommands.Count == 2);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Abort);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Retry);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Ignore);
             ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Yes);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.No);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Close);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Help);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.TryAgain);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Continue);
             NotifyPropertyChanged(nameof(IsYesAdded));
         }
 
         private void OnAddYesCleared(object sender, RoutedEventArgs e)
         {
-            Debug.Assert(ctrl.ActiveCommands.Count == 3);
+            Debug.Assert(ctrl.ActiveCommands.Count == 11);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
+            ctrl.ActiveCommands.RemoveAt(2);
             ctrl.ActiveCommands.RemoveAt(2);
             NotifyPropertyChanged(nameof(IsYesAdded));
         }

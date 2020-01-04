@@ -4,7 +4,9 @@
     using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
+    using System.Windows;
     using System.Windows.Data;
+    using System.Windows.Input;
     using CustomControls;
 
     /// <summary>
@@ -29,41 +31,90 @@
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length > 2 && (values[0] is DialogValidation) && (values[1] is bool) && (values[2] is ActiveCommand))
+            Debug.Assert(values.Length > 2);
+
+            object Result;
+
+            if ((values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
+                Result = ConvertValidValues(Control, IsLocalized, Command);
+            else
             {
-                DialogValidation Control = (DialogValidation)values[0];
+                // This code applies for instance to collapsed DialogValidation controls.
+                Debug.Assert(values[0] == DependencyProperty.UnsetValue);
+                Debug.Assert(values[1] == DependencyProperty.UnsetValue);
+                Debug.Assert(values[2] == DependencyProperty.UnsetValue);
 
-                // This value is used to trigger a conversion when the content has changed. See DialogValidation.UpdateButtonContent().
-                bool IsLocalized = (bool)values[1];
-                Debug.Assert(IsLocalized == Control.IsLocalized);
-
-                ActiveCommand Command = (ActiveCommand)values[2];
-
-                if (Command is ActiveCommandOk)
-                    return Control.ContentOk;
-                else if (Command is ActiveCommandCancel)
-                    return Control.ContentCancel;
-                else if (Command is ActiveCommandAbort)
-                    return Control.ContentAbort;
-                else if (Command is ActiveCommandRetry)
-                    return Control.ContentRetry;
-                else if (Command is ActiveCommandIgnore)
-                    return Control.ContentIgnore;
-                else if (Command is ActiveCommandYes)
-                    return Control.ContentYes;
-                else if (Command is ActiveCommandNo)
-                    return Control.ContentNo;
-                else if (Command is ActiveCommandClose)
-                    return Control.ContentClose;
-                else if (Command is ActiveCommandHelp)
-                    return Control.ContentHelp;
-                else if (Command is ActiveCommandTryAgain)
-                    return Control.ContentTryAgain;
-                else if (Command is ActiveCommandContinue)
-                    return Control.ContentContinue;
+                Result = string.Empty;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(values));
+            return Result;
+        }
+
+        private object ConvertValidValues(DialogValidation control, bool isLocalized, ActiveCommand command)
+        {
+            // This value is used to trigger a conversion when the content has changed. See DialogValidation.UpdateButtonContent().
+            Debug.Assert(isLocalized == control.IsLocalized);
+
+            object Result = DependencyProperty.UnsetValue;
+
+            switch (command)
+            {
+                case ActiveCommandOk AsOk:
+                    Result = control.ContentOk;
+                    break;
+
+                case ActiveCommandCancel AsCancel:
+                    Result = control.ContentCancel;
+                    break;
+
+                case ActiveCommandAbort AsAbort:
+                    Result = control.ContentAbort;
+                    break;
+
+                case ActiveCommandRetry AsRetry:
+                    Result = control.ContentRetry;
+                    break;
+
+                case ActiveCommandIgnore AsIgnore:
+                    Result = control.ContentIgnore;
+                    break;
+
+                case ActiveCommandYes AsYes:
+                    Result = control.ContentYes;
+                    break;
+
+                case ActiveCommandNo AsNo:
+                    Result = control.ContentNo;
+                    break;
+
+                case ActiveCommandClose AsClose:
+                    Result = control.ContentClose;
+                    break;
+
+                case ActiveCommandHelp AsHelp:
+                    Result = control.ContentHelp;
+                    break;
+
+                case ActiveCommandTryAgain AsTryAgain:
+                    Result = control.ContentTryAgain;
+                    break;
+
+                case ActiveCommandContinue AsContinue:
+                    Result = control.ContentContinue;
+                    break;
+            }
+
+            Debug.Assert(Result != DependencyProperty.UnsetValue);
+
+#if DEBUG
+            object[] ConvertedBackValues = ConvertBack(Result, Array.Empty<Type>(), control, CultureInfo.CurrentCulture);
+            Debug.Assert(ConvertedBackValues.Length > 2);
+            Debug.Assert(ConvertedBackValues[0] == control);
+            Debug.Assert(ConvertedBackValues[1] is bool ConvertedBackIsLocalized && ConvertedBackIsLocalized == isLocalized);
+            Debug.Assert(ConvertedBackValues[2] == command);
+#endif
+
+            return Result;
         }
 
         /// <summary>
@@ -78,7 +129,36 @@
         /// </returns>
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            return Array.Empty<object>();
+            DialogValidation Control = (DialogValidation)parameter;
+            bool IsLocalized = Control.IsLocalized;
+
+            ICommand Command = Control.CommandOk;
+
+            if (value == Control.ContentOk)
+                Command = Control.CommandOk;
+            else if (value == Control.ContentCancel)
+                Command = Control.CommandCancel;
+            else if (value == Control.ContentAbort)
+                Command = Control.CommandAbort;
+            else if (value == Control.ContentRetry)
+                Command = Control.CommandRetry;
+            else if (value == Control.ContentIgnore)
+                Command = Control.CommandIgnore;
+            else if (value == Control.ContentYes)
+                Command = Control.CommandYes;
+            else if (value == Control.ContentNo)
+                Command = Control.CommandNo;
+            else if (value == Control.ContentClose)
+                Command = Control.CommandClose;
+            else if (value == Control.ContentHelp)
+                Command = Control.CommandHelp;
+            else if (value == Control.ContentTryAgain)
+                Command = Control.CommandTryAgain;
+            else if (value == Control.ContentContinue)
+                Command = Control.CommandContinue;
+
+            object[] Result = new object[3] { Control, IsLocalized, Command };
+            return Result;
         }
     }
 }
