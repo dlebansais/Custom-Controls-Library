@@ -711,7 +711,9 @@
         /// <param name="propertyName">The property name.</param>
         public void NotifyPropertyChanged(string propertyName)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
         }
         #endregion
     }
