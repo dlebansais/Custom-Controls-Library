@@ -19,6 +19,7 @@ call .\coverage\app.bat DialogValidation Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
 
 start cmd /c .\coverage\stop_winappdriver.bat
+call .\coverage\wait.bat 2
 
 call ..\Certification\set_tokens.bat
 if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
