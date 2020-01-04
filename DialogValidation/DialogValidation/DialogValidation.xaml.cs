@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Windows;
@@ -20,7 +21,7 @@
     /// </remarks>
     [ContentProperty("ActiveCommands")]
     [DefaultProperty("ActiveCommands")]
-    public partial class DialogValidation : UserControl
+    public partial class DialogValidation : UserControl, INotifyPropertyChanged
     {
         #region Globals
         /// <summary>
@@ -202,7 +203,7 @@
         public object ContentOk
         {
             get { return GetValue(ContentOkProperty); }
-            set { SetValue(ContentOkProperty, value); }
+            set { UpdateButtonContent(ContentOkProperty, value); }
         }
         #endregion
         #region Command Cancel
@@ -238,7 +239,7 @@
         public object ContentCancel
         {
             get { return GetValue(ContentCancelProperty); }
-            set { SetValue(ContentCancelProperty, value); }
+            set { UpdateButtonContent(ContentCancelProperty, value); }
         }
         #endregion
         #region Command Abort
@@ -274,7 +275,7 @@
         public object ContentAbort
         {
             get { return GetValue(ContentAbortProperty); }
-            set { SetValue(ContentAbortProperty, value); }
+            set { UpdateButtonContent(ContentAbortProperty, value); }
         }
         #endregion
         #region Command Retry
@@ -310,7 +311,7 @@
         public object ContentRetry
         {
             get { return GetValue(ContentRetryProperty); }
-            set { SetValue(ContentRetryProperty, value); }
+            set { UpdateButtonContent(ContentRetryProperty, value); }
         }
         #endregion
         #region Command Ignore
@@ -346,7 +347,7 @@
         public object ContentIgnore
         {
             get { return GetValue(ContentIgnoreProperty); }
-            set { SetValue(ContentIgnoreProperty, value); }
+            set { UpdateButtonContent(ContentIgnoreProperty, value); }
         }
         #endregion
         #region Command Yes
@@ -382,7 +383,7 @@
         public object ContentYes
         {
             get { return GetValue(ContentYesProperty); }
-            set { SetValue(ContentYesProperty, value); }
+            set { UpdateButtonContent(ContentYesProperty, value); }
         }
         #endregion
         #region Command No
@@ -418,7 +419,7 @@
         public object ContentNo
         {
             get { return GetValue(ContentNoProperty); }
-            set { SetValue(ContentNoProperty, value); }
+            set { UpdateButtonContent(ContentNoProperty, value); }
         }
         #endregion
         #region Command Close
@@ -454,7 +455,7 @@
         public object ContentClose
         {
             get { return GetValue(ContentCloseProperty); }
-            set { SetValue(ContentCloseProperty, value); }
+            set { UpdateButtonContent(ContentCloseProperty, value); }
         }
         #endregion
         #region Command Help
@@ -490,7 +491,7 @@
         public object ContentHelp
         {
             get { return GetValue(ContentHelpProperty); }
-            set { SetValue(ContentHelpProperty, value); }
+            set { UpdateButtonContent(ContentHelpProperty, value); }
         }
         #endregion
         #region Command TryAgain
@@ -526,7 +527,7 @@
         public object ContentTryAgain
         {
             get { return GetValue(ContentTryAgainProperty); }
-            set { SetValue(ContentTryAgainProperty, value); }
+            set { UpdateButtonContent(ContentTryAgainProperty, value); }
         }
         #endregion
         #region Command Continue
@@ -562,7 +563,7 @@
         public object ContentContinue
         {
             get { return GetValue(ContentContinueProperty); }
-            set { SetValue(ContentContinueProperty, value); }
+            set { UpdateButtonContent(ContentContinueProperty, value); }
         }
         #endregion
         #endregion
@@ -641,6 +642,22 @@
         }
         #endregion
 
+        #region Properties
+        private void UpdateButtonContent(DependencyProperty contentProperty, object value)
+        {
+            SetValue(contentProperty, value);
+
+            // Toggle IsLocalized twice to trigger a reload.
+            if (IsLocalized)
+            {
+                IsLocalized = false;
+                NotifyPropertyChanged(nameof(IsLocalized));
+                IsLocalized = true;
+                NotifyPropertyChanged(nameof(IsLocalized));
+            }
+        }
+        #endregion
+
         #region Strings
         /// <summary>
         /// Locates and loads localized strings to be used as localized command names.
@@ -680,6 +697,22 @@
         /// Gets the list of localized string for command friendly names, as loaded by the static constructor.
         /// </summary>
         private static IList<string> DefaultLocalizedStrings = InitializeStrings();
+        #endregion
+
+        #region Implementation of INotifyPropertyChanged
+        /// <summary>
+        /// Occurs when a property has changed.
+        /// </summary>
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        /// <summary>
+        /// Invokes handlers of the <see cref="PropertyChanged"/> event.
+        /// </summary>
+        /// <param name="propertyName">The property name.</param>
+        public void NotifyPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         #endregion
     }
 }

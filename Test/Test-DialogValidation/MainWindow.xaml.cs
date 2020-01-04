@@ -12,6 +12,14 @@
         {
             InitializeComponent();
             DataContext = this;
+
+            NotifyPropertyChanged(nameof(IsHorizontal));
+
+            int CommandCount = 0;
+            foreach (object Item in ctrl.ActualActiveCommands)
+                CommandCount++;
+
+            Debug.Assert(CommandCount == 2);
         }
 
         public bool IsYesAdded
@@ -51,20 +59,16 @@
 
         private void OnAddYesSet(object sender, RoutedEventArgs e)
         {
-            if (ctrl.ActiveCommands.Count == 2)
-            {
-                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Yes);
-                NotifyPropertyChanged(nameof(IsYesAdded));
-            }
+            Debug.Assert(ctrl.ActiveCommands.Count == 2);
+            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Yes);
+            NotifyPropertyChanged(nameof(IsYesAdded));
         }
 
         private void OnAddYesCleared(object sender, RoutedEventArgs e)
         {
-            if (ctrl.ActiveCommands.Count == 3)
-            {
-                ctrl.ActiveCommands.RemoveAt(2);
-                NotifyPropertyChanged(nameof(IsYesAdded));
-            }
+            Debug.Assert(ctrl.ActiveCommands.Count == 3);
+            ctrl.ActiveCommands.RemoveAt(2);
+            NotifyPropertyChanged(nameof(IsYesAdded));
         }
 
         private void OnHorizontalSet(object sender, RoutedEventArgs e)
@@ -78,11 +82,22 @@
 
         private void OnHorizontalCleared(object sender, RoutedEventArgs e)
         {
-            if (ctrl.Orientation == Orientation.Horizontal)
-            {
-                ctrl.Orientation = Orientation.Vertical;
-                NotifyPropertyChanged(nameof(IsHorizontal));
-            }
+            Debug.Assert(ctrl.Orientation == Orientation.Horizontal);
+            ctrl.Orientation = Orientation.Vertical;
+            NotifyPropertyChanged(nameof(IsHorizontal));
+        }
+
+        private void OnSetCustomCommands(object sender, RoutedEventArgs e)
+        {
+            Debug.Assert(((RoutedUICommand)ctrl.CommandOk).Text == "Ok");
+            ctrl.CommandOk = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentOk == "OK");
+            ctrl.ContentOk = "OK!";
+
+            Debug.Assert(((RoutedUICommand)ctrl.CommandCancel).Text == "Cancel");
+            ctrl.CommandCancel = new RoutedUICommand();
+            Debug.Assert((string)ctrl.ContentCancel == "Cancel");
+            ctrl.ContentCancel = "Cancel!";
         }
 
         #region Implementation of INotifyPropertyChanged

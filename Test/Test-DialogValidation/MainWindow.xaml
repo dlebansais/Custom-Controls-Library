@@ -16,6 +16,7 @@
                 <CheckBox Checked="OnIsLocalizedSet" Unchecked="OnIsLocalizedCleared" IsChecked="{Binding Path=IsLocalized, ElementName=ctrl, Mode=OneWay}">Is Localized</CheckBox>
                 <CheckBox Checked="OnAddYesSet" Unchecked="OnAddYesCleared" IsChecked="{Binding IsYesAdded, Mode=OneWay}">Add Yes</CheckBox>
                 <CheckBox Checked="OnHorizontalSet" Unchecked="OnHorizontalCleared" IsChecked="{Binding IsHorizontal, Mode=OneWay}">Horizontal</CheckBox>
+                <Button Click="OnSetCustomCommands">Set Custom Commands</Button>
             </StackPanel>
         </GroupBox>
     </DockPanel>

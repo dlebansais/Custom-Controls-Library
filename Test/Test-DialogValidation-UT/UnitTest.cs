@@ -55,6 +55,14 @@
 
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
+            CheckIsLocalizedElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            WindowsElement ButtonSetCustomCommandsElement = Session.FindElementByName("Set Custom Commands");
+            ButtonSetCustomCommandsElement.Click();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             StopApp(Session);
         }
 

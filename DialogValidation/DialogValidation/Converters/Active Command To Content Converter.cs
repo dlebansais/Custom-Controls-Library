@@ -1,6 +1,7 @@
 ﻿namespace Converters
 {
     using System;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows.Data;
@@ -28,41 +29,36 @@
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length > 1 && (values[0] is DialogValidation) && (values[1] is ActiveCommand))
+            if (values.Length > 2 && (values[0] is DialogValidation) && (values[1] is bool) && (values[2] is ActiveCommand))
             {
                 DialogValidation Control = (DialogValidation)values[0];
-                ActiveCommand Command = (ActiveCommand)values[1];
+
+                // This value is used to trigger a conversion when the content has changed. See DialogValidation.UpdateButtonContent().
+                bool IsLocalized = (bool)values[1];
+                Debug.Assert(IsLocalized == Control.IsLocalized);
+
+                ActiveCommand Command = (ActiveCommand)values[2];
 
                 if (Command is ActiveCommandOk)
                     return Control.ContentOk;
-
                 else if (Command is ActiveCommandCancel)
                     return Control.ContentCancel;
-
                 else if (Command is ActiveCommandAbort)
                     return Control.ContentAbort;
-
                 else if (Command is ActiveCommandRetry)
                     return Control.ContentRetry;
-
                 else if (Command is ActiveCommandIgnore)
                     return Control.ContentIgnore;
-
                 else if (Command is ActiveCommandYes)
                     return Control.ContentYes;
-
                 else if (Command is ActiveCommandNo)
                     return Control.ContentNo;
-
                 else if (Command is ActiveCommandClose)
                     return Control.ContentClose;
-
                 else if (Command is ActiveCommandHelp)
                     return Control.ContentHelp;
-
                 else if (Command is ActiveCommandTryAgain)
                     return Control.ContentTryAgain;
-
                 else if (Command is ActiveCommandContinue)
                     return Control.ContentContinue;
             }
