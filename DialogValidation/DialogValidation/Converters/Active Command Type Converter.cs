@@ -65,7 +65,7 @@
             object? Result = base.ConvertFrom(context, culture, value);
 
             if (value is string AsString)
-                ActiveCommandTypeConverter.TryParseName(AsString, (ActiveCommand command) => Result = command);
+                TryParseName(AsString, (ActiveCommand command) => Result = command);
 
             return Result;
         }
