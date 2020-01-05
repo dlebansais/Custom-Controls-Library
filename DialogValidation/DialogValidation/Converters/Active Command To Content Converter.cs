@@ -31,10 +31,15 @@
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            object Result = string.Empty;
+            object Result;
 
             if (values.Length > 2 && (values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
                 Result = ConvertValidValues(Control, IsLocalized, Command);
+            else
+            {
+                Debug.WriteLine("Unset");
+                Result = string.Empty;
+            }
 
             return Result;
         }
