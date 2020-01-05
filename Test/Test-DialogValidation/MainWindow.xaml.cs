@@ -5,6 +5,7 @@
     using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
+    using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -22,6 +23,9 @@
             Debug.Assert(CommandCount == 2);
 
             Loaded += OnLoaded;
+
+            if (TestUnset)
+                UnsetTimer = new Timer(new TimerCallback(UnsetTimerCallback), this, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(2));
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
@@ -150,32 +154,36 @@
 
         private void OnAddYesSet(object sender, RoutedEventArgs e)
         {
-            Debug.Assert(ctrl.ActiveCommands.Count == 2);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Abort);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Retry);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Ignore);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Yes);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.No);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Close);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Help);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.TryAgain);
-            ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Continue);
-            NotifyPropertyChanged(nameof(IsYesAdded));
+            if (ctrl.ActiveCommands.Count == 2)
+            {
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Abort);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Retry);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Ignore);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Yes);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.No);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Close);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Help);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.TryAgain);
+                ctrl.ActiveCommands.Add(CustomControls.ActiveCommand.Continue);
+                NotifyPropertyChanged(nameof(IsYesAdded));
+            }
         }
 
         private void OnAddYesCleared(object sender, RoutedEventArgs e)
         {
-            Debug.Assert(ctrl.ActiveCommands.Count == 11);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            ctrl.ActiveCommands.RemoveAt(2);
-            NotifyPropertyChanged(nameof(IsYesAdded));
+            if (ctrl.ActiveCommands.Count == 11)
+            {
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                ctrl.ActiveCommands.RemoveAt(2);
+                NotifyPropertyChanged(nameof(IsYesAdded));
+            }
         }
 
         private void OnHorizontalSet(object sender, RoutedEventArgs e)
@@ -251,6 +259,39 @@
             Debug.Assert((string)ctrl.ContentContinue == "_Continue");
             ctrl.ContentContinue = "_Continue!";
         }
+
+        public static bool TestUnset { get; set; } = false;
+
+        private void UnsetTimerCallback(object parameter)
+        {
+            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnUnsetTimer));
+        }
+
+        private void OnUnsetTimer()
+        {
+            switch (UnsetStep++)
+            {
+                case 0:
+                    OnAddYesSet(this, new RoutedEventArgs());
+                    break;
+
+                case 1:
+                    OnAddYesCleared(this, new RoutedEventArgs());
+                    break;
+
+                case 2:
+                    OnIsLocalizedSet(this, new RoutedEventArgs());
+                    break;
+
+                default:
+                    UnsetTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                    Close();
+                    break;
+            }
+        }
+
+        private Timer UnsetTimer = new Timer(new TimerCallback((object parameter) => { }));
+        private int UnsetStep = 0;
 
         #region Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
