@@ -1,24 +1,14 @@
 ﻿namespace TestDialogValidation
 {
-    using System;
-    using System.Collections.ObjectModel;
-    using System.Threading;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
     using OpenQA.Selenium.Appium.Windows;
+    using System;
+    using System.Threading;
 
     [TestClass]
     public class UnitTest
     {
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            Context = context;
-        }
-
-        private static TestContext Context;
-
         [TestMethod]
         public void TestDefault1()
         {

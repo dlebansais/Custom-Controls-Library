@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogValidation", "DialogValidation\DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Editable TextBlock", "Editable TextBlock\Editable TextBlock\Editable TextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditableTextBlock", "EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enum ComboBox", "Enum ComboBox\Enum ComboBox\Enum ComboBox.csproj", "{0FBADA65-9A03-439C-8991-2C58091FCC3F}"
 EndProject

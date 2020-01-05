@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BADF93FA-E0D6-4AFB-B3E7-C6585E1A4C7D}</ProjectGuid>
+    <ProjectGuid>{1B4F1DFF-77E7-4BD8-9CA9-A53D677A563C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestDialogValidation</RootNamespace>
-    <AssemblyName>Test-DialogValidation-UT</AssemblyName>
+    <RootNamespace>Test_EditableTextBlock_UT</RootNamespace>
+    <AssemblyName>Test-EditableTextBlock-UT</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>

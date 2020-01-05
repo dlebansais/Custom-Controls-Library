@@ -81,7 +81,7 @@
       <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
     <Reference Include="EditableTextBlock">
-      <HintPath>..\..\Editable TextBlock\Editable TextBlock\$(OutputPath)EditableTextBlock.dll</HintPath>
+      <HintPath>..\..\EditableTextBlock\EditableTextBlock\$(OutputPath)EditableTextBlock.dll</HintPath>
     </Reference>
     <Reference Include="ExtendedToolBar">
       <HintPath>..\..\Extended ToolBar\Extended ToolBar\$(OutputPath)ExtendedToolBar.dll</HintPath>

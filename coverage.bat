@@ -7,6 +7,7 @@ if "%VSTESTPLATFORM_DIR%" == "" goto error3
 if not exist "%VSTESTPLATFORM_DIR%/VSTest.Console.exe" goto error3
 if not exist ".\BusyIndicator\bin\x64\Debug\BusyIndicator.dll" goto error4
 if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\DialogValidation.dll" goto error4
+if not exist ".\EditableTextBlock\EditableTextBlock\bin\x64\Debug\EditableTextBlock.dll" goto error4
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
@@ -19,11 +20,15 @@ call .\coverage\wait.bat 30
 start cmd /k .\coverage\start_winappdriver.bat
 
 call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
+call .\coverage\wait.bat 2
+
+call .\coverage\app.bat EditableTextBlock Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 start cmd /c .\coverage\stop_winappdriver.bat
