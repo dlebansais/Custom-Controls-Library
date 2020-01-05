@@ -117,7 +117,7 @@
         /// <returns>
         /// The identifier for the <see cref="ActiveCommands"/> dependency property.
         /// </returns>
-        public static readonly DependencyProperty ActiveCommandsProperty = DependencyProperty.Register("ActiveCommands", typeof(ActiveCommandCollection), typeof(DialogValidation), new PropertyMetadata(null));
+        public static readonly DependencyProperty ActiveCommandsProperty = DependencyProperty.Register("ActiveCommands", typeof(ActiveCommandCollection), typeof(DialogValidation), new PropertyMetadata(new ActiveCommandCollection()));
 
         /// <summary>
         /// Gets or sets the list of commands to activate. This will display as many buttons as there are active commands.

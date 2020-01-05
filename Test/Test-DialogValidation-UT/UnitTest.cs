@@ -50,6 +50,11 @@
             CheckAddYesElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
+            CheckIsLocalizedElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckIsLocalizedElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             WindowsElement CheckIsHorizontalElement = Session.FindElementByName("Horizontal");
             CheckIsHorizontalElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));

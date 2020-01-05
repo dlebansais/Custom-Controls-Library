@@ -34,7 +34,7 @@
         </Style>
         <DataTemplate DataType="{x:Type ctrl:ActiveCommand}">
             <Grid Margin="5">
-                <Button Style="{StaticResource DialogButtonStyle}" Command="{Binding Command, FallbackValue={x:Null}}" IsDefault="{Binding IsDefault, FallbackValue=False}" IsCancel="{Binding IsCancel, FallbackValue=False}"/>
+                <Button Style="{StaticResource DialogButtonStyle}" Command="{Binding Command}" IsDefault="{Binding IsDefault, FallbackValue=False}" IsCancel="{Binding IsCancel, FallbackValue=False}"/>
             </Grid>
         </DataTemplate>
     </UserControl.Resources>

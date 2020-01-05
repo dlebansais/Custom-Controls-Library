@@ -48,7 +48,7 @@
 
             switch (command)
             {
-                case ActiveCommandOk AsOk:
+                default:
                     Result = control.ContentOk;
                     break;
 
