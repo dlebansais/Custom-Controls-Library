@@ -170,6 +170,5 @@
             return "ApplicationCommand." + command.Name;
         }
         #endregion
-
     }
 }

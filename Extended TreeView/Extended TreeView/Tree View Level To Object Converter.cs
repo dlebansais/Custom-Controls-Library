@@ -28,7 +28,6 @@
 
                     if (Level == 0 && IsRootAlwaysExpanded)
                         return CollectionOfItems[0];
-
                     else if (ChildCount == 0)
                         return CollectionOfItems[1];
 

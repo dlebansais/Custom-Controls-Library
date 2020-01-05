@@ -33,7 +33,6 @@
                             break;
                         }
                     }
-
                     else if (o is bool?)
                     {
                         bool? b = (bool?)o;

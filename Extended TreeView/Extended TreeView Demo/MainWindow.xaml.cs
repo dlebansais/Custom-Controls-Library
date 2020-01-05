@@ -260,7 +260,6 @@ namespace ExtendedTreeViewDemo
 
         private List<FrameworkElement> ButtonList = new List<FrameworkElement>();
 
-
         #region Implementation of INotifyPropertyChanged
         public event PropertyChangedEventHandler? PropertyChanged;
 

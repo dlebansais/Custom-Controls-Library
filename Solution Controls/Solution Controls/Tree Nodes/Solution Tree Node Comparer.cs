@@ -23,10 +23,8 @@
 
                 if (xFolder != null && yFolder == null)
                     return -1;
-
                 else if (xFolder == null && yFolder != null)
                     return +1;
-
                 else
                     return string.Compare(x.FriendlyName, y.FriendlyName, false, CultureInfo.CurrentCulture);
             }

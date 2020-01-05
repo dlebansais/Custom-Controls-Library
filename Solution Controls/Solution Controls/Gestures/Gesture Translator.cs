@@ -27,10 +27,8 @@
         {
             if (rawGestureText == "OemPlus")
                 return "+";
-
             else if (rawGestureText == "OemMinus")
                 return "-";
-
             else
                 return rawGestureText;
         }

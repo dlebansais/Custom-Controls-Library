@@ -64,7 +64,6 @@
 
             if (e.NewValue == null)
                 ResetContent();
-
             else if (e.OldValue == null || e.OldValue.GetType() != e.NewValue.GetType())
                 UpdateContent(e.NewValue.GetType());
 

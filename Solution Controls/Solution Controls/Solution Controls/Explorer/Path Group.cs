@@ -141,7 +141,6 @@
 
                 if (!IsNullParent.HasValue)
                     IsNullParent = ParentPath == null;
-
                 else if (IsNullParent.Value != (ParentPath == null))
                     return false;
 
@@ -149,7 +148,6 @@
                 {
                     if (GroupParentPath == null)
                         GroupParentPath = ParentPath;
-
                     else if (GroupParentPath != ParentPath)
                         return false;
                 }

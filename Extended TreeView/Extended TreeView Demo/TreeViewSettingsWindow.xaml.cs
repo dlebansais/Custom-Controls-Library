@@ -75,19 +75,15 @@ namespace ExtendedTreeViewDemo
             {
                 if (!IsVirtualizing)
                     Result = MessageBox.Show("Generating a large tree view with virtualization off is a slow operation. Continue?", Title, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-
                 else if (TreeViewType == TreeViewType.Custom && TreeViewItemType == TreeViewItemType.VariableHeightImageAndText)
                     Result = MessageBox.Show("Generating a large tree view with variable height items is a slow operation. Continue?", Title, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-
                 else if (IsItemExpandedAtStart)
                     Result = MessageBox.Show("Generating a large tree view with all items expanded is a slow operation. Continue?", Title, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             }
-
             else if (TreeViewSize == TreeViewSize.Medium && IsItemExpandedAtStart)
             {
                 if (!IsVirtualizing)
                     Result = MessageBox.Show("Generating a tree view with all items expanded and no virtualization is a slow operation. Continue?", Title, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-
                 else if (TreeViewType == TreeViewType.Custom && TreeViewItemType == TreeViewItemType.VariableHeightImageAndText)
                     Result = MessageBox.Show("Generating a tree view with variable height items and all of them expanded is a slow operation. Continue?", Title, MessageBoxButton.OKCancel, MessageBoxImage.Warning);
             }

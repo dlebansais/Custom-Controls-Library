@@ -997,7 +997,6 @@
                     InsertContext.Complete();
                     InsertContext.Close();
                 }
-
                 else if (oldIndex < newIndex)
                 {
                     int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
@@ -1364,7 +1363,6 @@
                                 SetLastSelectedItem(item);
                         }
                     }
-
                     else if (IsCtrlDown())
                     {
                         if (!SelectedItems.Contains(item))
@@ -1373,7 +1371,6 @@
                             SetLastClickedItem(item);
                         }
                     }
-
                     else if (!SelectedItems.Contains(item))
                     {
                         UnselectAll();
@@ -1408,7 +1405,6 @@
                     if (IsShiftDown())
                     {
                     }
-
                     else if (IsCtrlDown())
                     {
                         if (SelectedItems.Contains(item))
@@ -1417,7 +1413,6 @@
                             else
                                 ClearLastClickedItem();
                     }
-
                     else
                     {
                         UnselectAll();
@@ -2021,13 +2016,10 @@
 
                 if (UseDefaultCursors)
                     FeedbackCursor = null;
-
                 else if (e.Effects.HasFlag(DragDropEffects.Copy))
                     FeedbackCursor = (CursorCopy != null) ? CursorCopy : DefaultCursorCopy;
-
                 else if (e.Effects.HasFlag(DragDropEffects.Move))
                     FeedbackCursor = (CursorMove != null) ? CursorMove : DefaultCursorMove;
-
                 else
                     FeedbackCursor = (CursorForbidden != null) ? CursorForbidden : DefaultCursorForbidden;
 
@@ -2118,7 +2110,6 @@
                         DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
                         NotifyDropCompleted(DestinationItem, CloneList);
                     }
-
                     else if (e.Effects == DragDropEffects.Move)
                     {
                         NotifyPreviewDropCompleted(DestinationItem, null);
@@ -2295,14 +2286,11 @@
                         return DragDropEffects.Copy;
                     else
                         return DragDropEffects.Move;
-
                 else if (e.AllowedEffects.HasFlag(DragDropEffects.Copy))
                     return DragDropEffects.Copy;
-
                 else
                     return DragDropEffects.None;
             }
-
             else
                 return DragDropEffects.None;
         }

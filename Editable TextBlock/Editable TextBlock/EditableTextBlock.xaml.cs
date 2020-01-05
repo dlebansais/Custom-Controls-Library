@@ -451,7 +451,6 @@
                 if (Focusable)
                     LastFocusedParent = FocusedParent();
             }
-
             else
             {
                 CancelStartEditing();
@@ -535,7 +534,6 @@
 
                 e.Handled = true;
             }
-
             else if (e.Key == Key.Escape)
             {
                 OnStopEditing();

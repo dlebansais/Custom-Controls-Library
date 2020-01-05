@@ -124,7 +124,6 @@
         {
             if (!IsCloseAllowed())
                 e.Cancel = true;
-
             else if (!DialogResult.HasValue || !DialogResult.Value)
             {
                 foreach (KeyValuePair<IOptionPageDataContext, IOptionPageDataContext> Entry in BackupTable)
