@@ -23,6 +23,6 @@ using System.Windows.Markup;
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ba47dd94-2cfa-46c7-a8ec-f28d55ccfd91")]
 
-[assembly: AssemblyVersion("1.0.0.588")]
-[assembly: AssemblyFileVersion("1.0.0.135")]
+[assembly: AssemblyVersion("1.0.0.589")]
+[assembly: AssemblyFileVersion("1.0.0.136")]
 [assembly: NeutralResourcesLanguage("en-US")]

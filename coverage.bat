@@ -10,11 +10,11 @@ if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\DialogValidation
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
-call .\coverage\app.bat DialogValidation Debug "unset"
-call .\coverage\wait.bat 30
-
 call .\coverage\app.bat BusyIndicator Debug
 call .\coverage\wait.bat 20
+
+call .\coverage\app.bat DialogValidation Debug "unset"
+call .\coverage\wait.bat 30
 
 start cmd /k .\coverage\start_winappdriver.bat
 
@@ -30,7 +30,7 @@ start cmd /c .\coverage\stop_winappdriver.bat
 call .\coverage\wait.bat 2
 
 call ..\Certification\set_tokens.bat
-rem if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
 :error1

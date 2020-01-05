@@ -31,15 +31,14 @@
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
+            Debug.Assert(values.Length > 2);
+
             object Result;
 
-            if (values.Length > 2 && (values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
+            if ((values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
                 Result = ConvertValidValues(Control, IsLocalized, Command);
             else
-            {
-                Debug.WriteLine("Unset");
                 Result = string.Empty;
-            }
 
             return Result;
         }
