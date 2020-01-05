@@ -76,21 +76,22 @@
         /// </remarks>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (value is ActiveCommandCollection AsActiveCommandCollection)
-                if (destinationType == typeof(string))
+            ActiveCommandCollection ActiveCommandCollection = (ActiveCommandCollection)value;
+
+            if (destinationType == typeof(string))
+            {
+                string Result = string.Empty;
+
+                foreach (ActiveCommand Command in ActiveCommandCollection)
                 {
-                    string Result = string.Empty;
+                    if (Result.Length > 0)
+                        Result += ",";
 
-                    foreach (ActiveCommand Command in AsActiveCommandCollection)
-                    {
-                        if (Result.Length > 0)
-                            Result += ",";
-
-                        Result += Command.Name;
-                    }
-
-                    return Result;
+                    Result += Command.Name;
                 }
+
+                return Result;
+            }
 
             return base.ConvertTo(context, culture, value, destinationType);
         }

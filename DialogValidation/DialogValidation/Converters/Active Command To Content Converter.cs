@@ -31,21 +31,10 @@
         /// </remarks>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Debug.Assert(values.Length > 2);
+            object Result = string.Empty;
 
-            object Result;
-
-            if ((values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
+            if (values.Length > 2 && (values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
                 Result = ConvertValidValues(Control, IsLocalized, Command);
-            else
-            {
-                // This code applies for instance to collapsed DialogValidation controls.
-                Debug.Assert(values[0] == DependencyProperty.UnsetValue);
-                Debug.Assert(values[1] == DependencyProperty.UnsetValue);
-                Debug.Assert(values[2] == DependencyProperty.UnsetValue);
-
-                Result = string.Empty;
-            }
 
             return Result;
         }
@@ -112,7 +101,9 @@
             object[] ConvertedBackValues = ConvertBack(Result, ConversionTargetTypes, ConversionParameters, CultureInfo.CurrentCulture);
             Debug.Assert(ConvertedBackValues.Length > 2);
             Debug.Assert(ConvertedBackValues[0] == control);
-            Debug.Assert(ConvertedBackValues[1] is bool ConvertedBackIsLocalized && ConvertedBackIsLocalized == isLocalized);
+            Debug.Assert(ConvertedBackValues[1] is bool);
+            bool ConvertedBackIsLocalized = (bool)ConvertedBackValues[1];
+            Debug.Assert(ConvertedBackIsLocalized == isLocalized);
             Debug.Assert(ConvertedBackValues[2] == command);
 #endif
 

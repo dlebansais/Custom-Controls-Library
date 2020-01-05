@@ -30,9 +30,63 @@
             ActiveCommands.Add(CustomControls.ActiveCommand.Ok);
             ActiveCommands.Add(CustomControls.ActiveCommand.Cancel);
 
-            var Converter = TypeDescriptor.GetConverter(ActiveCommands);
+            var CollectionConverter = TypeDescriptor.GetConverter(ActiveCommands);
+            Debug.Assert(CollectionConverter.CanConvertFrom(typeof(string)));
+            Debug.Assert(!CollectionConverter.CanConvertFrom(typeof(int)));
+            Debug.Assert(CollectionConverter.ConvertTo(ActiveCommands, typeof(string)) is string);
+
+            bool IsConvertedFromBad = true;
+            try
+            {
+                CollectionConverter.ConvertFrom(0);
+            }
+            catch
+            {
+                IsConvertedFromBad = false;
+            }
+
+            Debug.Assert(!IsConvertedFromBad);
+
+            bool IsConvertedToBad = true;
+            try
+            {
+                CollectionConverter.ConvertTo(ActiveCommands, typeof(int));
+            }
+            catch
+            {
+                IsConvertedToBad = false;
+            }
+
+            Debug.Assert(!IsConvertedToBad);
+
+            var Converter = TypeDescriptor.GetConverter(ActiveCommands[0]);
             Debug.Assert(Converter.CanConvertFrom(typeof(string)));
-            Debug.Assert(Converter.ConvertTo(ActiveCommands, typeof(string)) is string);
+            Debug.Assert(!Converter.CanConvertFrom(typeof(int)));
+            Debug.Assert(Converter.ConvertTo(ActiveCommands[0], typeof(string)) is string);
+
+            IsConvertedFromBad = true;
+            try
+            {
+                Converter.ConvertFrom(0);
+            }
+            catch
+            {
+                IsConvertedFromBad = false;
+            }
+
+            Debug.Assert(!IsConvertedFromBad);
+
+            IsConvertedToBad = true;
+            try
+            {
+                Converter.ConvertTo(ActiveCommands, typeof(int));
+            }
+            catch
+            {
+                IsConvertedToBad = false;
+            }
+
+            Debug.Assert(!IsConvertedToBad);
         }
 
         public bool IsYesAdded
