@@ -3,6 +3,7 @@
     using System;
     using System.ComponentModel;
     using System.Globalization;
+    using System.Windows;
     using CustomControls;
 
     /// <summary>
@@ -62,12 +63,15 @@
         /// </remarks>
         public override object? ConvertFrom(ITypeDescriptorContext context, CultureInfo culture, object value)
         {
-            object? Result = base.ConvertFrom(context, culture, value);
-
             if (value is string AsString)
-                TryParseName(AsString, (ActiveCommand command) => Result = command);
+            {
+                object? Result = DependencyProperty.UnsetValue;
 
-            return Result;
+                TryParseName(AsString, (ActiveCommand command) => Result = command);
+                return Result;
+            }
+
+            return base.ConvertFrom(context, culture, value);
         }
 
         /// <summary>
