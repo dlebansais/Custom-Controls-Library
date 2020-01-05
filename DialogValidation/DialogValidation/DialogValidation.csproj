@@ -85,7 +85,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Active Command Collection.cs" />
+    <Compile Include="ActiveCommandCollection.cs" />
     <Compile Include="ActiveCommands\ActiveCommandTryAgain.cs" />
     <Compile Include="ActiveCommands\ActiveCommandHelp.cs" />
     <Compile Include="ActiveCommands\ActiveCommandClose.cs" />
@@ -100,16 +100,16 @@
     <Compile Include="ActiveCommands\ActiveCommandCancelBase.cs" />
     <Compile Include="ActiveCommands\ActiveCommandOkBase.cs" />
     <Compile Include="ActiveCommands\Active Command.cs" />
-    <Compile Include="Converters\Active Command Collection Type Converter.cs" />
-    <Compile Include="Converters\Active Command To Content Converter.cs" />
-    <Compile Include="Converters\Active Command Type Converter.cs" />
+    <Compile Include="Converters\ActiveCommandCollectionTypeConverter.cs" />
+    <Compile Include="Converters\ActiveCommandToContentConverter.cs" />
+    <Compile Include="Converters\ActiveCommandTypeConverter.cs" />
     <Compile Include="DialogValidation.xaml.cs">
       <DependentUpon>DialogValidation.xaml</DependentUpon>
     </Compile>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings\NativeMethods.cs" />
-    <Compile Include="Strings\String Resource.cs" />
+    <Compile Include="Strings\StringResource.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="DialogValidation.xaml">

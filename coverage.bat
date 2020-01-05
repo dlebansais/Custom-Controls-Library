@@ -13,8 +13,8 @@ if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.x
 call .\coverage\app.bat BusyIndicator Debug
 call .\coverage\wait.bat 20
 
-call .\coverage\app.bat DialogValidation Debug "unset"
-call .\coverage\wait.bat 30
+rem call .\coverage\app.bat DialogValidation Debug "unset"
+rem call .\coverage\wait.bat 30
 
 start cmd /k .\coverage\start_winappdriver.bat
 
