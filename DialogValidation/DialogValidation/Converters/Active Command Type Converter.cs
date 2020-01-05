@@ -89,9 +89,10 @@
         /// </remarks>
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
-            if (value is ActiveCommand AsActiveCommand)
-                if (destinationType == typeof(string))
-                    return AsActiveCommand.Name;
+            ActiveCommand ActiveCommand = (ActiveCommand)value;
+
+            if (destinationType == typeof(string))
+                return ActiveCommand.Name;
 
             return base.ConvertTo(context, culture, value, destinationType);
         }

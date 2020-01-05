@@ -689,7 +689,8 @@
         /// </summary>
         private void InitializeDefaultString(DependencyProperty contentProperty, int index)
         {
-            Debug.Assert(index >= 0 && index < DefaultLocalizedStrings.Count);
+            Debug.Assert(index >= 0);
+            Debug.Assert(index < DefaultLocalizedStrings.Count);
             SetValue(contentProperty, DefaultLocalizedStrings[index]);
         }
 

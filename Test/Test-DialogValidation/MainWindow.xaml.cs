@@ -1,8 +1,10 @@
 ﻿namespace TestDialogValidation
 {
     using CustomControls;
+    using System;
     using System.ComponentModel;
     using System.Diagnostics;
+    using System.IO;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -57,6 +59,12 @@
             ConvertActiveCommand(Converter, 0, out IsConvertedFrom, ActiveCommands[0], out IsConvertedTo);
             Debug.Assert(!IsConvertedFrom);
             Debug.Assert(!IsConvertedTo);
+
+            string SystemPath = Environment.GetFolderPath(Environment.SpecialFolder.System);
+            string User32Path = Path.Combine(SystemPath, "user32.dll");
+
+            DialogValidation.LoadStringFromResourceFile("", 1);
+            DialogValidation.LoadStringFromResourceFile(User32Path, 9999);
         }
 
         private void ConvertActiveCommandCollection(TypeConverter collectionConverter, object from, out bool isConvertedFrom, ActiveCommandCollection to, out bool isConvertedTo)
