@@ -10,9 +10,7 @@ namespace TestDialogValidation
         {
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
-                if (args[1] == "unset")
-                    TestDialogValidation.MainWindow.TestUnset = true;
-                else
+                if (args[1] == "ignore")
                     Process.GetCurrentProcess().Kill();
         }
     }

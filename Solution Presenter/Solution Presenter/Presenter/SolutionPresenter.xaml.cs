@@ -2182,7 +2182,6 @@
 
                 if (Info.Option == CommitOption.CommitAndContinue)
                     NotifySolutionTreeCommitted(Info, SolutionOperation.Open, ClosedRootPath, SelectedRootPath, string.Empty);
-
                 else if (Info.Option == CommitOption.Continue)
                     NotifySolutionClosed(SolutionOperation.Open, ClosedRootPath, SelectedRootPath);
             }
@@ -2281,7 +2280,6 @@
 
                     if (Option == CommitOption.CommitAndContinue)
                         NotifyDocumentSaved(DocumentOperation.Close, ActiveDocument, string.Empty);
-
                     else if (Option == CommitOption.Continue)
                         NotifyDocumentClosed(DocumentOperation.Close, ActiveDocument);
                 }
@@ -2349,7 +2347,6 @@
 
             if (Info.Option == CommitOption.CommitAndContinue)
                 NotifySolutionTreeCommitted(Info, SolutionOperation.Close, ClosedRootPath, new EmptyPath(), string.Empty);
-
             else if (Info.Option == CommitOption.Continue)
                 NotifySolutionClosed(SolutionOperation.Close, ClosedRootPath, new EmptyPath());
         }
@@ -2647,7 +2644,6 @@
 
                 if (ImportedDocumentTable.Count > 0)
                     NotifyImportNewItemsRequested(ImportedDocumentTable, DocumentPathList);
-
                 else
                     NotifyDocumentOpened(DocumentOperation.Open, new EmptyPath(), DocumentPathList, new List<IDocumentPath>(), null);
             }
@@ -2786,7 +2782,6 @@
                         ExportFolder = Path.GetDirectoryName(Dlg.FileName);
                         NotifyDocumentSaved(DocumentOperation.Export, ActiveDocument, Dlg.FileName);
                     }
-
                     else if (Option == CommitOption.Continue)
                     {
                         ExportFolder = Path.GetDirectoryName(Dlg.FileName);
@@ -2847,7 +2842,6 @@
                             ExportFolder = Dlg.SelectedPath;
                             NotifySolutionTreeCommitted(Info, SolutionOperation.ExportDocument, new EmptyPath(), new EmptyPath(), ExportFolder);
                         }
-
                         else if (Info.Option == CommitOption.Continue)
                         {
                             ExportFolder = Dlg.SelectedPath;
@@ -2887,7 +2881,6 @@
 
             if (Info.Option == CommitOption.CommitAndContinue)
                 NotifySolutionTreeCommitted(Info, SolutionOperation.ExportSolution, ExportedRootPath, new EmptyPath(), string.Empty);
-
             else if (Info.Option == CommitOption.Continue)
                 ExportSolution(ExportedRootPath);
         }
@@ -2974,7 +2967,6 @@
 
             if (Info.Option == CommitOption.CommitAndContinue)
                 NotifySolutionTreeCommitted(Info, SolutionOperation.Exit, new EmptyPath(), new EmptyPath(), string.Empty);
-
             else if (Info.Option == CommitOption.Continue)
             {
                 spcSolutionExplorer.ClearDirtyItemsAndProperties();
@@ -3181,7 +3173,6 @@
 
                 if (Info.Option == CommitOption.CommitAndContinue)
                     NotifySolutionTreeCommitted(Info, SolutionOperation.Build, new EmptyPath(), new EmptyPath(), string.Empty);
-
                 else if (Info.Option == CommitOption.Continue)
                     NotifyBuildSolutionRequested();
             }
@@ -3475,7 +3466,6 @@
 
                 if (Option == CommitOption.CommitAndContinue)
                     NotifyDocumentSaved(DocumentOperation.Close, e.Document, string.Empty);
-
                 else if (Option == CommitOption.Continue)
                     NotifyDocumentClosed(DocumentOperation.Close, e.Document);
             }
@@ -4169,7 +4159,6 @@
         {
             if (dockManager.ActiveContent is IDocument Document)
                 Document.CanDelete();
-
             else if (dockManager.ActiveContent == spcSolutionExplorer)
             {
                 IReadOnlyDictionary<ITreeNodePath, IPathConnection> SelectedTree = spcSolutionExplorer.SelectedTree;
@@ -4261,7 +4250,6 @@
 
             if (Info.Option == CommitOption.CommitAndContinue)
                 NotifySolutionTreeCommitted(Info, SolutionOperation.Delete, DeletedRootPath, new EmptyPath(), string.Empty);
-
             else if (Info.Option == CommitOption.Continue)
                 NotifySolutionClosed(SolutionOperation.Delete, DeletedRootPath, new EmptyPath());
         }
@@ -4462,11 +4450,9 @@
                         NotifyDocumentSaved(DocumentOperation.Close, Document, string.Empty);
                         e.Cancel = true;
                     }
-
                     else if (Option == CommitOption.Continue)
                     {
                     }
-
                     else
                         e.Cancel = true;
                 }
@@ -4717,10 +4703,8 @@
         {
             if (result == MessageBoxResult.Cancel)
                 return CommitOption.Stop;
-
             else if (result != MessageBoxResult.Yes)
                 return CommitOption.Continue;
-
             else
                 return CommitOption.CommitAndContinue;
         }
@@ -4763,10 +4747,8 @@
 
                 if (PropertiesList.Count == 0)
                     PropertiesList.Add(Properties);
-
                 else if (PropertiesList[0].GetType() == Properties.GetType())
                     PropertiesList.Add(Properties);
-
                 else
                 {
                     PropertiesList.Clear();
@@ -4789,10 +4771,8 @@
                     {
                         if (Info.PropertyType == typeof(string))
                             SolutionMergedProperties.Add(GetMergedStringProperty(PropertiesList, Info, FriendlyName));
-
                         else if (Info.PropertyType == typeof(bool))
                             SolutionMergedProperties.Add(GetMergedBoolProperty(PropertiesList, Info, FriendlyName));
-
                         else if (Info.PropertyType.IsEnum)
                             SolutionMergedProperties.Add(GetMergedEnumProperty(PropertiesList, Info, FriendlyName));
                     }
@@ -4810,7 +4790,6 @@
 
                 if (MergedText.Length == 0)
                     MergedText = NextText;
-
                 else if (MergedText != NextText)
                 {
                     MergedText = string.Empty;
@@ -4831,7 +4810,6 @@
 
                 if (MergedSelectedIndex == -1)
                     MergedSelectedIndex = NextSelectedIndex;
-
                 else if (MergedSelectedIndex != NextSelectedIndex)
                 {
                     MergedSelectedIndex = -1;
@@ -4853,7 +4831,6 @@
 
                 if (MergedSelectedIndex == -1)
                     MergedSelectedIndex = NextSelectedIndex;
-
                 else if (MergedSelectedIndex != NextSelectedIndex)
                 {
                     MergedSelectedIndex = -1;
