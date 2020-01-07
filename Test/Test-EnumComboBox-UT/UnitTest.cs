@@ -3,6 +3,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using OpenQA.Selenium.Appium;
     using OpenQA.Selenium.Appium.Windows;
+    using OpenQA.Selenium.Interactions;
     using System;
     using System.Threading;
 
@@ -13,6 +14,21 @@
         public void TestDefault1()
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
+
+            WindowsElement ComboElement = Session.FindElementByAccessibilityId("enumComboBox");
+            ComboElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            Actions action;
+
+            action = new Actions(Session);
+            action.MoveToElement(ComboElement, 10, 50);
+            action.Click();
+            action.Perform();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            WindowsElement CheckboxNullElement = Session.FindElementByName("Null");
+            CheckboxNullElement.Click();
 
             StopApp(Session);
         }

@@ -45,9 +45,9 @@
         /// </example>
         [Bindable(true)]
 #pragma warning restore SA1629 // Documentation text should end with a period
-        public object EnumBinding
+        public object? EnumBinding
         {
-            get { return (object)GetValue(EnumBindingProperty); }
+            get { return GetValue(EnumBindingProperty); }
             set { SetValue(EnumBindingProperty, value); }
         }
 

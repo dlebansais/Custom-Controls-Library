@@ -1,7 +1,8 @@
-﻿using System.Windows;
-
-namespace TestEnumComboBox
+﻿namespace TestEnumComboBox
 {
+    using System.Globalization;
+    using System.Windows;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -11,16 +12,17 @@ namespace TestEnumComboBox
         {
             InitializeComponent();
             DataContext = this;
+
+            ctrl.NameConverterParameter = string.Empty;
+            ctrl.NameConverterCulture = CultureInfo.InvariantCulture;
         }
 
         public TestEnum TestProperty { get; set; }
 
-        private void OnEditableSet(object sender, RoutedEventArgs e)
+        private void OnNullSet(object sender, RoutedEventArgs e)
         {
-        }
-
-        private void OnEditableCleared(object sender, RoutedEventArgs e)
-        {
+            ctrl.SelectedIndex = -1;
+            ctrl.EnumBinding = null;
         }
     }
 }

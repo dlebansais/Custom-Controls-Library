@@ -2,10 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
+        xmlns:local="clr-namespace:TestEnumComboBox"
         Title="Test-EnumComboBox"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <local:UpperToLowerConverter x:Key="convUpperToLower"/>
+    </Window.Resources>
     <DockPanel>
-        <ctrl:EnumComboBox x:Name="ctrl" EnumBinding="{Binding TestProperty}" AutomationProperties.AutomationId="editableTextBlock"/>
+        <ctrl:EnumComboBox DockPanel.Dock="Bottom" x:Name="ctrl" EnumBinding="{Binding TestProperty}" AutomationProperties.AutomationId="enumComboBox" NameConverter="{StaticResource convUpperToLower}"/>
+        <GroupBox>
+            <StackPanel>
+                <CheckBox Checked="OnNullSet">Null</CheckBox>
+            </StackPanel>
+        </GroupBox>
     </DockPanel>
 </Window>
