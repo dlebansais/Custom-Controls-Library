@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomControls;
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -41,7 +42,7 @@ namespace TestEditableTextBlock
 
         private void OnEditEnter(object sender, RoutedEventArgs e)
         {
-            if (TestEscape)
+            if (TestEscape > 0)
                 EscapeTimer = new Timer(new TimerCallback(EscapeTimerCallback), this, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2));
         }
 
@@ -51,6 +52,9 @@ namespace TestEditableTextBlock
 
         private void OnEditLeave(object sender, RoutedEventArgs e)
         {
+            EditLeaveEventArgs Args = (EditLeaveEventArgs)e;
+            if (TestEscape == 3)
+                Args.Cancel();
         }
 
         private void OnEditableSet(object sender, RoutedEventArgs e)
@@ -65,7 +69,7 @@ namespace TestEditableTextBlock
                 ctrl.Editable = false;
         }
 
-        public static bool TestEscape { get; set; } = false;
+        public static int TestEscape { get; set; } = 0;
 
         private void EscapeTimerCallback(object parameter)
         {
@@ -81,7 +85,10 @@ namespace TestEditableTextBlock
                     break;
 
                 case 1:
-                    SendEscapeKey();
+                    if (TestEscape == 1)
+                        SendEscapeKey();
+                    else if (TestEscape == 2 || TestEscape == 3)
+                        SendReturnKey();
                     break;
 
                 default:
@@ -123,6 +130,15 @@ namespace TestEditableTextBlock
         private void SendEscapeKey()
         {
             var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, Key.Escape)
+            {
+                RoutedEvent = Keyboard.PreviewKeyDownEvent
+            };
+            InputManager.Current.ProcessInput(e);
+        }
+
+        private void SendReturnKey()
+        {
+            var e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, Key.Return)
             {
                 RoutedEvent = Keyboard.PreviewKeyDownEvent
             };
