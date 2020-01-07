@@ -27,19 +27,25 @@
         {
             Debug.Assert(values.Length > 4);
 
-            object Result;
+            Debug.Assert(values[0] is bool);
+            bool IsEditing = (bool)values[0];
+            Debug.Assert(values[1] is Thickness);
+            Thickness TextBlockMargin = (Thickness)values[1];
+            Debug.Assert(values[2] is Thickness);
+            Thickness TextBlockPadding = (Thickness)values[2];
+            Debug.Assert(values[3] is Thickness);
+            Thickness TextBoxBorder = (Thickness)values[3];
+            Debug.Assert(values[4] is Thickness);
+            Thickness TextBoxPadding = (Thickness)values[4];
+            Debug.Assert(parameter is string);
+            string ExpectedResult = (string)parameter;
 
-            if ((values[0] is bool IsEditing) && (values[1] is Thickness TextBlockMargin) && (values[2] is Thickness TextBlockPadding) && (values[3] is Thickness TextBoxBorder) && (values[4] is Thickness TextBoxPadding) && parameter is string ExpectedResult)
-                Result = ConvertValidValues(IsEditing, TextBlockMargin, TextBlockPadding, TextBoxBorder, TextBoxPadding, ExpectedResult);
-            else
-                Result = default(Thickness);
-
-            return Result;
+            return ConvertValidValues(IsEditing, TextBlockMargin, TextBlockPadding, TextBoxBorder, TextBoxPadding, ExpectedResult);
         }
 
         private object ConvertValidValues(bool isEditing, Thickness textBlockMargin, Thickness textBlockPadding, Thickness textBoxBorder, Thickness textBoxPadding, string expectedResult)
         {
-            object Result = DependencyProperty.UnsetValue;
+            object Result;
 
             double TextBoxLeft = (textBlockMargin.Left + textBlockPadding.Left) - (textBoxBorder.Left + textBoxPadding.Left + 3);
             double GridLeft = Math.Max(0.0, -TextBoxLeft);
@@ -52,17 +58,10 @@
             Thickness GridMargin = new Thickness(GridLeft, GridTop, GridRight, GridBottom);
             Thickness TextBoxMargin = new Thickness(TextBoxLeft, TextBoxTop, 0, 0);
 
-            switch (expectedResult)
-            {
-                default:
-                    Result = GridMargin;
-                    break;
-                case "TextBoxMargin":
-                    Result = TextBoxMargin;
-                    break;
-            }
-
-            Debug.Assert(Result != DependencyProperty.UnsetValue);
+            if (expectedResult == "GridMargin")
+                Result = GridMargin;
+            else
+                Result = TextBoxMargin;
 
 #if DEBUG
             Type[] ConversionTargetTypes = new Type[] { typeof(bool), typeof(Thickness), typeof(Thickness), typeof(Thickness), typeof(Thickness) };
