@@ -27,8 +27,8 @@
                  HorizontalAlignment="Left"
                  VerticalAlignment="Top"
                  Visibility="Collapsed"
-                 LostFocus="OnEditLostFocus"
-                 PreviewKeyDown="OnEditPreviewKeyDown">
+                 PreviewKeyDown="OnEditPreviewKeyDown"
+                 LostFocus="OnEditLostFocus">
             <TextBox.Margin>
                 <MultiBinding Converter="{StaticResource MarginConverter}" ConverterParameter="TextBoxMargin" FallbackValue="0">
                     <Binding Path="IsEditing" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:EditableTextBlock}}" FallbackValue="False"/>

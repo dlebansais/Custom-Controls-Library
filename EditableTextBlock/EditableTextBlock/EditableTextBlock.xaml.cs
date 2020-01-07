@@ -32,7 +32,7 @@
         /// <summary>
         /// Delay before editing happens, to ignore double-click.
         /// </summary>
-        public static readonly TimeSpan DefaultEditDelay = TimeSpan.FromSeconds(0.4);
+        public static readonly TimeSpan DefaultClickDelay = TimeSpan.FromSeconds(0.4);
         #endregion
 
         #region Custom properties and events
@@ -43,7 +43,7 @@
         /// <returns>
         /// The identifier for the <see cref="ClickDelay"/> dependency property.
         /// </returns>
-        public static readonly DependencyProperty ClickDelayProperty = DependencyProperty.Register("ClickDelay", typeof(TimeSpan), typeof(EditableTextBlock), new FrameworkPropertyMetadata(DefaultEditDelay), new ValidateValueCallback(IsValidClickDelay));
+        public static readonly DependencyProperty ClickDelayProperty = DependencyProperty.Register("ClickDelay", typeof(TimeSpan), typeof(EditableTextBlock), new FrameworkPropertyMetadata(DefaultClickDelay), new ValidateValueCallback(IsValidClickDelay));
 
         /// <summary>
         /// Gets or sets The delay between a click and the actual switch to editing mode.
@@ -441,9 +441,6 @@
         /// <param name="e">An object that contains no event data.</param>
         private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             if (e.ClickCount < 2)
             {
                 ResetClickCount();
@@ -514,9 +511,6 @@
         /// <param name="e">State of the key pressed.</param>
         private void OnEditPreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             if (e.Key == Key.Return)
             {
                 CancellationToken Cancellation = new CancellationToken();

@@ -6,9 +6,16 @@
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
     <DockPanel>
-        <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,5,0">Test:</TextBlock>
-        <Border>
-            <ctrl:EditableTextBlock x:Name="ctrl" Text="{Binding EditableText}" VerticalAlignment="Center" Width="100"/>
-        </Border>
+        <DockPanel DockPanel.Dock="Bottom">
+            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,5,0">Test:</TextBlock>
+            <Border>
+                <ctrl:EditableTextBlock x:Name="ctrl" Text="{Binding EditableText}" VerticalAlignment="Center" Width="100"/>
+            </Border>
+        </DockPanel>
+        <GroupBox>
+            <StackPanel>
+                <CheckBox Checked="OnEditableSet" Unchecked="OnEditableCleared" IsChecked="{Binding Path=Editable, ElementName=ctrl, Mode=OneWay}">Editable</CheckBox>
+            </StackPanel>
+        </GroupBox>
     </DockPanel>
 </Window>

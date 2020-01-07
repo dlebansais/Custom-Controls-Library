@@ -10,7 +10,10 @@ namespace TestEditableTextBlock
         {
             string[] args = Environment.GetCommandLineArgs();
             if (args.Length > 1)
-                Process.GetCurrentProcess().Kill();
+                if (args[1] == "escape")
+                    TestEditableTextBlock.MainWindow.TestEscape = true;
+                else
+                    Process.GetCurrentProcess().Kill();
         }
     }
 }

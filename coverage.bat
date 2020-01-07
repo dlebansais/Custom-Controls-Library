@@ -11,31 +11,31 @@ if not exist ".\EditableTextBlock\EditableTextBlock\bin\x64\Debug\EditableTextBl
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
-call .\coverage\app.bat BusyIndicator Debug
-call .\coverage\wait.bat 20
+rem call .\coverage\app.bat BusyIndicator Debug
+rem call .\coverage\wait.bat 20
 
-call .\coverage\app.bat DialogValidation Debug "unset"
-call .\coverage\wait.bat 30
+rem call .\coverage\app.bat DialogValidation Debug "unset"
+rem call .\coverage\wait.bat 30
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
-call .\coverage\wait.bat 2
+rem call .\coverage\app.bat DialogValidation Debug
+rem "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
+rem call .\coverage\wait.bat 2
 
-call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
-call .\coverage\wait.bat 2
+rem call .\coverage\app.bat DialogValidation Debug
+rem "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
+rem call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug
+call .\coverage\app.bat EditableTextBlock Debug "escape"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-start cmd /c .\coverage\stop_winappdriver.bat
-call .\coverage\wait.bat 2
+rem start cmd /c .\coverage\stop_winappdriver.bat
+rem call .\coverage\wait.bat 2
 
 call ..\Certification\set_tokens.bat
-if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+rem if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
 :error1

@@ -1,9 +1,12 @@
 ﻿namespace TestEditableTextBlock
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
     using OpenQA.Selenium.Appium.Windows;
     using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Threading;
 
     [TestClass]
@@ -14,9 +17,9 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            WindowsElement ButtonOKElement = Session.FindElementByName("Init");
-            ButtonOKElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+            WindowsElement TextElement = Session.FindElementByName("Init");
+            TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(20));
 
             StopApp(Session);
         }
@@ -36,7 +39,7 @@
         {
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            session.Close();
+            using WindowsDriver<WindowsElement> DeletedSession = session;
         }
     }
 }
