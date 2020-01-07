@@ -24,6 +24,36 @@
             StopApp(Session);
         }
 
+        [TestMethod]
+        public void TestDefault2()
+        {
+            WindowsDriver<WindowsElement> Session = LaunchApp();
+
+            WindowsElement TextElement = Session.FindElementByName("Init");
+            TextElement.Click();
+
+            StopApp(Session);
+        }
+
+        [TestMethod]
+        public void TestDefault3()
+        {
+            WindowsDriver<WindowsElement> Session = LaunchApp();
+
+            WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
+            CheckIsEditableElement.Click();
+            CheckIsEditableElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            CheckIsEditableElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            WindowsElement TextElement = Session.FindElementByName("Init");
+            TextElement.Click();
+
+            StopApp(Session);
+        }
+
         private WindowsDriver<WindowsElement> LaunchApp()
         {
             Thread.Sleep(TimeSpan.FromSeconds(10));

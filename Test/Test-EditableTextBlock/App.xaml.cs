@@ -16,8 +16,17 @@ namespace TestEditableTextBlock
                     TestEditableTextBlock.MainWindow.TestEscape = 2;
                 else if (args[1] == "escape3")
                     TestEditableTextBlock.MainWindow.TestEscape = 3;
+                else if (args[1] == "escape4")
+                    TestEditableTextBlock.MainWindow.TestEscape = 4;
                 else
                     Process.GetCurrentProcess().Kill();
+
+            Exit += OnExit;
+        }
+
+        private void OnExit(object sender, ExitEventArgs e)
+        {
+            using TestEditableTextBlock.MainWindow Ctrl = (TestEditableTextBlock.MainWindow)MainWindow;
         }
     }
 }

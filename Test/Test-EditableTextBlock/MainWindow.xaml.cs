@@ -21,10 +21,26 @@ namespace TestEditableTextBlock
             Debug.Assert(ctrl.Editable);
             ctrl.Editable = true;
             Debug.Assert(!ctrl.IsEditing);
+            ctrl.IsEditing = false;
 
             ctrl.EditEnter += OnEditEnter;
             ctrl.TextChanged += OnTextChanged;
             ctrl.EditLeave += OnEditLeave;
+
+            Loaded += OnLoaded;
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnLoadedDone));
+        }
+
+        private void OnLoadedDone()
+        {
+            string s = ctrl.Text;
+
+            Debug.Assert(s == "Init");
+            ctrl.Text = "Init";
         }
 
         public string EditableText
@@ -42,7 +58,12 @@ namespace TestEditableTextBlock
 
         private void OnEditEnter(object sender, RoutedEventArgs e)
         {
-            if (TestEscape > 0)
+            EditableTextBlockEventArgs Args = (EditableTextBlockEventArgs)e;
+
+            if (TestEscape == 4)
+                Args.Cancel();
+
+            else if (TestEscape > 0)
                 EscapeTimer = new Timer(new TimerCallback(EscapeTimerCallback), this, TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(2));
         }
 
@@ -93,6 +114,9 @@ namespace TestEditableTextBlock
 
                 default:
                     EscapeTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                    ctrl.EditEnter -= OnEditEnter;
+                    ctrl.TextChanged -= OnTextChanged;
+                    ctrl.EditLeave -= OnEditLeave;
                     Close();
                     break;
             }
