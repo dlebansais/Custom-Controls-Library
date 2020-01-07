@@ -20,7 +20,9 @@
 
             WindowsElement TextElement = Session.FindElementByName("Init");
             TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(20));
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
 
             StopApp(Session);
         }
@@ -32,6 +34,8 @@
 
             WindowsElement TextElement = Session.FindElementByName("Init");
             TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            TextElement.Click();
 
             StopApp(Session);
         }
@@ -42,6 +46,9 @@
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
             WindowsElement TextElement = Session.FindElementByName("Init");
+            TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+
             Actions action = new Actions(Session);
             action.MoveToElement(TextElement);
             action.DoubleClick();
