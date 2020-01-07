@@ -1,12 +1,12 @@
-﻿using CustomControls;
-using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Windows;
-using System.Windows.Input;
-
-namespace TestEditableTextBlock
+﻿namespace TestEditableTextBlock
 {
+    using CustomControls;
+    using System;
+    using System.Diagnostics;
+    using System.Threading;
+    using System.Windows;
+    using System.Windows.Input;
+
     public partial class MainWindow : Window
     {
         public MainWindow()

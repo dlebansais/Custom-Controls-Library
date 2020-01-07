@@ -1,10 +1,9 @@
-﻿using System;
-using System.Diagnostics;
-using System.Threading;
-using System.Windows;
-
-namespace TestEditableTextBlock
+﻿namespace TestEditableTextBlock
 {
+    using System;
+    using System.Diagnostics;
+    using System.Windows;
+
     public partial class App : Application
     {
         public App()

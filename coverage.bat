@@ -13,7 +13,7 @@ if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.x
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-rem goto skip
+goto skip
 call .\coverage\app.bat BusyIndicator Debug
 call .\coverage\wait.bat 20
 
@@ -27,8 +27,6 @@ call .\coverage\wait.bat 2
 call .\coverage\app.bat DialogValidation Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
 call .\coverage\wait.bat 2
-
-skip:
 
 call .\coverage\app.bat EditableTextBlock Debug "escape1"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
@@ -54,11 +52,16 @@ call .\coverage\app.bat EditableTextBlock Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault3
 call .\coverage\wait.bat 2
 
+:skip
+call .\coverage\app.bat EnumComboBox Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumComboBox-UT\bin\x64\Debug\Test-EnumComboBox-UT.dll" /Tests:TestDefault1
+call .\coverage\wait.bat 2
+
 start cmd /c .\coverage\stop_winappdriver.bat
 call .\coverage\wait.bat 2
 
 call ..\Certification\set_tokens.bat
-if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+rem if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
 :error1

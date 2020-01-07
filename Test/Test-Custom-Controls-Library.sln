@@ -25,6 +25,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-EditableTextBlock-UT",
 		{0FE827B2-66DA-406F-A4B7-309A31D11BCB} = {0FE827B2-66DA-406F-A4B7-309A31D11BCB}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-EnumComboBox", "Test-EnumComboBox\Test-EnumComboBox.csproj", "{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-EnumComboBox-UT", "Test-EnumComboBox-UT\Test-EnumComboBox-UT.csproj", "{6D2F86FF-4793-4A19-8991-8BB63C7707E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3A59BC48-87AD-4894-B3B4-D074F8CBABB9} = {3A59BC48-87AD-4894-B3B4-D074F8CBABB9}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -63,6 +70,14 @@ Global
 		{1B4F1DFF-77E7-4BD8-9CA9-A53D677A563C}.Debug|x64.Build.0 = Debug|x64
 		{1B4F1DFF-77E7-4BD8-9CA9-A53D677A563C}.Release|x64.ActiveCfg = Release|x64
 		{1B4F1DFF-77E7-4BD8-9CA9-A53D677A563C}.Release|x64.Build.0 = Release|x64
+		{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}.Debug|x64.ActiveCfg = Debug|x64
+		{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}.Debug|x64.Build.0 = Debug|x64
+		{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}.Release|x64.ActiveCfg = Release|x64
+		{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}.Release|x64.Build.0 = Release|x64
+		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Debug|x64.ActiveCfg = Debug|x64
+		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Debug|x64.Build.0 = Debug|x64
+		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Release|x64.ActiveCfg = Release|x64
+		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

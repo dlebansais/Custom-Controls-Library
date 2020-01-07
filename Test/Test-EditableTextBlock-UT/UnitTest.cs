@@ -60,7 +60,7 @@
             Thread.Sleep(TimeSpan.FromSeconds(10));
 
             AppiumOptions appiumOptions = new AppiumOptions();
-            appiumOptions.AddAdditionalCapability("app", @"C:\Projects\Custom-Controls-Library\Test\Test-EditableTextBlock\bin\x64\Debug\Test-EditableTextBlock.exe");
+            appiumOptions.AddAdditionalCapability("app", @".\Test\Test-EditableTextBlock\bin\x64\Debug\Test-EditableTextBlock.exe");
             appiumOptions.AddAdditionalCapability("appArguments", "ignore");
 
             return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
