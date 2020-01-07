@@ -310,7 +310,13 @@
             int DoubleClickTime = System.Windows.Forms.SystemInformation.DoubleClickTime;
             TimeSpan MinimumDelay = TimeSpan.FromMilliseconds(DoubleClickTime);
 
-            TimeSpan ActualDelay = ClickDelay >= MinimumDelay ? ClickDelay : MinimumDelay;
+            TimeSpan ActualDelay;
+
+            if (ClickDelay >= MinimumDelay)
+                ActualDelay = ClickDelay;
+            else
+                ActualDelay = MinimumDelay;
+
             StartEditingTimer.Change(ActualDelay, Timeout.InfiniteTimeSpan);
         }
 

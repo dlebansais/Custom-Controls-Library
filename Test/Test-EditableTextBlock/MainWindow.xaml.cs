@@ -43,6 +43,7 @@ namespace TestEditableTextBlock
                 }
 
                 ctrl.ClickDelay = TimeSpan.Zero;
+                Debug.Assert(ctrl.ClickDelay == TimeSpan.Zero);
             }
 
             Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnLoadedDone));

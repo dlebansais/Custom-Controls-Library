@@ -8,9 +8,11 @@
     <DockPanel>
         <DockPanel DockPanel.Dock="Bottom">
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,5,0">Test:</TextBlock>
-            <Border>
-                <ctrl:EditableTextBlock x:Name="ctrl" Focusable="True" Text="{Binding EditableText}" VerticalAlignment="Center" Width="100"/>
-            </Border>
+            <ListBox SelectedIndex="0">
+                <ListBoxItem>
+                    <ctrl:EditableTextBlock x:Name="ctrl" Focusable="True" Text="{Binding EditableText}" VerticalAlignment="Center" Width="100"/>
+                </ListBoxItem>
+            </ListBox>
         </DockPanel>
         <GroupBox>
             <StackPanel>
