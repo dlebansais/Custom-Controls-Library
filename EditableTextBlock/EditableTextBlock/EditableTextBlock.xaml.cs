@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel;
+    using System.Diagnostics;
     using System.Threading;
     using System.Windows;
     using System.Windows.Controls;
@@ -472,11 +473,10 @@
 
             if (IsClickCountSimple())
             {
-                if (!Focusable || LastFocusedParent == FocusedParent())
-                {
-                    ScheduleStartEditing();
-                    LastFocusedParent = null;
-                }
+                Debug.Assert(!Focusable || LastFocusedParent == FocusedParent());
+
+                ScheduleStartEditing();
+                LastFocusedParent = null;
             }
         }
 
@@ -491,8 +491,10 @@
             while (Current != null)
             {
                 if (Current is UIElement AsUIElement)
+                {
                     if (AsUIElement.IsFocused)
                         return AsUIElement;
+                }
 
                 Current = VisualTreeHelper.GetParent(Current);
             }

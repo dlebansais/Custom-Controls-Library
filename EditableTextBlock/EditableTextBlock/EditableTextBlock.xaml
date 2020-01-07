@@ -4,11 +4,11 @@
              xmlns:ctrl="clr-namespace:CustomControls"
              xmlns:conv="clr-namespace:Converters">
     <UserControl.Resources>
-        <conv:EditableTextBlockMarginConverter x:Key="MarginConverter"/>
+        <conv:EditableTextBlockMarginConverter x:Key="convEditableTextBlockMargin"/>
     </UserControl.Resources>
     <Grid Name="ctrlGrid" x:FieldModifier="internal">
         <Grid.Margin>
-            <MultiBinding Converter="{StaticResource MarginConverter}" ConverterParameter="GridMargin" FallbackValue="0">
+            <MultiBinding Converter="{StaticResource convEditableTextBlockMargin}" ConverterParameter="GridMargin" FallbackValue="0">
                 <Binding Path="IsEditing" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:EditableTextBlock}}" FallbackValue="False"/>
                 <Binding Path="Margin" ElementName="ctrlTextBlock" FallbackValue="0"/>
                 <Binding Path="Padding" ElementName="ctrlTextBlock" FallbackValue="0"/>
@@ -30,7 +30,7 @@
                  PreviewKeyDown="OnEditPreviewKeyDown"
                  LostFocus="OnEditLostFocus">
             <TextBox.Margin>
-                <MultiBinding Converter="{StaticResource MarginConverter}" ConverterParameter="TextBoxMargin" FallbackValue="0">
+                <MultiBinding Converter="{StaticResource convEditableTextBlockMargin}" ConverterParameter="TextBoxMargin" FallbackValue="0">
                     <Binding Path="IsEditing" RelativeSource="{RelativeSource AncestorType={x:Type ctrl:EditableTextBlock}}" FallbackValue="False"/>
                     <Binding Path="Margin" ElementName="ctrlTextBlock" FallbackValue="0"/>
                     <Binding Path="Padding" ElementName="ctrlTextBlock" FallbackValue="0"/>

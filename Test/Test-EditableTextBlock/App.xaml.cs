@@ -19,6 +19,8 @@ namespace TestEditableTextBlock
                     TestEditableTextBlock.MainWindow.TestEscape = 3;
                 else if (args[1] == "escape4")
                     TestEditableTextBlock.MainWindow.TestEscape = 4;
+                else if (args[1] == "escape5")
+                    TestEditableTextBlock.MainWindow.TestEscape = 5;
                 else
                     Process.GetCurrentProcess().Kill();
         }

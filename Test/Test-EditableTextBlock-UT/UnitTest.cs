@@ -44,6 +44,14 @@
 
             ClickBox(Session);
 
+            CheckIsEditableElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
+            ClickBox(Session);
+
+            CheckIsEditableElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             StopApp(Session);
         }
 

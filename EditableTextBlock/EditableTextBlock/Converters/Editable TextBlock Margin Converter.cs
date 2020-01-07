@@ -1,6 +1,7 @@
 ﻿namespace Converters
 {
     using System;
+    using System.Diagnostics;
     using System.Diagnostics.CodeAnalysis;
     using System.Globalization;
     using System.Windows;
@@ -24,37 +25,53 @@
         /// </returns>
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values.Length > 4 && (values[0] is bool) && (values[1] is Thickness) && (values[2] is Thickness) && (values[3] is Thickness) && (values[4] is Thickness))
+            Debug.Assert(values.Length > 4);
+
+            object Result;
+
+            if ((values[0] is bool IsEditing) && (values[1] is Thickness TextBlockMargin) && (values[2] is Thickness TextBlockPadding) && (values[3] is Thickness TextBoxBorder) && (values[4] is Thickness TextBoxPadding) && parameter is string ExpectedResult)
+                Result = ConvertValidValues(IsEditing, TextBlockMargin, TextBlockPadding, TextBoxBorder, TextBoxPadding, ExpectedResult);
+            else
+                Result = default(Thickness);
+
+            return Result;
+        }
+
+        private object ConvertValidValues(bool isEditing, Thickness textBlockMargin, Thickness textBlockPadding, Thickness textBoxBorder, Thickness textBoxPadding, string expectedResult)
+        {
+            object Result = DependencyProperty.UnsetValue;
+
+            double TextBoxLeft = (textBlockMargin.Left + textBlockPadding.Left) - (textBoxBorder.Left + textBoxPadding.Left + 3);
+            double GridLeft = Math.Max(0.0, -TextBoxLeft);
+            double TextBoxTop = (textBlockMargin.Top + textBlockPadding.Top) - (textBoxBorder.Top + textBoxPadding.Top);
+            double GridTop = Math.Max(0.0, -TextBoxTop);
+
+            double GridRight = isEditing ? 0 : Math.Max(0.0, (textBoxBorder.Right + textBoxPadding.Right + 4) - (textBlockPadding.Right + textBlockMargin.Right));
+            double GridBottom = isEditing ? 0 : Math.Max(0.0, (textBoxBorder.Bottom + textBoxPadding.Bottom + 2) - (textBlockPadding.Bottom + textBlockMargin.Bottom));
+
+            Thickness GridMargin = new Thickness(GridLeft, GridTop, GridRight, GridBottom);
+            Thickness TextBoxMargin = new Thickness(TextBoxLeft, TextBoxTop, 0, 0);
+
+            switch (expectedResult)
             {
-                bool IsEditing = (bool)values[0];
-                Thickness TextBlockMargin = (Thickness)values[1];
-                Thickness TextBlockPadding = (Thickness)values[2];
-                Thickness TextBoxBorder = (Thickness)values[3];
-                Thickness TextBoxPadding = (Thickness)values[4];
-
-                double TextBoxLeft = (TextBlockMargin.Left + TextBlockPadding.Left) - (TextBoxBorder.Left + TextBoxPadding.Left + 3);
-                double GridLeft = Math.Max(0.0, -TextBoxLeft);
-                double TextBoxTop = (TextBlockMargin.Top + TextBlockPadding.Top) - (TextBoxBorder.Top + TextBoxPadding.Top);
-                double GridTop = Math.Max(0.0, -TextBoxTop);
-
-                double GridRight = IsEditing ? 0 : Math.Max(0.0, (TextBoxBorder.Right + TextBoxPadding.Right + 4) - (TextBlockPadding.Right + TextBlockMargin.Right));
-                double GridBottom = IsEditing ? 0 : Math.Max(0.0, (TextBoxBorder.Bottom + TextBoxPadding.Bottom + 2) - (TextBlockPadding.Bottom + TextBlockMargin.Bottom));
-
-                Thickness GridMargin = new Thickness(GridLeft, GridTop, GridRight, GridBottom);
-                Thickness TextBoxMargin = new Thickness(TextBoxLeft, TextBoxTop, 0, 0);
-
-                if (parameter is string ExpectedResult)
-                {
-                    if (ExpectedResult == "GridMargin")
-                        return GridMargin;
-                    else if (ExpectedResult == "TextBoxMargin")
-                        return TextBoxMargin;
-                    else
-                        throw new ArgumentOutOfRangeException(nameof(parameter));
-                }
+                case "GridMargin":
+                    Result = GridMargin;
+                    break;
+                case "TextBoxMargin":
+                    Result = TextBoxMargin;
+                    break;
             }
 
-            throw new ArgumentOutOfRangeException(nameof(values));
+            Debug.Assert(Result != DependencyProperty.UnsetValue);
+
+#if DEBUG
+            Type[] ConversionTargetTypes = new Type[] { typeof(bool), typeof(Thickness), typeof(Thickness), typeof(Thickness), typeof(Thickness) };
+            object ConversionParameters = new object[] { isEditing, textBlockMargin, textBlockPadding, textBoxBorder, textBoxPadding, expectedResult };
+            object[] ConvertedBackValues = ConvertBack(Result, ConversionTargetTypes, ConversionParameters, CultureInfo.CurrentCulture);
+            Debug.Assert(ConvertedBackValues.Length == 0);
+#endif
+
+            return Result;
         }
 
         /// <summary>

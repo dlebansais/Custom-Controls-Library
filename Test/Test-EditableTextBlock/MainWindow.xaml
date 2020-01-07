@@ -9,6 +9,9 @@
         <DockPanel DockPanel.Dock="Bottom">
             <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Margin="0,0,5,0">Test:</TextBlock>
             <ListBox SelectedIndex="0" Width="100">
+                <ListBoxItem Visibility="Collapsed">
+                    <ctrl:EditableTextBlock/>
+                </ListBoxItem>
                 <ListBoxItem>
                     <ctrl:EditableTextBlock x:Name="ctrl" AutomationProperties.AutomationId="editableTextBlock" Focusable="True" Text="{Binding EditableText}" VerticalAlignment="Center" HorizontalAlignment="Left" Background="Red"/>
                 </ListBoxItem>

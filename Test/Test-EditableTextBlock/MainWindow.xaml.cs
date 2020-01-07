@@ -42,8 +42,9 @@ namespace TestEditableTextBlock
                     Dlg.ShowDialog();
                 }
 
-                ctrl.ClickDelay = TimeSpan.Zero;
-                Debug.Assert(ctrl.ClickDelay == TimeSpan.Zero);
+                int DoubleClickTime = System.Windows.Forms.SystemInformation.DoubleClickTime;
+                ctrl.ClickDelay = TimeSpan.FromMilliseconds(DoubleClickTime);
+                ctrl.Focusable = false;
             }
 
             Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnLoadedDone));
@@ -83,6 +84,10 @@ namespace TestEditableTextBlock
 
         private void OnTextChanged(object sender, RoutedEventArgs e)
         {
+            EditableTextBlockEventArgs Args = (EditableTextBlockEventArgs)e;
+
+            if (TestEscape == 5)
+                Args.Cancel();
         }
 
         private void OnEditLeave(object sender, RoutedEventArgs e)
@@ -122,15 +127,18 @@ namespace TestEditableTextBlock
                 case 1:
                     if (TestEscape == 1)
                         SendEscapeKey();
-                    else if (TestEscape == 2 || TestEscape == 3)
+                    else if (TestEscape == 2 || TestEscape == 3 || TestEscape == 5)
                         SendReturnKey();
+                    break;
+
+                case 2:
+                    ctrl.EditEnter -= OnEditEnter;
+                    ctrl.TextChanged -= OnTextChanged;
+                    ctrl.EditLeave -= OnEditLeave;
                     break;
 
                 default:
                     EscapeTimer.Change(Timeout.Infinite, Timeout.Infinite);
-                    ctrl.EditEnter -= OnEditEnter;
-                    ctrl.TextChanged -= OnTextChanged;
-                    ctrl.EditLeave -= OnEditLeave;
                     Close();
                     break;
             }
@@ -145,24 +153,12 @@ namespace TestEditableTextBlock
                 RoutedEvent = Keyboard.PreviewKeyDownEvent
             };
             InputManager.Current.ProcessInput(e);
-            /*
-            e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, key)
-            {
-                RoutedEvent = Keyboard.KeyDownEvent
-            };
-            InputManager.Current.ProcessInput(e);*/
 
             e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, key)
             {
                 RoutedEvent = Keyboard.PreviewKeyUpEvent
              };
             InputManager.Current.ProcessInput(e);
-            /*
-            e = new KeyEventArgs(Keyboard.PrimaryDevice, Keyboard.PrimaryDevice.ActiveSource, 0, key)
-            {
-                RoutedEvent = Keyboard.KeyUpEvent
-            };
-            InputManager.Current.ProcessInput(e);*/
         }
 
         private void SendEscapeKey()

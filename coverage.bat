@@ -43,6 +43,10 @@ call .\coverage\app.bat EditableTextBlock Debug "escape4"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault2
 call .\coverage\wait.bat 2
 
+call .\coverage\app.bat EditableTextBlock Debug "escape5"
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
+call .\coverage\wait.bat 2
+
 call .\coverage\app.bat EditableTextBlock Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault3
 call .\coverage\wait.bat 2
