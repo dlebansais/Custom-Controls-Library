@@ -473,13 +473,11 @@
 
             if (IsClickCountSimple())
             {
-                if (!Focusable || LastFocusedParent == FocusedParent())
+                bool IsStart = !Focusable || LastFocusedParent == FocusedParent();
+                if (IsStart)
                 {
                     ScheduleStartEditing();
                     LastFocusedParent = null;
-                }
-                else
-                {
                 }
             }
         }
@@ -498,6 +496,9 @@
                 {
                     if (AsUIElement.IsFocused)
                         return AsUIElement;
+                }
+                else
+                {
                 }
 
                 Current = VisualTreeHelper.GetParent(Current);

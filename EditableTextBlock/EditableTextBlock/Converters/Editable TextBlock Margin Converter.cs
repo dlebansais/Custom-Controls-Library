@@ -54,7 +54,7 @@
 
             switch (expectedResult)
             {
-                case "GridMargin":
+                default:
                     Result = GridMargin;
                     break;
                 case "TextBoxMargin":
