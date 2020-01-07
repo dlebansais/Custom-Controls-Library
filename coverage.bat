@@ -13,19 +13,22 @@ if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.x
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-rem call .\coverage\app.bat BusyIndicator Debug
-rem call .\coverage\wait.bat 20
+rem goto skip
+call .\coverage\app.bat BusyIndicator Debug
+call .\coverage\wait.bat 20
 
-rem call .\coverage\app.bat DialogValidation Debug "unset"
-rem call .\coverage\wait.bat 30
+call .\coverage\app.bat DialogValidation Debug "unset"
+call .\coverage\wait.bat 30
 
-rem call .\coverage\app.bat DialogValidation Debug
-rem "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
-rem call .\coverage\wait.bat 2
+call .\coverage\app.bat DialogValidation Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
+call .\coverage\wait.bat 2
 
-rem call .\coverage\app.bat DialogValidation Debug
-rem "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
-rem call .\coverage\wait.bat 2
+call .\coverage\app.bat DialogValidation Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
+call .\coverage\wait.bat 2
+
+skip:
 
 call .\coverage\app.bat EditableTextBlock Debug "escape1"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
