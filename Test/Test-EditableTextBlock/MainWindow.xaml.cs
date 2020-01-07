@@ -60,16 +60,8 @@ namespace TestEditableTextBlock
 
         public string EditableText
         {
-            get { return EditableTextInternal; }
-            set
-            {
-                if (EditableTextInternal != value)
-                {
-                    EditableTextInternal = value;
-                }
-            }
+            get { return "Init"; }
         }
-        private string EditableTextInternal = "Init";
 
         private void OnEditEnter(object sender, RoutedEventArgs e)
         {
@@ -118,7 +110,7 @@ namespace TestEditableTextBlock
 
         private void OnEscapeTimer()
         {
-            switch (EscapeStep++)
+            switch (EscapeStep)
             {
                 case 0:
                     SendKey(Key.X);
@@ -142,6 +134,8 @@ namespace TestEditableTextBlock
                     Close();
                     break;
             }
+
+            EscapeStep++;
         }
 
         private void SendKey(Key key)

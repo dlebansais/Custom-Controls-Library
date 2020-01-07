@@ -28,3 +28,4 @@ comment:
 ignore:
   - "**/Properties/*.cs"
   - "Test/Test-DialogValidation/App.xaml.cs"
+  - "Test/Test-EditableTextBlock/App.xaml.cs"

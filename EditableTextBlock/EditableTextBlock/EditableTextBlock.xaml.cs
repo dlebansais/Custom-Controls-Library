@@ -490,16 +490,12 @@
         {
             DependencyObject Current = this;
 
-            while (Current != null)
+            while (Current is UIElement)
             {
-                if (Current is UIElement AsUIElement)
-                {
-                    if (AsUIElement.IsFocused)
-                        return AsUIElement;
-                }
-                else
-                {
-                }
+                UIElement AsUIElement = (UIElement)Current;
+
+                if (AsUIElement.IsFocused)
+                    return AsUIElement;
 
                 Current = VisualTreeHelper.GetParent(Current);
             }
