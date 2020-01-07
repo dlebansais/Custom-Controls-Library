@@ -21,6 +21,11 @@ namespace TestEditableTextBlock
             Debug.Assert(!ctrl.IsEditing);
             ctrl.IsEditing = false;
 
+            ctrl.Editable = false;
+            ctrl.IsEditing = true;
+            ctrl.IsEditing = false;
+            ctrl.Editable = true;
+
             ctrl.EditEnter += OnEditEnter;
             ctrl.TextChanged += OnTextChanged;
             ctrl.EditLeave += OnEditLeave;
@@ -36,6 +41,8 @@ namespace TestEditableTextBlock
                 {
                     Dlg.ShowDialog();
                 }
+
+                ctrl.ClickDelay = TimeSpan.Zero;
             }
 
             Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnLoadedDone));

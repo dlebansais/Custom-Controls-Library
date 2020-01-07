@@ -62,6 +62,7 @@ namespace TestEditableTextBlock
         private void DisposeNow()
         {
             ctrl.Dispose();
+            ctrl.Dispose(); // Try to dispose twice, to test this corner case.
         }
         #endregion
     }

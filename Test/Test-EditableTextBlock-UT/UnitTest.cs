@@ -4,6 +4,7 @@
     using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
     using OpenQA.Selenium.Appium.Windows;
+    using OpenQA.Selenium.Interactions;
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
@@ -41,8 +42,10 @@
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
             WindowsElement TextElement = Session.FindElementByName("Init");
-            TextElement.Click();
-            TextElement.Click();
+            Actions action = new Actions(Session);
+            action.MoveToElement(TextElement);
+            action.DoubleClick();
+            action.Perform();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
             WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
