@@ -1,13 +1,10 @@
 ﻿namespace TestEditableTextBlock
 {
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using OpenQA.Selenium;
     using OpenQA.Selenium.Appium;
     using OpenQA.Selenium.Appium.Windows;
     using OpenQA.Selenium.Interactions;
     using System;
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Threading;
 
     [TestClass]
@@ -18,11 +15,7 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            WindowsElement TextElement = Session.FindElementByName("Init");
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
+            ClickBox(Session);
 
             StopApp(Session);
         }
@@ -32,10 +25,8 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            WindowsElement TextElement = Session.FindElementByName("Init");
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            TextElement.Click();
+            ClickBox(Session);
+            ClickBox(Session);
 
             StopApp(Session);
         }
@@ -45,22 +36,13 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            WindowsElement TextElement = Session.FindElementByName("Init");
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-
-            Actions action = new Actions(Session);
-            action.MoveToElement(TextElement);
-            action.DoubleClick();
-            action.Perform();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+            DoubleClickBox(Session);
 
             WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
             CheckIsEditableElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            TextElement = Session.FindElementByName("Init");
-            TextElement.Click();
+            ClickBox(Session);
 
             StopApp(Session);
         }
@@ -74,6 +56,36 @@
             appiumOptions.AddAdditionalCapability("appArguments", "ignore");
 
             return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
+        }
+
+        private void ClickBox(WindowsDriver<WindowsElement> session)
+        {
+            WindowsElement TextElement = session.FindElementByName("Init");
+            TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            TextElement = session.FindElementByAccessibilityId("editableTextBlock");
+
+            Actions action = new Actions(session);
+            action.MoveToElement(TextElement, 10, 10);
+            action.Click();
+            action.Perform();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+        }
+
+        private void DoubleClickBox(WindowsDriver<WindowsElement> session)
+        {
+            WindowsElement TextElement = session.FindElementByName("Init");
+            TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            TextElement = session.FindElementByAccessibilityId("editableTextBlock");
+
+            Actions action = new Actions(session);
+            action.MoveToElement(TextElement, 10, 10);
+            action.DoubleClick();
+            action.Perform();
+
+            Thread.Sleep(TimeSpan.FromSeconds(2));
         }
 
         private void StopApp(WindowsDriver<WindowsElement> session)
