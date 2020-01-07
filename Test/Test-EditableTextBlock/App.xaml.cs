@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Threading;
 using System.Windows;
 
 namespace TestEditableTextBlock
@@ -20,13 +21,6 @@ namespace TestEditableTextBlock
                     TestEditableTextBlock.MainWindow.TestEscape = 4;
                 else
                     Process.GetCurrentProcess().Kill();
-
-            Exit += OnExit;
-        }
-
-        private void OnExit(object sender, ExitEventArgs e)
-        {
-            using TestEditableTextBlock.MainWindow Ctrl = (TestEditableTextBlock.MainWindow)MainWindow;
         }
     }
 }

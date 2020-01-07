@@ -40,15 +40,16 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
+            WindowsElement TextElement = Session.FindElementByName("Init");
+            TextElement.Click();
+            TextElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+
             WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
             CheckIsEditableElement.Click();
-            CheckIsEditableElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            CheckIsEditableElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-
-            WindowsElement TextElement = Session.FindElementByName("Init");
+            TextElement = Session.FindElementByName("Init");
             TextElement.Click();
 
             StopApp(Session);
