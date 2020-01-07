@@ -69,8 +69,8 @@
         private void ClickBox(WindowsDriver<WindowsElement> session)
         {
             WindowsElement TextElement = session.FindElementByName("Init");
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
+            //TextElement.Click();
+            //Thread.Sleep(TimeSpan.FromSeconds(1));
             TextElement = session.FindElementByAccessibilityId("editableTextBlock");
 
             Actions action = new Actions(session);

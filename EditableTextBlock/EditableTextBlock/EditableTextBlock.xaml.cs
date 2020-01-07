@@ -473,10 +473,14 @@
 
             if (IsClickCountSimple())
             {
-                Debug.Assert(!Focusable || LastFocusedParent == FocusedParent());
-
-                ScheduleStartEditing();
-                LastFocusedParent = null;
+                if (!Focusable || LastFocusedParent == FocusedParent())
+                {
+                    ScheduleStartEditing();
+                    LastFocusedParent = null;
+                }
+                else
+                {
+                }
             }
         }
 
