@@ -27,6 +27,7 @@
 
             ctrl.EnumBinding = OtherTestProperty;
             ctrl.SelectedIndex = -1;
+            ctrl.SelectedIndex = 0;
 
             ctrl.EnumBinding = null;
             OldNameConverter = ctrl.NameConverter;

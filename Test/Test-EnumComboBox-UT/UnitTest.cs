@@ -15,7 +15,7 @@
         {
             WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            WindowsElement ComboElement = Session.FindElementByAccessibilityId("enumComboBox");
+            WindowsElement ComboElement = Session.FindElementByAccessibilityId("enumComboBox1");
             ComboElement.Click();
             Thread.Sleep(TimeSpan.FromSeconds(2));
 
