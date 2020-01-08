@@ -26,6 +26,7 @@
 
             ctrl.EnumBinding = null;
             OldNameConverter = ctrl.NameConverter;
+            ctrl.SelectedIndex = -1;
         }
 
         private void OnNullCleared(object sender, RoutedEventArgs e)
@@ -40,8 +41,8 @@
         {
             OldEnumBinding = ctrl.EnumBinding;
 
-            ctrl.SelectedIndex = -1;
             ctrl.EnumBinding = BadBinding;
+            ctrl.SelectedIndex = -1;
         }
 
         private void OnBadCleared(object sender, RoutedEventArgs e)
