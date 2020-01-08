@@ -11,7 +11,8 @@
         <local:LazyConverter x:Key="convLazy"/>
     </Window.Resources>
     <DockPanel>
-        <ctrl:EnumComboBox DockPanel.Dock="Bottom" x:Name="ctrl" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumComboBox" NameConverter="{StaticResource convUpperToLower}"/>
+        <ctrl:EnumComboBox DockPanel.Dock="Bottom" x:Name="ctrl" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumComboBox1" NameConverter="{StaticResource convUpperToLower}"/>
+        <ctrl:EnumComboBox DockPanel.Dock="Bottom" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumComboBox2"/>
         <GroupBox>
             <StackPanel>
                 <CheckBox Checked="OnNullSet" Unchecked="OnNullCleared">Null</CheckBox>

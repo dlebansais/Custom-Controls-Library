@@ -1,6 +1,7 @@
 ﻿namespace Converters
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Windows.Data;
 
@@ -22,7 +23,11 @@
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            object Result = value;
+
+            Debug.Assert(Result == ConvertBack(value, typeof(object), parameter, culture));
+
+            return Result;
         }
 
         /// <summary>

@@ -19,10 +19,14 @@
         }
 
         public TestEnum TestProperty { get; set; }
+        public TestEnum OtherTestProperty { get; set; }
 
         private void OnNullSet(object sender, RoutedEventArgs e)
         {
             OldEnumBinding = ctrl.EnumBinding;
+
+            ctrl.EnumBinding = OtherTestProperty;
+            ctrl.SelectedIndex = -1;
 
             ctrl.EnumBinding = null;
             OldNameConverter = ctrl.NameConverter;
