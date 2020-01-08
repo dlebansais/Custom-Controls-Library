@@ -1,6 +1,6 @@
 ﻿namespace TestEnumComboBox
 {
-    public enum TestEnum
+    public enum TestEnum1
     {
         X,
         Y,

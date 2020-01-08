@@ -18,8 +18,8 @@
             ctrl.NameConverterCulture = CultureInfo.InvariantCulture;
         }
 
-        public TestEnum TestProperty { get; set; }
-        public TestEnum OtherTestProperty { get; set; }
+        public TestEnum1 TestProperty { get; set; }
+        public TestEnum2 OtherTestProperty { get; set; }
 
         private void OnNullSet(object sender, RoutedEventArgs e)
         {

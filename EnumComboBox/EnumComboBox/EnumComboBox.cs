@@ -258,6 +258,8 @@
         {
             get
             {
+                int Result = -1;
+
                 if (EnumBinding != null)
                 {
                     Type EnumType = EnumBinding.GetType();
@@ -268,11 +270,11 @@
 
                         for (int i = 0; i < Values.Length; i++)
                             if (Values.GetValue(i).Equals(CurrentValue))
-                                return i;
+                                Result = i;
                     }
                 }
 
-                return -1;
+                return Result;
             }
         }
 
@@ -296,7 +298,7 @@
         /// </remarks>
         private void UpdateContent(Type enumType)
         {
-            EnumNameCollection.Clear();
+            ObservableCollection<string> NewEnumNameCollection = new ObservableCollection<string>();
 
             if (enumType.IsEnum)
             {
@@ -308,14 +310,16 @@
                 foreach (string EnumName in EnumNames)
                 {
                     string ConvertedText = (string)Converter.Convert(EnumName, typeof(string), ConverterParameter, ConversionCulture);
-                    EnumNameCollection.Add(ConvertedText);
+                    NewEnumNameCollection.Add(ConvertedText);
                 }
             }
 
-            ItemsSource = EnumNameCollection;
+            EnumNameCollection = NewEnumNameCollection;
 
             if (SelectedIndex >= EnumNameCollection.Count)
                 SelectedIndex = -1;
+
+            ItemsSource = EnumNameCollection;
         }
 
         /// <summary>

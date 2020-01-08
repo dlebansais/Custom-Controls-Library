@@ -59,7 +59,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="TestEnum.cs" />
+    <Compile Include="TestEnum2.cs" />
+    <Compile Include="TestEnum1.cs" />
     <Compile Include="LazyConverter.cs" />
     <Compile Include="UpperToLowerConverter.cs" />
     <Page Include="MainWindow.xaml">
