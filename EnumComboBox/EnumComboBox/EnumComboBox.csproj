@@ -87,7 +87,7 @@
   <ItemGroup>
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="IdentityStringConverter.cs" />
-    <Compile Include="Enum ComboBox.cs" />
+    <Compile Include="EnumComboBox.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

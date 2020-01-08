@@ -99,7 +99,7 @@
         /// <returns>
         /// The identifier for the <see cref="NameConverterParameter"/> dependency property.
         /// </returns>
-        public static readonly DependencyProperty NameConverterParameterProperty = DependencyProperty.Register("NameConverterParameter", typeof(object), typeof(EnumComboBox), new PropertyMetadata(null));
+        public static readonly DependencyProperty NameConverterParameterProperty = DependencyProperty.Register("NameConverterParameter", typeof(object), typeof(EnumComboBox), new PropertyMetadata(string.Empty));
 
         /// <summary>
         /// Gets or sets the converter parameter to use when converting an enum value to its localized content.
@@ -298,7 +298,7 @@
         {
             EnumNameCollection.Clear();
 
-            if (enumType != null && enumType.IsEnum)
+            if (enumType.IsEnum)
             {
                 IValueConverter Converter = NameConverter;
                 object ConverterParameter = NameConverterParameter;
