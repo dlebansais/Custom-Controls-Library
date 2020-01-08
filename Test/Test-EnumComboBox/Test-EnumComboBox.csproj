@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="TestEnum.cs" />
+    <Compile Include="LazyConverter.cs" />
     <Compile Include="UpperToLowerConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

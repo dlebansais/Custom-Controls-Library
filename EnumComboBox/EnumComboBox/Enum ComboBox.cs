@@ -161,25 +161,19 @@
         {
             Size BaseSize = base.MeasureOverride(constraint);
 
-            double AddedWidth, AddedHeight;
-            if (SelectedIndex >= 0 && SelectedIndex < EnumNameCollection.Count)
-            {
-                Size SelectedEnumSize = GetTextSize(EnumNameCollection[SelectedIndex]);
+            double AddedWidth = 0;
+            double AddedHeight = 0;
+            Size SelectedEnumSize;
 
-                if (BaseSize.Width > SelectedEnumSize.Width)
-                    AddedWidth = BaseSize.Width - SelectedEnumSize.Width;
-                else
-                    AddedWidth = 0;
-                if (BaseSize.Height > SelectedEnumSize.Height)
-                    AddedHeight = BaseSize.Height - SelectedEnumSize.Height;
-                else
-                    AddedHeight = 0;
-            }
+            if (SelectedIndex >= 0 && SelectedIndex < EnumNameCollection.Count)
+                SelectedEnumSize = GetTextSize(EnumNameCollection[SelectedIndex]);
             else
-            {
-                AddedWidth = 0;
-                AddedHeight = 0;
-            }
+                SelectedEnumSize = BaseSize;
+
+            if (BaseSize.Width > SelectedEnumSize.Width)
+                AddedWidth = BaseSize.Width - SelectedEnumSize.Width;
+            if (BaseSize.Height > SelectedEnumSize.Height)
+                AddedHeight = BaseSize.Height - SelectedEnumSize.Height;
 
             double MeasuredWidth = 0;
             double MeasuredHeight = 0;

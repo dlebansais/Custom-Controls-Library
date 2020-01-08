@@ -8,12 +8,14 @@
         SizeToContent="WidthAndHeight">
     <Window.Resources>
         <local:UpperToLowerConverter x:Key="convUpperToLower"/>
+        <local:LazyConverter x:Key="convLazy"/>
     </Window.Resources>
     <DockPanel>
-        <ctrl:EnumComboBox DockPanel.Dock="Bottom" x:Name="ctrl" EnumBinding="{Binding TestProperty}" AutomationProperties.AutomationId="enumComboBox" NameConverter="{StaticResource convUpperToLower}"/>
+        <ctrl:EnumComboBox DockPanel.Dock="Bottom" x:Name="ctrl" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumComboBox" NameConverter="{StaticResource convUpperToLower}"/>
         <GroupBox>
             <StackPanel>
-                <CheckBox Checked="OnNullSet">Null</CheckBox>
+                <CheckBox Checked="OnNullSet" Unchecked="OnNullCleared">Null</CheckBox>
+                <CheckBox Checked="OnBadSet" Unchecked="OnBadCleared">Bad</CheckBox>
             </StackPanel>
         </GroupBox>
     </DockPanel>

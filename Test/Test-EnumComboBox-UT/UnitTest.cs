@@ -29,6 +29,13 @@
 
             WindowsElement CheckboxNullElement = Session.FindElementByName("Null");
             CheckboxNullElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckboxNullElement.Click();
+
+            WindowsElement CheckboxBadElement = Session.FindElementByName("Bad");
+            CheckboxBadElement.Click();
+            Thread.Sleep(TimeSpan.FromSeconds(2));
+            CheckboxBadElement.Click();
 
             StopApp(Session);
         }
