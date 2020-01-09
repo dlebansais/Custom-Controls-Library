@@ -163,7 +163,7 @@
 
                     for (int i = 0; i < EnumNames.Length && i < EnumValues.Length; i++)
                         if (EnumNames[i] == AsString)
-                            return EnumValues.GetValue(i);
+                            value = EnumValues.GetValue(i);
                 }
             }
 
