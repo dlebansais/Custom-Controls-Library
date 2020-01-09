@@ -43,7 +43,7 @@
         /// </example>
         [Bindable(true)]
 #pragma warning restore SA1629 // Documentation text should end with a period
-        public object EnumBinding
+        public object? EnumBinding
         {
             get { return (object)GetValue(EnumBindingProperty); }
             set { SetValue(EnumBindingProperty, value); }
@@ -60,7 +60,7 @@
             object Value = ConvertedValue(EnumValue);
 
             if (Value.Equals(e.NewValue))
-                SetCurrentValue(RadioButton.IsCheckedProperty, true);
+                SetCurrentValue(IsCheckedProperty, true);
         }
         #endregion
         #region Enum Value

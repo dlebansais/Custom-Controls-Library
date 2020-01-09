@@ -9,15 +9,19 @@
     <Window.Resources>
         <local:LazyConverter x:Key="convLazy"/>
         <local:TestEnum1 x:Key="resX">X</local:TestEnum1>
-        <local:TestEnum1 x:Key="resY">Y</local:TestEnum1>
-        <local:TestEnum1 x:Key="resZ">Z</local:TestEnum1>
     </Window.Resources>
     <DockPanel>
+        <GroupBox DockPanel.Dock="Bottom">
+            <StackPanel>
+                <ctrl:EnumRadioButton x:Name="ctrlX" EnumValue="{StaticResource resX}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonX">X</ctrl:EnumRadioButton>
+                <ctrl:EnumRadioButton x:Name="ctrlY" EnumValue="Y" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonY">Y</ctrl:EnumRadioButton>
+                <ctrl:EnumRadioButton x:Name="ctrlZ" EnumValue="Z" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonZ">Y</ctrl:EnumRadioButton>
+            </StackPanel>
+        </GroupBox>
         <GroupBox>
             <StackPanel>
-                <ctrl:EnumRadioButton EnumValue="{StaticResource resX}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonX">X</ctrl:EnumRadioButton>
-                <ctrl:EnumRadioButton EnumValue="{StaticResource resY}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonY">Y</ctrl:EnumRadioButton>
-                <ctrl:EnumRadioButton EnumValue="{StaticResource resZ}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonZ">Y</ctrl:EnumRadioButton>
+                <CheckBox Checked="OnNullSet" Unchecked="OnNullCleared">Null</CheckBox>
+                <CheckBox Checked="OnBadSet" Unchecked="OnBadCleared">Bad</CheckBox>
             </StackPanel>
         </GroupBox>
     </DockPanel>

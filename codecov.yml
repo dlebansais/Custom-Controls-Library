@@ -27,6 +27,4 @@ comment:
 
 ignore:
   - "**/Properties/*.cs"
-  - "Test/Test-DialogValidation/*"
-  - "Test/Test-EditableTextBlock/*"
-  - "Test/Test-EnumComboBox/*"
+  - "Test/*"
