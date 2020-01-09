@@ -19,13 +19,15 @@
         }
 
         public TestEnum1 TestProperty { get; set; }
-        public TestEnum2 OtherTestProperty { get; set; }
+        public TestEnum1 OtherTestProperty1 { get; set; }
+        public TestEnum2 OtherTestProperty2 { get; set; }
 
         private void OnNullSet(object sender, RoutedEventArgs e)
         {
             OldEnumBinding = ctrl.EnumBinding;
 
-            ctrl.EnumBinding = OtherTestProperty;
+            ctrl.EnumBinding = OtherTestProperty1;
+            ctrl.EnumBinding = OtherTestProperty2;
             ctrl.SelectedIndex = -1;
             ctrl.SelectedIndex = 0;
 
