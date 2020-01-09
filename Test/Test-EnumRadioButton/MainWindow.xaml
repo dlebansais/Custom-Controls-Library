@@ -19,9 +19,16 @@
             </StackPanel>
         </GroupBox>
         <GroupBox>
+            <GroupBox.Resources>
+                <DataTemplate x:Key="RadioButtonTemplate">
+                    <ctrl:EnumRadioButton Content="{Binding Converter={x:Static ctrl:EnumRadioButton.EnumName}, ConverterParameter=TestEnumRadioButton.Properties.Resources}" EnumValue="{Binding Mode=OneTime}" GroupName="ThemeGroup" EnumBinding="{Binding TestProperty, RelativeSource={RelativeSource AncestorType={x:Type local:MainWindow}}}" Margin="0,5,0,0"/>
+                </DataTemplate>
+            </GroupBox.Resources>
             <StackPanel>
                 <CheckBox Checked="OnNullSet" Unchecked="OnNullCleared">Null</CheckBox>
                 <CheckBox Checked="OnBadSet" Unchecked="OnBadCleared">Bad</CheckBox>
+                <ItemsControl ItemsSource="{Binding TestProperty, Mode=OneTime, Converter={x:Static ctrl:EnumRadioButton.EnumItems}}" ItemTemplate="{StaticResource RadioButtonTemplate}" Margin="5,10,5,5"/>
+                <ItemsControl ItemsSource="{Binding BadProperty, Mode=OneTime, Converter={x:Static ctrl:EnumRadioButton.EnumItems}}" ItemTemplate="{StaticResource RadioButtonTemplate}" Margin="5,10,5,5"/>
             </StackPanel>
         </GroupBox>
     </DockPanel>

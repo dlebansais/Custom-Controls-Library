@@ -59,5 +59,32 @@ namespace TestEnumRadioButton.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to X (ENU).
+        /// </summary>
+        internal static string X {
+            get {
+                return ResourceManager.GetString("X", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Y (ENU).
+        /// </summary>
+        internal static string Y {
+            get {
+                return ResourceManager.GetString("Y", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Z (ENU).
+        /// </summary>
+        internal static string Z {
+            get {
+                return ResourceManager.GetString("Z", resourceCulture);
+            }
+        }
     }
 }

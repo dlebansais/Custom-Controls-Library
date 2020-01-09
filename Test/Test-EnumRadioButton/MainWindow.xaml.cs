@@ -12,6 +12,7 @@
 
         public TestEnum1 TestProperty { get; set; } = TestEnum1.Y;
         public TestEnum1 OtherTestProperty { get; set; } = TestEnum1.Z;
+        public int BadProperty { get; set; } = 1;
 
         private void OnNullSet(object sender, RoutedEventArgs e)
         {
@@ -31,11 +32,19 @@
             ctrlX.EnumBinding = OldEnumBinding;
             ctrlY.EnumBinding = OldEnumBinding;
             ctrlZ.EnumBinding = OldEnumBinding;
+
+            ctrlX.EnumValue = 0;
+            ctrlY.EnumValue = 1;
+            ctrlZ.EnumValue = 2;
         }
 
         private void OnBadSet(object sender, RoutedEventArgs e)
         {
             OldEnumBinding = ctrlX.EnumBinding;
+
+            ctrlX.EnumValue = "X";
+            ctrlY.EnumValue = "Y";
+            ctrlZ.EnumValue = "Z";
 
             ctrlX.EnumBinding = BadBinding;
             ctrlY.EnumBinding = BadBinding;

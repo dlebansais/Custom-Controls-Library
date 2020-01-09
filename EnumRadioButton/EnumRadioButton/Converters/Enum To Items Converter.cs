@@ -1,6 +1,7 @@
 ﻿namespace Converters
 {
     using System;
+    using System.Diagnostics;
     using System.Globalization;
     using System.Windows.Data;
 
@@ -20,18 +21,21 @@
         /// <returns>A converted value.</returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (value == null)
-                throw new ArgumentNullException(nameof(value));
+            object Result;
 
             Type EnumType = value.GetType();
             if (EnumType.IsEnum)
-                return EnumType.GetEnumValues();
+                Result = EnumType.GetEnumValues();
             else
-                return Array.CreateInstance(EnumType, 0);
+                Result = Array.CreateInstance(EnumType, 0);
+
+            Debug.Assert(Result == ConvertBack(Result, typeof(object), parameter, culture));
+
+            return Result;
         }
 
         /// <summary>
-        /// This method is not used and will always return null.
+        /// This method is not used.
         /// </summary>
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>

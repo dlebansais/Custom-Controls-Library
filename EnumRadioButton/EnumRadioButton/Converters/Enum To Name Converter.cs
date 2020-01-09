@@ -38,11 +38,16 @@
             ResourceManager Manager = new ResourceManager(ResourceSource);
             string ResourceName = value.ToString();
 
-            return Manager.GetString(ResourceName, CultureInfo.CurrentCulture);
+            object Result;
+
+            Result = Manager.GetString(ResourceName, CultureInfo.CurrentCulture);
+            Debug.Assert(Result == ConvertBack(Result, typeof(object), parameter, culture));
+
+            return Result;
         }
 
         /// <summary>
-        /// This method is not used and will always return null.
+        /// This method is not used.
         /// </summary>
         /// <param name="value">The value that is produced by the binding target.</param>
         /// <param name="targetType">The type to convert to.</param>

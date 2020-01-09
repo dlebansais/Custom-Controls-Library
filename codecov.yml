@@ -27,4 +27,4 @@ comment:
 
 ignore:
   - "**/Properties/*.cs"
-  - "Test/*"
+  - "Test/**"
