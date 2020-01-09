@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Enum RadioButton", "Enum RadioButton\Enum RadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

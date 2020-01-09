@@ -1,0 +1,24 @@
+﻿<Window x:Class="TestEnumRadioButton.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="CustomControlsLibrary"
+        xmlns:local="clr-namespace:TestEnumRadioButton"
+        Title="Test-EnumRadioButton"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight" MinWidth="200" MinHeight="100">
+    <Window.Resources>
+        <local:LazyConverter x:Key="convLazy"/>
+        <local:TestEnum1 x:Key="resX">X</local:TestEnum1>
+        <local:TestEnum1 x:Key="resY">Y</local:TestEnum1>
+        <local:TestEnum1 x:Key="resZ">Z</local:TestEnum1>
+    </Window.Resources>
+    <DockPanel>
+        <GroupBox>
+            <StackPanel>
+                <ctrl:EnumRadioButton EnumValue="{StaticResource resX}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonX">X</ctrl:EnumRadioButton>
+                <ctrl:EnumRadioButton EnumValue="{StaticResource resY}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonY">Y</ctrl:EnumRadioButton>
+                <ctrl:EnumRadioButton EnumValue="{StaticResource resZ}" EnumBinding="{Binding TestProperty, Converter={StaticResource convLazy}}" AutomationProperties.AutomationId="enumRadioButtonZ">Y</ctrl:EnumRadioButton>
+            </StackPanel>
+        </GroupBox>
+    </DockPanel>
+</Window>

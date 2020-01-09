@@ -1,4 +1,4 @@
-﻿namespace TestEnumComboBox
+﻿namespace TestEnumRadioButton
 {
     using System;
     using System.Diagnostics;

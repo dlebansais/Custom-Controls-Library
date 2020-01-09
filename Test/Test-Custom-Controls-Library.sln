@@ -32,6 +32,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-EnumComboBox-UT", "Tes
 		{3A59BC48-87AD-4894-B3B4-D074F8CBABB9} = {3A59BC48-87AD-4894-B3B4-D074F8CBABB9}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-EnumRadioButton", "Test-EnumRadioButton\Test-EnumRadioButton.csproj", "{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-EnumRadioButton-UT", "Test-EnumRadioButton-UT\Test-EnumRadioButton-UT.csproj", "{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0CD1AB0-C630-4F4F-A2F5-0E933833383B} = {D0CD1AB0-C630-4F4F-A2F5-0E933833383B}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -78,6 +85,14 @@ Global
 		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Debug|x64.Build.0 = Debug|x64
 		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Release|x64.ActiveCfg = Release|x64
 		{6D2F86FF-4793-4A19-8991-8BB63C7707E5}.Release|x64.Build.0 = Release|x64
+		{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}.Debug|x64.ActiveCfg = Debug|x64
+		{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}.Debug|x64.Build.0 = Debug|x64
+		{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}.Release|x64.ActiveCfg = Release|x64
+		{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}.Release|x64.Build.0 = Release|x64
+		{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}.Debug|x64.ActiveCfg = Debug|x64
+		{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}.Debug|x64.Build.0 = Debug|x64
+		{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}.Release|x64.ActiveCfg = Release|x64
+		{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
