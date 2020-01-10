@@ -1,0 +1,12 @@
+﻿<Window x:Class="TestExtendedCommandControls.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="CustomControlsLibrary"
+        xmlns:local="clr-namespace:TestExtendedCommandControls"
+        Title="Test-ExtendedCommandControls"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <DockPanel>
+        <ctrl:ExtendedToolBarButton x:Name="ctrl" AutomationProperties.AutomationId="extendedToolBarButton">Button</ctrl:ExtendedToolBarButton>
+    </DockPanel>
+</Window>

@@ -58,9 +58,13 @@ call .\coverage\app.bat EnumComboBox Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumComboBox-UT\bin\x64\Debug\Test-EnumComboBox-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-:skip
 call .\coverage\app.bat EnumRadioButton Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumRadioButton-UT\bin\x64\Debug\Test-EnumRadioButton-UT.dll" /Tests:TestDefault1
+call .\coverage\wait.bat 2
+
+:skip
+call .\coverage\app.bat ExtendedCommandControls Debug
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-ExtendedCommandControls-UT\bin\x64\Debug\Test-ExtendedCommandControls-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 start cmd /c .\coverage\stop_winappdriver.bat

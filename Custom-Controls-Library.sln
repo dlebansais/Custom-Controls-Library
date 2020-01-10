@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumComboBox", "EnumComboBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended Command Controls", "Extended Command Controls\Extended Command Controls\Extended Command Controls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended PasswordBox", "Extended PasswordBox\Extended PasswordBox\Extended PasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
 EndProject
