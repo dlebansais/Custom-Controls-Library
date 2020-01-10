@@ -83,9 +83,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\Enum To Items Converter.cs" />
-    <Compile Include="Converters\Enum To Name Converter.cs" />
-    <Compile Include="Enum RadioButton.cs" />
+    <Compile Include="Converters\EnumToItemsConverter.cs" />
+    <Compile Include="Converters\EnumToNameConverter.cs" />
+    <Compile Include="EnumRadioButton.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

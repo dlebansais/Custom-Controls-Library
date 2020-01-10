@@ -80,7 +80,7 @@
       <HintPath>..\..\DialogValidation\DialogValidation\$(OutputPath)DialogValidation.dll</HintPath>
     </Reference>
     <Reference Include="EnumRadioButton">
-      <HintPath>..\..\Enum RadioButton\Enum RadioButton\$(OutputPath)EnumRadioButton.dll</HintPath>
+      <HintPath>..\..\EnumRadioButton\EnumRadioButton\$(OutputPath)EnumRadioButton.dll</HintPath>
     </Reference>
     <Reference Include="ExtendedToolBar">
       <HintPath>..\..\Extended ToolBar\Extended ToolBar\$(OutputPath)ExtendedToolBar.dll</HintPath>
