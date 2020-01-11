@@ -210,7 +210,7 @@
         /// </summary>
         private static void OverrideMetadataDefaultStyleKey()
         {
-            Button.DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(typeof(ExtendedToolBarButton)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(typeof(ExtendedToolBarButton)));
         }
 
         /// <summary>
@@ -218,7 +218,7 @@
         /// </summary>
         private static void OverrideMetadataCommandKey()
         {
-            Button.CommandProperty.OverrideMetadata(typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(OnCommandChanged));
+            CommandProperty.OverrideMetadata(typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(OnCommandChanged));
         }
 
         /// <summary>

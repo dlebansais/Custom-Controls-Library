@@ -76,29 +76,8 @@
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="DialogValidation">
-      <HintPath>..\..\DialogValidation\DialogValidation\$(OutputPath)DialogValidation.dll</HintPath>
-    </Reference>
-    <Reference Include="EnumRadioButton">
-      <HintPath>..\..\EnumRadioButton\EnumRadioButton\$(OutputPath)EnumRadioButton.dll</HintPath>
-    </Reference>
-    <Reference Include="ExtendedToolBar">
-      <HintPath>..\..\Extended ToolBar\Extended ToolBar\$(OutputPath)ExtendedToolBar.dll</HintPath>
-    </Reference>
-    <Reference Include="ExtendedCommandControls">
-      <HintPath>..\..\Extended Command Controls\Extended Command Controls\$(OutputPath)ExtendedCommandControls.dll</HintPath>
-    </Reference>
-    <Reference Include="ExtendedTreeView">
-      <HintPath>..\..\Extended TreeView\Extended TreeView\$(OutputPath)ExtendedTreeView.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="SolutionControls">
-      <HintPath>..\..\Solution Controls\Solution Controls\$(OutputPath)SolutionControls.dll</HintPath>
-    </Reference>
-    <Reference Include="SplitView">
-      <HintPath>..\..\Split View\Split View\$(OutputPath)SplitView.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
@@ -107,12 +86,6 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.XML" />
-    <Reference Include="TightfittingTabControl">
-      <HintPath>..\..\Tightfitting Tab Control\Tightfitting Tab Control\$(OutputPath)TightfittingTabControl.dll</HintPath>
-    </Reference>
-    <Reference Include="UndoRedo">
-      <HintPath>..\..\Undo Redo Manager\Undo Redo Manager\$(OutputPath)UndoRedo.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.4.0.6, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -335,6 +308,44 @@
     <Analyzer Include="..\..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DialogValidation\DialogValidation\DialogValidation.csproj">
+      <Project>{f43a1008-f9ce-4423-b31c-448d32519b31}</Project>
+      <Name>DialogValidation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj">
+      <Project>{e1bcb2f8-219a-4cef-b992-96a1f5a5a782}</Project>
+      <Name>EnumRadioButton</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extended ToolBar\Extended ToolBar\Extended ToolBar.csproj">
+      <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
+      <Name>Extended ToolBar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extended TreeView\Extended TreeView\Extended TreeView.csproj">
+      <Project>{15534032-c7be-48a0-8e0f-0ec7f2b8491c}</Project>
+      <Name>Extended TreeView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj">
+      <Project>{9368643d-59a7-4678-ba7d-de551146e13a}</Project>
+      <Name>ExtendedCommandControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Solution Controls\Solution Controls\Solution Controls.csproj">
+      <Project>{abad3a6d-a372-482b-8e6e-db70876eb6fd}</Project>
+      <Name>Solution Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Split View\Split View\Split View.csproj">
+      <Project>{2c7c7e3b-1a44-4a0f-9105-d6f0eba2cca4}</Project>
+      <Name>Split View</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tightfitting Tab Control\Tightfitting Tab Control\Tightfitting Tab Control.csproj">
+      <Project>{cc05de21-5394-4666-b8d4-7c782b54541f}</Project>
+      <Name>Tightfitting Tab Control</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Undo Redo Manager\Undo Redo Manager\Undo Redo Manager.csproj">
+      <Project>{aec24ec9-be57-4219-a3d8-62826a6bc765}</Project>
+      <Name>Undo Redo Manager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">

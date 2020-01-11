@@ -59,5 +59,23 @@ namespace TestExtendedCommandControls.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Header.
+        /// </summary>
+        internal static string testHeader {
+            get {
+                return ResourceManager.GetString("testHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Tooltip.
+        /// </summary>
+        internal static string testTooltip {
+            get {
+                return ResourceManager.GetString("testTooltip", resourceCulture);
+            }
+        }
     }
 }

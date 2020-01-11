@@ -80,18 +80,6 @@
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
-    <Reference Include="EditableTextBlock">
-      <HintPath>..\..\EditableTextBlock\EditableTextBlock\$(OutputPath)EditableTextBlock.dll</HintPath>
-    </Reference>
-    <Reference Include="ExtendedToolBar">
-      <HintPath>..\..\Extended ToolBar\Extended ToolBar\$(OutputPath)ExtendedToolBar.dll</HintPath>
-    </Reference>
-    <Reference Include="ExtendedCommandControls">
-      <HintPath>..\..\Extended Command Controls\Extended Command Controls\$(OutputPath)ExtendedCommandControls.dll</HintPath>
-    </Reference>
-    <Reference Include="ExtendedTreeView">
-      <HintPath>..\..\Extended TreeView\Extended TreeView\$(OutputPath)ExtendedTreeView.dll</HintPath>
-    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -100,9 +88,6 @@
     <Reference Include="System.Xaml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="UndoRedo">
-      <HintPath>..\..\Undo Redo Manager\Undo Redo Manager\$(OutputPath)UndoRedo.dll</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
@@ -304,6 +289,28 @@
     <Analyzer Include="..\..\packages\Microsoft.NetFramework.Analyzers.2.9.8\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
     <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj">
+      <Project>{1ca197bb-d29f-43ad-8fb1-f920f7f7b6fa}</Project>
+      <Name>EditableTextBlock</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extended ToolBar\Extended ToolBar\Extended ToolBar.csproj">
+      <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
+      <Name>Extended ToolBar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Extended TreeView\Extended TreeView\Extended TreeView.csproj">
+      <Project>{15534032-c7be-48a0-8e0f-0ec7f2b8491c}</Project>
+      <Name>Extended TreeView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj">
+      <Project>{9368643d-59a7-4678-ba7d-de551146e13a}</Project>
+      <Name>ExtendedCommandControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Undo Redo Manager\Undo Redo Manager\Undo Redo Manager.csproj">
+      <Project>{aec24ec9-be57-4219-a3d8-62826a6bc765}</Project>
+      <Name>Undo Redo Manager</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">

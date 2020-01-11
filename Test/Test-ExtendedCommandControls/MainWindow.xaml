@@ -6,7 +6,18 @@
         Title="Test-ExtendedCommandControls"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
+    <Window.Resources>
+        <ctrl:CommandResourceReference x:Key="testReference" AssemblyName="TestExtendedCommandControls" ResourceExtension=".resources" IconPath="Resources/Icons/"/>
+        <ctrl:SolutionCommandGroup x:Key="testCommandGroup" IsEnabled="True"/>
+        <ctrl:LocalizedRoutedCommand x:Key="testCommand" Reference="{StaticResource testReference}" CommandGroup="{StaticResource testCommandGroup}" HeaderKey="testHeader" IconKey="Exit.png" ToolTipKey="testTooltip"/>
+        <Style TargetType="{x:Type ctrl:ExtendedToolBarButton}" BasedOn="{StaticResource {x:Type Button}}"/>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{StaticResource testCommand}" CanExecute="TestCanExecute" Executed="TestExecuted"/>
+    </Window.CommandBindings>
     <DockPanel>
-        <ctrl:ExtendedToolBarButton x:Name="ctrl" AutomationProperties.AutomationId="extendedToolBarButton">Button</ctrl:ExtendedToolBarButton>
+        <Border Background="Red">
+            <ctrl:ExtendedToolBarButton x:Name="ctrl" Content="testHeader" AutomationProperties.AutomationId="extendedToolBarButton" Command="{StaticResource testCommand}" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Foreground="Black" Background="Blue"/>
+        </Border>
     </DockPanel>
 </Window>
