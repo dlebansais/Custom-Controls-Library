@@ -3,11 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
         xmlns:local="clr-namespace:TestExtendedCommandControls"
+        xmlns:conv="clr-namespace:Converters"
         Title="Test-ExtendedCommandControls"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
     <Window.Resources>
-        <ctrl:CommandResourceReference x:Key="testReference" AssemblyName="TestExtendedCommandControls" ResourceExtension=".resources" IconPath="Resources/Icons/"/>
+        <conv:ButtonCommandToImageMultiConverter x:Key="convButtonCommandToImage"/>
+        <conv:ButtonCommandToTextConverter x:Key="convButtonCommandToText"/>
+        <ctrl:CommandResourceReference x:Key="testReference" AssemblyName="Test-ExtendedCommandControls" ResourceExtension=".resources" IconPath="Resources/Icons/"/>
         <ctrl:SolutionCommandGroup x:Key="testCommandGroup" IsEnabled="True"/>
         <ctrl:LocalizedRoutedCommand x:Key="testCommand" Reference="{StaticResource testReference}" CommandGroup="{StaticResource testCommandGroup}" HeaderKey="testHeader" IconKey="Exit.png" ToolTipKey="testTooltip"/>
         <Style TargetType="{x:Type ctrl:ExtendedToolBarButton}" BasedOn="{StaticResource {x:Type Button}}"/>
@@ -16,8 +19,20 @@
         <CommandBinding Command="{StaticResource testCommand}" CanExecute="TestCanExecute" Executed="TestExecuted"/>
     </Window.CommandBindings>
     <DockPanel>
-        <Border Background="Red">
-            <ctrl:ExtendedToolBarButton x:Name="ctrl" Content="testHeader" AutomationProperties.AutomationId="extendedToolBarButton" Command="{StaticResource testCommand}" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Foreground="Black" Background="Blue"/>
-        </Border>
+        <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="ctrlOpen" Content="{Binding Path=Command, Converter={StaticResource convButtonCommandToText}, RelativeSource={RelativeSource Self}}" AutomationProperties.AutomationId="extendedToolBarButton" Command="ApplicationCommands.Open" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Foreground="Black" Background="Blue"/>
+        <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="ctrlClose" AutomationProperties.AutomationId="extendedToolBarButton" Command="ApplicationCommands.Close" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Foreground="Black" Background="Blue">
+            <ctrl:ExtendedToolBarButton.Content>
+                <Image>
+                    <Image.Source>
+                        <MultiBinding Converter="{StaticResource convButtonCommandToImage}">
+                            <Binding Path="Command" RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:ExtendedToolBarButton}}"/>
+                            <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type ctrl:ExtendedToolBarButton}}"/>
+                        </MultiBinding>
+                    </Image.Source>
+                </Image>
+            </ctrl:ExtendedToolBarButton.Content>
+        </ctrl:ExtendedToolBarButton>
+        <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="ctrlTest" Content="testHeader" AutomationProperties.AutomationId="extendedToolBarButton" Command="{StaticResource testCommand}" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Foreground="Black" Background="Blue"/>
+        <Grid/>
     </DockPanel>
 </Window>
