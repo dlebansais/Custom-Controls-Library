@@ -317,7 +317,7 @@
             }
         }
 
-        private static object? DisconnectedItem = null;
+        private static object? DisconnectedItem;
         #endregion
 
         #region Implementation

@@ -36,3 +36,33 @@ build:
 
 platform: x64
 configuration: Release
+
+after_build:
+  - dotnet pack --configuration Release /p:Platform=x64 Custom-Controls-Library/Custom-Controls-Library.csproj
+
+test: off
+
+artifacts:
+  - path: Custom-Controls-Library/bin/
+    name: Custom-Controls-Library-Release
+  - path: Custom-Controls-Library/bin/x64/Release/Custom-Controls-Library.*.nupkg
+    name: Custom-Controls-Library-Package
+
+deploy:
+  - provider: GitHub
+    release: '%APPVEYOR_REPO_TAG_NAME%'
+    description: '%APPVEYOR_REPO_COMMIT_MESSAGE%'
+    auth_token:
+      secure: dUpQSnUT5/m88z1BqHNnRjaxxZzz09CmyqFJr/cAyWjqKeLgnKunlIZlEKAXlNIm
+    artifact: Custom-Controls-Library-Release
+    draft: true
+    prerelease: false
+    on:
+      branch: master
+  - provider: NuGet
+    server: https://nuget.pkg.github.com/dlebansais/index.json
+    artifact: Custom-Controls-Library-Package
+    username: dlebansais
+    api_key:
+      secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
+    skip_symbols: true

@@ -40,7 +40,7 @@
         /// True if the password is secure, and then password should then be read using the <see cref="SecurePassword"/> property.
         /// False if the password is not secure, and then password should then be read using the <see cref="Password"/> property.
         /// </returns>
-        public bool IsSecure { get; private set; } = false;
+        public bool IsSecure { get; private set; }
 
         /// <summary>
         /// Gets a plain text password.

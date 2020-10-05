@@ -545,7 +545,7 @@
             }
         }
 
-        private UIElement? LastFocusedParent = null;
+        private UIElement? LastFocusedParent;
         #endregion
 
         #region Click Count
@@ -616,7 +616,7 @@
         /// <summary>
         /// True after <see cref="Dispose(bool)"/> has been invoked.
         /// </summary>
-        private bool IsDisposed = false;
+        private bool IsDisposed;
 
         /// <summary>
         /// Disposes of every reference that must be cleaned up.

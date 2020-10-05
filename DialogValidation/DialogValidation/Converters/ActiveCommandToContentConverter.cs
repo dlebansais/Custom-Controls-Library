@@ -43,7 +43,9 @@
             return Result;
         }
 
+#pragma warning disable CA1822 // Mark members as static
         private object ConvertValidValues(DialogValidation control, bool isLocalized, ActiveCommand command)
+#pragma warning restore CA1822 // Mark members as static
         {
             // This value is used to trigger a conversion when the content has changed. See DialogValidation.UpdateButtonContent().
             Debug.Assert(isLocalized == control.IsLocalized);

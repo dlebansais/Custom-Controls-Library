@@ -43,7 +43,9 @@
             return ConvertValidValues(IsEditing, TextBlockMargin, TextBlockPadding, TextBoxBorder, TextBoxPadding, ExpectedResult);
         }
 
+#pragma warning disable CA1822 // Mark members as static
         private object ConvertValidValues(bool isEditing, Thickness textBlockMargin, Thickness textBlockPadding, Thickness textBoxBorder, Thickness textBoxPadding, string expectedResult)
+#pragma warning restore CA1822 // Mark members as static
         {
             object Result;
 

@@ -2059,7 +2059,7 @@
             {
                 IFolderPath DestinationPath;
 
-                if (spcSolutionExplorer.GetEventSource(sender, e) is IFolderPath AsFolderPath)
+                if (SolutionExplorer.GetEventSource(e) is IFolderPath AsFolderPath)
                     DestinationPath = AsFolderPath;
                 else
                     DestinationPath = RootPath;
@@ -3683,7 +3683,7 @@
 
             IFolderPath DestinationPath;
 
-            if (spcSolutionExplorer.GetEventSource(sender, e) is IFolderPath AsFolderPath)
+            if (SolutionExplorer.GetEventSource(e) is IFolderPath AsFolderPath)
                 DestinationPath = AsFolderPath;
             else
                 DestinationPath = RootPath;
@@ -4000,7 +4000,7 @@
 
                 IFolderPath DestinationPath;
 
-                if (spcSolutionExplorer.GetEventSource(sender, e) is IFolderPath AsFolderPath)
+                if (SolutionExplorer.GetEventSource(e) is IFolderPath AsFolderPath)
                     DestinationPath = AsFolderPath;
                 else
                     DestinationPath = RootPath;

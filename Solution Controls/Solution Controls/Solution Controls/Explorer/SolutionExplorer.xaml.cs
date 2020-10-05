@@ -1084,10 +1084,9 @@
         /// <summary>
         /// Gets the source of an event.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
         /// <param name="e">The event data.</param>
         /// <returns>The event source.</returns>
-        public ITreeNodePath? GetEventSource(object sender, RoutedEventArgs e)
+        public static ITreeNodePath? GetEventSource(RoutedEventArgs e)
         {
             if (e == null)
                 throw new ArgumentNullException(nameof(e));

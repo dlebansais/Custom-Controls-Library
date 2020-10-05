@@ -94,7 +94,7 @@
         public static bool HasHandler { get { return HandlerCount > 0; } }
 #pragma warning restore CA1000 // Do not declare static members on generic types
 
-        private static int HandlerCount = 0;
+        private static int HandlerCount;
         #endregion
     }
 }
