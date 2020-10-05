@@ -1,6 +1,15 @@
 @echo off
 
-if not exist ".\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe" goto error1
+setlocal
+
+set RESULTFILENAME=Coverage.xml
+set OPENCOVER_VERSION=4.7.922
+set OPENCOVER=OpenCover.%OPENCOVER_VERSION%
+
+nuget install OpenCover -Version %OPENCOVER_VERSION% -OutputDirectory packages
+
+if not exist ".\packages\%OPENCOVER%\tools\OpenCover.Console.exe" goto error_console1
+
 if "%WINAPPDRIVER_DIR%" == "" goto error2
 if not exist "%WINAPPDRIVER_DIR%/WinAppDriver.exe" goto error2
 if "%VSTESTPLATFORM_DIR%" == "" goto error3
@@ -11,11 +20,10 @@ if not exist ".\EditableTextBlock\EditableTextBlock\bin\x64\Debug\EditableTextBl
 if not exist ".\EnumComboBox\EnumComboBox\bin\x64\Debug\EnumComboBox.dll" goto error4
 if not exist ".\EnumRadioButton\EnumRadioButton\bin\x64\Debug\EnumRadioButton.dll" goto error4
 
-if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
+if exist .\Test\%RESULTFILENAME% del .\Test\%RESULTFILENAME%
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-goto skip
 call .\coverage\app.bat BusyIndicator Debug
 call .\coverage\wait.bat 20
 
@@ -62,7 +70,6 @@ call .\coverage\app.bat EnumRadioButton Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumRadioButton-UT\bin\x64\Debug\Test-EnumRadioButton-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-:skip
 call .\coverage\app.bat ExtendedCommandControls Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-ExtendedCommandControls-UT\bin\x64\Debug\Test-ExtendedCommandControls-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
@@ -71,10 +78,10 @@ start cmd /c .\coverage\stop_winappdriver.bat
 call .\coverage\wait.bat 2
 
 call ..\Certification\set_tokens.bat
-if exist .\Test\Coverage-Debug_coverage.xml .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+if exist .\Test\%RESULTFILENAME% .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\%RESULTFILENAME%" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
-:error1
+:error_console1
 echo ERROR: OpenCover.Console not found. Restore it with Nuget.
 goto end
 
