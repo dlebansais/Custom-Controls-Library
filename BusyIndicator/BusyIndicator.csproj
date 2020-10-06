@@ -17,6 +17,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <RootNamespace>CustomControls</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +44,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="BusyIndicator.xaml" />
   </ItemGroup>
 
   <ItemGroup>
