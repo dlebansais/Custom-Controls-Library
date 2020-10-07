@@ -20,6 +20,6 @@ using System.Windows.Markup;
 
 [assembly: Guid("9c408ad3-1a59-4d93-ba5a-d745ed1d15a2")]
 
-[assembly: AssemblyVersion("1.0.1.676")]
-[assembly: AssemblyFileVersion("1.0.1.85")]
+[assembly: AssemblyVersion("1.0.1.679")]
+[assembly: AssemblyFileVersion("1.0.1.86")]
 [assembly: NeutralResourcesLanguage("en-US")]

@@ -20,6 +20,6 @@ using System.Windows.Markup;
 [assembly: ComVisible(false)]
 
 [assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
-[assembly: AssemblyVersion("1.0.1.676")]
-[assembly: AssemblyFileVersion("1.0.1.62")]
+[assembly: AssemblyVersion("1.0.1.679")]
+[assembly: AssemblyFileVersion("1.0.1.63")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

@@ -48,5 +48,11 @@ dotnet_diagnostic.SA1520.severity = none
 # SA1519: Braces should not be omitted from multi-line child statement
 dotnet_diagnostic.SA1519.severity = none
 
+# SA1502: Element should not be on a single line
+dotnet_diagnostic.SA1502.severity = none
+
 # CA1031: Do not catch general exception types
 dotnet_diagnostic.CA1031.severity = suggestion
+
+# SA1204: Static members should appear before non-static members
+dotnet_diagnostic.SA1204.severity = none
