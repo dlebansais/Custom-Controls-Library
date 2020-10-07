@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution Controls", "Solution Controls\Solution Controls.csproj", "{ABAD3A6D-A372-482B-8E6E-DB70876EB6FD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionControls", "SolutionControls\SolutionControls.csproj", "{ABAD3A6D-A372-482B-8E6E-DB70876EB6FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test Controls", "Test Controls\Test Controls.csproj", "{688A5E56-0927-4D77-A26A-B3FBDE816CBD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestControls", "TestControls\TestControls.csproj", "{688A5E56-0927-4D77-A26A-B3FBDE816CBD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

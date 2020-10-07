@@ -91,133 +91,132 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Active Document Source.cs" />
-    <Compile Include="Commands\Document Routed Command.cs" />
-    <Compile Include="Converters\Boolean To Object Converter.cs" />
-    <Compile Include="Converters\Button Command To Gesture Text Converter.cs" />
-    <Compile Include="Converters\Button Command To Header Converter.cs" />
-    <Compile Include="Converters\Button Command To Icon Converter.cs" />
-    <Compile Include="Converters\Button Command To Text Converter.cs" />
-    <Compile Include="Converters\Button Command To ToolTip Converter.cs" />
-    <Compile Include="Converters\Button Command To Visibility Converter.cs" />
-    <Compile Include="Converters\Double To Object Converter.cs" />
-    <Compile Include="Converters\Many Or To Object Converter.cs" />
-    <Compile Include="Converters\Status Types To Theme Background Brush Multi Converter.cs" />
-    <Compile Include="Converters\Status Types To Theme Foreground Brush Multi Converter.cs" />
-    <Compile Include="Documents\Document Helper.cs" />
-    <Compile Include="Documents\Document Type Collection.cs" />
-    <Compile Include="Documents\Document Type.cs" />
-    <Compile Include="Documents\Document.cs" />
-    <Compile Include="Gestures\Gesture Helper.cs" />
-    <Compile Include="Gestures\Gesture Source.cs" />
-    <Compile Include="Gestures\Gesture Translator.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
-    <Compile Include="Pretty Items Control\Pretty Items Control.cs" />
+    <Compile Include="Commands\IActiveDocumentSource.cs" />
+    <Compile Include="Commands\DocumentRoutedCommand.cs" />
+    <Compile Include="Converters\BooleanToObjectConverter.cs" />
+    <Compile Include="Converters\ButtonCommandToGestureTextConverter.cs" />
+    <Compile Include="Converters\ButtonCommandToHeaderConverter.cs" />
+    <Compile Include="Converters\ButtonCommandToIconConverter.cs" />
+    <Compile Include="Converters\ButtonCommandToTextConverter.cs" />
+    <Compile Include="Converters\ButtonCommandToToolTipConverter.cs" />
+    <Compile Include="Converters\ButtonCommandToVisibilityConverter.cs" />
+    <Compile Include="Converters\DoubleToObjectConverter.cs" />
+    <Compile Include="Converters\ManyOrToObjectConverter.cs" />
+    <Compile Include="Converters\StatusTypesToThemeBackgroundBrushConverter.cs" />
+    <Compile Include="Converters\StatusTypesToThemeForegroundBrushConverter.cs" />
+    <Compile Include="Documents\DocumentHelper.cs" />
+    <Compile Include="Documents\DocumentTypeCollection.cs" />
+    <Compile Include="Documents\IDocumentType.cs" />
+    <Compile Include="Documents\IDocument.cs" />
+    <Compile Include="Gestures\GestureHelper.cs" />
+    <Compile Include="Gestures\IGestureSource.cs" />
+    <Compile Include="Gestures\IGestureTranslator.cs" />
+    <Compile Include="PrettyItemsControl\PrettyItemsControl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Solution Controls\Explorer\Clipboard Path Data.cs" />
-    <Compile Include="Solution Controls\Explorer\Events\Context Menu Opened Event Args.cs" />
-    <Compile Include="Solution Controls\Explorer\Events\Imported Event Args.cs" />
-    <Compile Include="Solution Controls\Explorer\Events\Moved Event Args.cs" />
-    <Compile Include="Solution Controls\Explorer\Events\Name Changed Event Args.cs" />
-    <Compile Include="Solution Controls\Explorer\Folder Package.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Base\Solution Explorer Undo Redo Manager.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Add Folder Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Add Item Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Base\Add Single Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Base\Add Remove Single Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Base\Add Remove Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Base\Add Remove Tree Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Add Tree Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Move Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Base\Solution Explorer Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Remove Tree Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Operations\Rename Operation.cs" />
-    <Compile Include="Solution Controls\Explorer\Path Group.cs" />
-    <Compile Include="Solution Controls\Explorer\Solution Package.cs" />
-    <Compile Include="Solution Controls\Explorer\SolutionExplorer.xaml.cs">
+    <Compile Include="SolutionControls\Explorer\ClipboardPathData.cs" />
+    <Compile Include="SolutionControls\Explorer\Events\ContextMenuOpenedEventArgs.cs" />
+    <Compile Include="SolutionControls\Explorer\Events\ImportedEventArgs.cs" />
+    <Compile Include="SolutionControls\Explorer\Events\MovedEventArgs.cs" />
+    <Compile Include="SolutionControls\Explorer\Events\NameChangedEventArgs.cs" />
+    <Compile Include="SolutionControls\Explorer\FolderPackage.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\Base\SolutionExplorerUndoRedoManager.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\AddFolderOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\AddItemOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\Base\AddSingleOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\Base\AddRemoveSingleOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\Base\AddRemoveOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\Base\AddRemoveTreeOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\AddTreeOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\MoveOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\Base\SolutionExplorerOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\RemoveTreeOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\Operations\RenameOperation.cs" />
+    <Compile Include="SolutionControls\Explorer\IPathGroup.cs" />
+    <Compile Include="SolutionControls\Explorer\SolutionPackage.cs" />
+    <Compile Include="SolutionControls\Explorer\SolutionExplorer.xaml.cs">
       <DependentUpon>SolutionExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Solution Controls\Explorer\Valid Edit Operations.cs" />
-    <Compile Include="Solution Controls\Explorer\Events\Tree Changed Event Args.cs" />
-    <Compile Include="Solution Controls\Merged Properties\Enum Property Entry.cs" />
-    <Compile Include="Solution Controls\Merged Properties\MergedProperties.xaml.cs">
+    <Compile Include="SolutionControls\Explorer\ValidEditOperations.cs" />
+    <Compile Include="SolutionControls\Explorer\Events\TreeChangedEventArgs.cs" />
+    <Compile Include="SolutionControls\MergedProperties\IEnumPropertyEntry.cs" />
+    <Compile Include="SolutionControls\MergedProperties\MergedProperties.xaml.cs">
       <DependentUpon>MergedProperties.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Solution Controls\Merged Properties\Property Entry Collection.cs" />
-    <Compile Include="Solution Controls\Merged Properties\Property Entry Selector.cs" />
-    <Compile Include="Solution Controls\Merged Properties\Property Entry.cs" />
-    <Compile Include="Solution Controls\Merged Properties\String Property Entry.cs" />
-    <Compile Include="Solution Controls\Status Bar\Application Status.cs" />
-    <Compile Include="Solution Controls\Status Bar\Document Editor.cs" />
-    <Compile Include="Solution Controls\Status Bar\SolutionStatusBar.xaml.cs">
+    <Compile Include="SolutionControls\MergedProperties\PropertyEntryCollection.cs" />
+    <Compile Include="SolutionControls\MergedProperties\PropertyEntrySelector.cs" />
+    <Compile Include="SolutionControls\MergedProperties\IPropertyEntry.cs" />
+    <Compile Include="SolutionControls\MergedProperties\IStringPropertyEntry.cs" />
+    <Compile Include="SolutionControls\StatusBar\IApplicationStatus.cs" />
+    <Compile Include="SolutionControls\StatusBar\IDocumentEditor.cs" />
+    <Compile Include="SolutionControls\StatusBar\SolutionStatusBar.xaml.cs">
       <DependentUpon>SolutionStatusBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Solution Controls\Status Bar\Status Theme.cs" />
-    <Compile Include="Solution Controls\Status Bar\Status Type.cs" />
-    <Compile Include="Solution Controls\Tool Bar\Document Activated Event Args.cs" />
-    <Compile Include="Solution Controls\Tool Bar\DropDownList.xaml.cs">
+    <Compile Include="SolutionControls\StatusBar\IStatusTheme.cs" />
+    <Compile Include="SolutionControls\StatusBar\StatusType.cs" />
+    <Compile Include="SolutionControls\ToolBar\DocumentActivatedEventArgs.cs" />
+    <Compile Include="SolutionControls\ToolBar\DropDownList.xaml.cs">
       <DependentUpon>DropDownList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Solution Controls\Tool Bar\SolutionToolBar.xaml.cs">
+    <Compile Include="SolutionControls\ToolBar\SolutionToolBar.xaml.cs">
       <DependentUpon>SolutionToolBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Tree Nodes\Path\Document Path.cs" />
-    <Compile Include="Tree Nodes\Path\EmptyPath.cs" />
-    <Compile Include="Tree Nodes\Path\Folder Path.cs" />
-    <Compile Include="Tree Nodes\Path\Item Path.cs" />
-    <Compile Include="Tree Nodes\Path\Root Path.cs" />
-    <Compile Include="Tree Nodes\Path\Tree Node Path.cs" />
-    <Compile Include="Tree Nodes\Properties\Folder Properties.cs" />
-    <Compile Include="Tree Nodes\Properties\Item Properties.cs" />
-    <Compile Include="Tree Nodes\Properties\Root Properties.cs" />
-    <Compile Include="Tree Nodes\Properties\Tree Node Properties.cs" />
-    <Compile Include="Tree Nodes\Solution Folder.cs" />
-    <Compile Include="Tree Nodes\Solution Item.cs" />
-    <Compile Include="Tree Nodes\Solution Root.cs" />
-    <Compile Include="Tree Nodes\Solution Tree Node Collection.cs" />
-    <Compile Include="Tree Nodes\Solution Tree Node Comparer.cs" />
-    <Compile Include="Tree Nodes\Solution Tree Node.cs" />
-    <Compile Include="Tree Nodes\Path Connection.cs" />
+    <Compile Include="TreeNodes\Path\IDocumentPath.cs" />
+    <Compile Include="TreeNodes\Path\EmptyPath.cs" />
+    <Compile Include="TreeNodes\Path\IFolderPath.cs" />
+    <Compile Include="TreeNodes\Path\IItemPath.cs" />
+    <Compile Include="TreeNodes\Path\IRootPath.cs" />
+    <Compile Include="TreeNodes\Path\ITreeNodePath.cs" />
+    <Compile Include="TreeNodes\Properties\IFolderProperties.cs" />
+    <Compile Include="TreeNodes\Properties\IItemProperties.cs" />
+    <Compile Include="TreeNodes\Properties\IRootProperties.cs" />
+    <Compile Include="TreeNodes\Properties\ITreeNodeProperties.cs" />
+    <Compile Include="TreeNodes\ISolutionFolder.cs" />
+    <Compile Include="TreeNodes\ISolutionItem.cs" />
+    <Compile Include="TreeNodes\ISolutionRoot.cs" />
+    <Compile Include="TreeNodes\ISolutionTreeNodeCollection.cs" />
+    <Compile Include="TreeNodes\SolutionTreeNodeComparer.cs" />
+    <Compile Include="TreeNodes\ISolutionTreeNode.cs" />
+    <Compile Include="TreeNodes\IPathConnection.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Solution Controls\Explorer\ExplorerCommands.xaml">
+    <Page Include="SolutionControls\Explorer\ExplorerCommands.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Explorer\ExplorerResources.xaml">
+    <Page Include="SolutionControls\Explorer\ExplorerResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Explorer\SolutionExplorer.xaml">
+    <Page Include="SolutionControls\Explorer\SolutionExplorer.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Merged Properties\MergedProperties.xaml">
+    <Page Include="SolutionControls\MergedProperties\MergedProperties.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Status Bar\SolutionStatusBar.xaml">
+    <Page Include="SolutionControls\StatusBar\SolutionStatusBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Tool Bar\DropDownList.xaml">
+    <Page Include="SolutionControls\ToolBar\DropDownList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Tool Bar\SolutionToolBar.xaml">
+    <Page Include="SolutionControls\ToolBar\SolutionToolBar.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Tool Bar\ToolBarCommands.xaml">
+    <Page Include="SolutionControls\ToolBar\ToolBarCommands.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Solution Controls\Tool Bar\ToolBarResources.xaml">
+    <Page Include="SolutionControls\ToolBar\ToolBarResources.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

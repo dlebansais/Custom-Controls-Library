@@ -173,7 +173,7 @@
                     ISolutionFolder ParentFolder = FlatFolderTable[ParentPath];
                     ISolutionTreeNodeCollection ChildrenCollection = (ISolutionTreeNodeCollection)ParentFolder.Children;
 
-                    foreach (ISolutionTreeNode Child in ChildrenCollection)
+                    foreach (ISolutionTreeNode Child in (IEnumerable<ISolutionTreeNode>)ChildrenCollection)
                         if (Child.Path.IsEqual(Path))
                         {
                             ChildrenCollection.Remove(Child);
