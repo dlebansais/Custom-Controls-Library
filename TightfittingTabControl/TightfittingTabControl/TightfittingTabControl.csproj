@@ -10,11 +10,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AEC24EC9-BE57-4219-A3D8-62826A6BC765}</ProjectGuid>
+    <ProjectGuid>{CC05DE21-5394-4666-B8D4-7C782B54541F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UndoRedo</RootNamespace>
-    <AssemblyName>UndoRedo</AssemblyName>
+    <RootNamespace>CustomControls</RootNamespace>
+    <AssemblyName>TightfittingTabControl</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
@@ -29,7 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\UndoRedo.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\TightfittingTabControl.xml</DocumentationFile>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -40,9 +40,15 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\UndoRedo.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\TightfittingTabControl.xml</DocumentationFile>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>../../../Certification/Custom-Controls-Library.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -51,7 +57,7 @@
     <DebugType>full</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x64\Debug\UndoRedo.xml</DocumentationFile>
+    <DocumentationFile>bin\x64\Debug\TightfittingTabControl.xml</DocumentationFile>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -62,31 +68,26 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>bin\x64\Release\UndoRedo.xml</DocumentationFile>
+    <DocumentationFile>bin\x64\Release\TightfittingTabControl.xml</DocumentationFile>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../../../Certification/Custom-Controls-Library.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IdentityOperation.cs" />
-    <Compile Include="Reversible Operation.cs" />
-    <Compile Include="Undo Redo Manager.cs" />
+    <Compile Include="TightfittingTabControl.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

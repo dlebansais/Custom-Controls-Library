@@ -51,9 +51,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Split View", "Split View\Sp
 		{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F} = {1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tightfitting Tab Control", "Tightfitting Tab Control\Tightfitting Tab Control\Tightfitting Tab Control.csproj", "{CC05DE21-5394-4666-B8D4-7C782B54541F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TightfittingTabControl", "TightfittingTabControl\TightfittingTabControl\TightfittingTabControl.csproj", "{CC05DE21-5394-4666-B8D4-7C782B54541F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Undo Redo Manager", "Undo Redo Manager\Undo Redo Manager\Undo Redo Manager.csproj", "{AEC24EC9-BE57-4219-A3D8-62826A6BC765}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UndoRedoManager", "UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj", "{AEC24EC9-BE57-4219-A3D8-62826A6BC765}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusyIndicator", "BusyIndicator\BusyIndicator.csproj", "{F0E68B94-E370-474E-B963-B7271E4FBF8B}"
 EndProject
