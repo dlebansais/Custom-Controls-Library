@@ -3,12 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2013 for Windows Desktop
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended TreeView Demo", "Extended TreeView Demo\Extended TreeView Demo.csproj", "{105C484C-C2F2-4AA2-BE5B-F06D92406151}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedTreeViewDemo", "ExtendedTreeViewDemo\ExtendedTreeViewDemo.csproj", "{105C484C-C2F2-4AA2-BE5B-F06D92406151}"
 	ProjectSection(ProjectDependencies) = postProject
 		{15534032-C7BE-48A0-8E0F-0EC7F2B8491C} = {15534032-C7BE-48A0-8E0F-0EC7F2B8491C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended TreeView", "Extended TreeView\Extended TreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedTreeView", "ExtendedTreeView\ExtendedTreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

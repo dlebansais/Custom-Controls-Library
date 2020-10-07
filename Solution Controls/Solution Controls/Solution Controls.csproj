@@ -299,7 +299,7 @@
       <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
       <Name>Extended ToolBar</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extended TreeView\Extended TreeView\Extended TreeView.csproj">
+    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj">
       <Project>{15534032-c7be-48a0-8e0f-0ec7f2b8491c}</Project>
       <Name>Extended TreeView</Name>
     </ProjectReference>

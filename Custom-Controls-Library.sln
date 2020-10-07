@@ -22,7 +22,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedToolBar", "Extended
 		{9368643D-59A7-4678-BA7D-DE551146E13A} = {9368643D-59A7-4678-BA7D-DE551146E13A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended TreeView", "Extended TreeView\Extended TreeView\Extended TreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedTreeView", "ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution Controls", "Solution Controls\Solution Controls\Solution Controls.csproj", "{ABAD3A6D-A372-482B-8E6E-DB70876EB6FD}"
 	ProjectSection(ProjectDependencies) = postProject

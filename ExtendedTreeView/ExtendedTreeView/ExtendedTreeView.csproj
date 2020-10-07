@@ -13,7 +13,7 @@
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2019 David Le Bansais</Copyright>
     <AssemblyVersion>1.0.1.681</AssemblyVersion>
-    <FileVersion>1.0.1.59</FileVersion>
+    <FileVersion>1.0.1.128</FileVersion>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -52,6 +52,10 @@
     <Reference Include="PresentationFramework" />
     <Reference Include="System.Xaml" />
     <Reference Include="WindowsBase" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj" />
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
