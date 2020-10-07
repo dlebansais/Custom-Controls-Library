@@ -22,6 +22,6 @@ using System.Windows.Markup;
 
 [assembly: Guid("36cdb9b3-7f54-41e0-8686-11836eff9fa0")]
 
-[assembly: AssemblyVersion("1.0.1.679")]
-[assembly: AssemblyFileVersion("1.0.1.127")]
+[assembly: AssemblyVersion("1.0.1.680")]
+[assembly: AssemblyFileVersion("1.0.1.128")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]

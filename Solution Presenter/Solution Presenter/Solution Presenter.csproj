@@ -318,7 +318,7 @@
       <Project>{e1bcb2f8-219a-4cef-b992-96a1f5a5a782}</Project>
       <Name>EnumRadioButton</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extended ToolBar\Extended ToolBar\Extended ToolBar.csproj">
+    <ProjectReference Include="..\..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj">
       <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
       <Name>Extended ToolBar</Name>
     </ProjectReference>

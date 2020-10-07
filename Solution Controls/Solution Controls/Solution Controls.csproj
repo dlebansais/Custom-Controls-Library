@@ -295,7 +295,7 @@
       <Project>{1ca197bb-d29f-43ad-8fb1-f920f7f7b6fa}</Project>
       <Name>EditableTextBlock</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Extended ToolBar\Extended ToolBar\Extended ToolBar.csproj">
+    <ProjectReference Include="..\..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj">
       <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
       <Name>Extended ToolBar</Name>
     </ProjectReference>
