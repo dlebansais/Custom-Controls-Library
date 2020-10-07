@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedCommandControls", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "ExtendedPasswordBox\ExtendedPasswordBox\ExtendedPasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended ScrollBar", "Extended ScrollBar\Extended ScrollBar\Extended ScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended ToolBar", "Extended ToolBar\Extended ToolBar\Extended ToolBar.csproj", "{5AF7807C-35FB-4FD1-B94B-AA1AFE3FFE5F}"
 	ProjectSection(ProjectDependencies) = postProject
