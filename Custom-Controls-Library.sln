@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogValidation", "DialogValidation\DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogValidation", "DialogValidation\DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditableTextBlock", "EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditableTextBlock", "EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumComboBox", "EnumComboBox\EnumComboBox\EnumComboBox.csproj", "{0FBADA65-9A03-439C-8991-2C58091FCC3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox", "EnumComboBox\EnumComboBox\EnumComboBox.csproj", "{0FBADA65-9A03-439C-8991-2C58091FCC3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended PasswordBox", "Extended PasswordBox\Extended PasswordBox\Extended PasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "ExtendedPasswordBox\ExtendedPasswordBox\ExtendedPasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extended ScrollBar", "Extended ScrollBar\Extended ScrollBar\Extended ScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
 EndProject
