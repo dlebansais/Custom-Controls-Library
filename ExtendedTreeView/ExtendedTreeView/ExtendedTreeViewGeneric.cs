@@ -36,7 +36,7 @@
         protected override int GetItemChildrenCount(object item)
         {
             if (item is TItem AsItem)
-                return AsItem.Children.Count;
+                return ((IList)AsItem.Children).Count;
             else
                 throw new ArgumentNullException(nameof(item));
         }
@@ -63,7 +63,7 @@
         protected override object GetItemChild(object item, int index)
         {
             if (item is TItem AsItem)
-                return AsItem.Children[index];
+                return ((IList)AsItem.Children)[index];
             else
                 throw new ArgumentNullException(nameof(item));
         }
