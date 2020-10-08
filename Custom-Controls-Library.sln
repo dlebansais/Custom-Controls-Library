@@ -11,18 +11,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox", "EnumComboBo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "ExtendedPasswordBox\ExtendedPasswordBox\ExtendedPasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedToolBar", "ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj", "{5AF7807C-35FB-4FD1-B94B-AA1AFE3FFE5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedToolBar", "ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj", "{5AF7807C-35FB-4FD1-B94B-AA1AFE3FFE5F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9368643D-59A7-4678-BA7D-DE551146E13A} = {9368643D-59A7-4678-BA7D-DE551146E13A}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedTreeView", "ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeView", "ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SolutionControls", "SolutionControls\SolutionControls\SolutionControls.csproj", "{ABAD3A6D-A372-482B-8E6E-DB70876EB6FD}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -61,6 +61,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Custom-Controls-Library", "Custom-Controls-Library\Custom-Controls-Library.csproj", "{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -190,6 +192,12 @@ Global
 		{F0E68B94-E370-474E-B963-B7271E4FBF8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F0E68B94-E370-474E-B963-B7271E4FBF8B}.Release|x64.ActiveCfg = Release|x64
 		{F0E68B94-E370-474E-B963-B7271E4FBF8B}.Release|x64.Build.0 = Release|x64
+		{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}.Debug|x64.ActiveCfg = Debug|x64
+		{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}.Debug|x64.Build.0 = Debug|x64
+		{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}.Release|Any CPU.ActiveCfg = Release|x64
+		{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}.Release|x64.ActiveCfg = Release|x64
+		{24BAECC2-61A8-4F0F-BD8D-3E70F9D71D5E}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

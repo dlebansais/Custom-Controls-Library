@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48</TargetFrameworks>
+    <UseWpf>true</UseWpf>
+    <LangVersion>8.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <Platforms>x64</Platforms>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>1.0.1</Version>
+    <Authors>David Le Bansais</Authors>
+    <Company />
+    <Product />
+    <Description>WPF Custom Control</Description>
+    <Copyright>Copyright © 2019 David Le Bansais</Copyright>
+    <AssemblyVersion>1.0.1.708</AssemblyVersion>
+    <FileVersion>1.0.1.141</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RootNamespace>CustomControls</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BusyIndicator\BusyIndicator.csproj" />
+    <ProjectReference Include="..\DialogValidation\DialogValidation\DialogValidation.csproj" />
+    <ProjectReference Include="..\EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj" />
+    <ProjectReference Include="..\EnumComboBox\EnumComboBox\EnumComboBox.csproj" />
+    <ProjectReference Include="..\EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj" />
+    <ProjectReference Include="..\ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj" />
+    <ProjectReference Include="..\ExtendedPasswordBox\ExtendedPasswordBox\ExtendedPasswordBox.csproj" />
+    <ProjectReference Include="..\ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj" />
+    <ProjectReference Include="..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj" />
+    <ProjectReference Include="..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj" />
+    <ProjectReference Include="..\SolutionControls\SolutionControls\SolutionControls.csproj" />
+    <ProjectReference Include="..\SolutionPresenter\SolutionPresenter\SolutionPresenter.csproj" />
+    <ProjectReference Include="..\SplitView\SplitView\SplitView.csproj" />
+    <ProjectReference Include="..\TightfittingTabControl\TightfittingTabControl\TightfittingTabControl.csproj" />
+    <ProjectReference Include="..\UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj" />
+  </ItemGroup>
+
+</Project>
