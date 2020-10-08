@@ -294,21 +294,21 @@
       <Project>{1ca197bb-d29f-43ad-8fb1-f920f7f7b6fa}</Project>
       <Name>EditableTextBlock</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj">
-      <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
-      <Name>Extended ToolBar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj">
-      <Project>{15534032-c7be-48a0-8e0f-0ec7f2b8491c}</Project>
-      <Name>Extended TreeView</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj">
       <Project>{9368643d-59a7-4678-ba7d-de551146e13a}</Project>
       <Name>ExtendedCommandControls</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Undo Redo Manager\Undo Redo Manager\Undo Redo Manager.csproj">
+    <ProjectReference Include="..\..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj">
+      <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
+      <Name>ExtendedToolBar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj">
+      <Project>{15534032-c7be-48a0-8e0f-0ec7f2b8491c}</Project>
+      <Name>ExtendedTreeView</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj">
       <Project>{aec24ec9-be57-4219-a3d8-62826a6bc765}</Project>
-      <Name>Undo Redo Manager</Name>
+      <Name>UndoRedoManager</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

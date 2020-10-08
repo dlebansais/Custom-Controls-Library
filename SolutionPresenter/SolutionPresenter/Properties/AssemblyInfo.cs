@@ -2,8 +2,11 @@
 using System.Reflection;
 using System.Resources;
 using System.Runtime.InteropServices;
+using System.Windows.Markup;
 
-[assembly: AssemblyTitle("Undo Redo Manager")]
+[assembly: XmlnsDefinitionAttribute("CustomControlsLibrary", "CustomControls")]
+
+[assembly: AssemblyTitle("Solution Presenter")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
@@ -15,8 +18,8 @@ using System.Runtime.InteropServices;
 
 [assembly: ComVisible(false)]
 
-[assembly: Guid("0be93d0e-a7d1-4df6-a43d-9a23f4018559")]
+[assembly: Guid("ed6382cd-7bbd-43ee-b1f2-ee3d4076af41")]
 
 [assembly: AssemblyVersion("1.0.1.707")]
-[assembly: AssemblyFileVersion("1.0.1.67")]
+[assembly: AssemblyFileVersion("1.0.1.115")]
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
