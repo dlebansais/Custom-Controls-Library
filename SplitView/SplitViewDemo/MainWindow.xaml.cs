@@ -1,11 +1,11 @@
-﻿using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Media;
-
-namespace CustomControls
+﻿namespace CustomControls
 {
+    using System.ComponentModel;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Media;
+
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         #region Init
@@ -14,24 +14,24 @@ namespace CustomControls
             InitializeComponent();
             DataContext = this;
 
-            _TestContent = "test";
+            TestContentInternal = "test";
         }
         #endregion
 
         #region Properties
-        public string TestContent 
+        public string TestContent
         {
-            get { return _TestContent; }
+            get { return TestContentInternal; }
             set
             {
-                if (_TestContent != value)
+                if (TestContentInternal != value)
                 {
-                    _TestContent = value;
+                    TestContentInternal = value;
                     NotifyThisPropertyChanged();
                 }
             }
         }
-        private string _TestContent;
+        private string TestContentInternal;
         #endregion
 
         #region Events
