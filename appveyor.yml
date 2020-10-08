@@ -60,10 +60,10 @@ deploy:
     on:
       branch: master
       APPVEYOR_REPO_TAG: true
-#  - provider: NuGet
-#    server: https://nuget.pkg.github.com/dlebansais/index.json
-#    artifact: Custom-Controls-Library-Package
-#    username: dlebansais
-#    api_key:
-#      secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
-#    skip_symbols: true
+  - provider: NuGet
+    server: https://nuget.pkg.github.com/dlebansais/index.json
+    artifact: Custom-Controls-Library-Package
+    username: dlebansais
+    api_key:
+      secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
+    skip_symbols: true
