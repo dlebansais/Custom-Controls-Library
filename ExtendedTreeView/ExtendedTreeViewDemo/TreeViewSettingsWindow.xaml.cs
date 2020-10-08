@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Windows;
-using System.Windows.Controls;
-
-namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo
 {
+    using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Windows;
+    using System.Windows.Controls;
+
     public partial class TreeViewSettingsWindow : Window
     {
         #region Constants
@@ -12,18 +12,20 @@ namespace ExtendedTreeViewDemo
         {
             { TreeViewSize.Small, 10 },
             { TreeViewSize.Medium, 10000 },
-            { TreeViewSize.Large, 10000000 }
+            { TreeViewSize.Large, 10000000 },
         };
         private static IReadOnlyDictionary<TreeViewDepth, int> AverageChildrenCountTable = new Dictionary<TreeViewDepth, int>()
         {
             { TreeViewDepth.Small, 5 },
-            { TreeViewDepth.Medium, 500},
-            { TreeViewDepth.Large, 50000 }
+            { TreeViewDepth.Medium, 500 },
+            { TreeViewDepth.Large, 50000 },
         };
         #endregion
 
         #region Init
+#pragma warning disable SA1404 // Code analysis suppression should have justification
         [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline")]
+#pragma warning restore SA1404 // Code analysis suppression should have justification
         static TreeViewSettingsWindow()
         {
             IsDeferredScrollingEnabled = true;

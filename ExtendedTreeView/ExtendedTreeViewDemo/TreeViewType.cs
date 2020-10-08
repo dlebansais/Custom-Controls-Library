@@ -4,6 +4,6 @@
     {
         VS2013,
         Explorer,
-        Custom
+        Custom,
     }
 }

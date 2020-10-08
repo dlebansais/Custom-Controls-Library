@@ -1,6 +1,6 @@
 ﻿namespace ExtendedTreeViewDemo
 {
-    public class RootTestNode : TestNode
+    internal class RootTestNode : TestNode
     {
         public RootTestNode()
             : base(null, 0)

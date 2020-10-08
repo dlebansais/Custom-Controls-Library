@@ -4,6 +4,6 @@
     {
         Small,
         Medium,
-        Large
+        Large,
     }
 }

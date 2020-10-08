@@ -1,9 +1,9 @@
-﻿using CustomControls;
-using System.Globalization;
-
-namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo
 {
-    public class TestNode : IExtendedTreeNode
+    using System.Globalization;
+    using CustomControls;
+
+    internal class TestNode : IExtendedTreeNode
     {
         public TestNode(TestNode? parent, int index)
         {

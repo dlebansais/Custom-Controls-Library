@@ -1,11 +1,10 @@
-﻿using CustomControls;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-
-namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo
 {
-    public class CloneableTestNode : IExtendedTreeNode, ICloneable
+    using System;
+    using System.Globalization;
+    using CustomControls;
+
+    internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     {
         public CloneableTestNode(CloneableTestNode? parent, int index)
         {
@@ -30,7 +29,7 @@ namespace ExtendedTreeViewDemo
             CloneableTestNode Clone = new CloneableTestNode((CloneableTestNode?)Parent, Index);
             foreach (CloneableTestNode Child in Children)
                 Clone.Children.Add(Child.Clone());
-            
+
             return Clone;
         }
 

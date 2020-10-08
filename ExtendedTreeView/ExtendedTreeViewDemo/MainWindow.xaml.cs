@@ -1,20 +1,20 @@
-﻿using CustomControls;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Input;
-using System.Windows.Media.Animation;
-using System.Windows.Threading;
-
-namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.ComponentModel;
+    using System.Diagnostics;
+    using System.Diagnostics.CodeAnalysis;
+    using System.Runtime.CompilerServices;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Controls.Primitives;
+    using System.Windows.Input;
+    using System.Windows.Media.Animation;
+    using System.Windows.Threading;
+    using CustomControls;
+
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public MainWindow()
@@ -38,11 +38,11 @@ namespace ExtendedTreeViewDemo
         public bool IsGenerating { get; private set; }
         public int GenerateCount { get; private set; }
         public double GenerateProgress { get; private set; }
-        ResourceDictionary VS2013Dictionnary;
-        ResourceDictionary ExplorerDictionnary;
-        ResourceDictionary CustomFixedHeightImageDictionnary;
-        ResourceDictionary CustomTextImageDictionnary;
-        ResourceDictionary CustomVariableHeightImageAndTextDictionnary;
+        private ResourceDictionary VS2013Dictionnary;
+        private ResourceDictionary ExplorerDictionnary;
+        private ResourceDictionary CustomFixedHeightImageDictionnary;
+        private ResourceDictionary CustomTextImageDictionnary;
+        private ResourceDictionary CustomVariableHeightImageAndTextDictionnary;
 
         protected virtual void UpdateProgress(int count, int total)
         {
@@ -173,8 +173,8 @@ namespace ExtendedTreeViewDemo
                 return new TestNode((TestNode)parent, generated);
         }
 
-        protected delegate void GenerateNextHandler(bool isCloneable, int itemCount, int averageChildrenCount, Random randomNumberGenerator, IExtendedTreeNode root, int generated, Collection<IExtendedTreeNode> parentChain, int parentIndex, IExtendedTreeNode parentTreeNode, int childIndex, int childrenCount);
-        protected virtual void GenerateNext(bool isCloneable, int itemCount, int averageChildrenCount, Random randomNumberGenerator, IExtendedTreeNode root, int generated, Collection<IExtendedTreeNode> parentChain, int parentIndex, IExtendedTreeNode parentTreeNode, int childIndex, int childrenCount)
+        protected delegate void GenerateNextHandler(bool isCloneable, int itemCount, int averageChildrenCount, Random randomNumberGenerator, IExtendedTreeNode root, int generated, Collection<IExtendedTreeNode> parentChain, int parentIndex, IExtendedTreeNode? parentTreeNode, int childIndex, int childrenCount);
+        protected virtual void GenerateNext(bool isCloneable, int itemCount, int averageChildrenCount, Random randomNumberGenerator, IExtendedTreeNode root, int generated, Collection<IExtendedTreeNode> parentChain, int parentIndex, IExtendedTreeNode? parentTreeNode, int childIndex, int childrenCount)
         {
             if (randomNumberGenerator == null || parentChain == null)
                 return;
@@ -192,8 +192,8 @@ namespace ExtendedTreeViewDemo
                     childrenCount = randomNumberGenerator.Next(averageChildrenCount) + 1;
                 }
 
-                IExtendedTreeNode NewItem = CreateNode(isCloneable, parentTreeNode, generated);
-                parentTreeNode.Children.Add(NewItem);
+                IExtendedTreeNode NewItem = CreateNode(isCloneable, parentTreeNode !, generated);
+                parentTreeNode?.Children.Add(NewItem);
 
                 if (childIndex == 0)
                     parentChain[parentIndex] = NewItem;
@@ -228,7 +228,7 @@ namespace ExtendedTreeViewDemo
             DropCheckEventArgs Args = (DropCheckEventArgs)e;
             IExtendedTreeNode DropDestinationItem = (IExtendedTreeNode)Args.DropDestinationItem;
 
-            if (DropDestinationItem != null && DropDestinationItem.Children.Count == 0 && TreeViewSettingsWindow.AreLeavesSealed)
+            if (DropDestinationItem != null && ((ICollection<IExtendedTreeNode>)DropDestinationItem.Children).Count == 0 && TreeViewSettingsWindow.AreLeavesSealed)
                 Args.Deny();
         }
 
