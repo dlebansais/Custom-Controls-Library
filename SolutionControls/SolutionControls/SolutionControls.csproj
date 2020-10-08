@@ -1,340 +1,81 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props" Condition="Exists('..\..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" />
-  <Import Project="..\..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props" Condition="Exists('..\..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props')" />
-  <Import Project="..\..\packages\Microsoft.NetCore.Analyzers.3.3.0\build\Microsoft.NetCore.Analyzers.props" Condition="Exists('..\..\packages\Microsoft.NetCore.Analyzers.3.3.0\build\Microsoft.NetCore.Analyzers.props')" />
-  <Import Project="..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\build\Microsoft.CodeQuality.Analyzers.props" Condition="Exists('..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\build\Microsoft.CodeQuality.Analyzers.props')" />
-  <Import Project="..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.0\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props" Condition="Exists('..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.0\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" />
-  <Import Project="..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props" Condition="Exists('..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ABAD3A6D-A372-482B-8E6E-DB70876EB6FD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SolutionControlsInternal</RootNamespace>
-    <AssemblyName>SolutionControls</AssemblyName>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFrameworks>net48</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
-    <NoWarn>0436</NoWarn>
+    <Platforms>x64</Platforms>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Version>1.0.1</Version>
+    <Authors>David Le Bansais</Authors>
+    <Company />
+    <Product />
+    <Description>WPF Custom Control</Description>
+    <Copyright>Copyright © 2019 David Le Bansais</Copyright>
+    <AssemblyVersion>1.0.1.707</AssemblyVersion>
+    <FileVersion>1.0.1.130</FileVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
+    <NeutralLanguage>en-US</NeutralLanguage>
+    <RootNamespace>CustomControls</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <NoWarn>0436</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugType>full</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <NoWarn>0436;CA1303</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PlatformTarget>x64</PlatformTarget>
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <ErrorReport>prompt</ErrorReport>
-    <LangVersion>8.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <NoWarn>0436</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>false</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>../../../Certification/Custom-Controls-Library.pfx</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Costura.Fody.4.1.0\lib\net40\Costura.dll</HintPath>
-    </Reference>
+    <PackageReference Include="Costura.Fody" Version="4.1.0">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Fody" Version="6.2.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NetCore.Analyzers" Version="3.3.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Include="SolutionControls\ToolBar\SolutionToolBar.xaml" />
+    <Page Include="SolutionControls\Explorer\SolutionExplorer.xaml" />
+    <Page Include="SolutionControls\MergedProperties\MergedProperties.xaml" />
+    <Page Include="SolutionControls\ToolBar\DropDownList.xaml" />
+    <Page Include="SolutionControls\StatusBar\SolutionStatusBar.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj" />
+    <ProjectReference Include="..\..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj" />
+    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj" />
+    <ProjectReference Include="..\..\UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Xaml" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Commands\IActiveDocumentSource.cs" />
-    <Compile Include="Commands\DocumentRoutedCommand.cs" />
-    <Compile Include="Converters\BooleanToObjectConverter.cs" />
-    <Compile Include="Converters\ButtonCommandToGestureTextConverter.cs" />
-    <Compile Include="Converters\ButtonCommandToHeaderConverter.cs" />
-    <Compile Include="Converters\ButtonCommandToIconConverter.cs" />
-    <Compile Include="Converters\ButtonCommandToTextConverter.cs" />
-    <Compile Include="Converters\ButtonCommandToToolTipConverter.cs" />
-    <Compile Include="Converters\ButtonCommandToVisibilityConverter.cs" />
-    <Compile Include="Converters\DoubleToObjectConverter.cs" />
-    <Compile Include="Converters\ManyOrToObjectConverter.cs" />
-    <Compile Include="Converters\StatusTypesToThemeBackgroundBrushConverter.cs" />
-    <Compile Include="Converters\StatusTypesToThemeForegroundBrushConverter.cs" />
-    <Compile Include="Documents\DocumentHelper.cs" />
-    <Compile Include="Documents\DocumentTypeCollection.cs" />
-    <Compile Include="Documents\IDocumentType.cs" />
-    <Compile Include="Documents\IDocument.cs" />
-    <Compile Include="Gestures\GestureHelper.cs" />
-    <Compile Include="Gestures\IGestureSource.cs" />
-    <Compile Include="Gestures\IGestureTranslator.cs" />
-    <Compile Include="PrettyItemsControl\PrettyItemsControl.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SolutionControls\Explorer\ClipboardPathData.cs" />
-    <Compile Include="SolutionControls\Explorer\Events\ContextMenuOpenedEventArgs.cs" />
-    <Compile Include="SolutionControls\Explorer\Events\ImportedEventArgs.cs" />
-    <Compile Include="SolutionControls\Explorer\Events\MovedEventArgs.cs" />
-    <Compile Include="SolutionControls\Explorer\Events\NameChangedEventArgs.cs" />
-    <Compile Include="SolutionControls\Explorer\FolderPackage.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\Base\SolutionExplorerUndoRedoManager.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\AddFolderOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\AddItemOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\Base\AddSingleOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\Base\AddRemoveSingleOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\Base\AddRemoveOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\Base\AddRemoveTreeOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\AddTreeOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\MoveOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\Base\SolutionExplorerOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\RemoveTreeOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\Operations\RenameOperation.cs" />
-    <Compile Include="SolutionControls\Explorer\IPathGroup.cs" />
-    <Compile Include="SolutionControls\Explorer\SolutionPackage.cs" />
-    <Compile Include="SolutionControls\Explorer\SolutionExplorer.xaml.cs">
-      <DependentUpon>SolutionExplorer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SolutionControls\Explorer\ValidEditOperations.cs" />
-    <Compile Include="SolutionControls\Explorer\Events\TreeChangedEventArgs.cs" />
-    <Compile Include="SolutionControls\MergedProperties\IEnumPropertyEntry.cs" />
-    <Compile Include="SolutionControls\MergedProperties\MergedProperties.xaml.cs">
-      <DependentUpon>MergedProperties.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SolutionControls\MergedProperties\PropertyEntryCollection.cs" />
-    <Compile Include="SolutionControls\MergedProperties\PropertyEntrySelector.cs" />
-    <Compile Include="SolutionControls\MergedProperties\IPropertyEntry.cs" />
-    <Compile Include="SolutionControls\MergedProperties\IStringPropertyEntry.cs" />
-    <Compile Include="SolutionControls\StatusBar\IApplicationStatus.cs" />
-    <Compile Include="SolutionControls\StatusBar\IDocumentEditor.cs" />
-    <Compile Include="SolutionControls\StatusBar\SolutionStatusBar.xaml.cs">
-      <DependentUpon>SolutionStatusBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SolutionControls\StatusBar\IStatusTheme.cs" />
-    <Compile Include="SolutionControls\StatusBar\StatusType.cs" />
-    <Compile Include="SolutionControls\ToolBar\DocumentActivatedEventArgs.cs" />
-    <Compile Include="SolutionControls\ToolBar\DropDownList.xaml.cs">
-      <DependentUpon>DropDownList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SolutionControls\ToolBar\SolutionToolBar.xaml.cs">
-      <DependentUpon>SolutionToolBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="TreeNodes\Path\IDocumentPath.cs" />
-    <Compile Include="TreeNodes\Path\EmptyPath.cs" />
-    <Compile Include="TreeNodes\Path\IFolderPath.cs" />
-    <Compile Include="TreeNodes\Path\IItemPath.cs" />
-    <Compile Include="TreeNodes\Path\IRootPath.cs" />
-    <Compile Include="TreeNodes\Path\ITreeNodePath.cs" />
-    <Compile Include="TreeNodes\Properties\IFolderProperties.cs" />
-    <Compile Include="TreeNodes\Properties\IItemProperties.cs" />
-    <Compile Include="TreeNodes\Properties\IRootProperties.cs" />
-    <Compile Include="TreeNodes\Properties\ITreeNodeProperties.cs" />
-    <Compile Include="TreeNodes\ISolutionFolder.cs" />
-    <Compile Include="TreeNodes\ISolutionItem.cs" />
-    <Compile Include="TreeNodes\ISolutionRoot.cs" />
-    <Compile Include="TreeNodes\ISolutionTreeNodeCollection.cs" />
-    <Compile Include="TreeNodes\SolutionTreeNodeComparer.cs" />
-    <Compile Include="TreeNodes\ISolutionTreeNode.cs" />
-    <Compile Include="TreeNodes\IPathConnection.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="SolutionControls\Explorer\ExplorerCommands.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\Explorer\ExplorerResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\Explorer\SolutionExplorer.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\MergedProperties\MergedProperties.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\StatusBar\SolutionStatusBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\ToolBar\DropDownList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\ToolBar\SolutionToolBar.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\ToolBar\ToolBarCommands.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="SolutionControls\ToolBar\ToolBarResources.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\Copy.png" />
-    <Resource Include="Resources\Icons\Cut.png" />
-    <Resource Include="Resources\Icons\Delete.png" />
-    <Resource Include="Resources\Icons\Open.png" />
-    <Resource Include="Resources\Icons\Paste.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\Folder.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\AddExistingItem.png" />
-    <Resource Include="Resources\Icons\DeleteSolution.png" />
-    <Resource Include="Resources\Icons\NewFolder.png" />
-    <Resource Include="Resources\Icons\Properties.png" />
-    <Resource Include="Resources\Icons\Rename.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\About.png" />
-    <Resource Include="Resources\Icons\BuildSolution.png" />
-    <Resource Include="Resources\Icons\Close.png" />
-    <Resource Include="Resources\Icons\CloseSolution.png" />
-    <Resource Include="Resources\Icons\CompilerOutput.png" />
-    <Resource Include="Resources\Icons\Exit.png" />
-    <Resource Include="Resources\Icons\Export.png" />
-    <Resource Include="Resources\Icons\ExportAll.png" />
-    <Resource Include="Resources\Icons\Import.png" />
-    <Resource Include="Resources\Icons\NewSolution.png" />
-    <Resource Include="Resources\Icons\OpenExisting.png" />
-    <Resource Include="Resources\Icons\OpenSolution.png" />
-    <Resource Include="Resources\Icons\Options.png" />
-    <Resource Include="Resources\Icons\Redo.png" />
-    <Resource Include="Resources\Icons\Save.png" />
-    <Resource Include="Resources\Icons\SaveAll.png" />
-    <Resource Include="Resources\Icons\SelectAll.png" />
-    <Resource Include="Resources\Icons\SolutionExplorer.png" />
-    <Resource Include="Resources\Icons\Split.png" />
-    <Resource Include="Resources\Icons\Undo.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\ExportSolution.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Icons\ImportSolution.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.0\analyzers\dotnet\cs\Microsoft.CodeAnalysis.VersionCheckAnalyzer.resources.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.0\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\analyzers\dotnet\cs\Humanizer.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.CodeQuality.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.CodeQuality.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.NetCore.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetCore.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.NetCore.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetCore.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.NetFramework.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetFramework.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\Microsoft.NetFramework.Analyzers.3.3.0\analyzers\dotnet\cs\Microsoft.NetFramework.CSharp.Analyzers.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.CodeFixes.dll" />
-    <Analyzer Include="..\..\packages\StyleCop.Analyzers.1.1.118\analyzers\dotnet\cs\StyleCop.Analyzers.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj">
-      <Project>{1ca197bb-d29f-43ad-8fb1-f920f7f7b6fa}</Project>
-      <Name>EditableTextBlock</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj">
-      <Project>{9368643d-59a7-4678-ba7d-de551146e13a}</Project>
-      <Name>ExtendedCommandControls</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj">
-      <Project>{5af7807c-35fb-4fd1-b94b-aa1afe3ffe5f}</Project>
-      <Name>ExtendedToolBar</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj">
-      <Project>{15534032-c7be-48a0-8e0f-0ec7f2b8491c}</Project>
-      <Name>ExtendedTreeView</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj">
-      <Project>{aec24ec9-be57-4219-a3d8-62826a6bc765}</Project>
-      <Name>UndoRedoManager</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"
-call "$(SolutionDir)signfile.bat" "$(SolutionDir)" "$(ConfigurationName)-$(PlatformName)" "$(TargetPath)"</PostBuildEvent>
-    <DocumentationFile>bin\x64\Release\SolutionControls.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <PostBuildEvent>call "$(SolutionDir)updatecommit.bat" "$(SolutionDir)" "$(TargetPath)"</PostBuildEvent>
-    <DocumentationFile>bin\x64\Debug\SolutionControls.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PreBuildEvent>call "$(SolutionDir)updateversion.bat" "$(SolutionDir)" "$(SolutionPath)"</PreBuildEvent>
-  </PropertyGroup>
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Costura.Fody.4.1.0\build\Costura.Fody.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.0\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.3.3.0\build\Microsoft.CodeAnalysis.VersionCheckAnalyzer.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\build\Microsoft.CodeQuality.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeQuality.Analyzers.3.3.0\build\Microsoft.CodeQuality.Analyzers.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.NetCore.Analyzers.3.3.0\build\Microsoft.NetCore.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.NetCore.Analyzers.3.3.0\build\Microsoft.NetCore.Analyzers.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.NetFramework.Analyzers.3.3.0\build\Microsoft.NetFramework.Analyzers.props'))" />
-    <Error Condition="!Exists('..\..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeAnalysis.FxCopAnalyzers.3.3.0\build\Microsoft.CodeAnalysis.FxCopAnalyzers.props'))" />
-    <Error Condition="!Exists('..\..\packages\Fody.6.2.6\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.6.2.6\build\Fody.targets'))" />
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Exec Command="if exist &quot;$(SolutionDir)updatecommit.bat&quot; call &quot;$(SolutionDir)updatecommit.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetPath)&quot;" />
   </Target>
-  <Import Project="..\..\packages\Fody.6.2.6\build\Fody.targets" Condition="Exists('..\..\packages\Fody.6.2.6\build\Fody.targets')" />
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Exec Command="if exist &quot;$(SolutionDir)updatecommit.bat&quot; call &quot;$(SolutionDir)updatecommit.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetPath)&quot;" />
+    <Exec Command="if exist &quot;$(SolutionDir)signfile.bat&quot; call &quot;$(SolutionDir)signfile.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(Configuration)-$(Platform)&quot; &quot;$(TargetPath)&quot;" />
+  </Target>
+
 </Project>
