@@ -14,11 +14,11 @@ if "%WINAPPDRIVER_DIR%" == "" goto error2
 if not exist "%WINAPPDRIVER_DIR%/WinAppDriver.exe" goto error2
 if "%VSTESTPLATFORM_DIR%" == "" goto error3
 if not exist "%VSTESTPLATFORM_DIR%/VSTest.Console.exe" goto error3
-if not exist ".\BusyIndicator\bin\x64\Debug\BusyIndicator.dll" goto error4
-if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\DialogValidation.dll" goto error4
-if not exist ".\EditableTextBlock\EditableTextBlock\bin\x64\Debug\EditableTextBlock.dll" goto error4
-if not exist ".\EnumComboBox\EnumComboBox\bin\x64\Debug\EnumComboBox.dll" goto error4
-if not exist ".\EnumRadioButton\EnumRadioButton\bin\x64\Debug\EnumRadioButton.dll" goto error4
+if not exist ".\BusyIndicator\bin\x64\Debug\net48\BusyIndicator.dll" goto error4
+if not exist ".\DialogValidation\DialogValidation\bin\x64\Debug\net48\DialogValidation.dll" goto error4
+if not exist ".\EditableTextBlock\EditableTextBlock\bin\x64\Debug\net48\EditableTextBlock.dll" goto error4
+if not exist ".\EnumComboBox\EnumComboBox\bin\x64\Debug\net48\EnumComboBox.dll" goto error4
+if not exist ".\EnumRadioButton\EnumRadioButton\bin\x64\Debug\net48\EnumRadioButton.dll" goto error4
 
 if exist .\Test\%RESULTFILENAME% del .\Test\%RESULTFILENAME%
 
@@ -31,47 +31,47 @@ call .\coverage\app.bat DialogValidation Debug "unset"
 call .\coverage\wait.bat 30
 
 call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\net48\Test-DialogValidation-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat DialogValidation Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\net48\Test-DialogValidation-UT.dll" /Tests:TestDefault2
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EditableTextBlock Debug "escape1"
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\net48\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EditableTextBlock Debug "escape2"
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\net48\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EditableTextBlock Debug "escape3"
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\net48\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EditableTextBlock Debug "escape4"
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault2
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\net48\Test-EditableTextBlock-UT.dll" /Tests:TestDefault2
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EditableTextBlock Debug "escape5"
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\net48\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EditableTextBlock Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault3
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\net48\Test-EditableTextBlock-UT.dll" /Tests:TestDefault3
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EnumComboBox Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumComboBox-UT\bin\x64\Debug\Test-EnumComboBox-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumComboBox-UT\bin\x64\Debug\net48\Test-EnumComboBox-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat EnumRadioButton Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumRadioButton-UT\bin\x64\Debug\Test-EnumRadioButton-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumRadioButton-UT\bin\x64\Debug\net48\Test-EnumRadioButton-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 call .\coverage\app.bat ExtendedCommandControls Debug
-"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-ExtendedCommandControls-UT\bin\x64\Debug\Test-ExtendedCommandControls-UT.dll" /Tests:TestDefault1
+"%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-ExtendedCommandControls-UT\bin\x64\Debug\net48\Test-ExtendedCommandControls-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
 start cmd /c .\coverage\stop_winappdriver.bat
