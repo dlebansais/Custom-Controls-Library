@@ -38,14 +38,14 @@ platform: x64
 configuration: Release
 
 after_build:
-  - dotnet pack --configuration Release /p:Platform=x64 Custom-Controls-Library/Custom-Controls-Library.csproj
+  - nuget pack nuget\Custom-Controls-Library.nuspec
 
 test: off
 
 artifacts:
   - path: Custom-Controls-Library/bin/
     name: Custom-Controls-Library-Release
-  - path: Custom-Controls-Library/bin/x64/Release/Custom-Controls-Library.*.nupkg
+  - path: Custom-Controls-Library.*.nupkg
     name: Custom-Controls-Library-Package
 
 deploy:
