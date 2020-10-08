@@ -32,8 +32,6 @@
     <ProjectReference Include="..\ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj" />
     <ProjectReference Include="..\ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj" />
     <ProjectReference Include="..\ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj" />
-    <ProjectReference Include="..\SolutionControls\SolutionControls\SolutionControls.csproj" />
-    <ProjectReference Include="..\SolutionPresenter\SolutionPresenter\SolutionPresenter.csproj" />
     <ProjectReference Include="..\SplitView\SplitView\SplitView.csproj" />
     <ProjectReference Include="..\TightfittingTabControl\TightfittingTabControl\TightfittingTabControl.csproj" />
     <ProjectReference Include="..\UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj" />
