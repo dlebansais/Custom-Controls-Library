@@ -13,7 +13,7 @@
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2019 David Le Bansais</Copyright>
     <AssemblyVersion>1.0.1.708</AssemblyVersion>
-    <FileVersion>1.0.1.66</FileVersion>
+    <FileVersion>1.0.1.131</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -47,11 +47,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Include="SplitView.xaml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj" />
+    <ProjectReference Include="..\ExtendedCommandControls\ExtendedCommandControls.csproj" />
   </ItemGroup>
 
   <ItemGroup>

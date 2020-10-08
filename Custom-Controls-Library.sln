@@ -3,35 +3,35 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogValidation", "DialogValidation\DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogValidation", "DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditableTextBlock", "EditableTextBlock\EditableTextBlock\EditableTextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditableTextBlock", "EditableTextBlock\EditableTextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox", "EnumComboBox\EnumComboBox\EnumComboBox.csproj", "{0FBADA65-9A03-439C-8991-2C58091FCC3F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox", "EnumComboBox\EnumComboBox.csproj", "{0FBADA65-9A03-439C-8991-2C58091FCC3F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "ExtendedPasswordBox\ExtendedPasswordBox\ExtendedPasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "ExtendedPasswordBox\ExtendedPasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedToolBar", "ExtendedToolBar\ExtendedToolBar\ExtendedToolBar.csproj", "{5AF7807C-35FB-4FD1-B94B-AA1AFE3FFE5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedToolBar", "ExtendedToolBar\ExtendedToolBar.csproj", "{5AF7807C-35FB-4FD1-B94B-AA1AFE3FFE5F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9368643D-59A7-4678-BA7D-DE551146E13A} = {9368643D-59A7-4678-BA7D-DE551146E13A}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeView", "ExtendedTreeView\ExtendedTreeView\ExtendedTreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeView", "ExtendedTreeView\ExtendedTreeView.csproj", "{15534032-C7BE-48A0-8E0F-0EC7F2B8491C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitView", "SplitView\SplitView\SplitView.csproj", "{2C7C7E3B-1A44-4A0F-9105-D6F0EBA2CCA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitView", "SplitView\SplitView.csproj", "{2C7C7E3B-1A44-4A0F-9105-D6F0EBA2CCA4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F} = {1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TightfittingTabControl", "TightfittingTabControl\TightfittingTabControl\TightfittingTabControl.csproj", "{CC05DE21-5394-4666-B8D4-7C782B54541F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TightfittingTabControl", "TightfittingTabControl\TightfittingTabControl.csproj", "{CC05DE21-5394-4666-B8D4-7C782B54541F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UndoRedoManager", "UndoRedoManager\UndoRedoManager\UndoRedoManager.csproj", "{AEC24EC9-BE57-4219-A3D8-62826A6BC765}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UndoRedoManager", "UndoRedoManager\UndoRedoManager.csproj", "{AEC24EC9-BE57-4219-A3D8-62826A6BC765}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusyIndicator", "BusyIndicator\BusyIndicator.csproj", "{F0E68B94-E370-474E-B963-B7271E4FBF8B}"
 EndProject
@@ -40,9 +40,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeViewDemo", "ExtendedTreeView\ExtendedTreeViewDemo\ExtendedTreeViewDemo.csproj", "{55CA70DA-36C4-4083-BA22-16AC93D3BB19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeViewDemo", "ExtendedTreeViewDemo\ExtendedTreeViewDemo.csproj", "{55CA70DA-36C4-4083-BA22-16AC93D3BB19}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitViewDemo", "SplitView\SplitViewDemo\SplitViewDemo.csproj", "{55E0C62D-3864-4B57-8DA9-73A126224CF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitViewDemo", "SplitViewDemo\SplitViewDemo.csproj", "{55E0C62D-3864-4B57-8DA9-73A126224CF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
