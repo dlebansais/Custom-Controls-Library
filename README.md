@@ -4,7 +4,7 @@
 A set of miscellaneous WPF custom controls
 
 # Download
-Latest version of all files can be downloaded from /Release/x64, except the busy indicator (see below).
+Latest version of all files can be downloaded [here](https://github.com/dlebansais/Custom-Controls-Library/releases/download/v1.0.2/Custom-Controls-Library-Release.zip), except the busy indicator (see below).
 
 ## Busy Indicator
 A simple control to indicate that the application is busy. This .xaml and .cs are intended to be copied directly in the target solution.
