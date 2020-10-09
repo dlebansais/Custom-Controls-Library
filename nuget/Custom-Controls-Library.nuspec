@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Custom-Controls-Library</id>
-    <version>1.0.1.1</version>
+    <version>1.0.2</version>
     <authors>David Le Bansais</authors>
     <description>WPF Custom Controls</description>
     <copyright>Copyright © 2019 David Le Bansais</copyright>

@@ -15,6 +15,9 @@ branches:
 skip_commits:
   message: "*[skip ci]*"
 
+# Start builds on tags only
+skip_non_tags: true
+
 # Build worker image (VM template)
 image: Visual Studio 2019
 
