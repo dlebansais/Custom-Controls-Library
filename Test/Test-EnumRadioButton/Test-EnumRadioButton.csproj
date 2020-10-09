@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EnumRadioButton">
-      <HintPath>..\..\EnumRadioButton\EnumRadioButton\bin\$(Platform)\$(Configuration)\EnumRadioButton.dll</HintPath>
+      <HintPath>..\..\EnumRadioButton\bin\$(Platform)\$(Configuration)\net48\EnumRadioButton.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

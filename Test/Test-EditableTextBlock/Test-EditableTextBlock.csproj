@@ -39,7 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EditableTextBlock">
-      <HintPath>..\..\EditableTextBlock\EditableTextBlock\bin\$(Platform)\$(Configuration)\EditableTextBlock.dll</HintPath>
+      <HintPath>..\..\EditableTextBlock\bin\$(Platform)\$(Configuration)\net48\EditableTextBlock.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

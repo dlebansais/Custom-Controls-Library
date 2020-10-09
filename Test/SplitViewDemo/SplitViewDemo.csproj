@@ -14,7 +14,7 @@
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2019 David Le Bansais</Copyright>
     <AssemblyVersion>1.0.1.708</AssemblyVersion>
-    <FileVersion>1.0.1.131</FileVersion>
+    <FileVersion>1.0.1.46</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -49,7 +49,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExtendedTreeView\ExtendedTreeView.csproj" />
+    <Reference Include="ExtendedTreeView">
+      <HintPath>..\..\SplitView\bin\$(Platform)\$(Configuration)\net48\SplitView.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

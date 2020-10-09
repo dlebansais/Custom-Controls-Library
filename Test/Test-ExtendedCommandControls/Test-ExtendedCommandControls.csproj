@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExtendedCommandControls">
-      <HintPath>..\..\ExtendedCommandControls\ExtendedCommandControls\bin\$(Platform)\$(Configuration)\ExtendedCommandControls.dll</HintPath>
+      <HintPath>..\..\ExtendedCommandControls\bin\$(Platform)\$(Configuration)\net48\ExtendedCommandControls.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
