@@ -2,13 +2,15 @@
 
 setlocal
 
-set RESULTFILENAME=Coverage.xml
 set OPENCOVER_VERSION=4.7.922
 set OPENCOVER=OpenCover.%OPENCOVER_VERSION%
+set CODECOV_VERSION=1.12.3
+set CODECOV=Codecov.%CODECOV_VERSION%
 
 nuget install OpenCover -Version %OPENCOVER_VERSION% -OutputDirectory packages
 
 if not exist ".\packages\%OPENCOVER%\tools\OpenCover.Console.exe" goto error_console1
+if not exist ".\packages\%CODECOV%\tools\codecov.exe" goto error_console2
 
 if "%WINAPPDRIVER_DIR%" == "" goto error2
 if not exist "%WINAPPDRIVER_DIR%/WinAppDriver.exe" goto error2
@@ -20,7 +22,7 @@ if not exist ".\EditableTextBlock\bin\x64\Debug\net48\EditableTextBlock.dll" got
 if not exist ".\EnumComboBox\bin\x64\Debug\net48\EnumComboBox.dll" goto error4
 if not exist ".\EnumRadioButton\bin\x64\Debug\net48\EnumRadioButton.dll" goto error4
 
-if exist .\Test\%RESULTFILENAME% del .\Test\%RESULTFILENAME%
+if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
 start cmd /k .\coverage\start_winappdriver.bat
 
@@ -78,11 +80,15 @@ start cmd /c .\coverage\stop_winappdriver.bat
 call .\coverage\wait.bat 2
 
 call ..\Certification\set_tokens.bat
-if exist .\Test\%RESULTFILENAME% .\packages\Codecov.1.9.0\tools\codecov -f ".\Test\%RESULTFILENAME%" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
+if exist .\Test\Coverage-Debug_coverage.xml .\packages\%CODECOV%\tools\codecov -f ".\Test\Coverage-Debug_coverage.xml" -t "%CUSTOMCONTROLSLIBRARY_CODECOV_TOKEN%"
 goto end
 
 :error_console1
 echo ERROR: OpenCover.Console not found. Restore it with Nuget.
+goto end
+
+:error_console2
+echo ERROR: Codecov not found. Restore it with Nuget.
 goto end
 
 :error2

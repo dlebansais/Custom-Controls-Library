@@ -43,7 +43,7 @@ after_build:
 test: off
 
 artifacts:
-  - path: Custom-Controls-Library/bin/
+  - path: nuget/lib/
     name: Custom-Controls-Library-Release
   - path: Custom-Controls-Library.*.nupkg
     name: Custom-Controls-Library-Package
