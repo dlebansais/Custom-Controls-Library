@@ -1318,67 +1318,88 @@
             switch (SelectionMode)
             {
                 case SelectionMode.Single:
-                    if (!SelectedItems.Contains(item))
-                    {
-                        UnselectAll();
-                        AddSelectedItem(item);
-                        SetLastSelectedItem(item);
-                    }
+                    LeftClickSelectSingle(item);
                     break;
 
                 case SelectionMode.Multiple:
-                    if (!SelectedItems.Contains(item))
-                    {
-                        AddSelectedItem(item);
-                        SetLastSelectedItem(item);
-                        SetLastClickedItem(item);
-                    }
+                    LeftClickSelectMultiple(item);
                     break;
 
                 case SelectionMode.Extended:
-                    if (IsShiftDown())
-                    {
-                        int FirstIndex = VisibleChildren.IndexOf(item);
-                        int LastIndex = LastSelectedItem != null && IsLastSelectedItemSet ? VisibleChildren.IndexOf(LastSelectedItem) : FirstIndex;
-
-                        if (FirstIndex >= 0 && LastIndex >= 0)
-                        {
-                            if (FirstIndex > LastIndex)
-                            {
-                                int Index = FirstIndex;
-                                FirstIndex = LastIndex;
-                                LastIndex = Index;
-                            }
-
-                            BeginUpdateSelectedItems();
-
-                            if (!IsCtrlDown())
-                                SelectedItems.Clear();
-                            for (int i = FirstIndex; i <= LastIndex; i++)
-                                AddSelectedItem(VisibleChildren[i]);
-
-                            EndUpdateSelectedItems();
-
-                            if (!IsLastSelectedItemSet)
-                                SetLastSelectedItem(item);
-                        }
-                    }
-                    else if (IsCtrlDown())
-                    {
-                        if (!SelectedItems.Contains(item))
-                        {
-                            AddSelectedItem(item);
-                            SetLastClickedItem(item);
-                        }
-                    }
-                    else if (!SelectedItems.Contains(item))
-                    {
-                        UnselectAll();
-                        AddSelectedItem(item);
-                        SetLastSelectedItem(item);
-                        SetLastClickedItem(item);
-                    }
+                    LeftClickSelectExtended(item);
                     break;
+            }
+        }
+
+        private void LeftClickSelectSingle(object item)
+        {
+            if (!SelectedItems.Contains(item))
+            {
+                UnselectAll();
+                AddSelectedItem(item);
+                SetLastSelectedItem(item);
+            }
+        }
+
+        private void LeftClickSelectMultiple(object item)
+        {
+            if (!SelectedItems.Contains(item))
+            {
+                AddSelectedItem(item);
+                SetLastSelectedItem(item);
+                SetLastClickedItem(item);
+            }
+        }
+
+        private void LeftClickSelectExtended(object item)
+        {
+            if (IsShiftDown())
+                LeftClickSelectExtendedShiftDown(item);
+            else if (IsCtrlDown())
+                LeftClickSelectExtendedCtrlDown(item);
+            else if (!SelectedItems.Contains(item))
+            {
+                UnselectAll();
+                AddSelectedItem(item);
+                SetLastSelectedItem(item);
+                SetLastClickedItem(item);
+            }
+        }
+
+        private void LeftClickSelectExtendedShiftDown(object item)
+        {
+            int FirstIndex = VisibleChildren.IndexOf(item);
+            int LastIndex = LastSelectedItem != null && IsLastSelectedItemSet ? VisibleChildren.IndexOf(LastSelectedItem) : FirstIndex;
+
+            if (FirstIndex >= 0 && LastIndex >= 0)
+            {
+                if (FirstIndex > LastIndex)
+                {
+                    int Index = FirstIndex;
+                    FirstIndex = LastIndex;
+                    LastIndex = Index;
+                }
+
+                BeginUpdateSelectedItems();
+
+                if (!IsCtrlDown())
+                    SelectedItems.Clear();
+                for (int i = FirstIndex; i <= LastIndex; i++)
+                    AddSelectedItem(VisibleChildren[i]);
+
+                EndUpdateSelectedItems();
+
+                if (!IsLastSelectedItemSet)
+                    SetLastSelectedItem(item);
+            }
+        }
+
+        private void LeftClickSelectExtendedCtrlDown(object item)
+        {
+            if (!SelectedItems.Contains(item))
+            {
+                AddSelectedItem(item);
+                SetLastClickedItem(item);
             }
         }
 
