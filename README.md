@@ -40,12 +40,6 @@ See [the doc](/doc/ExtendedTreeView.pdf).
 
 Aims at providing the same features as the standard TreeView control in general, as well as new features such as Drag & Drop.
 
-## Solution Controls
-Pieces of a solution presenter exposed as controls.
-
-## Solution Presenter
-A full-blown solution presenter exposed as a control.
-
 ## Split View
 Represents a view of an arbitrary content that can be split horizontally in two views.
 
