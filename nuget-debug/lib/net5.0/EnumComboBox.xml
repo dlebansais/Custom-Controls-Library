@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EnumComboBox</name>
+    </assembly>
+    <members>
+        <member name="T:CustomControls.EnumComboBox">
+            <summary>
+            Represents a combo box with specific support for enum types.
+            <para>Implemented as a derived class of the <see cref="T:System.Windows.Controls.ComboBox"/> parent.</para>
+            </summary>
+            <remarks>
+            <para>. Retain all features of a standard combo box.</para>
+            <para>. Include an additional property to use for binding specifically on an enum property.</para>
+            <para>. Provide support for localized value names by way of a converter property, to convert all values to their localized content.</para>
+            <para>. Measure the largest selectable value before it reports its own size.</para>
+            </remarks>
+        </member>
+        <member name="F:CustomControls.EnumComboBox.EnumBindingProperty">
+             <summary>
+             Identifies the <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> dependency property.
+             </summary>
+            
+             <returns>
+             The identifier for the <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> dependency property.
+             </returns>
+        </member>
+        <member name="P:CustomControls.EnumComboBox.EnumBinding">
+            <summary>
+            Gets or sets the enum property to bind on.
+            <para>This is a replacement for the ComboBox.ItemsSource property.</para>
+            </summary>
+            <example>
+            For a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
+            <code>
+            <para>&lt;EnumComboBox EnumBinding="{Binding Path=MyEnumValue}"/&gt;</para>
+            </code>
+            </example>
+        </member>
+        <member name="F:CustomControls.EnumComboBox.NameConverterProperty">
+             <summary>
+             Identifies the <see cref="P:CustomControls.EnumComboBox.NameConverter"/> dependency property.
+             </summary>
+            
+             <returns>
+             The identifier for the <see cref="P:CustomControls.EnumComboBox.NameConverter"/> dependency property.
+             </returns>
+        </member>
+        <member name="P:CustomControls.EnumComboBox.NameConverter">
+            <summary>
+            Gets or sets the converter to use to convert an enum value to its localized content (usually a string).
+            </summary>
+        </member>
+        <member name="F:CustomControls.EnumComboBox.NameConverterParameterProperty">
+             <summary>
+             Identifies the <see cref="P:CustomControls.EnumComboBox.NameConverterParameter"/> dependency property.
+             </summary>
+            
+             <returns>
+             The identifier for the <see cref="P:CustomControls.EnumComboBox.NameConverterParameter"/> dependency property.
+             </returns>
+        </member>
+        <member name="P:CustomControls.EnumComboBox.NameConverterParameter">
+            <summary>
+            Gets or sets the converter parameter to use when converting an enum value to its localized content.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EnumComboBox.NameConverterCultureProperty">
+             <summary>
+             Identifies the <see cref="P:CustomControls.EnumComboBox.NameConverterCulture"/> dependency property.
+             </summary>
+            
+             <returns>
+             The identifier for the <see cref="P:CustomControls.EnumComboBox.NameConverterCulture"/> dependency property.
+             </returns>
+        </member>
+        <member name="P:CustomControls.EnumComboBox.NameConverterCulture">
+            <summary>
+            Gets or sets the converter culture to use when converting an enum value to its localized content.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EnumComboBox.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.EnumComboBox"/> class.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EnumComboBox.EnumNameCollection">
+            <summary>
+            Gets the collection of localized value names displayed in the combo box.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EnumComboBox.MeasureOverride(System.Windows.Size)">
+            <summary>
+            Override the <see cref="M:CustomControls.EnumComboBox.MeasureOverride(System.Windows.Size)"/> event handler, to accommodate for the largest enum value name.
+            </summary>
+            <param name="constraint">The maximum size that the method can return.</param>
+            <returns>
+            The size of the control, up to the maximum specified by constraint.
+            </returns>
+        </member>
+        <member name="M:CustomControls.EnumComboBox.GetTextSize(System.String)">
+            <summary>
+            Calculates the size of an enum value localized string.
+            </summary>
+            <parameters>
+            <param name="text">The localized string corresponding to one of the enum values.</param>
+            </parameters>
+            <returns>
+            The width and height of the string, including trailing whitespaces.
+            </returns>
+        </member>
+        <member name="M:CustomControls.EnumComboBox.OnSelectionChanged(System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Override the <see cref="M:CustomControls.EnumComboBox.OnSelectionChanged(System.Windows.Controls.SelectionChangedEventArgs)"/> event handler, to update the bound enum property.
+            </summary>
+            <param name="e">Provides data for <see cref="T:System.Windows.Controls.SelectionChangedEventArgs"/>.</param>
+        </member>
+        <member name="F:CustomControls.EnumComboBox.IsUserSelecting">
+            <summary>
+            Gets a value that indicate if the enum bound to the <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> dependency property is being modified as a result of a user's action such as selecting a new value.
+            </summary>
+            <returns>
+            <para>True if the user is a author of the change to the enum bound to the <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> dependency property.</para>
+            <para>False if the enum bound to the <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> dependency property is being modified by the client or some other code.</para>
+            </returns>
+        </member>
+        <member name="P:CustomControls.EnumComboBox.EnumBindingAsIndex">
+            <summary>
+            Gets the zero-based position of the current value of <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> among all possible values.
+            </summary>
+            <returns>
+            The index as an integer, -1 if there is no enum bound to <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> or if it has an invalid value.
+            </returns>
+        </member>
+        <member name="M:CustomControls.EnumComboBox.ResetContent">
+            <summary>
+            Resets properties used to display content in the combo box.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EnumComboBox.UpdateContent(System.Type)">
+            <summary>
+            Update properties used to display content in the combo box with new values.
+            </summary>
+            <parameters>
+            <param name="enumType">The type of the enum bound to the <see cref="P:CustomControls.EnumComboBox.EnumBinding"/> dependency property.</param>
+            </parameters>
+            <remarks>
+            This will display a new set of localized strings in the drop-down part of the combo box, and select one of them if appropriate.
+            </remarks>
+        </member>
+        <member name="F:CustomControls.EnumComboBox.ConversionCulture">
+            <summary>
+            Gets the culture that was used during conversion of enum values to their localized names.
+            </summary>
+        </member>
+        <member name="T:Converters.IdentityStringConverter">
+            <summary>
+            Identity string converter.
+            </summary>
+        </member>
+        <member name="M:Converters.IdentityStringConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Identity string converter.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            The value of <paramref name="value"/>.
+            </returns>
+        </member>
+        <member name="M:Converters.IdentityStringConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Identity string back converter.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            The value of <paramref name="value"/>.
+            </returns>
+        </member>
+    </members>
+</doc>

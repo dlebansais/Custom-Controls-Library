@@ -6,6 +6,7 @@
     using System.Reflection;
     using System.Resources;
     using System.Windows.Data;
+    using Contracts;
 
     /// <summary>
     /// Converter from an enum value to its localized name.
@@ -30,17 +31,18 @@
         /// </returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            Contract.RequireNotNull(parameter, out string ParameterString);
+
             Type EnumType = value.GetType();
             Debug.Assert(EnumType.IsEnum);
 
             Assembly ResourceAssembly = EnumType.Assembly;
-            Type ResourceSource = ResourceAssembly.GetType(parameter as string);
+            Contract.RequireNotNull(ResourceAssembly.GetType(ParameterString), out Type ResourceSource);
             ResourceManager Manager = new ResourceManager(ResourceSource);
-            string ResourceName = value.ToString();
+            string ResourceName = value.ToString() !;
 
-            object Result;
+            Contract.RequireNotNull(Manager.GetString(ResourceName, CultureInfo.CurrentCulture), out object Result);
 
-            Result = Manager.GetString(ResourceName, CultureInfo.CurrentCulture);
             Debug.Assert(Result == ConvertBack(Result, typeof(object), parameter, culture));
 
             return Result;

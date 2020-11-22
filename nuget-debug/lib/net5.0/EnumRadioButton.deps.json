@@ -1,0 +1,118 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "EnumRadioButton/1.0.2": {
+        "dependencies": {
+          "Contracts-Debug": "1.0.11",
+          "Costura.Fody": "4.1.0",
+          "Fody": "6.3.0",
+          "Microsoft.CodeAnalysis.FxCopAnalyzers": "3.3.1",
+          "Microsoft.CodeQuality.Analyzers": "3.3.1",
+          "Microsoft.NetCore.Analyzers": "3.3.1",
+          "StyleCop.Analyzers": "1.1.118"
+        },
+        "runtime": {
+          "EnumRadioButton.dll": {}
+        }
+      },
+      "Contracts-Debug/1.0.11": {
+        "runtime": {
+          "lib/net5.0/Contracts.dll": {
+            "assemblyVersion": "1.0.11.13",
+            "fileVersion": "1.0.11.13"
+          }
+        }
+      },
+      "Costura.Fody/4.1.0": {},
+      "Fody/6.3.0": {},
+      "Microsoft.CodeAnalysis.FxCopAnalyzers/3.3.1": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.VersionCheckAnalyzer": "3.3.1",
+          "Microsoft.CodeQuality.Analyzers": "3.3.1",
+          "Microsoft.NetCore.Analyzers": "3.3.1",
+          "Microsoft.NetFramework.Analyzers": "3.3.1"
+        }
+      },
+      "Microsoft.CodeAnalysis.VersionCheckAnalyzer/3.3.1": {},
+      "Microsoft.CodeQuality.Analyzers/3.3.1": {},
+      "Microsoft.NetCore.Analyzers/3.3.1": {},
+      "Microsoft.NetFramework.Analyzers/3.3.1": {},
+      "StyleCop.Analyzers/1.1.118": {}
+    }
+  },
+  "libraries": {
+    "EnumRadioButton/1.0.2": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Contracts-Debug/1.0.11": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ki/1BZn9+BMcjK5i2J1PfzDD8vNMVU3omnJrq780kn7AedOl4j6kVGfzLaNRoSbkIRR0IjNEtvga0ja4iklIKA==",
+      "path": "contracts-debug/1.0.11",
+      "hashPath": "contracts-debug.1.0.11.nupkg.sha512"
+    },
+    "Costura.Fody/4.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-MkW5aqhqNvuP6MiaaD5Yx8efXv+5ucsumRx+Nsn5b+PA4RnaxJLtXhGkm1N+Hi7sjkSlL8kl1klSS/7v2DxZHw==",
+      "path": "costura.fody/4.1.0",
+      "hashPath": "costura.fody.4.1.0.nupkg.sha512"
+    },
+    "Fody/6.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-kBGlW/vBUvBSyCvFI3YICNl77gjUr0KMROlBTeBPN/+J3JMU57w1dpXPwjmU4ahdBTYLomzgxKLaJ3jVNuXuQg==",
+      "path": "fody/6.3.0",
+      "hashPath": "fody.6.3.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.FxCopAnalyzers/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-O6L7wOD6dmytWZr4ulw6wLYk8QmsO/TlBHyWOB2OQKnUm31JGOXEncJjVm8Fw24BDzP22wfsleWFidiNU/DIsA==",
+      "path": "microsoft.codeanalysis.fxcopanalyzers/3.3.1",
+      "hashPath": "microsoft.codeanalysis.fxcopanalyzers.3.3.1.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.VersionCheckAnalyzer/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZUMf70abtWvwevkLFOlEHDck81oZCsi9jBHODDSSH2YPQdtCKzeQfaWWnAmn2ii7N3Q2V2arOj4Mu8ZTTSs3PA==",
+      "path": "microsoft.codeanalysis.versioncheckanalyzer/3.3.1",
+      "hashPath": "microsoft.codeanalysis.versioncheckanalyzer.3.3.1.nupkg.sha512"
+    },
+    "Microsoft.CodeQuality.Analyzers/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h6o+zBUf47OFarRQn6LjwUNFvRUyUWLWcnunw6vLCxSDBmgPDQCsrsWpEtMz/+NKBvOeikVJobscarx3Wgtbiw==",
+      "path": "microsoft.codequality.analyzers/3.3.1",
+      "hashPath": "microsoft.codequality.analyzers.3.3.1.nupkg.sha512"
+    },
+    "Microsoft.NetCore.Analyzers/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8Ez3EImhFioAsB4bR2bBLA3Pkcz8K/VI6jPdnm98nLu+rodZU8s8QRjRnkrQEnC6VcVAVZJ8W7DL9yrfDsgjqQ==",
+      "path": "microsoft.netcore.analyzers/3.3.1",
+      "hashPath": "microsoft.netcore.analyzers.3.3.1.nupkg.sha512"
+    },
+    "Microsoft.NetFramework.Analyzers/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EI5Afqt03Kq4Wy5Ot6nGvnwunisM9ORi5L9fteCCOK1Wh283wAhM1dIOWOsBN3jlFbw1VTeVPR8oPz9J9xlHLw==",
+      "path": "microsoft.netframework.analyzers/3.3.1",
+      "hashPath": "microsoft.netframework.analyzers.3.3.1.nupkg.sha512"
+    },
+    "StyleCop.Analyzers/1.1.118": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Onx6ovGSqXSK07n/0eM3ZusiNdB6cIlJdabQhWGgJp3Vooy9AaLS/tigeybOJAobqbtggTamoWndz72JscZBvw==",
+      "path": "stylecop.analyzers/1.1.118",
+      "hashPath": "stylecop.analyzers.1.1.118.nupkg.sha512"
+    }
+  }
+}

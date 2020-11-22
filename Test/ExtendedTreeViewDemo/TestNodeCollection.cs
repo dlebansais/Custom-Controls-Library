@@ -44,7 +44,7 @@
         }
         void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
         {
-            CopyTo(array as TestNode[], arrayIndex);
+            CopyTo((TestNode[])array, arrayIndex);
         }
 
         bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)

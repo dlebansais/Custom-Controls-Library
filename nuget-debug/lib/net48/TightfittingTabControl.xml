@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TightfittingTabControl</name>
+    </assembly>
+    <members>
+        <member name="T:CustomControls.TightfittingTabControl">
+            <summary>
+            Represents <see cref="T:System.Windows.Controls.TabControl"/> that starts with a size large enough to contains all its <see cref="T:System.Windows.Controls.TabItem"/> items.
+            <para>Implemented as a derived class of the <see cref="T:System.Windows.Controls.TabControl"/> parent.</para>
+            </summary>
+        </member>
+        <member name="M:CustomControls.TightfittingTabControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.TightfittingTabControl"/> class.
+            </summary>
+        </member>
+        <member name="E:CustomControls.TightfittingTabControl.CyclingCompleted">
+            <summary>
+            Event triggered when the control is resized to fit all pages.
+            </summary>
+        </member>
+    </members>
+</doc>

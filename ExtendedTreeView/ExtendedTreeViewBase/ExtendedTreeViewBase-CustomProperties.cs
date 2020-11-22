@@ -266,7 +266,7 @@
         /// <summary>
         /// Identifies the HasContextMenuOpen attached property.
         /// </summary>
-        public static readonly DependencyProperty HasContextMenuOpenProperty = HasContextMenuOpenPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty HasContextMenuOpenProperty = HasContextMenuOpenPropertyKey?.DependencyProperty !;
         private static DependencyPropertyKey HasContextMenuOpenPropertyKey = DependencyProperty.RegisterAttachedReadOnly("HasContextMenuOpen", typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
 
         /// <summary>

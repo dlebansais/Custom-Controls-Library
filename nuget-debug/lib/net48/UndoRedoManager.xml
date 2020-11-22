@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UndoRedoManager</name>
+    </assembly>
+    <members>
+        <member name="T:UndoRedo.IdentityOperation">
+            <summary>
+            Represents an operation that does nothing.
+            </summary>
+        </member>
+        <member name="P:UndoRedo.IdentityOperation.Default">
+            <summary>
+            Gets the singleton identity operation.
+            </summary>
+        </member>
+        <member name="P:UndoRedo.IdentityOperation.Name">
+            <summary>
+            Gets the operation name.
+            </summary>
+        </member>
+        <member name="M:UndoRedo.IdentityOperation.Redo">
+            <summary>
+            Executes the operation.
+            </summary>
+        </member>
+        <member name="M:UndoRedo.IdentityOperation.Undo">
+            <summary>
+            Returns the system to the state before the operation was executed.
+            </summary>
+        </member>
+        <member name="T:UndoRedo.IReversibleOperation">
+            <summary>
+            Interface that all reversible operation classes implement.
+            </summary>
+        </member>
+        <member name="P:UndoRedo.IReversibleOperation.Name">
+            <summary>
+            Gets the operation name.
+            </summary>
+        </member>
+        <member name="M:UndoRedo.IReversibleOperation.Redo">
+            <summary>
+            Executes the operation.
+            </summary>
+        </member>
+        <member name="M:UndoRedo.IReversibleOperation.Undo">
+            <summary>
+            Returns the system to the state before the operation was executed.
+            </summary>
+        </member>
+        <member name="T:UndoRedo.UndoRedoManager">
+            <summary>
+            Contains information about operations that can be performed or reversed.
+            </summary>
+        </member>
+        <member name="P:UndoRedo.UndoRedoManager.UndoList">
+            <summary>
+            Gets the list of operation that can be reversed.
+            </summary>
+            <returns>
+            The list of operation that can be reversed.
+            </returns>
+        </member>
+        <member name="P:UndoRedo.UndoRedoManager.RedoList">
+            <summary>
+            Gets the list of operation that have been reversed.
+            </summary>
+            <returns>
+            The list of operation that have been reversed.
+            </returns>
+        </member>
+        <member name="P:UndoRedo.UndoRedoManager.LastOperation">
+            <summary>
+            Gets the last operation that was either performed or reversed.
+            </summary>
+            <returns>
+            The last operation that was either performed or reversed. Can be null.
+            </returns>
+        </member>
+        <member name="P:UndoRedo.UndoRedoManager.CanUndo">
+            <summary>
+            Gets a value indicating whether there is an operation that can be reversed in <see cref="P:UndoRedo.UndoRedoManager.UndoList"/>.
+            </summary>
+            <returns>
+            True if there is an operation that can be reversed in <see cref="P:UndoRedo.UndoRedoManager.UndoList"/>. False otherwise.
+            </returns>
+        </member>
+        <member name="P:UndoRedo.UndoRedoManager.CanRedo">
+            <summary>
+            Gets a value indicating whether there is an operation that can be performed in <see cref="P:UndoRedo.UndoRedoManager.RedoList"/>.
+            </summary>
+            <returns>
+            True if there is an operation that can be performed in <see cref="P:UndoRedo.UndoRedoManager.RedoList"/>. False otherwise.
+            </returns>
+        </member>
+        <member name="M:UndoRedo.UndoRedoManager.Reset">
+            <summary>
+            Returns the manager to a state with no operation that can be performed or reversed.
+            </summary>
+        </member>
+        <member name="M:UndoRedo.UndoRedoManager.AddOperation(UndoRedo.IReversibleOperation)">
+            <summary>
+            Adds an operation to <see cref="P:UndoRedo.UndoRedoManager.RedoList"/> but without performing it.
+            </summary>
+            <param name="operation">The operation to add.</param>
+        </member>
+        <member name="M:UndoRedo.UndoRedoManager.AddAndExecuteOperation(UndoRedo.IReversibleOperation)">
+            <summary>
+            Adds an operation to <see cref="P:UndoRedo.UndoRedoManager.RedoList"/> and performs it.
+            </summary>
+            <param name="operation">The operation to add and execute.</param>
+        </member>
+        <member name="M:UndoRedo.UndoRedoManager.Undo">
+            <summary>
+            Removes the first operation in <see cref="P:UndoRedo.UndoRedoManager.UndoList"/>, reverse its effect and adds it to <see cref="P:UndoRedo.UndoRedoManager.RedoList"/>.
+            </summary>
+        </member>
+        <member name="M:UndoRedo.UndoRedoManager.Redo">
+            <summary>
+            Removes the first operation in <see cref="P:UndoRedo.UndoRedoManager.RedoList"/>, perform it again and adds it to <see cref="P:UndoRedo.UndoRedoManager.UndoList"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

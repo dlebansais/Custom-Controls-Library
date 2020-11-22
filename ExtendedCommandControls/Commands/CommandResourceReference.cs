@@ -34,9 +34,12 @@
                 foreach (string ResourceName in ResourceNames)
                     if (ResourceName.EndsWith(ResourceExtension, StringComparison.OrdinalIgnoreCase))
                     {
-                        InitResourceSource = InitResourceAssembly.GetType(ResourceName.Substring(0, ResourceName.Length - ResourceExtension.Length));
-                        if (InitResourceSource != null)
+                        Type? ResourceType = InitResourceAssembly.GetType(ResourceName.Substring(0, ResourceName.Length - ResourceExtension.Length));
+                        if (ResourceType != null)
+                        {
+                            InitResourceSource = ResourceType;
                             break;
+                        }
                     }
 
                 InitResourceManager = new ResourceManager(InitResourceSource);
@@ -68,7 +71,7 @@
         public string GetString(string name)
         {
             Initialize();
-            return InitResourceManager.GetString(name, CultureInfo.CurrentCulture);
+            return InitResourceManager.GetString(name, CultureInfo.CurrentCulture) !;
         }
 
         /// <summary>
@@ -80,7 +83,7 @@
         {
             Initialize();
 
-            string AssemblyName = InitResourceAssembly.GetName().Name;
+            string AssemblyName = InitResourceAssembly.GetName().Name !;
             string UriPath = "pack://application:,,,/" + AssemblyName + ";component/" + IconPath + name;
 
             try

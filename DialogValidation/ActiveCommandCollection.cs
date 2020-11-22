@@ -38,7 +38,7 @@
         /// </summary>
         /// <param name="sender">This parameter is not used.</param>
         /// <param name="e">Arguments for the associated event.</param>
-        protected virtual void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected virtual void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             SetCollectionModified();
         }

@@ -1,0 +1,476 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EditableTextBlock</name>
+    </assembly>
+    <members>
+        <member name="T:CustomControls.CancellationToken">
+            <summary>
+            Contains cancellation information.
+            </summary>
+        </member>
+        <member name="M:CustomControls.CancellationToken.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.CancellationToken"/> class.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CancellationToken.IsCanceled">
+            <summary>
+            Gets a value indicating whether the associated operation has been canceled by any handler.
+            </summary>
+            <returns>True indicates that a handler has canceled the operation. False indicates that the operation associated to the event should be completed.</returns>
+        </member>
+        <member name="M:CustomControls.CancellationToken.Cancel">
+            <summary>
+            Allows a handler to cancel the operation notified by the event associated to this object.
+            </summary>
+        </member>
+        <member name="T:CustomControls.EditableTextBlock">
+            <summary>
+            Represents a text block that can be edited, for instance to rename a file.
+            Implemented as a normal, styleable TextBlock replaced by a TextBox when the user clicks on it.
+            Features:
+            . The delay between click and editing can be changed.
+            . The focus must be on a parent of the TextBlock for editing to occur.
+            . Reports events such as entering and leaving edit mode. User's actions can be canceled.
+            . The TextBlock and TextBox can be styled independently.
+            . Editing begins with the entire text selected.
+            . Editing mode is left if one of the following occurs:
+              . The TextBox looses the focus.
+              . The selector (listbox) hosting the control becomes inactive.
+              . The user press one of the following keys:
+              . Return, to validate the change.
+              . Escape, to cancel the change.
+            </summary>
+            <summary>
+            EditableTextBlock
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.DefaultClickDelay">
+            <summary>
+            Delay before editing happens, to ignore double-click.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.ClickDelayProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.EditableTextBlock.ClickDelay"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.EditableTextBlock.ClickDelay"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.EditableTextBlock.ClickDelay">
+            <summary>
+            Gets or sets The delay between a click and the actual switch to editing mode.
+            There is a minimum delay corresponding to the system double-click time.
+            Only a time span greater than or equal to zero is valid.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.IsValidClickDelay(System.Object)">
+            <summary>
+            Checks if a click delay is valid.
+            </summary>
+            <param name="value">The instance to check.</param>
+            <returns>True if the delay is valid; Otherwise, false.</returns>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.EditableProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.EditableTextBlock.Editable"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.EditableTextBlock.Editable"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.EditableTextBlock.Editable">
+            <summary>
+            Gets or sets a value indicating whether the user can click on the control to start editing.
+            True, the user can click on the control to start editing (or the application can initiate it any other way).
+            False, the control cannot be edited and the value of IsEditing is ignored.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.IsEditingProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.EditableTextBlock.IsEditing"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.EditableTextBlock.IsEditing"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.EditableTextBlock.IsEditing">
+            <summary>
+            Gets or sets a value indicating whether the text is being edited.
+            True, the text is being edited. The application can start editing by writing this value.
+            False, the text is displayed as a normal TextBlock.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnIsEditingChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the <see cref="P:CustomControls.EditableTextBlock.IsEditing"/> dependency property is changed on <paramref name="modifiedObject"/>.
+            </summary>
+            <param name="modifiedObject">The object that had its property modified.</param>
+            <param name="e">Information about the change.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnIsEditingChanged">
+            <summary>
+            Called when the <see cref="P:CustomControls.EditableTextBlock.IsEditing"/> dependency property is changed.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.EditEnterEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.EditableTextBlock.EditEnter"/> routed event.
+            </summary>
+            <returns>
+            The identifier for the <see cref="E:CustomControls.EditableTextBlock.EditEnter"/> routed event.
+            </returns>
+        </member>
+        <member name="E:CustomControls.EditableTextBlock.EditEnter">
+            <summary>
+            Sent when the control is about to enter editing mode because of a user action (clicking the control).
+            If canceled, the control does not enter editing mode and IsEditing remains false.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.NotifyEditEnter(CustomControls.CancellationToken)">
+            <summary>
+            Sends a <see cref="E:CustomControls.EditableTextBlock.EditEnter"/> event.
+            </summary>
+            <param name="cancellation">A token to hold cancellation information.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.CreateEditEnterEvent(System.String,CustomControls.CancellationToken)">
+            <summary>
+            Creates arguments for the EditEnter routed event.
+            </summary>
+            <param name="textToEdit">The current content of the control.</param>
+            <param name="cancellation">A token to hold cancellation information.</param>
+            <returns>The EditableTextBlockEventArgs object created.</returns>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.EditLeaveEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.EditableTextBlock.EditLeave"/> routed event.
+            </summary>
+            <returns>
+            The identifier for the <see cref="E:CustomControls.EditableTextBlock.EditLeave"/> routed event.
+            </returns>
+        </member>
+        <member name="E:CustomControls.EditableTextBlock.EditLeave">
+            <summary>
+            Sent when the control is about to leave editing mode because of a user action (hitting the Return or Escape key, or changing the focus)
+            If the user has validated the new text (with the Return key), IsEditCanceled is false, otherwise it is true.
+            Leaving edit mode can only be canceled if IsEditCanceled is false.
+            If canceled, the control does not leave editing mode and IsEditing remains true.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.NotifyEditLeave(CustomControls.CancellationToken,System.Boolean)">
+            <summary>
+            Sends a <see cref="E:CustomControls.EditableTextBlock.EditLeave"/> event.
+            </summary>
+            <param name="cancellation">A token to hold cancellation information.</param>
+            <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.CreateEditLeaveEvent(System.String,CustomControls.CancellationToken,System.Boolean)">
+            <summary>
+            Creates arguments for the EditLeave routed event.
+            </summary>
+            <param name="newText">The current content of the control.</param>
+            <param name="cancellation">A token to hold cancellation information.</param>
+            <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
+            <returns>The EditableTextBlockEventArgs object created.</returns>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.TextProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.EditableTextBlock.Text"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.EditableTextBlock.Text"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.EditableTextBlock.Text">
+            <summary>
+            Gets or sets the text displayed by the control. Does not change while the user is editing it.
+            The new value is reported after the user has pressed the Return key.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.TextChangedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.EditableTextBlock.TextChanged"/> routed event.
+            </summary>
+            <returns>
+            The identifier for the <see cref="E:CustomControls.EditableTextBlock.TextChanged"/> routed event.
+            </returns>
+        </member>
+        <member name="E:CustomControls.EditableTextBlock.TextChanged">
+            <summary>
+            Reports that the user pressed the Return key to validate a change. The Text content may have not been modified.
+            The control has left editing mode before this event is sent.
+            If canceled, the previous text is not replaced.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.NotifyTextChanged(System.String,CustomControls.CancellationToken)">
+            <summary>
+            Sends a <see cref="E:CustomControls.EditableTextBlock.TextChanged"/> event.
+            </summary>
+            <param name="newText">The current content of the control.</param>
+            <param name="cancellation">A token to hold cancellation information.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.CreateTextChangedEvent(System.String,CustomControls.CancellationToken)">
+            <summary>
+            Creates arguments for the TextChanged routed event.
+            </summary>
+            <param name="newText">The current content of the control.</param>
+            <param name="cancellation">A token to hold cancellation information.</param>
+            <returns>The EditableTextBlockEventArgs object created.</returns>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.EditableTextBlock"/> class.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.InitializeEditing">
+            <summary>
+            Proceeds to the initialization of properties related to editing.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.ScheduleStartEditing">
+            <summary>
+            Schedule a timer event to switch to editing mode after a given time.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.CancelStartEditing">
+            <summary>
+            Cancel the timer event scheduled by ScheduleStartEditing, for instance in case of a double-click.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.StartEditingTimerCallback(System.Object)">
+            <summary>
+            Called when the timer event scheduled by ScheduleStartEditing occurs.
+            Executed in the context of a timer thread. Reschedule the event to run in the graphic thread context.
+            </summary>
+            <param name="parameter">This parameter is not used.</param>
+        </member>
+        <member name="T:CustomControls.EditableTextBlock.StartEditingHandler">
+            <summary>
+            Handler of a rescheduled timer event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnStartEditing">
+            <summary>
+            Called when the timer event scheduled by ScheduleStartEditing occurs.
+            Executed in the context of the graphic thread.
+            Attempt to switch the control to editing state, if IsEditable is true and no event handler cancels it.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnStopEditing">
+            <summary>
+            Switch the control to non-editing state. This is not cancellable.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.SwitchToTextBox">
+            <summary>
+            Changes the internal TextBlock and TextBox controls to visually show the edit box.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.SwitchToTextBlock">
+            <summary>
+            Changes the internal TextBlock and TextBox controls to visually hide the edit box.
+            </summary>
+        </member>
+        <member name="T:CustomControls.EditableTextBlock.InitPositioningHandler">
+            <summary>
+            Handler of a first initialization event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.InitPositioning">
+            <summary>
+            Initializes the control once to align the TextBlock and TextBox controls.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnIsSelectionActiveChanged(System.Object,System.EventArgs)">
+            <summary>
+            Cancel editing the control if focus moved to another focus zone.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An object that contains no event data.</param>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.StartEditingTimer">
+            <summary>
+            Timer used to schedule even event when the user clicks the control.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.IsSelectionActiveDescriptor">
+            <summary>
+            Represent the IsSelectionActive attached property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.InitializeImplementation">
+            <summary>
+            Proceeds to the initialization of properties related to the control implementation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnMouseLeftButtonDown(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Called when the user clicks the left mouse button.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An object that contains no event data.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnMouseLeftButtonUp(System.Object,System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Called when the user releases the left mouse button.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An object that contains no event data.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.FocusedParent">
+            <summary>
+            Search in the parent chain a UIElement that has the focus.
+            </summary>
+            <returns>TRUE if a parent has the focus, FALSE if none was found.</returns>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnEditLostFocus(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Called when the edit box looses focus.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">An object that contains no event data.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.OnEditPreviewKeyDown(System.Object,System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Called when the user presses a key on the keyboard.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">State of the key pressed.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.ResetClickCount">
+            <summary>
+            Reset the click count to its base value.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.IncrementClickCount">
+            <summary>
+            Increment the click count to take the user click into account.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.IsClickCountSimple">
+            <summary>
+            Check that this is a simple click.
+            </summary>
+            <returns>True if the user click is not a double click.</returns>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.UpClickCount">
+            <summary>
+            Contains a count of mouse clicks, used to decide when it is time to start editing.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.Dispose(System.Boolean)">
+            <summary>
+            Called when an object should release its resources.
+            </summary>
+            <param name="isDisposing">Indicates if resources must be disposed now.</param>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.Dispose">
+            <summary>
+            Called when an object should release its resources.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.Finalize">
+            <summary>
+            Finalizes an instance of the <see cref="T:CustomControls.EditableTextBlock"/> class.
+            </summary>
+        </member>
+        <member name="F:CustomControls.EditableTextBlock.IsDisposed">
+            <summary>
+            True after <see cref="M:CustomControls.EditableTextBlock.Dispose(System.Boolean)"/> has been invoked.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.DisposeNow">
+            <summary>
+            Disposes of every reference that must be cleaned up.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlock.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+        <member name="T:CustomControls.EditableTextBlockEventArgs">
+            <summary>
+            Contains state information and event data associated with events from the <see cref="T:CustomControls.EditableTextBlock"/> control.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlockEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.EditableTextBlock,System.String,CustomControls.CancellationToken)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.EditableTextBlockEventArgs"/> class.
+            </summary>
+            <param name="routedEvent">The event this argument is associated to.</param>
+            <param name="source">The control from which editing is left.</param>
+            <param name="text">The current content of the control.</param>
+            <param name="cancellation">A token to hold cancellation information.</param>
+        </member>
+        <member name="P:CustomControls.EditableTextBlockEventArgs.Text">
+            <summary>
+            Gets a value that is the current content of the control.
+            </summary>
+            <returns>The current content of the control.</returns>
+        </member>
+        <member name="F:CustomControls.EditableTextBlockEventArgs.Cancellation">
+            <summary>
+            Gets a token that indicates if the associated operation has been canceled by any handler.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditableTextBlockEventArgs.Cancel">
+            <summary>
+            Allows a handler to cancel the operation notified by the event associated to this object.
+            </summary>
+        </member>
+        <member name="T:CustomControls.EditLeaveEventArgs">
+            <summary>
+            Contains state information and event data associated with the EditLeave event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EditLeaveEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.EditableTextBlock,System.String,CustomControls.CancellationToken,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.EditLeaveEventArgs"/> class.
+            If IsEditCanceled is true, the IsCanceled member will be ignored by the sender.
+            </summary>
+            <param name="routedEvent">The event this argument is associated to.</param>
+            <param name="source">The control from which editing is left.</param>
+            <param name="text">The current content of the control.</param>
+            <param name="cancellation">A token to hold cancellation information.</param>
+            <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
+        </member>
+        <member name="P:CustomControls.EditLeaveEventArgs.IsEditCanceled">
+            <summary>
+            Gets a value indicating whether editing has been canceled.
+            </summary>
+            <returns>True indicates that editing has been canceled. False indicates that editing has been completed successfully.</returns>
+        </member>
+        <member name="T:Converters.EditableTextBlockMarginConverter">
+            <summary>
+            Represents the converter that converts the current margin, border and padding of the <see cref="T:CustomControls.EditableTextBlock"/> control to a margin.
+            </summary>
+        </member>
+        <member name="M:Converters.EditableTextBlockMarginConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts the current margin, border and padding of the <see cref="T:CustomControls.EditableTextBlock"/> control to a margin.
+            </summary>
+            <param name="values">The values to convert. The first value indicates if the control is being edited, the second and third values are the margin and padding of the TextBlock part respectively, the fourth and fifth values are the border and padding of the TextBox part respectively.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">This parameter is a string that indicates which margin is desired, either "GridMargin" or "TextBoxMargin".</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            A System.Object that represents the converted value.
+            </returns>
+        </member>
+        <member name="M:Converters.EditableTextBlockMarginConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a binding target value to the source binding values.
+            </summary>
+            <param name="value">The value that the binding target produces.</param>
+            <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            An array of values that have been converted from the target value back to the source values.
+            </returns>
+        </member>
+    </members>
+</doc>

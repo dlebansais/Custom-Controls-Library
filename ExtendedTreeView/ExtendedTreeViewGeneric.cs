@@ -63,7 +63,7 @@
         protected override object GetItemChild(object item, int index)
         {
             if (item is TItem AsItem)
-                return ((IList)AsItem.Children)[index];
+                return ((IList)AsItem.Children)[index] !;
             else
                 throw new ArgumentNullException(nameof(item));
         }
@@ -166,7 +166,7 @@
         /// </summary>
         /// <param name="sender">The event source.</param>
         /// <param name="e">The event data.</param>
-        protected virtual void OnItemChildrenChanged(object sender, NotifyCollectionChangedEventArgs e)
+        protected virtual void OnItemChildrenChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             if (sender is TCollection ItemCollection && ItemCollection.Parent is object Item)
                 HandleChildrenChanged(Item, e);

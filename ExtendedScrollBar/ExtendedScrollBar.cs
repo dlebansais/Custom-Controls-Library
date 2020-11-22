@@ -46,9 +46,6 @@
 
         private void OnBoundScrollViewerPropertyChanged(DependencyPropertyChangedEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             if (e.NewValue != null)
                 UpdateBindings();
         }

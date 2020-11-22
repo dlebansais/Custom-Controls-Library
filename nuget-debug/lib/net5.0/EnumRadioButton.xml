@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EnumRadioButton</name>
+    </assembly>
+    <members>
+        <member name="T:Converters.EnumToItemsConverter">
+            <summary>
+            Converter from an enum to an array of values it can have. The actual value is ignored.
+            </summary>
+        </member>
+        <member name="M:Converters.EnumToItemsConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converter from an enum to an array of values it can have. The actual value is ignored.
+            </summary>
+            <param name="value">Any enum. Only its type is used, not its actual value.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value.</returns>
+        </member>
+        <member name="M:Converters.EnumToItemsConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            This method is not used.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value.</returns>
+        </member>
+        <member name="T:Converters.EnumToNameConverter">
+            <summary>
+            Converter from an enum value to its localized name.
+            This class implements localization as follow:
+            . Resources are taken from an assembly specified by the converter parameter.
+            . In that assembly, a string resource with key equal to the enum value token name (the name used by the compiler for the value) must exist.
+            . The converter returns the localized string associated to that key as per standard resource lookup rules.
+            Clients that use a custom localization mechanism must implement their own converter.
+            </summary>
+        </member>
+        <member name="M:Converters.EnumToNameConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts from an enum value to its localized name.
+            </summary>
+            <param name="value">The value produced by the binding source.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">A string representing the name of some type. Resources will be taken from the assembly where that type is declared.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            The converted value.
+            </returns>
+        </member>
+        <member name="M:Converters.EnumToNameConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            This method is not used.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            The converted value.
+            </returns>
+        </member>
+        <member name="T:CustomControls.EnumRadioButton">
+            <summary>
+            Represents a radio button with specific support for enum types.
+            <para>Implemented as a derived class of the <see cref="T:System.Windows.Controls.RadioButton"/> parent.</para>
+            </summary>
+            <remarks>
+            <para>. Retain all features of a standard radio button.</para>
+            <para>. Include two additional properties to use for binding specifically on an enum property.</para>
+            <para>. Provide support for showing all values an enum can take in as many radio buttons as there are values.</para>
+            </remarks>
+        </member>
+        <member name="F:CustomControls.EnumRadioButton.EnumBindingProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.EnumRadioButton.EnumBinding"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.EnumRadioButton.EnumBinding"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.EnumRadioButton.EnumBinding">
+            <summary>
+            Gets or sets the enum property to bind on.
+            <para>In combination with the <see cref="P:CustomControls.EnumRadioButton.EnumValue"/> property, this is a replacement for the RadioButton.IsChecked property.</para>
+            </summary>
+            <example>
+            Example: for a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
+            <code>
+            &lt;EnumRadioButton EnumBinding="{Binding Path=MyEnumValue}" EnumValue="{Binding Path=MyFirstValue}"&gt;First&lt;EnumRadioButton/&gt;
+            &lt;EnumRadioButton EnumBinding="{Binding Path=MyEnumValue}" EnumValue="{Binding Path=MySecondValue}"&gt;Second&lt;EnumRadioButton/&gt;
+            </code>
+            </example>
+        </member>
+        <member name="F:CustomControls.EnumRadioButton.EnumValueProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.EnumRadioButton.EnumValue"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.EnumRadioButton.EnumValue"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.EnumRadioButton.EnumValue">
+            <summary>
+            Gets or sets the enum value this radio button value is associated to.
+            <para>In combination with the <see cref="P:CustomControls.EnumRadioButton.EnumBinding"/> property, this is a replacement for the RadioButton.IsChecked property.</para>
+            </summary>
+            <example>
+            Example: for a type called <code>MyEnum { MyFirstValue, MySecondValue }</code> and a property <code>MyEnum MyEnumValue { get; set; }</code> one can use the following Xaml code:
+            <code>
+            &lt;EnumRadioButton EnumBinding="{Binding Path=MyEnumValue}" EnumValue="{Binding Path=MyFirstValue}"&gt;First&lt;EnumRadioButton/&gt;
+            &lt;EnumRadioButton EnumBinding="{Binding Path=MyEnumValue}" EnumValue="{Binding Path=MySecondValue}"&gt;Second&lt;EnumRadioButton/&gt;
+            </code>
+            </example>
+        </member>
+        <member name="F:CustomControls.EnumRadioButton.EnumItems">
+            <summary>
+            Identifies a converter that any client can use to perform conversion from an enum to all of its values.
+            <para><see cref="F:CustomControls.EnumRadioButton.EnumItems"/> is available in Xaml code using the following syntax:</para>
+            <code>
+            <para>Converter={x:Static ctrl:EnumRadioButton.EnumItems}</para>
+            </code>
+            <para>With ctrl: the namespace prefix (you can use any prefix you like) for the custom control library.</para>
+            </summary>
+        </member>
+        <member name="F:CustomControls.EnumRadioButton.EnumName">
+            <summary>
+            Identifies a converter that any client can use to perform conversion from an enum to the localized name of its current value.
+            <para><see cref="F:CustomControls.EnumRadioButton.EnumName"/> is available in Xaml code using the following syntax:</para>
+            <code>
+            <para>Converter={x:Static ctrl:EnumRadioButton.EnumName}</para>
+            </code>
+            <para>With ctrl: the namespace prefix (you can use any prefix you like) for the custom control library.</para>
+            </summary>
+        </member>
+        <member name="M:CustomControls.EnumRadioButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.EnumRadioButton"/> class.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EnumRadioButton.OnChecked(System.Windows.RoutedEventArgs)">
+            <summary>
+            Override the <see cref="M:CustomControls.EnumRadioButton.OnChecked(System.Windows.RoutedEventArgs)"/> event handler, to modify the enum property bound to the <see cref="P:CustomControls.EnumRadioButton.EnumBinding"/> dependency property when this radio button is checked.
+            <para>The enum property bound to the <see cref="P:CustomControls.EnumRadioButton.EnumBinding"/> property is set to the value designed by the <see cref="P:CustomControls.EnumRadioButton.EnumValue"/> property at the time of the click.</para>
+            </summary>
+            <param name="e">Provides data for <see cref="T:System.Windows.RoutedEventArgs"/>.</param>
+        </member>
+        <member name="M:CustomControls.EnumRadioButton.ConvertedValue(System.Object)">
+            <summary>
+            Convert the an enum value, designed by its name (a string) to the corresponding value as an object.
+            </summary>
+            <remarks>
+            The Value parameter is an object and not a string to leave open the support of value names by other means than strings.
+            </remarks>
+            <parameters>
+            <param name="value">A string containing the value name. If <paramref name="value"/> is not recognized as a valid enum value, this function returns <paramref name="value"/> as is.</param>
+            </parameters>
+        </member>
+    </members>
+</doc>

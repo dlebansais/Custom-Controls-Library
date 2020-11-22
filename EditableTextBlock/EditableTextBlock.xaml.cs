@@ -334,7 +334,7 @@
         /// Executed in the context of a timer thread. Reschedule the event to run in the graphic thread context.
         /// </summary>
         /// <param name="parameter">This parameter is not used.</param>
-        private void StartEditingTimerCallback(object parameter)
+        private void StartEditingTimerCallback(object? parameter)
         {
             Dispatcher.BeginInvoke(DispatcherPriority.Normal, new StartEditingHandler(OnStartEditing));
         }
@@ -416,7 +416,7 @@
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An object that contains no event data.</param>
-        private void OnIsSelectionActiveChanged(object sender, EventArgs e)
+        private void OnIsSelectionActiveChanged(object? sender, EventArgs e)
         {
             OnStopEditing();
         }
@@ -424,7 +424,7 @@
         /// <summary>
         /// Timer used to schedule even event when the user clicks the control.
         /// </summary>
-        private Timer StartEditingTimer = new Timer(new TimerCallback((object parameter) => { }));
+        private Timer StartEditingTimer = new Timer(new TimerCallback((object? parameter) => { }));
 
         /// <summary>
         /// Represent the IsSelectionActive attached property.

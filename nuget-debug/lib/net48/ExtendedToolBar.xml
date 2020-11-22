@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExtendedToolBar</name>
+    </assembly>
+    <members>
+        <member name="T:Converters.ButtonCommandToTextConverter">
+            <summary>
+            Converter from a <see cref="T:System.Windows.Input.ICommand"/> to a menu header string.
+            </summary>
+        </member>
+        <member name="M:Converters.ButtonCommandToTextConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts from a <see cref="T:System.Windows.Input.ICommand"/> to a menu header string.
+            </summary>
+            <param name="value">The <see cref="T:System.Windows.Input.ICommand"/> object to convert.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            If <paramref name="value"/> is a valid <see cref="T:System.Windows.Input.ICommand"/> object, the converter returns its menu header as a string.
+            Otherwise, this method returns null.
+            </returns>
+        </member>
+        <member name="M:Converters.ButtonCommandToTextConverter.GetItemText(System.Windows.Input.ICommand)">
+            <summary>
+            Converts from a <see cref="T:System.Windows.Input.ICommand"/> to a menu header string.
+            </summary>
+            <param name="command">The <see cref="T:System.Windows.Input.ICommand"/> object to convert.</param>
+            <returns>
+            If <paramref name="command"/> is an instance of one of the types that have an associated key to obtain a menu header, it returns this string.
+            Otherwise, if the command is a <see cref="T:System.Windows.Input.RoutedUICommand"/> it returns its text (already localized by the system).
+            Otherwise, this method returns null.
+            </returns>
+        </member>
+        <member name="M:Converters.ButtonCommandToTextConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            This method is not used and will always return null.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value.</returns>
+        </member>
+        <member name="T:Converters.ExtendedButtonToImageSourceConverter">
+            <summary>
+            Converter from a <see cref="T:CustomControls.ExtendedToolBarButton"/> to an image source.
+            </summary>
+        </member>
+        <member name="M:Converters.ExtendedButtonToImageSourceConverter.Convert(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts from a <see cref="T:CustomControls.ExtendedToolBarButton"/> to an image source.
+            </summary>
+            <param name="value">The <see cref="T:CustomControls.ExtendedToolBarButton"/> object to convert.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>
+            If <paramref name="value"/> is a valid <see cref="T:CustomControls.ExtendedToolBarButton"/> object, the converter returns the image source associated to its command.
+            Otherwise, this method returns null.
+            </returns>
+        </member>
+        <member name="M:Converters.ExtendedButtonToImageSourceConverter.GetItemImageSource(System.Windows.Input.ICommand,CustomControls.CommandResourceReference)">
+            <summary>
+            Converts from a <see cref="T:CustomControls.ExtendedToolBarButton"/> to an image source.
+            Uses the reference from <paramref name="command"/> first, and if null uses the <paramref name="reference"/> object.
+            <returns>
+            If both are null, returns null.
+            </returns>
+            </summary>
+        </member>
+        <member name="M:Converters.ExtendedButtonToImageSourceConverter.ConvertBack(System.Object,System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            This method is not used and will always return null.
+            </summary>
+            <param name="value">The value that is produced by the binding target.</param>
+            <param name="targetType">The type to convert to.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value.</returns>
+        </member>
+        <member name="T:CustomControls.ExtendedToolBar">
+            <summary>
+            Represents a tool bar with a localized name.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedToolBar.ToolBarNameProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedToolBar.ToolBarName"/> dependency property.
+            </summary>
+            <returns>
+            The identifier for the <see cref="P:CustomControls.ExtendedToolBar.ToolBarName"/> dependency property.
+            </returns>
+        </member>
+        <member name="P:CustomControls.ExtendedToolBar.ToolBarName">
+            <summary>
+            Gets or sets the localized name of the toolbar. Can be null.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.#cctor">
+            <summary>
+            Initializes static members of the <see cref="T:CustomControls.ExtendedToolBar"/> class.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.ExtendedToolBar"/> class.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.OverrideAncestorMetadata">
+            <summary>
+            Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.OverrideMetadataDefaultStyleKey">
+            <summary>
+            Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.Reset">
+            <summary>
+            Returns all buttons in the toolbar to their default active value.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.SerializeActiveButtons">
+            <summary>
+            Serializes the active state of buttons in the toolbar.
+            </summary>
+            <returns>
+            A string containing the toolbar state.
+            </returns>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.DeserializeActiveButtons(System.String)">
+            <summary>
+            Deserializes the active state of buttons in the toolbar.
+            </summary>
+            <param name="xamlData">A string containing the new state of the toolbar.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.OnItemsChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Updates the list of all <see cref="T:CustomControls.ExtendedToolBarButton"/> objects in the toolbar.
+            </summary>
+            <param name="e">This parameter is not used.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.IsCommandGroupEnabled(System.Windows.Input.ICommand)">
+            <summary>
+            Checks if a command belongs to a group associated to an enabled feature.
+            </summary>
+            <param name="command">The <see cref="T:System.Windows.Input.ICommand"/> command object.</param>
+            <returns>
+            True if the command is not associated to any feature, or if that feature is enabled.
+            False if the command belongs to a group associated to a feature, and that feature is disabled.
+            </returns>
+        </member>
+        <member name="P:CustomControls.ExtendedToolBar.AllButtons">
+            <summary>
+            Gets the collection of all <see cref="T:CustomControls.ExtendedToolBarButton"/> objects in the toolbar.
+            </summary>
+            <returns>
+            The collection of all <see cref="T:CustomControls.ExtendedToolBarButton"/> objects in the toolbar.
+            </returns>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.OnAddRemoveButtonChecked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Called when the "Add or Remove Button" button is checked.
+            </summary>
+            <param name="sender">The button object.</param>
+            <param name="e">This parameter is not used.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.OnOverflowButtonUnchecked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Called when the toolbar overflow button is unchecked.
+            </summary>
+            <param name="sender">The button object.</param>
+            <param name="e">This parameter is not used.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.OnResetToolBarClicked(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Called when the "Reset ToolBar" button is clicked.
+            </summary>
+            <param name="sender">The button object.</param>
+            <param name="e">This parameter is not used.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBar.IsResetConfirmedByUser">
+            <summary>
+            Called when the user has confirmed or canceled the reset.
+            </summary>
+            <returns>
+            True if confirmed.
+            False if canceled.
+            </returns>
+        </member>
+        <member name="T:CustomControls.ExtendedToolBarItem">
+            <summary>
+            A proxy to hold a reference to a <see cref="T:CustomControls.ExtendedToolBarButton"/> object.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedToolBarItem.#ctor(CustomControls.ExtendedToolBarButton)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.ExtendedToolBarItem"/> class.
+            </summary>
+            <param name="button">The <see cref="T:CustomControls.ExtendedToolBarButton"/> object to store.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedToolBarItem.Button">
+            <summary>
+            Gets the stored <see cref="T:CustomControls.ExtendedToolBarButton"/> object.
+            </summary>
+            <returns>
+            The stored <see cref="T:CustomControls.ExtendedToolBarButton"/> object.
+            </returns>
+        </member>
+        <member name="T:CustomControls.ThemeIcons">
+            <summary>
+            Gets image sources and icons from resources in an assembly.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ThemeIcons.GetImageSource(System.Reflection.Assembly,System.String)">
+            <summary>
+            Gets an image sources from resources in an assembly.
+            </summary>
+            <param name="resourceAssembly">The assembly where to find the image source.</param>
+            <param name="key">The key used to locate the resource in the assembly.</param>
+            <returns>The image source.</returns>
+        </member>
+        <member name="M:CustomControls.ThemeIcons.GetImageSource(System.Reflection.Assembly,System.String,System.String)">
+            <summary>
+            Gets an image sources from resources in an assembly.
+            </summary>
+            <param name="resourceAssembly">The assembly where to find the image source.</param>
+            <param name="iconPath">The path to resources in the assembly.</param>
+            <param name="key">The key used to locate the resource in the assembly.</param>
+            <returns>The image source.</returns>
+        </member>
+        <member name="M:CustomControls.ThemeIcons.GetIcon(System.Reflection.Assembly,System.String)">
+            <summary>
+            Gets an icon from resources in an assembly.
+            </summary>
+            <param name="resourceAssembly">The assembly where to find the icon.</param>
+            <param name="key">The key used to locate the resource in the assembly.</param>
+            <returns>The icon.</returns>
+        </member>
+        <member name="M:CustomControls.ThemeIcons.GetIcon(System.Reflection.Assembly,System.String,System.String)">
+            <summary>
+            Gets an icon from resources in an assembly.
+            </summary>
+            <param name="resourceAssembly">The assembly where to find the icon.</param>
+            <param name="iconPath">The path to resources in the assembly.</param>
+            <param name="key">The key used to locate the resource in the assembly.</param>
+            <returns>The icon.</returns>
+        </member>
+        <member name="T:ExtendedToolBarInternal.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:ExtendedToolBarInternal.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:ExtendedToolBarInternal.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:ExtendedToolBarInternal.Properties.Resources.AddOrRemoveButtonsEllipsis">
+            <summary>
+              Looks up a localized string similar to Add or Remove Buttons.
+            </summary>
+        </member>
+        <member name="P:ExtendedToolBarInternal.Properties.Resources.ConfirmResetThisToolBarQuestion">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to reset the changes made to this tool bar?.
+            </summary>
+        </member>
+        <member name="P:ExtendedToolBarInternal.Properties.Resources.ConfirmResetToolBarQuestion">
+            <summary>
+              Looks up a localized string similar to Are you sure you want to reset the changes made to the &apos;{0}&apos; tool bar?.
+            </summary>
+        </member>
+        <member name="P:ExtendedToolBarInternal.Properties.Resources.ResetToolBar">
+            <summary>
+              Looks up a localized string similar to Reset ToolBar.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2512 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExtendedTreeView</name>
+    </assembly>
+    <members>
+        <member name="T:CustomControls.CancellationToken">
+            <summary>
+            Contains cancellation information.
+            </summary>
+        </member>
+        <member name="M:CustomControls.CancellationToken.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.CancellationToken"/> class.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CancellationToken.IsCanceled">
+            <summary>
+            Gets a value indicating whether the associated operation has been canceled by any handler.
+            </summary>
+            <returns>True indicates that a handler has canceled the operation. False indicates that the operation associated to the event should be completed.</returns>
+        </member>
+        <member name="M:CustomControls.CancellationToken.Cancel">
+            <summary>
+            Allows a handler to cancel the operation notified by the event associated to this object.
+            </summary>
+        </member>
+        <member name="T:CustomControls.CanonicSelection">
+            <summary>
+            Represents a selection of items.
+            </summary>
+        </member>
+        <member name="M:CustomControls.CanonicSelection.#ctor(System.Collections.IList)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.CanonicSelection"/> class.
+            </summary>
+            <param name="itemList">The list of selected items.</param>
+        </member>
+        <member name="P:CustomControls.CanonicSelection.DraggedItemParent">
+            <summary>
+            Gets or sets the parent item when dragging.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CanonicSelection.ItemList">
+            <summary>
+            Gets the list of selected items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CanonicSelection.AllItemsCloneable">
+            <summary>
+            Gets or sets a value indicating whether all items in a branch are cloneable.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CanonicSelection.RecordCount">
+            <summary>
+            Gets or sets the number of records in a branch.
+            </summary>
+        </member>
+        <member name="T:CustomControls.CursorResource">
+            <summary>
+            Represents a list of string resources loaded from a files.
+            </summary>
+        </member>
+        <member name="F:CustomControls.CursorResource.DefaultPreferredSize">
+            <summary>
+            Default width and height when no preference is provided in the constructor.
+            </summary>
+        </member>
+        <member name="M:CustomControls.CursorResource.#ctor(System.String,System.UInt32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.CursorResource"/> class.
+            </summary>
+            <param name="filePath">Path to the file to read.</param>
+            <param name="resourceID">Identifier of the resources.</param>
+        </member>
+        <member name="M:CustomControls.CursorResource.#ctor(System.String,System.UInt32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.CursorResource"/> class.
+            </summary>
+            <param name="filePath">Path to the file to read.</param>
+            <param name="resourceID">Identifier of the resources.</param>
+            <param name="preferredSize">Width and height of the preferred size, in pixels.</param>
+        </member>
+        <member name="M:CustomControls.CursorResource.Load">
+            <summary>
+            Loads the cursor resources.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CursorResource.FilePath">
+            <summary>
+            Gets the path to the file resources are loaded from.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CursorResource.ResourceID">
+            <summary>
+            Gets the identifier used to find and load resources in the file.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CursorResource.PreferredSize">
+            <summary>
+            Gets the width and height of the preferred size, in pixels.
+            </summary>
+        </member>
+        <member name="P:CustomControls.CursorResource.AsCursor">
+            <summary>
+            Gets the loaded cursor resources.
+            </summary>
+        </member>
+        <member name="M:CustomControls.CursorResource.LoadFile">
+            <summary>
+            Load the file containing the resources in memory.
+            </summary>
+            <returns>Handle to the loaded file.</returns>
+        </member>
+        <member name="M:CustomControls.CursorResource.LoadDirectory(System.IntPtr,CustomControls.NativeMethods.FileHeader@,System.Collections.Generic.List{CustomControls.NativeMethods.FileRecord}@)">
+            <summary>
+            Load the cursor directory with images.
+            </summary>
+            <param name="hMod">Handle of the resource file.</param>
+            <param name="header">Header of the resource file.</param>
+            <param name="recordList">List of record.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.CursorResource.LoadData(System.IntPtr,CustomControls.NativeMethods.FileRecord)">
+            <summary>
+            Loads data from a resource file.
+            </summary>
+            <param name="hMod">Handle to the file.</param>
+            <param name="record">Record in the file.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.CursorResource.ConvertToCursor(CustomControls.NativeMethods.FileHeader,System.Collections.Generic.List{CustomControls.NativeMethods.FileRecord})">
+            <summary>
+            Converts a record to a cursor.
+            </summary>
+            <param name="header">Header of the file.</param>
+            <param name="recordList">List of records.</param>
+        </member>
+        <member name="M:CustomControls.CursorResource.FreeHandles(System.IntPtr)">
+            <summary>
+            Frees loaded handles from memory.
+            </summary>
+            <param name="hMod">Handle to free.</param>
+        </member>
+        <member name="T:CustomControls.NativeMethods">
+            <summary>
+            Contains unmanaged methods to read resources from a file.
+            </summary>
+        </member>
+        <member name="F:CustomControls.NativeMethods.LOAD_LIBRARY_AS_DATAFILE">
+            <summary>
+            Flag to indicate the file should be loaded as data and not as executable code.
+            </summary>
+        </member>
+        <member name="F:CustomControls.NativeMethods.RT_CURSOR">
+            <summary>
+            Flag to indicate a cursor resource.
+            </summary>
+        </member>
+        <member name="F:CustomControls.NativeMethods.RT_GROUP_CURSOR">
+            <summary>
+            Flag to indicate a cursor group resource.
+            </summary>
+        </member>
+        <member name="T:CustomControls.NativeMethods.FileHeader">
+            <summary>
+            Header of a resource file.
+            </summary>
+        </member>
+        <member name="T:CustomControls.NativeMethods.FileRecord">
+            <summary>
+            Record in a resource file.
+            </summary>
+        </member>
+        <member name="M:CustomControls.NativeMethods.LoadLibraryEx(System.String,System.IntPtr,System.UInt32)">
+            <summary>
+            Loads a DLL in memory.
+            </summary>
+            <param name="lpFileName">Path to the file to load.</param>
+            <param name="hFile">This parameter is not used.</param>
+            <param name="dwFlags">If LOAD_LIBRARY_AS_DATAFILE is specified, loads the file as data rather than executable code.</param>
+            <returns>
+            A handle to the loaded file.
+            </returns>
+        </member>
+        <member name="M:CustomControls.NativeMethods.FindResource(System.IntPtr,System.IntPtr,System.IntPtr)">
+            <summary>
+            Looks for a resource by its identifier in a file.
+            </summary>
+            <param name="hModule">Handle of the loaded file.</param>
+            <param name="lpID">Identifier of the resource to find.</param>
+            <param name="lpType">Type of the resource.</param>
+            <returns>
+            A handle to the resource.
+            </returns>
+        </member>
+        <member name="M:CustomControls.NativeMethods.LoadResource(System.IntPtr,System.IntPtr)">
+            <summary>
+            Loads a resource in memory.
+            </summary>
+            <param name="hModule">Handle of the loaded file.</param>
+            <param name="hResInfo">Handle to the resource to load.</param>
+            <returns>
+            A handle to the block loaded in memory.
+            </returns>
+        </member>
+        <member name="M:CustomControls.NativeMethods.SizeofResource(System.IntPtr,System.IntPtr)">
+            <summary>
+            Gets the size of a resource.
+            </summary>
+            <param name="hModule">Handle of the loaded file.</param>
+            <param name="hResInfo">Handle to the resource to load.</param>
+            <returns>
+            The size of the resource, in bytes.
+            </returns>
+        </member>
+        <member name="M:CustomControls.NativeMethods.FreeLibrary(System.IntPtr)">
+            <summary>
+            Frees a loaded DLL from memory.
+            </summary>
+            <param name="hMod">Handle of the library to free.</param>
+            <returns>
+            The returned value can be ignored.
+            </returns>
+        </member>
+        <member name="T:CustomControls.DragActivity">
+            <summary>
+            States of a drag drop operation.
+            </summary>
+        </member>
+        <member name="F:CustomControls.DragActivity.Idle">
+            <summary>
+            No operation.
+            </summary>
+        </member>
+        <member name="F:CustomControls.DragActivity.Scheduled">
+            <summary>
+            The drag should start shortly.
+            </summary>
+        </member>
+        <member name="F:CustomControls.DragActivity.Starting">
+            <summary>
+            Drag is starting.
+            </summary>
+        </member>
+        <member name="F:CustomControls.DragActivity.Started">
+            <summary>
+            Drag started.
+            </summary>
+        </member>
+        <member name="F:CustomControls.DragActivity.Canceled">
+            <summary>
+            The operation has been canceled.
+            </summary>
+        </member>
+        <member name="T:CustomControls.DragDropEventArgs">
+            <summary>
+            Represents data for a drag drop event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragDropEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.IDragSourceControl)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.DragDropEventArgs"/> class.
+            </summary>
+            <param name="routedEvent">The event that occured.</param>
+            <param name="dragSource">The drag source.</param>
+        </member>
+        <member name="P:CustomControls.DragDropEventArgs.DragParentItem">
+            <summary>
+            Gets the parent of the dragged item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragDropEventArgs.AllowDropCopy">
+            <summary>
+            Gets a value indicating whether copy on drop is allowed.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragDropEventArgs.RootItem">
+            <summary>
+            Gets the root item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragDropEventArgs.ItemList">
+            <summary>
+            Gets the list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragDropEventArgs.FlatItemList">
+            <summary>
+            Gets the flat list of dragged items.
+            </summary>
+        </member>
+        <member name="T:CustomControls.DragStartingEventArgs">
+            <summary>
+            Represents the data of a drag starting event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragStartingEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.IDragSourceControl,CustomControls.CancellationToken)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.DragStartingEventArgs"/> class.
+            </summary>
+            <param name="routedEvent">The event that occured.</param>
+            <param name="dragSource">The drag source.</param>
+            <param name="cancellation">The cancellation token.</param>
+        </member>
+        <member name="P:CustomControls.DragStartingEventArgs.Cancellation">
+            <summary>
+            Gets the cancellation token.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragStartingEventArgs.Cancel">
+            <summary>
+            Cancels the operation.
+            </summary>
+        </member>
+        <member name="T:CustomControls.DropCheckEventArgs">
+            <summary>
+            Represents the data of a drop check event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DropCheckEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.IDragSourceControl,System.Object,CustomControls.PermissionToken)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.DropCheckEventArgs"/> class.
+            </summary>
+            <param name="routedEvent">The event that occured.</param>
+            <param name="dragSource">The drag source.</param>
+            <param name="dropDestinationItem">The destination of the drop.</param>
+            <param name="permission">The permission token.</param>
+        </member>
+        <member name="P:CustomControls.DropCheckEventArgs.DropDestinationItem">
+            <summary>
+            Gets the destination of the drop.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DropCheckEventArgs.Permission">
+            <summary>
+            Gets the permission token.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DropCheckEventArgs.Deny">
+            <summary>
+            Deny the drop.
+            </summary>
+        </member>
+        <member name="T:CustomControls.DropCompletedEventArgs">
+            <summary>
+            Represents the data of a drop completed event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DropCompletedEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.IDragSourceControl,System.Object,System.Collections.IList)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.DropCompletedEventArgs"/> class.
+            </summary>
+            <param name="routedEvent">The event that occured.</param>
+            <param name="dragSource">The drag source.</param>
+            <param name="dropDestinationItem">The destination of the drop.</param>
+            <param name="cloneList">The list of items to clone.</param>
+        </member>
+        <member name="P:CustomControls.DropCompletedEventArgs.DropDestinationItem">
+            <summary>
+            Gets the destination of the drop.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DropCompletedEventArgs.IsCopy">
+            <summary>
+            Gets a value indicating whether the drop is a copy or move.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DropCompletedEventArgs.CloneList">
+            <summary>
+            Gets the list of items to clone.
+            </summary>
+        </member>
+        <member name="T:CustomControls.EmptyDragSourceControl">
+            <summary>
+            Represents a control source of a drag operation that is always empty.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.EmptyDragSourceControl"/> class.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.SourceControl">
+            <summary>
+            Gets the empty source control.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.SourceContainer">
+            <summary>
+            Gets the source container.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.SourceLocation">
+            <summary>
+            Gets the drag source location.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.DragParentItem">
+            <summary>
+            Gets the drag operation parent item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.AllowDropCopy">
+            <summary>
+            Gets a value indicating whether a drop is allowed to be a copy operation.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.RootItem">
+            <summary>
+            Gets the root item for the operation.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.ItemList">
+            <summary>
+            Gets the list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.FlatItemList">
+            <summary>
+            Gets the flat list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.SourceGuid">
+            <summary>
+            Gets the GUID of the source.
+            </summary>
+        </member>
+        <member name="P:CustomControls.EmptyDragSourceControl.DragActivity">
+            <summary>
+            Gets the drag activity.
+            </summary>
+        </member>
+        <member name="E:CustomControls.EmptyDragSourceControl.DragActivityChanged">
+            <summary>
+            Gets.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.NotifyDragActivityChanged">
+            <summary>
+            Invokes handlers for the <see cref="E:CustomControls.EmptyDragSourceControl.DragActivityChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.SetIsDragPossible(CustomControls.CanonicSelection)">
+            <summary>
+            Sets the drag state.
+            </summary>
+            <param name="canonicSelectedItemList">The list of selected items.</param>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.ClearIsDragPossible">
+            <summary>
+            Clears the drag state.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.IsDragPossible">
+            <summary>
+            Checks if a drag operation is possible.
+            </summary>
+            <returns>True if possible; Otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.DragAfterMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Starts a drag operation after a mouse move.
+            </summary>
+            <param name="sourceLocation">The mouse move source.</param>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.CancelDrag">
+            <summary>
+            Cancels a drag operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.EmptyDragSourceControl.SetDragItemList(System.Object,System.Collections.IList)">
+            <summary>
+            Sets the list of dragged items.
+            </summary>
+            <param name="rootItem">The root item.</param>
+            <param name="flatItemList">The flat list of dragged items.</param>
+        </member>
+        <member name="T:CustomControls.ExtendedTreeView">
+            <summary>
+            Represents a tree view implemented for <see cref="T:CustomControls.IExtendedTreeNode"/> items.
+            </summary>
+        </member>
+        <member name="T:CustomControls.ExtendedTreeViewBase">
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+            <summary>
+            Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.DragAfterMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Performs a drag after the mouse has moved.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.UpdateIsDragDropPossible">
+            <summary>
+            Updates the drag drop allowed properties.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnDragActivityChanged(System.Object,System.EventArgs)">
+            <summary>
+            Occurs when activity of the current drag drop operation has changed.
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnGiveFeedback(System.Windows.GiveFeedbackEventArgs)">
+            <summary>
+            Called when feedback for the user is needed.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnDragEnter(System.Windows.DragEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.DragEnter"/> attached event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnDragLeave(System.Windows.DragEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.DragLeave"/> attached event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnDragOver(System.Windows.DragEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.DragOver"/> attached event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ValidDragSourceFromArgs(System.Windows.DragEventArgs)">
+            <summary>
+            Gets the drag source from arguments of a drag drop event.
+            </summary>
+            <param name="e">The event data.</param>
+            <returns>The drag source.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetCanonicSelectedItemList(CustomControls.CanonicSelection)">
+            <summary>
+            Gets the list of selected ims.
+            </summary>
+            <param name="canonicSelectedItemList">The list to fill.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetItemsWithSameParent(System.Collections.IList,System.Object,CustomControls.CanonicSelection)">
+            <summary>
+            Gets the list of selected items with the same parent.
+            </summary>
+            <param name="sortedSelectedItems">The list of selected items, sorted.</param>
+            <param name="firstItemParent">The parent of the first item.</param>
+            <param name="canonicSelectedItemList">The list of selected items, unsorted.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetItemsInSameBranch(System.Collections.IList,System.Object,CustomControls.CanonicSelection)">
+            <summary>
+            Gets the list of selected items in the same branch.
+            </summary>
+            <param name="sortedSelectedItems">The list of selected items, sorted.</param>
+            <param name="firstItemParent">The parent of the first item.</param>
+            <param name="canonicSelectedItemList">The list of selected items, unsorted.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsEntireBranchSelected(System.Collections.IList,System.Object,CustomControls.CanonicSelection)">
+            <summary>
+            Checks if all items of a branch are selected.
+            </summary>
+            <param name="sortedSelectedItems">The list of selected items, sorted.</param>
+            <param name="item">The parent item.</param>
+            <param name="canonicSelectedItemList">The list of selected items, unsorted.</param>
+            <returns>True if in the same branch; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.FlatItemList(System.Collections.IList)">
+            <summary>
+            Gets the flattened list of items.
+            </summary>
+            <param name="other">the source list.</param>
+            <returns>The flattened list.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.MergedAllowedEffects(System.Windows.DragEventArgs)">
+            <summary>
+            Merges allowed effects with those allowed by a drag drop event.
+            </summary>
+            <param name="e">The event data.</param>
+            <returns>Merged allowed effects.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnDrop(System.Windows.DragEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.Drop"/> attached event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetAllowedDropEffects(System.Windows.DragEventArgs)">
+            <summary>
+            Gets the list of allowed drag drop effects for an operation.
+            </summary>
+            <param name="e">The event data.</param>
+            <returns>The list of allowed effects.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.UpdateCurrentDropTarget(System.Windows.DragEventArgs,System.Boolean)">
+            <summary>
+            Updates the target of a drag drop operation.
+            </summary>
+            <param name="e">The event data.</param>
+            <param name="isLeaving">True if the operation is to leave the target.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ClearCurrentDropTarget">
+            <summary>
+            Clears the target of a drag drop operation.
+            </summary>
+        </member>
+        <member name="T:CustomControls.ExtendedTreeViewBase.ClearCurrentDropTargetHandler">
+            <summary>
+            Represents the method that will handle a ClearCurrentDropTarget event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnClearCurrentDropTarget">
+            <summary>
+            Handles a ClearCurrentDropTarget event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ValidDropDestinationFromArgs(System.Windows.DragEventArgs,CustomControls.IDragSourceControl)">
+            <summary>
+            Gets the drag target from arguments of a drag drop event.
+            </summary>
+            <param name="e">The event data.</param>
+            <param name="asDragSource">The drag source.</param>
+            <returns>The drag target.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OverrideAncestorMetadata">
+            <summary>
+            Overrides inherited metadata.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OverrideMetadataItemsSource">
+            <summary>
+            Overrides inherited metadata for the <see cref="P:System.Windows.Controls.ItemsControl.ItemsSource"/> property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OverrideMetadataDefaultStyleKey">
+            <summary>
+            Overrides inherited metadata for the <see cref="P:System.Windows.FrameworkElement.DefaultStyleKey"/> property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CoerceItemsSource(System.Windows.DependencyObject,System.Object)">
+            <summary>
+            Ensures the <see cref="P:System.Windows.Controls.ItemsControl.ItemsSource"/> property contains a valid value.
+            </summary>
+            <param name="modifiedObject">The object with the modified property.</param>
+            <param name="value">The value to check.</param>
+            <returns>True if valid; Otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CoerceItemsSource(System.Object)">
+            <summary>
+            Ensures the <see cref="P:System.Windows.Controls.ItemsControl.ItemsSource"/> property contains a valid value.
+            </summary>
+            <param name="value">The value to check.</param>
+            <returns>True if valid; Otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetContainerForItemOverride">
+            <summary>
+            Creates or identifies the element that is used to display the given item.
+            </summary>
+            <returns>The element that is used to display the given item.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsItemItsOwnContainerOverride(System.Object)">
+            <summary>
+            Determines if the specified item is (or is eligible to be) its own container.
+            </summary>
+            <param name="item">The item to check.</param>
+            <returns>True if the item is (or is eligible to be) its own container; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CreateContainerItem">
+            <summary>
+            Creates a container for an item.
+            </summary>
+            <returns>The created container.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnSelectionChanged(System.Windows.Controls.SelectionChangedEventArgs)">
+            <summary>
+            Called when the selection changes.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.VisibleItems">
+            <summary>
+            Gets the list of visible items.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ScrollIntoView(System.Object)">
+            <summary>
+            Scrolls the view to make selected items visible.
+            </summary>
+            <param name="item">Item to be made visible.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsExpanded(System.Object)">
+            <summary>
+            Checks if an item is expanded.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if expanded; Otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.Expand(System.Object)">
+            <summary>
+            Expands an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.Collapse(System.Object)">
+            <summary>
+            Collapses an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ToggleIsExpanded(System.Object)">
+            <summary>
+            Toggles whether an item is expanded.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsSelected(System.Object)">
+            <summary>
+            Checks if an item is selected.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if selected; Otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.SetSelected(System.Object)">
+            <summary>
+            Adds an item to the selection.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsItemVisible(System.Object)">
+            <summary>
+            Checks if an item is visible in the scrolled view.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if visible; Otherwise, false.</returns>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.IsCopyPossible">
+            <summary>
+            Gets a value indicating whether the control allows to copy items.
+            </summary>
+            <returns>True if allowed; Otherwise, false.</returns>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.EnableTraces">
+            <summary>
+            Enables traces.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ContainerLostFocus">
+            <summary>
+            Calleds when a container looses the focus.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ContainerGotFocus(CustomControls.ExtendedTreeViewItemBase)">
+            <summary>
+            Calleds when a container gets the focus.
+            </summary>
+            <param name="container">The container.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.AddKeyboardFocusWithinHandler(CustomControls.ExtendedTreeViewItemBase)">
+            <summary>
+            Adds a keyboard focus handler for a container.
+            </summary>
+            <param name="container">The container.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.RemoveKeyboardFocusWithinHandler">
+            <summary>
+            Removes a keyboard focus handler from a container.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnIsKeyboardFocusWithinChanged(System.Object,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Calleds when the focus changed in a container.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnContextMenuClosed(System.Object,System.Windows.RoutedEventArgs)">
+            <summary>
+            Called when a context menu is closed.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.TagContainer(CustomControls.ExtendedTreeViewItemBase)">
+            <summary>
+            Adds a tag to a container.
+            </summary>
+            <param name="container">The container.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ClearAllContainerTags">
+            <summary>
+            Removes all tags in containers.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.CurrentlyFocusedContainer">
+            <summary>
+            Gets the currently focused container.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.MarkedContainerList">
+            <summary>
+            Gets the list of tagged containers.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.InitializeCursor(System.Int32)">
+            <summary>
+            Initializes cursors by index.
+            </summary>
+            <param name="cursorIndex">Index of the cursor.</param>
+            <returns>The initialized cursor.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.LoadCursorFromResourceFile(System.String,System.Int32)">
+            <summary>
+            Loads a cursor from a file.
+            </summary>
+            <param name="filePath">The path to the file.</param>
+            <param name="resourceId">The cursor resource Id.</param>
+            <returns>The loaded cursor.</returns>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.DefaultCursorForbidden">
+            <summary>
+            Gets the default forbidden cursor.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.DefaultCursorMove">
+            <summary>
+            Gets the default move cursor.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.DefaultCursorCopy">
+            <summary>
+            Gets the default copy cursor.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.PreviewCollectionModifiedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewBase.PreviewCollectionModified"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewBase.PreviewCollectionModified">
+            <summary>
+            Occurs before the content collection is modified.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.NotifyPreviewCollectionModified(CustomControls.TreeViewCollectionOperation)">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewBase.PreviewCollectionModified"/> event.
+            </summary>
+            <param name="treeViewCollectionOperation">The modifying operation.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.CollectionModifiedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewBase.CollectionModified"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewBase.CollectionModified">
+            <summary>
+            Occurs after the content collection is modified.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.NotifyCollectionModified(CustomControls.TreeViewCollectionOperation)">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewBase.CollectionModified"/> event.
+            </summary>
+            <param name="treeViewCollectionOperation">The modifying operation.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.DragStartingEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewBase.DragStarting"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewBase.DragStarting">
+            <summary>
+            Occurs when drag is starting.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.NotifyDragStarting(CustomControls.CancellationToken)">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewBase.DragStarting"/> event.
+            </summary>
+            <param name="cancellation">The cancellation token.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.DropCheckEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewBase.DropCheck"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewBase.DropCheck">
+            <summary>
+            Occurs when checking if drop is permitted.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.NotifyDropCheck(System.Object,CustomControls.PermissionToken)">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewBase.DropCheck"/> event.
+            </summary>
+            <param name="dropDestinationItem">The drop destination item.</param>
+            <param name="permission">The drop permission token.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.PreviewDropCompletedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewBase.PreviewDropCompleted"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewBase.PreviewDropCompleted">
+            <summary>
+            Occurs before a drop operation is completed.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.NotifyPreviewDropCompleted(System.Object,System.Collections.IList)">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewBase.PreviewDropCompleted"/> event.
+            </summary>
+            <param name="dropDestinationItem">The drop destination item.</param>
+            <param name="cloneList">The list of dropped items.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.DropCompletedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewBase.DropCompleted"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewBase.DropCompleted">
+            <summary>
+            Occurs after a drop operation is completed.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.NotifyDropCompleted(System.Object,System.Collections.IList)">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewBase.DropCompleted"/> event.
+            </summary>
+            <param name="dropDestinationItem">The drop destination item.</param>
+            <param name="cloneList">The list of dropped items.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.ContentProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.Content"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.Content">
+            <summary>
+            Gets or sets the control content.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnContentChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes of the <see cref="P:CustomControls.ExtendedTreeViewBase.Content"/> property.
+            </summary>
+            <param name="modifiedObject">The modified object.</param>
+            <param name="e">An object that contains event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnContentChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes of the <see cref="P:CustomControls.ExtendedTreeViewBase.Content"/> property.
+            </summary>
+            <param name="e">An object that contains event data.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.SelectionModeProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.SelectionMode"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.SelectionMode">
+            <summary>
+            Gets or sets the control selection mode.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.IsRootAlwaysExpandedProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.IsRootAlwaysExpanded"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.IsRootAlwaysExpanded">
+            <summary>
+            Gets or sets a value indicating whether the control root is always expanded.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.IsItemExpandedAtStartProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.IsItemExpandedAtStart"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.IsItemExpandedAtStart">
+            <summary>
+            Gets or sets a value indicating whether items should start expanded when the content changes.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.AllowDragDropProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.AllowDragDrop"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.AllowDragDrop">
+            <summary>
+            Gets or sets a value indicating whether drag and drop is allowed.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnAllowDragDropChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes of the <see cref="P:CustomControls.ExtendedTreeViewBase.AllowDragDrop"/> property.
+            </summary>
+            <param name="modifiedObject">The modified object.</param>
+            <param name="e">An object that contains event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnAllowDragDropChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes of the <see cref="P:CustomControls.ExtendedTreeViewBase.AllowDragDrop"/> property.
+            </summary>
+            <param name="e">An object that contains event data.</param>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.UseDefaultCursorsProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.UseDefaultCursors"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.UseDefaultCursors">
+            <summary>
+            Gets or sets a value indicating whether to use default cursors.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.CursorForbiddenProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.CursorForbidden"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.CursorForbidden">
+            <summary>
+            Gets or sets the forbidden cursor.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.CursorMoveProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.CursorMove"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.CursorMove">
+            <summary>
+            Gets or sets the move cursor.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.CursorCopyProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.CursorCopy"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.CursorCopy">
+            <summary>
+            Gets or sets the copy cursor.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.ExpandButtonWidthProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.ExpandButtonWidth"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.ExpandButtonWidth">
+            <summary>
+            Gets or sets the expand button width.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsValidExpandButtonWidth(System.Object)">
+            <summary>
+            Checks if an expand button width is valid.
+            </summary>
+            <param name="value">The width to check.</param>
+            <returns>True if valid; Otherwise, false.</returns>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.ExpandButtonStyleProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.ExpandButtonStyle"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.ExpandButtonStyle">
+            <summary>
+            Gets or sets the expand button style.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.IndentationWidthProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewBase.IndentationWidth"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.IndentationWidth">
+            <summary>
+            Gets or sets the indentation width.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsValidIndentationWidth(System.Object)">
+            <summary>
+            Checks if an indentation width is valid.
+            </summary>
+            <param name="value">The width to check.</param>
+            <returns>True if valid; Otherwise, false.</returns>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewBase.HasContextMenuOpenProperty">
+            <summary>
+            Identifies the HasContextMenuOpen attached property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetHasContextMenuOpen(System.Windows.DependencyObject)">
+            <summary>
+            Gets the value of the HasContextMenuOpen property.
+            </summary>
+            <param name="element">The element with the property.</param>
+            <returns>The property value.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.DebugCall(System.String)">
+            <summary>
+            Logs a call entry.
+            </summary>
+            <param name="callerName">Name of the caller.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.DebugMessage(System.String)">
+            <summary>
+            Logs a message.
+            </summary>
+            <param name="message">The message to log.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.DefaultStyle">
+            <summary>
+            Gets the default control style.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.DefaultItemContainerStyle">
+            <summary>
+            Gets the default control container style.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetItemParent(System.Object)">
+            <summary>
+            Gets the parent of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The parent item.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetItemChildrenCount(System.Object)">
+            <summary>
+            Gets the number of children of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The number of children.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetItemChildren(System.Object)">
+            <summary>
+            Gets children of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The children.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetItemChild(System.Object,System.Int32)">
+            <summary>
+            Gets the child of an item at the provided index.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="index">The child index.</param>
+            <returns>The child at the provided index.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.InstallHandlers(System.Object)">
+            <summary>
+            Installs event handlers on an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.UninstallHandlers(System.Object)">
+            <summary>
+            Uninstalls event handlers from an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.DragDropMove(System.Object,System.Object,System.Collections.IList)">
+            <summary>
+            Moves items from source to destination.
+            </summary>
+            <param name="sourceItem">The source item.</param>
+            <param name="destinationItem">The destination item.</param>
+            <param name="itemList">Moved children.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.DragDropCopy(System.Object,System.Object,System.Collections.IList,System.Collections.IList)">
+            <summary>
+            Copy items from source to destination.
+            </summary>
+            <param name="sourceItem">The source item.</param>
+            <param name="destinationItem">The destination item.</param>
+            <param name="itemList">Children at the source.</param>
+            <param name="cloneList">Cloned children at the destination.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CreateItemList">
+            <summary>
+            Creates a list of items.
+            </summary>
+            <returns>The created list of items.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CreateInsertItemContext(System.Object,System.Int32)">
+            <summary>
+            Creates a context for inserting.
+            </summary>
+            <param name="item">The item where insertion takes place.</param>
+            <param name="shownIndex">Index where insertion takes place.</param>
+            <returns>The context.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CreateRemoveItemContext(System.Object,System.Int32)">
+            <summary>
+            Creates a context for removing.
+            </summary>
+            <param name="item">The item where removal takes place.</param>
+            <param name="shownIndex">Index where removal takes place.</param>
+            <returns>The context.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CreateSourceControl">
+            <summary>
+            Creates the control used for drag and drop.
+            </summary>
+            <returns>The control.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.BuildFlatChildrenTables">
+            <summary>
+            Builds the flat children table.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ResetFlatChildren">
+            <summary>
+            Resets the flat children table.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.UninstallAllHandlers">
+            <summary>
+            Uninstall all handlers on items.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.InsertChildrenFromRoot">
+            <summary>
+            Inserts child items starting from the content root.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.InsertChildren(CustomControls.IInsertItemContext,System.Object,System.Object)">
+            <summary>
+            Inserts children of an item.
+            </summary>
+            <param name="context">The insertion context.</param>
+            <param name="item">The item with children.</param>
+            <param name="parentItem">The parent item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.RemoveChildren(CustomControls.IRemoveItemContext,System.Object,System.Object)">
+            <summary>
+            Removes items from the tree.
+            </summary>
+            <param name="context">The remove context.</param>
+            <param name="item">The item from which to remove children.</param>
+            <param name="parentItem">The parent item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.InternalInsert(System.Int32,System.Object)">
+            <summary>
+            Performs the insertion operation.
+            </summary>
+            <param name="index">The item index in the list of visible children.</param>
+            <param name="item">The item to insert.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.InternalRemove(System.Int32,System.Object)">
+            <summary>
+            Performs the remove operation.
+            </summary>
+            <param name="index">The item index in the list of visible children.</param>
+            <param name="item">The item to remove.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.ExtendedTreeViewBase"/> class.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnInitialized(System.Object,System.EventArgs)">
+            <summary>
+            Called when the control has been initialized and before properties are set.
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ContainerFromItem(System.Object)">
+            <summary>
+            Gets the container associated to an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The container.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ContainerFromIndex(System.Int32)">
+            <summary>
+            Gets the container associated to the item at the provided position.
+            </summary>
+            <param name="index">the item position.</param>
+            <returns>The container.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CountPreviousChildrenExpanded(System.Object,System.Int32,System.Int32)">
+            <summary>
+            Counts how many children are expanded.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="index">The position from where to count.</param>
+            <param name="excludedIndex">Index of the child item excluded from the count.</param>
+            <returns>The number of expanded children.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.CountVisibleChildren(System.Object)">
+            <summary>
+            Counts how many children are visible.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The number of visible children.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.SetItemExpanded(System.Object)">
+            <summary>
+            Sets an item to be expanded.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsItemExpandable(System.Object)">
+            <summary>
+            Checks if an item can be expanded.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if expandable; othewise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsItemCollapsible(System.Object)">
+            <summary>
+            Checks if an item can be collapsed.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if collapsible; othewise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.Expand(System.Object,System.Int32)">
+            <summary>
+            Expands an item at the provided position.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="index">The item position.</param>
+            <returns>The new position.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.SetItemCollapsed(System.Object)">
+            <summary>
+            Collapses an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.Collapse(System.Object,System.Int32)">
+            <summary>
+            Collapses an item at the provided position.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="index">The item position.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsItemCloneable(System.Object)">
+            <summary>
+            Checks whether an item can be cloned.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if cloneable; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ItemLevel(System.Object)">
+            <summary>
+            Gets the indentation level of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The indentation level.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsDropOver(CustomControls.ExtendedTreeViewItemBase)">
+            <summary>
+            Checks whether a container is the destination of a drop.
+            </summary>
+            <param name="itemContainer">The container.</param>
+            <returns>True if destination of a drop; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ClickPreviousItem(System.Object)">
+            <summary>
+            Clicks the item before <paramref name="item"/>.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ClickNextItem(System.Object)">
+            <summary>
+            Clicks the item after <paramref name="item"/>.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.LeftClickSelect(System.Object)">
+            <summary>
+            Clicks an item to select it.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.LeftClickUnselect(System.Object)">
+            <summary>
+            Clicks an item and unselects it.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.RightClickSelect(System.Object)">
+            <summary>
+            Right-click an item to select it.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.RightClickUnselect(System.Object)">
+            <summary>
+            Right-click an item and unselects it.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetEventSourceItem(System.Windows.RoutedEventArgs)">
+            <summary>
+            Gets the source of an event.
+            </summary>
+            <param name="e">The event data.</param>
+            <returns>The event source.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.GetTarget(System.Windows.DragEventArgs)">
+            <summary>
+            Gets the target of a drop event.
+            </summary>
+            <param name="e">The event data.</param>
+            <returns>The event target.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsCtrlDown">
+            <summary>
+            Checks whether the CTRL key is down.
+            </summary>
+            <returns>True if down; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsShiftDown">
+            <summary>
+            Checks whether the SHIFT key is down.
+            </summary>
+            <returns>True if down; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.SortByIndex(System.Object,System.Object)">
+            <summary>
+            Sorts two items by index.
+            </summary>
+            <param name="item1">The first item.</param>
+            <param name="item2">The second item.</param>
+            <returns>The sort result.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.AddSelectedItem(System.Object)">
+            <summary>
+            Adds an item to the list of selected items.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.RemoveSelectedItem(System.Object)">
+            <summary>
+            Removes an item from the list of selected items.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.IsLastSelectedItemSet">
+            <summary>
+            Gets a value indicating whether there is a last selected item.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.SetLastSelectedItem(System.Object)">
+            <summary>
+            Sets the last selected item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsLastSelectedItem(System.Object)">
+            <summary>
+            Checks whether an item is the last selected.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if the last selected.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ClearLastSelectedItem">
+            <summary>
+            Clears the last selected item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.IsLastClickedItemSet">
+            <summary>
+            Gets a value indicating whether there is a last clicked item.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.SetLastClickedItem(System.Object)">
+            <summary>
+            Sets the last clicked item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.IsLastClickedItem(System.Object)">
+            <summary>
+            Checks whether an item is the last clicked.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>True if the last clicked.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.ClearLastClickedItem">
+            <summary>
+            Clears the last clicked item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.LastSelectedItem">
+            <summary>
+            Gets the last selected item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.LastClickedItem">
+            <summary>
+            Gets the last clicked item.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseLeftButtonDown"/> routed event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonDown"/> routed event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnPreviewMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseLeftButtonUp"/> routed event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonUp"/> routed event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnPreviewMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseMove"/> routed event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseMove"/> routed event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.HandleChildrenChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Called when children of an item have changed.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnItemAddChildren(System.Object,System.Int32,System.Collections.IList)">
+            <summary>
+            Called when children have been added to an item.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="startIndex">Index where the first child is added.</param>
+            <param name="itemList">The list of children.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnItemRemoveChildren(System.Object,System.Int32,System.Collections.IList)">
+            <summary>
+            Called when children of an item have been removed.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="startIndex">Index of the first removed child.</param>
+            <param name="itemList">The list of removed children.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnItemMoveChildren(System.Object,System.Int32,System.Int32,System.Collections.IList)">
+            <summary>
+            Called when children of an item have been moved.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="oldIndex">Index of the previous position of the first child.</param>
+            <param name="newIndex">Index of the new position of the first child.</param>
+            <param name="itemList">The list of moved children.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewBase.OnItemResetChildren(System.Object)">
+            <summary>
+            Called when children of an item are reset.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.VisibleChildren">
+            <summary>
+            Gets the list of child items visible in the scroll view.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewBase.ExpandedChildren">
+            <summary>
+            Gets a list of expanded items.
+            </summary>
+        </member>
+        <member name="T:CustomControls.ExtendedTreeViewGeneric`2">
+            <summary>
+            Represents a tree view control for a generic type of items.
+            </summary>
+            <typeparam name="TItem">The type of items.</typeparam>
+            <typeparam name="TCollection">The type of collection of items.</typeparam>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.GetItemParent(System.Object)">
+            <summary>
+            Gets the parent of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The parent item.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.GetItemChildrenCount(System.Object)">
+            <summary>
+            Gets the number of children of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The number of children.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.GetItemChildren(System.Object)">
+            <summary>
+            Gets children of an item.
+            </summary>
+            <param name="item">The item.</param>
+            <returns>The children.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.GetItemChild(System.Object,System.Int32)">
+            <summary>
+            Gets the child of an item at the provided index.
+            </summary>
+            <param name="item">The item.</param>
+            <param name="index">The child index.</param>
+            <returns>The child at the provided index.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.InstallHandlers(System.Object)">
+            <summary>
+            Installs event handlers on an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.UninstallHandlers(System.Object)">
+            <summary>
+            Uninstalls event handlers from an item.
+            </summary>
+            <param name="item">The item.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.DragDropMove(System.Object,System.Object,System.Collections.IList)">
+            <summary>
+            Moves items from source to destination.
+            </summary>
+            <param name="sourceItem">The source item.</param>
+            <param name="destinationItem">The destination item.</param>
+            <param name="itemList">Moved children.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.DragDropCopy(System.Object,System.Object,System.Collections.IList,System.Collections.IList)">
+            <summary>
+            Copy items from source to destination.
+            </summary>
+            <param name="sourceItem">The source item.</param>
+            <param name="destinationItem">The destination item.</param>
+            <param name="itemList">Children at the source.</param>
+            <param name="cloneList">Cloned children at the destination.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.CreateItemList">
+            <summary>
+            Creates a list of items.
+            </summary>
+            <returns>The created list of items.</returns>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewGeneric`2.OnItemChildrenChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Called when children of an item have changed.
+            </summary>
+            <param name="sender">The event source.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="T:CustomControls.ExtendedTreeViewItemBase">
+            <summary>
+            Represents an item in a tree view control.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.IsSelectedProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewItemBase.IsSelected"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewItemBase.IsSelected">
+            <summary>
+            Gets or sets a value indicating whether the item is selected.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.SelectedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Selected"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewItemBase.Selected">
+            <summary>
+            Occurs after the item is selected.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.NotifySelected">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Selected"/> event.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.UnselectedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Unselected"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewItemBase.Unselected">
+            <summary>
+            Occurs after the item is unselected.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.NotifyUnselected">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Unselected"/> event.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.IsExpandedProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewItemBase.IsExpanded"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewItemBase.IsExpanded">
+            <summary>
+            Gets or sets a value indicating whether the item is expanded.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnIsExpandedChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes of the <see cref="P:CustomControls.ExtendedTreeViewItemBase.IsExpanded"/> property.
+            </summary>
+            <param name="modifiedObject">The modified object.</param>
+            <param name="e">An object that contains event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnIsExpandedChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Handles changes of the <see cref="P:CustomControls.ExtendedTreeViewItemBase.IsExpanded"/> property.
+            </summary>
+            <param name="e">An object that contains event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.BeginInitializeContent">
+            <summary>
+            Begins initialization of the item content.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.EndInitializeContent">
+            <summary>
+            Ends initialization of the item content.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewItemBase.IsContentInitializing">
+            <summary>
+            Gets a value indicating whether the content is being initialized.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.ExpandedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Expanded"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewItemBase.Expanded">
+            <summary>
+            Occurs after the item is expanded.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.NotifyExpanded">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Expanded"/> event.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.CollapsedEvent">
+            <summary>
+            Identifies the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Collapsed"/> routed event.
+            </summary>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewItemBase.Collapsed">
+            <summary>
+            Occurs after the item is collapsed.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.NotifyCollapsed">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.ExtendedTreeViewItemBase.Collapsed"/> event.
+            </summary>
+        </member>
+        <member name="F:CustomControls.ExtendedTreeViewItemBase.IsDropOverProperty">
+            <summary>
+            Identifies the <see cref="P:CustomControls.ExtendedTreeViewItemBase.IsDropOver"/> attached property.
+            </summary>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewItemBase.IsDropOver">
+            <summary>
+            Gets a value indicating whether the item is the destination of a drop.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.#ctor(CustomControls.ExtendedTreeViewBase)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.ExtendedTreeViewItemBase"/> class.
+            </summary>
+            <param name="host">The tree to which this item belongs.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewItemBase.Host">
+            <summary>
+            Gets the tree to which this item belongs.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OverrideAncestorMetadata">
+            <summary>
+            Overrides inherited metadata.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OverrideMetadataContent">
+            <summary>
+            Override metadata for the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OverrideMetadataDefaultStyleKey">
+            <summary>
+            Override metadata for the <see cref="P:System.Windows.FrameworkElement.DefaultStyleKey"/> property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnContentChanged(System.Windows.DependencyObject,System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property has changed.
+            </summary>
+            <param name="modifiedObject">The object for which the property changed.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnContentChanged(System.Windows.DependencyPropertyChangedEventArgs)">
+            <summary>
+            Called when the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property has changed.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="P:CustomControls.ExtendedTreeViewItemBase.Level">
+            <summary>
+            Gets the indentation level of the item.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.UpdateIsDropOver">
+            <summary>
+            Updates the <see cref="P:CustomControls.ExtendedTreeViewItemBase.IsDropOver"/> property.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.UpdateDisconnectedItem(System.Object)">
+            <summary>
+            Updates the disconnected item.
+            </summary>
+            <param name="value">Candidate value for the disconnected object.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnContentChanged(System.Object,System.Object)">
+            <summary>
+            Called when the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property changes.
+            </summary>
+            <param name="oldContent">The old value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.</param>
+            <param name="newContent">The new value of the <see cref="P:System.Windows.Controls.ContentControl.Content"/> property.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnGotFocus(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.UIElement.GotFocus"/> routed event by using the event data that is provided.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnLostFocus(System.Windows.RoutedEventArgs)">
+            <summary>
+            Raises the <see cref="E:System.Windows.UIElement.LostFocus"/> routed event by using the event data that is provided.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnMouseEnter(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="F:System.Windows.Input.Mouse.MouseEnterEvent"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnMouseLeave(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="F:System.Windows.Input.Mouse.MouseLeaveEvent"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnPreviewMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseLeftButtonDown"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnMouseLeftButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonDown"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnPreviewMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseLeftButtonUp"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnMouseLeftButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseLeftButtonUp"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnPreviewMouseRightButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseRightButtonDown"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnMouseRightButtonDown(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseRightButtonDown"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnPreviewMouseRightButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.PreviewMouseRightButtonUp"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnMouseRightButtonUp(System.Windows.Input.MouseButtonEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="E:System.Windows.UIElement.MouseRightButtonUp"/> attached event is raised on this element.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.OnKeyDown(System.Windows.Input.KeyEventArgs)">
+            <summary>
+            Invoked when an unhandled <see cref="F:System.Windows.Input.Keyboard.KeyDownEvent"/> attached event reaches an element in its route that is derived from this class.
+            </summary>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.SelectItemOnLeftButtonDown">
+            <summary>
+            Selects the item because a left button down event occured.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.UnselectItemOnLeftButtonUp">
+            <summary>
+            Unselects the item because a left button up event occured.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.SelectItemOnRightButtonDown">
+            <summary>
+            Selects the item because a right button down event occured.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.UnselectItemOnRightButtonUp">
+            <summary>
+            Unselects the item because a right button up event occured.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.DebugCall(System.String)">
+            <summary>
+            Logs a call entry.
+            </summary>
+            <param name="callerName">Name of the caller.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.DebugMessage(System.String)">
+            <summary>
+            Logs a message.
+            </summary>
+            <param name="message">The message to log.</param>
+        </member>
+        <member name="E:CustomControls.ExtendedTreeViewItemBase.PropertyChanged">
+            <summary>
+            Implements the PropertyChanged event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.NotifyPropertyChanged(System.String)">
+            <summary>
+            Invoke handlers of the <see cref="E:CustomControls.ExtendedTreeViewItemBase.PropertyChanged"/> event.
+            </summary>
+            <param name="propertyName">Name of the property that changed.</param>
+        </member>
+        <member name="M:CustomControls.ExtendedTreeViewItemBase.NotifyThisPropertyChanged(System.String)">
+            <summary>
+            Invoke handlers of the <see cref="E:CustomControls.ExtendedTreeViewItemBase.PropertyChanged"/> event.
+            </summary>
+            <param name="propertyName">Name of the property that changed.</param>
+        </member>
+        <member name="T:CustomControls.IDragSourceControl">
+            <summary>
+            Represents the interface of a control providing drag and drop features.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.SourceControl">
+            <summary>
+            Gets the control source of the dragged content.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.SourceContainer">
+            <summary>
+            Gets the container where <see cref="P:CustomControls.IDragSourceControl.SourceControl"/> can be found.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.SourceLocation">
+            <summary>
+            Gets the source location of a drag event.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.DragParentItem">
+            <summary>
+            Gets the parent item of the dragged item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.AllowDropCopy">
+            <summary>
+            Gets a value indicating whether copy is allowed on drop.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.RootItem">
+            <summary>
+            Gets the root of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.ItemList">
+            <summary>
+            Gets the list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.FlatItemList">
+            <summary>
+            Gets the flat list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.SourceGuid">
+            <summary>
+            Gets the GUID of the source.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IDragSourceControl.DragActivity">
+            <summary>
+            Gets the activity state of the drag operation.
+            </summary>
+        </member>
+        <member name="E:CustomControls.IDragSourceControl.DragActivityChanged">
+            <summary>
+            Occurs when <see cref="P:CustomControls.IDragSourceControl.DragActivity"/> changed.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IDragSourceControl.SetIsDragPossible(CustomControls.CanonicSelection)">
+            <summary>
+            Changes the value of IsDragPossible.
+            </summary>
+            <param name="canonicSelectedItemList">The lost of selected items.</param>
+        </member>
+        <member name="M:CustomControls.IDragSourceControl.ClearIsDragPossible">
+            <summary>
+            Clears the value of IsDragPossible.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IDragSourceControl.IsDragPossible">
+            <summary>
+            Gets the value indicating if drag is possible.
+            </summary>
+            <returns>True if drag is possible; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.IDragSourceControl.DragAfterMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Called when a drag should begin after the mouse moved.
+            </summary>
+            <param name="sourceLocation">The source location.</param>
+        </member>
+        <member name="M:CustomControls.IDragSourceControl.CancelDrag">
+            <summary>
+            Cancels the drag operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IDragSourceControl.SetDragItemList(System.Object,System.Collections.IList)">
+            <summary>
+            Sets the dragged items.
+            </summary>
+            <param name="rootItem">The root item.</param>
+            <param name="flatItemList">The flat list of dragged items.</param>
+        </member>
+        <member name="T:CustomControls.DragSourceControl">
+            <summary>
+            Represents a control providing drag and drop features.
+            </summary>
+        </member>
+        <member name="F:CustomControls.DragSourceControl.DefaultDragDelay">
+            <summary>
+            Default delay for starting a drag operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.#ctor(System.Windows.FrameworkElement)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.DragSourceControl"/> class.
+            </summary>
+            <param name="sourceControl">The control source of the drag.</param>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.SourceControl">
+            <summary>
+            Gets the control source of the dragged content.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.SourceContainer">
+            <summary>
+            Gets the container where <see cref="P:CustomControls.DragSourceControl.SourceControl"/> can be found.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.SourceLocation">
+            <summary>
+            Gets the source location of a drag event.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.DragParentItem">
+            <summary>
+            Gets the parent item of the dragged item.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.AllowDropCopy">
+            <summary>
+            Gets a value indicating whether copy is allowed on drop.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.RootItem">
+            <summary>
+            Gets the root of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.ItemList">
+            <summary>
+            Gets the list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.FlatItemList">
+            <summary>
+            Gets the flat list of dragged items.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.SourceGuid">
+            <summary>
+            Gets the GUID of the source.
+            </summary>
+        </member>
+        <member name="P:CustomControls.DragSourceControl.DragActivity">
+            <summary>
+            Gets the activity state of the drag operation.
+            </summary>
+        </member>
+        <member name="E:CustomControls.DragSourceControl.DragActivityChanged">
+            <summary>
+            Occurs when <see cref="P:CustomControls.DragSourceControl.DragActivity"/> changed.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.NotifyDragActivityChanged">
+            <summary>
+            Invokes handlers of the <see cref="E:CustomControls.DragSourceControl.DragActivityChanged"/> event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.SetIsDragPossible(CustomControls.CanonicSelection)">
+            <summary>
+            Changes the drag activity.
+            </summary>
+            <param name="canonicSelectedItemList">The lost of selected items.</param>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.ClearIsDragPossible">
+            <summary>
+            Clears the value of IsDragPossible.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.IsDragPossible">
+            <summary>
+            Gets the value indicating if drag is possible.
+            </summary>
+            <returns>True if drag is possible; otherwise, false.</returns>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.DragAfterMouseMove(System.Windows.Input.MouseEventArgs)">
+            <summary>
+            Called when a drag should begin after the mouse moved.
+            </summary>
+            <param name="sourceLocation">The source location.</param>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.CancelDrag">
+            <summary>
+            Cancels the drag operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.DragSourceControl.SetDragItemList(System.Object,System.Collections.IList)">
+            <summary>
+            Sets the dragged items.
+            </summary>
+            <param name="rootItem">The root item.</param>
+            <param name="flatItemList">The flat list of dragged items.</param>
+        </member>
+        <member name="T:CustomControls.IExtendedTreeNode">
+            <summary>
+            Represents a node in the tree.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IExtendedTreeNode.Parent">
+            <summary>
+            Gets the parent node.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IExtendedTreeNode.Children">
+            <summary>
+            Gets the collection of child nodes.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IExtendedTreeNode.ChangeParent(CustomControls.IExtendedTreeNode)">
+            <summary>
+            Changes the node parent.
+            </summary>
+            <param name="newParent">The new parent node.</param>
+        </member>
+        <member name="T:CustomControls.IExtendedTreeNodeCollection">
+            <summary>
+            Represents a collection of nodes.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IExtendedTreeNodeCollection.Parent">
+            <summary>
+            Gets the parent of the collection.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IExtendedTreeNodeCollection.Sort">
+            <summary>
+            Sorts the collection.
+            </summary>
+        </member>
+        <member name="T:CustomControls.IInsertItemContext">
+            <summary>
+            Represents the abstract interface for an insert item context.
+            </summary>
+        </member>
+        <member name="T:CustomControls.InsertItemContext">
+            <summary>
+            Represents an insert item context.
+            </summary>
+        </member>
+        <member name="M:CustomControls.InsertItemContext.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.InsertItemContext"/> class.
+            </summary>
+            <param name="shownIndex">Index where insertion should take place.</param>
+        </member>
+        <member name="M:CustomControls.InsertItemContext.NextIndex">
+            <summary>
+            Moves to the next index.
+            </summary>
+        </member>
+        <member name="T:CustomControls.IModifyContext">
+            <summary>
+            Represents the abstract interface for a modify item context.
+            </summary>
+        </member>
+        <member name="P:CustomControls.IModifyContext.ShownIndex">
+            <summary>
+            Gets the index of the item.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IModifyContext.Start">
+            <summary>
+            Starts the operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IModifyContext.NextIndex">
+            <summary>
+            Moves to the next index.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IModifyContext.Complete">
+            <summary>
+            Complete the operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.IModifyContext.Close">
+            <summary>
+            Closes the context.
+            </summary>
+        </member>
+        <member name="T:CustomControls.ModifyContext">
+            <summary>
+            Represents a modify item context.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ModifyContext.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.ModifyContext"/> class.
+            </summary>
+            <param name="shownIndex">Index of the item.</param>
+        </member>
+        <member name="P:CustomControls.ModifyContext.ShownIndex">
+            <summary>
+            Gets or sets the index of the item.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ModifyContext.Start">
+            <summary>
+            Starts the operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ModifyContext.NextIndex">
+            <summary>
+            Moves to the next index.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ModifyContext.Complete">
+            <summary>
+            Complete the operation.
+            </summary>
+        </member>
+        <member name="M:CustomControls.ModifyContext.Close">
+            <summary>
+            Closes the context.
+            </summary>
+        </member>
+        <member name="T:CustomControls.IRemoveItemContext">
+            <summary>
+            Represents the abstract interface for a remove item context.
+            </summary>
+        </member>
+        <member name="T:CustomControls.RemoveItemContext">
+            <summary>
+            Represents a remove item context.
+            </summary>
+        </member>
+        <member name="M:CustomControls.RemoveItemContext.#ctor(System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.RemoveItemContext"/> class.
+            </summary>
+            <param name="shownIndex">Index of the item.</param>
+        </member>
+        <member name="M:CustomControls.RemoveItemContext.NextIndex">
+            <summary>
+            Moves to the next index.
+            </summary>
+        </member>
+        <member name="T:CustomControls.PermissionToken">
+            <summary>
+            Contains permission information.
+            </summary>
+        </member>
+        <member name="M:CustomControls.PermissionToken.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.PermissionToken"/> class.
+            </summary>
+        </member>
+        <member name="P:CustomControls.PermissionToken.IsAllowed">
+            <summary>
+            Gets a value indicating whether the associated operation has been authorized by any handler.
+            </summary>
+            <returns>True indicates that a handler has allowed the operation. False indicates that the operation associated to the event is denied.</returns>
+        </member>
+        <member name="M:CustomControls.PermissionToken.Deny">
+            <summary>
+            Allows a handler to deny the operation notified by the event associated to this object.
+            </summary>
+        </member>
+        <member name="T:CustomControls.SharedResourceDictionaryManager">
+            <summary>
+            Represents the manager of a dictionary of shared resources.
+            </summary>
+        </member>
+        <member name="P:CustomControls.SharedResourceDictionaryManager.SharedDictionary">
+            <summary>
+            Gets the resource dictionary.
+            </summary>
+        </member>
+        <member name="T:CustomControls.TreeViewCollectionModifiedEventArgs">
+            <summary>
+            Represents arguments of a collection modified event.
+            </summary>
+        </member>
+        <member name="M:CustomControls.TreeViewCollectionModifiedEventArgs.#ctor(System.Windows.RoutedEvent,CustomControls.TreeViewCollectionOperation,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:CustomControls.TreeViewCollectionModifiedEventArgs"/> class.
+            </summary>
+            <param name="routedEvent">The routed event.</param>
+            <param name="treeViewCollectionOperation">The modifying operation.</param>
+            <param name="filledItemCount">The number of filled items.</param>
+        </member>
+        <member name="P:CustomControls.TreeViewCollectionModifiedEventArgs.TreeViewCollectionOperation">
+            <summary>
+            Gets the modifying operation.
+            </summary>
+        </member>
+        <member name="P:CustomControls.TreeViewCollectionModifiedEventArgs.FilledItemCount">
+            <summary>
+            Gets the number of filled items.
+            </summary>
+        </member>
+        <member name="T:CustomControls.TreeViewCollectionOperation">
+            <summary>
+            Specifies types of operation performed on a collection of tree view items.
+            </summary>
+        </member>
+        <member name="F:CustomControls.TreeViewCollectionOperation.Insert">
+            <summary>
+            Items are inserted.
+            </summary>
+        </member>
+        <member name="F:CustomControls.TreeViewCollectionOperation.Remove">
+            <summary>
+            Items are removed.
+            </summary>
+        </member>
+        <member name="F:CustomControls.TreeViewCollectionOperation.Move">
+            <summary>
+            Items are moved.
+            </summary>
+        </member>
+        <member name="T:CustomControls.TreeViewLevelToObjectConverter">
+            <summary>
+            Represents a converter from an array of indentation levels to an object from a collection.
+            </summary>
+        </member>
+        <member name="M:CustomControls.TreeViewLevelToObjectConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an array of indentation levels to an object from a collection.
+            </summary>
+            <param name="values">The array of values that the source bindings in the <see cref="T:System.Windows.Data.MultiBinding"/> produces.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value.</returns>
+        </member>
+        <member name="M:CustomControls.TreeViewLevelToObjectConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a binding target value to the source binding values.
+            </summary>
+            <param name="value">The value that the binding target produces.</param>
+            <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>An array of values that have been converted from the target value back to the source values.</returns>
+        </member>
+        <member name="T:CustomControls.TreeViewMarginConverter">
+            <summary>
+            Represents a converter from an array of margins to an object from a collection.
+            </summary>
+        </member>
+        <member name="M:CustomControls.TreeViewMarginConverter.Convert(System.Object[],System.Type,System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts an array of margins to an object from a collection.
+            </summary>
+            <param name="values">The array of values that the source bindings in the <see cref="T:System.Windows.Data.MultiBinding"/> produces.</param>
+            <param name="targetType">The type of the binding target property.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>A converted value.</returns>
+        </member>
+        <member name="M:CustomControls.TreeViewMarginConverter.ConvertBack(System.Object,System.Type[],System.Object,System.Globalization.CultureInfo)">
+            <summary>
+            Converts a binding target value to the source binding values.
+            </summary>
+            <param name="value">The value that the binding target produces.</param>
+            <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
+            <param name="parameter">The converter parameter to use.</param>
+            <param name="culture">The culture to use in the converter.</param>
+            <returns>An array of values that have been converted from the target value back to the source values.</returns>
+        </member>
+    </members>
+</doc>

@@ -36,7 +36,7 @@
             if (resourceAssembly == null)
                 throw new ArgumentNullException(nameof(resourceAssembly));
 
-            string AssemblyName = resourceAssembly.GetName().Name;
+            string AssemblyName = resourceAssembly.GetName().Name !;
             string UriPath = "pack://application:,,,/" + AssemblyName + ";component" + iconPath + "/" + key + ".png";
 
             try

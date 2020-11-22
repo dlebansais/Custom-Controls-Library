@@ -269,8 +269,11 @@
                         object CurrentValue = GetValue(EnumBindingProperty);
 
                         for (int i = 0; i < Values.Length; i++)
-                            if (Values.GetValue(i).Equals(CurrentValue))
+                        {
+                            object EnumValue = Values.GetValue(i) !;
+                            if (EnumValue.Equals(CurrentValue))
                                 Result = i;
+                        }
                     }
                 }
 

@@ -10,7 +10,7 @@
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             int IndexValue = (int)value;
-            int ExpectedIndex = int.Parse(parameter as string, CultureInfo.InvariantCulture);
+            int ExpectedIndex = int.Parse((string)parameter, CultureInfo.InvariantCulture);
             return IndexValue == ExpectedIndex;
         }
 

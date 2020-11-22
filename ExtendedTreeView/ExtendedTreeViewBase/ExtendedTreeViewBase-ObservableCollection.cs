@@ -51,7 +51,7 @@
         /// <param name="item">The item.</param>
         /// <param name="startIndex">Index where the first child is added.</param>
         /// <param name="itemList">The list of children.</param>
-        protected virtual void OnItemAddChildren(object item, int startIndex, IList itemList)
+        protected virtual void OnItemAddChildren(object item, int startIndex, IList? itemList)
         {
             NotifyPreviewCollectionModified(TreeViewCollectionOperation.Insert);
 
@@ -82,7 +82,7 @@
         /// <param name="item">The item.</param>
         /// <param name="startIndex">Index of the first removed child.</param>
         /// <param name="itemList">The list of removed children.</param>
-        protected virtual void OnItemRemoveChildren(object item, int startIndex, IList itemList)
+        protected virtual void OnItemRemoveChildren(object item, int startIndex, IList? itemList)
         {
             NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
 
@@ -114,7 +114,7 @@
         /// <param name="oldIndex">Index of the previous position of the first child.</param>
         /// <param name="newIndex">Index of the new position of the first child.</param>
         /// <param name="itemList">The list of moved children.</param>
-        protected virtual void OnItemMoveChildren(object item, int oldIndex, int newIndex, IList itemList)
+        protected virtual void OnItemMoveChildren(object item, int oldIndex, int newIndex, IList? itemList)
         {
             NotifyPreviewCollectionModified(TreeViewCollectionOperation.Move);
 
@@ -208,7 +208,7 @@
                     int ItemIndex = Siblings.IndexOf(item);
                     if (ItemIndex + 1 < Siblings.Count)
                     {
-                        object NextItem = Siblings[ItemIndex + 1];
+                        object NextItem = Siblings[ItemIndex + 1] !;
                         int EndIndex = VisibleChildren.IndexOf(NextItem);
                         RemoveCount = EndIndex - StartIndex;
                     }

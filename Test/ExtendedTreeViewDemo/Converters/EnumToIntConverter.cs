@@ -14,7 +14,7 @@
                 Array Values = value.GetType().GetEnumValues();
                 for (int i = 0; i < Values.Length; i++)
                 {
-                    object EnumValue = Values.GetValue(i);
+                    object EnumValue = Values.GetValue(i) !;
                     if (value.Equals(EnumValue))
                         return i;
                 }
@@ -29,7 +29,7 @@
             {
                 int IndexValue = (int)value;
                 Array Values = targetType.GetEnumValues();
-                return Values.GetValue(IndexValue);
+                return Values.GetValue(IndexValue) !;
             }
             else
                 return value;

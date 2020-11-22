@@ -196,7 +196,7 @@
         /// <summary>
         /// Identifies the <see cref="IsDropOver"/> attached property.
         /// </summary>
-        public static readonly DependencyProperty IsDropOverProperty = IsDropOverPropertyKey.DependencyProperty;
+        public static readonly DependencyProperty IsDropOverProperty = IsDropOverPropertyKey?.DependencyProperty !;
         private static DependencyPropertyKey IsDropOverPropertyKey = DependencyProperty.RegisterReadOnly("IsDropOver", typeof(bool), typeof(ExtendedTreeViewItemBase), new PropertyMetadata(false));
 
         /// <summary>
