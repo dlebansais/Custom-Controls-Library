@@ -43,7 +43,7 @@ after_build:
   - ps: '& $fullpath --debug --merge "--Description:A set of miscellaneous WPF custom controls"' # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - nuget pack nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - ps: |-
-        $xml = [xml](Get-Content .\$env:APPVEYOR_PROJECT_NAME\$env:APPVEYOR_PROJECT_NAME.csproj)
+        $xml = [xml](Get-Content .\BusyIndicator\BusyIndicator.csproj)
   - ps: $version = $xml.Project.PropertyGroup.Version
   - ps: set version_tag v$version
   - ps: $env:VERSION_TAG=$version_tag
