@@ -52,7 +52,7 @@ after_build:
 test: off
 
 artifacts:
-  - path: nuget/bin/
+  - path: nuget/lib/
     name: $(APPVEYOR_PROJECT_NAME)
   - path: $(APPVEYOR_PROJECT_NAME)-Debug.*.nupkg
     name: $(APPVEYOR_PROJECT_NAME)-Package-Debug
