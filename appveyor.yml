@@ -40,7 +40,7 @@ after_build:
   - ps: $fullpath = ".\packages\$firstline\lib\net48\Packager.exe"              # Build full path
   - ps: '& $fullpath --merge "--Description:A set of miscellaneous WPF custom controls"' # Execute the packager: the output is nuget\%APPVEYOR_PROJECT_NAME%.nuspec
   - nuget pack nuget\%APPVEYOR_PROJECT_NAME%.nuspec
-  - ps: '& $fullpath --debug --merge "--Description:A set of miscellaneous WPF custom controls"' # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
+  - ps: '& $fullpath --debug --merge "--description:A set of miscellaneous WPF custom controls"' # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - nuget pack nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - ps: |-
         $xml = [xml](Get-Content .\BusyIndicator\BusyIndicator.csproj)
