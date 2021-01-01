@@ -270,7 +270,7 @@
 
                         for (int i = 0; i < Values.Length; i++)
                         {
-                            object EnumValue = Values.GetValue(i) !;
+                            object EnumValue = Values.GetValue(i)!;
                             if (EnumValue.Equals(CurrentValue))
                                 Result = i;
                         }

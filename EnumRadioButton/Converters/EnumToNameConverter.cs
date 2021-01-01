@@ -39,7 +39,7 @@
             Assembly ResourceAssembly = EnumType.Assembly;
             Contract.RequireNotNull(ResourceAssembly.GetType(ParameterString), out Type ResourceSource);
             ResourceManager Manager = new ResourceManager(ResourceSource);
-            string ResourceName = value.ToString() !;
+            string ResourceName = value.ToString()!;
 
             Contract.RequireNotNull(Manager.GetString(ResourceName, CultureInfo.CurrentCulture), out object Result);
 

@@ -71,7 +71,7 @@
         public string GetString(string name)
         {
             Initialize();
-            return InitResourceManager.GetString(name, CultureInfo.CurrentCulture) !;
+            return InitResourceManager.GetString(name, CultureInfo.CurrentCulture)!;
         }
 
         /// <summary>
