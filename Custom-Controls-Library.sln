@@ -4,16 +4,34 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogValidation", "DialogValidation\DialogValidation.csproj", "{F43A1008-F9CE-4423-B31C-448D32519B31}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditableTextBlock", "EditableTextBlock\EditableTextBlock.csproj", "{1CA197BB-D29F-43AD-8FB1-F920F7F7B6FA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox", "EnumComboBox\EnumComboBox.csproj", "{0FBADA65-9A03-439C-8991-2C58091FCC3F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton", "EnumRadioButton\EnumRadioButton.csproj", "{E1BCB2F8-219A-4CEF-B992-96A1F5A5A782}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedCommandControls", "ExtendedCommandControls\ExtendedCommandControls.csproj", "{9368643D-59A7-4678-BA7D-DE551146E13A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "ExtendedPasswordBox\ExtendedPasswordBox.csproj", "{8B13645A-ED02-445D-9648-F67994EBD2E9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
 EndProject
@@ -30,15 +48,26 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitView", "SplitView\Spli
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TightfittingTabControl", "TightfittingTabControl\TightfittingTabControl.csproj", "{CC05DE21-5394-4666-B8D4-7C782B54541F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UndoRedoManager", "UndoRedoManager\UndoRedoManager.csproj", "{AEC24EC9-BE57-4219-A3D8-62826A6BC765}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusyIndicator", "BusyIndicator\BusyIndicator.csproj", "{F0E68B94-E370-474E-B963-B7271E4FBF8B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6006B37A-F1AA-4983-AD6F-89E39879B4AD}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreBuild", "PreBuild\PreBuild.csproj", "{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +127,10 @@ Global
 		{F0E68B94-E370-474E-B963-B7271E4FBF8B}.Debug|x64.Build.0 = Debug|x64
 		{F0E68B94-E370-474E-B963-B7271E4FBF8B}.Release|x64.ActiveCfg = Release|x64
 		{F0E68B94-E370-474E-B963-B7271E4FBF8B}.Release|x64.Build.0 = Release|x64
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Debug|x64.ActiveCfg = Debug|x64
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Debug|x64.Build.0 = Debug|x64
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Release|x64.ActiveCfg = Release|x64
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
