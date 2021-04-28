@@ -22,17 +22,15 @@ matrix:
 before_build:
   - nuget restore %APPVEYOR_PROJECT_NAME%.sln
   - nuget install GitCommitId -DependencyVersion Highest -OutputDirectory packages
-  - |-
-    printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" > build_all.xml
-    printf "  <Project xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\n" >> build_all.xml
-    printf "    <Target Name=\"Build\">\n" >> build_all.xml
-    printf "      <MSBuild Projects=\"%APPVEYOR_PROJECT_NAME%.sln\" Properties=\"Configuration=Debug;Platform=x64\"/>\n" >> build_all.xml
-    printf "      <MSBuild Projects=\"%APPVEYOR_PROJECT_NAME%.sln\" Properties=\"Configuration=Release;Platform=x64\"/>\n" >> build_all.xml
-    printf "    </Target>\n" >> build_all.xml
-    printf "</Project>\n" >> build_all.xml
+
+platform: x64
+
+configuration: 
+  - Release
+  - Debug
 
 build:
-  project: build_all.xml
+  project: $(APPVEYOR_PROJECT_NAME).sln
 
 after_build:
   - nuget install Packager -DependencyVersion Highest -OutputDirectory packages # Install Packager
@@ -40,12 +38,10 @@ after_build:
   - ps: $firstline = ($folder -split '\r\n')[0]                                 # Get rid of carriage-return
   - ps: $fullpath = ".\packages\$firstline\lib\net48\Packager.exe"              # Build full path
   - ps: $env:PACKAGER_PATH=$fullpath
-  - echo %PACKAGER_PATH%
-  - echo %CUSTOM_PACKAGER_OPTIONS%
   - '%PACKAGER_PATH% %CUSTOM_PACKAGER_OPTIONS%'                                 # Execute the packager: the output is nuget\%APPVEYOR_PROJECT_NAME%.nuspec
-  - nuget pack nuget\%APPVEYOR_PROJECT_NAME%.nuspec
+  - if exist nuget\%APPVEYOR_PROJECT_NAME%.nuspec nuget pack nuget\%APPVEYOR_PROJECT_NAME%.nuspec
   - '%PACKAGER_PATH% %CUSTOM_PACKAGER_OPTIONS% --debug'                         # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
-  - nuget pack nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
+  - if exist nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec nuget pack nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
 
 test: off
 
@@ -67,6 +63,7 @@ deploy:
       secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
     on:
       branch: deployment
+      configuration: Debug
   - provider: NuGet
     server: https://nuget.pkg.github.com/dlebansais/index.json
     artifact: $(APPVEYOR_PROJECT_NAME)-Package-Release
@@ -76,3 +73,4 @@ deploy:
       secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
     on:
       branch: deployment
+      configuration: Release
