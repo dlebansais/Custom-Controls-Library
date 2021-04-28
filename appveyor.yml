@@ -25,7 +25,7 @@ before_build:
 
 platform: x64
 
-configuration: 
+configuration:
   - Release
   - Debug
 
