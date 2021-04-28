@@ -34,6 +34,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedPasswordBox", "Exte
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedScrollBar", "ExtendedScrollBar\ExtendedScrollBar.csproj", "{1C756FC3-66AE-45AB-958D-C8AAF6CA2E9F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF} = {397E62B5-D858-47F8-BFCA-5F0A3574DDAF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedToolBar", "ExtendedToolBar\ExtendedToolBar.csproj", "{5AF7807C-35FB-4FD1-B94B-AA1AFE3FFE5F}"
 	ProjectSection(ProjectDependencies) = postProject
