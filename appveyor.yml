@@ -39,9 +39,9 @@ after_build:
   - ps: $folder = Get-ChildItem -Path packages/Packager.* -Name | Out-String    # Get the installation folder (we don't know the actual version)
   - ps: $firstline = ($folder -split '\r\n')[0]                                 # Get rid of carriage-return
   - ps: $fullpath = ".\packages\$firstline\lib\net48\Packager.exe"              # Build full path
-  - ps: '& $fullpath %CUSTOM_PACKAGER_OPTIONS%'                                 # Execute the packager: the output is nuget\%APPVEYOR_PROJECT_NAME%.nuspec
+  - ps: '& $fullpath $env:CUSTOM_PACKAGER_OPTIONS'                                 # Execute the packager: the output is nuget\%APPVEYOR_PROJECT_NAME%.nuspec
   - nuget pack nuget\%APPVEYOR_PROJECT_NAME%.nuspec
-  - ps: '& $fullpath --debug %CUSTOM_PACKAGER_OPTIONS%'                         # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
+  - ps: '& $fullpath --debug $env:CUSTOM_PACKAGER_OPTIONS'                         # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - nuget pack nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
 
 test: off
