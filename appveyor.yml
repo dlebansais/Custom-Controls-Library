@@ -40,9 +40,16 @@ after_build:
   - ps: $firstline = ($folder -split '\r\n')[0]                                 # Get rid of carriage-return
   - ps: $fullpath = ".\packages\$firstline\lib\net48\Packager.exe"              # Build full path
   - ps: $env:PACKAGER_PATH=$fullpath
-  - echo $env:CUSTOM_PACKAGER_OPTIONS
-  - '%PACKAGER_PATH%'
-  - $fullpath $env:CUSTOM_PACKAGER_OPTIONS                                # Execute the packager: the output is nuget\%APPVEYOR_PROJECT_NAME%.nuspec
+#  - echo $env:CUSTOM_PACKAGER_OPTIONS
+  - echo %CUSTOM_PACKAGER_OPTIONS%
+  - echo $CUSTOM_PACKAGER_OPTIONS
+  - ps: $custom_packager_options = $env:CUSTOM_PACKAGER_OPTIONS
+  - echo $custom_packager_options
+  - ps: $env:TEST=$custom_packager_options
+  - echo %TEST%
+  - ps: set PACKAGER_PATH $fullpath
+  - echo %PACKAGER_PATH%
+  - '%PACKAGER_PATH% $env:CUSTOM_PACKAGER_OPTIONS'                                # Execute the packager: the output is nuget\%APPVEYOR_PROJECT_NAME%.nuspec
   - nuget pack nuget\%APPVEYOR_PROJECT_NAME%.nuspec
   - ps: '& $fullpath --debug $env:CUSTOM_PACKAGER_OPTIONS'                         # Execute the packager: the output is nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - nuget pack nuget-debug\%APPVEYOR_PROJECT_NAME%-Debug.nuspec
