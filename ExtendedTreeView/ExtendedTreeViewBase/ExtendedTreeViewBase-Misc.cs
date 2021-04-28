@@ -363,6 +363,7 @@
                         SetLastSelectedItem(item);
                         ClearLastClickedItem();
                     }
+
                     break;
             }
         }
@@ -382,6 +383,7 @@
                         AddSelectedItem(item);
                         SetLastSelectedItem(item);
                     }
+
                     break;
 
                 case SelectionMode.Multiple:
@@ -391,6 +393,7 @@
                         SetLastSelectedItem(item);
                         SetLastClickedItem(item);
                     }
+
                     break;
 
                 case SelectionMode.Extended:
@@ -400,6 +403,7 @@
                         AddSelectedItem(item);
                         SetLastSelectedItem(item);
                     }
+
                     break;
             }
         }

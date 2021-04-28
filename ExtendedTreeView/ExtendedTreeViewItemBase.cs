@@ -481,6 +481,7 @@
                             e.Handled = true;
                             return;
                         }
+
                         break;
 
                     case Key.Right:
@@ -490,6 +491,7 @@
                             e.Handled = true;
                             return;
                         }
+
                         break;
 
                     case Key.Up:
