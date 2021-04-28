@@ -21,10 +21,6 @@
     <RootNamespace>CustomControls</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <NoWarn>1701;1702;1709</NoWarn>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="4.1.0">
       <PrivateAssets>all</PrivateAssets>
@@ -37,7 +33,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.312">
+    <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.321">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -53,11 +49,26 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <ProjectReference Include="..\ExtendedCommandControls\ExtendedCommandControls.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ExtendedCommandControls\ExtendedCommandControls.csproj" />
+    <Resource Include="Properties\Resources.resx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
   <Target Name="_ResolveCopyLocalNuGetPackagePdbsAndXml" Condition="$(CopyLocalLockFileAssemblies) == true" AfterTargets="ResolveReferences">

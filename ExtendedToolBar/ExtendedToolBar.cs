@@ -254,10 +254,10 @@
 
             string Question;
             if (ToolBarName == null || ToolBarName.Length == 0)
-                Question = ExtendedToolBarInternal.Properties.Resources.ConfirmResetThisToolBarQuestion;
+                Question = Properties.Resources.ConfirmResetThisToolBarQuestion;
             else
             {
-                string QuestionFormat = ExtendedToolBarInternal.Properties.Resources.ConfirmResetToolBarQuestion;
+                string QuestionFormat = Properties.Resources.ConfirmResetToolBarQuestion;
                 Question = string.Format(CultureInfo.CurrentCulture, QuestionFormat, ToolBarName);
             }
 

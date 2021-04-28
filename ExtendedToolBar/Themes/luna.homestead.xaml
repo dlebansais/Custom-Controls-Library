@@ -3,7 +3,7 @@
                     xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Luna"
                     xmlns:conv="clr-namespace:Converters"
                     xmlns:convlib="clr-namespace:Converters;assembly=XamlConverterLibrary"
-                    xmlns:res="clr-namespace:ExtendedToolBarInternal.Properties"
+                    xmlns:res="clr-namespace:CustomControls.Properties"
                     xmlns:ctrl="clr-namespace:CustomControls">
 
     <convlib:BooleanToObjectConverter x:Key="convBooleanToObject"/>

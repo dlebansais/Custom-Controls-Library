@@ -11,7 +11,7 @@
         /// <param name="button">The <see cref="ExtendedToolBarButton"/> object to store.</param>
         public ExtendedToolBarItem(ExtendedToolBarButton button)
         {
-            this.Button = button;
+            Button = button;
         }
 
         /// <summary>
