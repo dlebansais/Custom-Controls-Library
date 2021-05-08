@@ -16,14 +16,17 @@ image: Visual Studio 2019
 init:
   - git config --global core.autocrlf input
 
+environment:
+  package_token:
+    secure: bpUW4FC8f65OAKq9z31b95q6rDsYG7R9QR39MNe7u0mmgEugA+0WOw5+Zrw5kh4Z
+
 matrix:
   fast_finish: true     # set this flag to immediately finish build once one of the jobs fails.
 
 before_build:
+  - ps: (Get-Content nuget.config).replace('Insert token here', $env:package_token) | Set-Content nuget.config
   - nuget restore %APPVEYOR_PROJECT_NAME%.sln
   - nuget install GitCommitId -DependencyVersion Highest -OutputDirectory packages
-
-platform: x64
 
 configuration:
   - Release
