@@ -42,6 +42,7 @@
         {
             return Contains((CloneableTestNode)item);
         }
+
         void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
         {
             CopyTo((CloneableTestNode[])array, arrayIndex);

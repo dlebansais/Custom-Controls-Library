@@ -42,6 +42,7 @@
         {
             return Contains((TestNode)item);
         }
+
         void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
         {
             CopyTo((TestNode[])array, arrayIndex);
