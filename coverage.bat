@@ -2,12 +2,13 @@
 
 setlocal
 
-set OPENCOVER_VERSION=4.7.922
+set OPENCOVER_VERSION=4.7.1189
 set OPENCOVER=OpenCover.%OPENCOVER_VERSION%
-set CODECOV_VERSION=1.12.3
+set CODECOV_VERSION=1.13.0
 set CODECOV=Codecov.%CODECOV_VERSION%
 
 nuget install OpenCover -Version %OPENCOVER_VERSION% -OutputDirectory packages
+nuget install Codecov -Version %CODECOV_VERSION% -OutputDirectory packages
 
 if not exist ".\packages\%OPENCOVER%\tools\OpenCover.Console.exe" goto error_console1
 if not exist ".\packages\%CODECOV%\tools\codecov.exe" goto error_console2
@@ -26,53 +27,53 @@ if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.x
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-call .\coverage\app.bat BusyIndicator Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% BusyIndicator Debug
 call .\coverage\wait.bat 20
 
-call .\coverage\app.bat DialogValidation Debug "unset"
+call .\coverage\app.bat %OPENCOVER_VERSION% DialogValidation Debug "unset"
 call .\coverage\wait.bat 30
 
-call .\coverage\app.bat DialogValidation Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% DialogValidation Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat DialogValidation Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% DialogValidation Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-DialogValidation-UT\bin\x64\Debug\Test-DialogValidation-UT.dll" /Tests:TestDefault2
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug "escape1"
+call .\coverage\app.bat %OPENCOVER_VERSION% EditableTextBlock Debug "escape1"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug "escape2"
+call .\coverage\app.bat %OPENCOVER_VERSION% EditableTextBlock Debug "escape2"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug "escape3"
+call .\coverage\app.bat %OPENCOVER_VERSION% EditableTextBlock Debug "escape3"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug "escape4"
+call .\coverage\app.bat %OPENCOVER_VERSION% EditableTextBlock Debug "escape4"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault2
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug "escape5"
+call .\coverage\app.bat %OPENCOVER_VERSION% EditableTextBlock Debug "escape5"
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EditableTextBlock Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% EditableTextBlock Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EditableTextBlock-UT\bin\x64\Debug\Test-EditableTextBlock-UT.dll" /Tests:TestDefault3
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EnumComboBox Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% EnumComboBox Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumComboBox-UT\bin\x64\Debug\Test-EnumComboBox-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat EnumRadioButton Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% EnumRadioButton Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-EnumRadioButton-UT\bin\x64\Debug\Test-EnumRadioButton-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 
-call .\coverage\app.bat ExtendedCommandControls Debug
+call .\coverage\app.bat %OPENCOVER_VERSION% ExtendedCommandControls Debug
 "%VSTESTPLATFORM_DIR%\VSTest.Console.exe" ".\Test\Test-ExtendedCommandControls-UT\bin\x64\Debug\Test-ExtendedCommandControls-UT.dll" /Tests:TestDefault1
 call .\coverage\wait.bat 2
 

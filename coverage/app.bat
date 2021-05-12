@@ -1,8 +1,9 @@
 @echo off
-echo Application: %1
-echo Parameter: %3
-if not exist ".\Test\Coverage-%2_coverage.xml" goto nomerge
+echo OpenCover Version: %1
+echo Application: %2
+echo Parameter: %4
+if not exist ".\Test\Coverage-%3_coverage.xml" goto nomerge
 set MERGE=-mergeoutput
 :nomerge
-start "%1" /B ".\packages\OpenCover.4.7.922\tools\OpenCover.Console.exe" -register:Path64 -target:".\Test\Test-%1\bin\x64\%2\Test-%1.exe" -targetargs:%3 -output:".\Test\Coverage-%2_coverage.xml" %MERGE%
+start "%2" /B ".\packages\OpenCover.%1\tools\OpenCover.Console.exe" -register:Path64 -target:".\Test\Test-%2\bin\x64\%3\Test-%2.exe" -targetargs:%4 -output:".\Test\Coverage-%3_coverage.xml" %MERGE%
 set MERGE=

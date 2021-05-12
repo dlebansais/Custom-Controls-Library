@@ -8,14 +8,14 @@
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Authors>David Le Bansais</Authors>
     <Company />
     <Product />
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2019 David Le Bansais</Copyright>
-    <AssemblyVersion>1.0.3.708</AssemblyVersion>
-    <FileVersion>1.0.3.141</FileVersion>
+    <AssemblyVersion>1.0.4.709</AssemblyVersion>
+    <FileVersion>1.0.4.141</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>

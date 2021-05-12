@@ -1,5 +1,5 @@
 # Custom Controls Library
-[![Build status](https://ci.appveyor.com/api/projects/status/b23l4cvwim31lddq?svg=true)](https://ci.appveyor.com/project/dlebansais/custom-controls-library) [![CodeFactor](https://www.codefactor.io/repository/github/dlebansais/custom-controls-library/badge)](https://www.codefactor.io/repository/github/dlebansais/custom-controls-library)
+[![Build status](https://ci.appveyor.com/api/projects/status/b23l4cvwim31lddq?svg=true)](https://ci.appveyor.com/project/dlebansais/custom-controls-library) [![CodeFactor](https://www.codefactor.io/repository/github/dlebansais/custom-controls-library/badge)](https://www.codefactor.io/repository/github/dlebansais/custom-controls-library)[![codecov](https://codecov.io/gh/dlebansais/Custom-Controls-Library/branch/master/graph/badge.svg?token=iHwHWDVnDZ)](https://codecov.io/gh/dlebansais/Custom-Controls-Library)
 
 A set of miscellaneous WPF custom controls
 
