@@ -110,6 +110,18 @@
 
             if (itemList != null)
             {
+#if NETCOREAPP3_1
+                foreach (TItem? ChildItem in itemList)
+                    if (ChildItem != null)
+                        SourceCollection.Remove(ChildItem);
+
+                foreach (TItem? ChildItem in itemList)
+                    if (ChildItem != null)
+                    {
+                        ChildItem.ChangeParent((TItem)destinationItem);
+                        DestinationCollection.Add(ChildItem);
+                    }
+#else
                 foreach (TItem ChildItem in itemList)
                     SourceCollection.Remove(ChildItem);
 
@@ -118,6 +130,7 @@
                     ChildItem.ChangeParent((TItem)destinationItem);
                     DestinationCollection.Add(ChildItem);
                 }
+#endif
             }
 
             DestinationCollection.Sort();
@@ -138,6 +151,18 @@
             TCollection DestinationCollection = (TCollection)AsDestinationItem.Children;
 
             if (itemList != null && cloneList != null)
+            {
+#if NETCOREAPP3_1
+                foreach (ICloneable? ChildItem in itemList)
+                    if (ChildItem != null)
+                    {
+                        TItem Clone = (TItem)ChildItem.Clone();
+                        Clone.ChangeParent((TItem)destinationItem);
+                        DestinationCollection.Add(Clone);
+
+                        cloneList.Add(Clone);
+                    }
+#else
                 foreach (ICloneable ChildItem in itemList)
                 {
                     TItem Clone = (TItem)ChildItem.Clone();
@@ -146,6 +171,8 @@
 
                     cloneList.Add(Clone);
                 }
+#endif
+            }
 
             DestinationCollection.Sort();
         }

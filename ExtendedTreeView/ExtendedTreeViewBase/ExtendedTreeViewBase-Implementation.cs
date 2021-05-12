@@ -85,8 +85,16 @@
             context.NextIndex();
 
             if (IsExpanded)
+            {
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in Children)
+                    if (ChildItem != null)
+                        InsertChildren(context, ChildItem, item);
+#else
                 foreach (object ChildItem in Children)
                     InsertChildren(context, ChildItem, item);
+#endif
+            }
         }
 
         /// <summary>
@@ -102,8 +110,15 @@
             if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart))
             {
                 IList Children = GetItemChildren(item);
+
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in Children)
+                    if (ChildItem != null)
+                        RemoveChildren(context, ChildItem, item);
+#else
                 foreach (object ChildItem in Children)
                     RemoveChildren(context, ChildItem, item);
+#endif
             }
 
             if (context != null)

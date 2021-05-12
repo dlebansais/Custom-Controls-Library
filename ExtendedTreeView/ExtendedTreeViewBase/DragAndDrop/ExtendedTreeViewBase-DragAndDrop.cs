@@ -32,8 +32,15 @@
                 return false;
 
             List<object> SortedSelectedItems = new List<object>();
-            foreach (object item in SelectedItems)
-                SortedSelectedItems.Add(item);
+
+#if NETCOREAPP3_1
+            foreach (object? Item in SelectedItems)
+                if (Item != null)
+                    SortedSelectedItems.Add(Item);
+#else
+            foreach (object Item in SelectedItems)
+                SortedSelectedItems.Add(Item);
+#endif
 
             SortedSelectedItems.Sort(SortByIndex);
 
@@ -75,16 +82,30 @@
 
             canonicSelectedItemList.AllItemsCloneable = true;
 
-            foreach (object item in sortedSelectedItems)
+#if NETCOREAPP3_1
+            foreach (object? Item in sortedSelectedItems)
+                if (Item != null)
+                {
+                    if (GetItemParent(Item) != firstItemParent)
+                        return false;
+
+                    canonicSelectedItemList.ItemList.Add(Item);
+
+                    if (!IsItemCloneable(Item))
+                        canonicSelectedItemList.AllItemsCloneable = false;
+                }
+#else
+            foreach (object Item in sortedSelectedItems)
             {
-                if (GetItemParent(item) != firstItemParent)
+                if (GetItemParent(Item) != firstItemParent)
                     return false;
 
-                canonicSelectedItemList.ItemList.Add(item);
+                canonicSelectedItemList.ItemList.Add(Item);
 
-                if (!IsItemCloneable(item))
+                if (!IsItemCloneable(Item))
                     canonicSelectedItemList.AllItemsCloneable = false;
             }
+#endif
 
             return true;
         }
@@ -102,6 +123,20 @@
                 return false;
 
             IList Children = GetItemChildren(firstItemParent);
+
+#if NETCOREAPP3_1
+            foreach (object? ChildItem in Children)
+                if (ChildItem != null)
+                {
+                    if (sortedSelectedItems.Contains(ChildItem))
+                    {
+                        if (!canonicSelectedItemList.ItemList.Contains(ChildItem))
+                            canonicSelectedItemList.ItemList.Add(ChildItem);
+                        if (!IsEntireBranchSelected(sortedSelectedItems, ChildItem, canonicSelectedItemList))
+                            return false;
+                    }
+                }
+#else
             foreach (object ChildItem in Children)
             {
                 if (sortedSelectedItems.Contains(ChildItem))
@@ -112,6 +147,7 @@
                         return false;
                 }
             }
+#endif
 
             if (canonicSelectedItemList.RecordCount < sortedSelectedItems.Count)
                 return false;
@@ -139,6 +175,18 @@
             if (IsExpanded(item))
             {
                 IList Children = GetItemChildren(item);
+
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in Children)
+                    if (ChildItem != null)
+                    {
+                        if (!sortedSelectedItems.Contains(ChildItem))
+                            return false;
+
+                        if (!IsEntireBranchSelected(sortedSelectedItems, ChildItem, canonicSelectedItemList))
+                            return false;
+                    }
+#else
                 foreach (object ChildItem in Children)
                 {
                     if (!sortedSelectedItems.Contains(ChildItem))
@@ -147,6 +195,7 @@
                     if (!IsEntireBranchSelected(sortedSelectedItems, ChildItem, canonicSelectedItemList))
                         return false;
                 }
+#endif
             }
 
             return true;
@@ -162,14 +211,29 @@
             IList Result = CreateItemList();
 
             if (other != null)
-                foreach (object item in other)
-                {
-                    Result.Add(item);
+            {
+#if NETCOREAPP3_1
+                foreach (object? Item in other)
+                    if (Item != null)
+                    {
+                        Result.Add(Item);
 
-                    IList FlatChildren = FlatItemList(GetItemChildren(item));
+                        IList FlatChildren = FlatItemList(GetItemChildren(Item));
+                        foreach (object? Child in FlatChildren)
+                            if (Child != null)
+                                Result.Add(Child);
+                    }
+#else
+                foreach (object Item in other)
+                {
+                    Result.Add(Item);
+
+                    IList FlatChildren = FlatItemList(GetItemChildren(Item));
                     foreach (object Child in FlatChildren)
                         Result.Add(Child);
                 }
+#endif
+            }
 
             return Result;
         }

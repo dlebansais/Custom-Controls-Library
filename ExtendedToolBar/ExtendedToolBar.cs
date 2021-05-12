@@ -144,7 +144,7 @@
 
             AllButtons.Clear();
 
-            foreach (object Item in Items)
+            foreach (object? Item in Items)
                 if (Item is ExtendedToolBarButton AsExtendedToolBarButton)
                 {
                     bool IsCommandGroupEnabled = ExtendedToolBar.IsCommandGroupEnabled(AsExtendedToolBarButton.Command);

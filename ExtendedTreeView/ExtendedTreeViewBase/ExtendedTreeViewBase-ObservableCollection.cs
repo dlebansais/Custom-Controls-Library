@@ -66,8 +66,16 @@
                 Context.Start();
 
                 if (itemList != null)
+                {
+#if NETCOREAPP3_1
+                    foreach (object? ChildItem in itemList)
+                        if (ChildItem != null)
+                            InsertChildren(Context, ChildItem, item);
+#else
                     foreach (object ChildItem in itemList)
                         InsertChildren(Context, ChildItem, item);
+#endif
+                }
 
                 Context.Complete();
                 Context.Close();
@@ -97,8 +105,16 @@
                 Context.Start();
 
                 if (itemList != null)
+                {
+#if NETCOREAPP3_1
+                    foreach (object? ChildItem in itemList)
+                        if (ChildItem != null)
+                            RemoveChildren(Context, ChildItem, item);
+#else
                     foreach (object ChildItem in itemList)
                         RemoveChildren(Context, ChildItem, item);
+#endif
+                }
 
                 Context.Complete();
                 Context.Close();
@@ -131,8 +147,16 @@
                     RemoveContext.Start();
 
                     if (itemList != null)
+                    {
+#if NETCOREAPP3_1
+                        foreach (object? ChildItem in itemList)
+                            if (ChildItem != null)
+                                RemoveChildren(RemoveContext, ChildItem, item);
+#else
                         foreach (object ChildItem in itemList)
                             RemoveChildren(RemoveContext, ChildItem, item);
+#endif
+                    }
 
                     RemoveContext.Complete();
                     RemoveContext.Close();
@@ -144,8 +168,16 @@
                     InsertContext.Start();
 
                     if (itemList != null)
+                    {
+#if NETCOREAPP3_1
+                        foreach (object? ChildItem in itemList)
+                            if (ChildItem != null)
+                                InsertChildren(InsertContext, ChildItem, item);
+#else
                         foreach (object ChildItem in itemList)
                             InsertChildren(InsertContext, ChildItem, item);
+#endif
+                    }
 
                     InsertContext.Complete();
                     InsertContext.Close();
@@ -161,8 +193,16 @@
                     RemoveContext.Start();
 
                     if (itemList != null)
+                    {
+#if NETCOREAPP3_1
+                        foreach (object? ChildItem in itemList)
+                            if (ChildItem != null)
+                                RemoveChildren(RemoveContext, ChildItem, item);
+#else
                         foreach (object ChildItem in itemList)
                             RemoveChildren(RemoveContext, ChildItem, item);
+#endif
+                    }
 
                     RemoveContext.Complete();
                     RemoveContext.Close();
@@ -174,8 +214,16 @@
                     InsertContext.Start();
 
                     if (itemList != null)
+                    {
+#if NETCOREAPP3_1
+                        foreach (object? ChildItem in itemList)
+                            if (ChildItem != null)
+                                InsertChildren(InsertContext, ChildItem, item);
+#else
                         foreach (object ChildItem in itemList)
                             InsertChildren(InsertContext, ChildItem, item);
+#endif
+                    }
 
                     InsertContext.Complete();
                     InsertContext.Close();

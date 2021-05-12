@@ -73,8 +73,14 @@
                 IList Children = GetItemChildren(item);
                 Result += Children.Count;
 
+#if NETCOREAPP3_1
+                foreach (object? Child in Children)
+                    if (Child != null)
+                        Result += CountVisibleChildren(Child);
+#else
                 foreach (object Child in Children)
                     Result += CountVisibleChildren(Child);
+#endif
             }
 
             return Result;
@@ -124,6 +130,17 @@
             int NewIndex = index;
 
             IList Children = GetItemChildren(item);
+
+#if NETCOREAPP3_1
+            foreach (object? ChildItem in Children)
+                if (ChildItem != null)
+                {
+                    InternalInsert(NewIndex++, ChildItem);
+
+                    if (IsExpanded(ChildItem))
+                        NewIndex = Expand(ChildItem, NewIndex);
+                }
+#else
             foreach (object ChildItem in Children)
             {
                 InternalInsert(NewIndex++, ChildItem);
@@ -131,6 +148,7 @@
                 if (IsExpanded(ChildItem))
                     NewIndex = Expand(ChildItem, NewIndex);
             }
+#endif
 
             return NewIndex;
         }
@@ -155,6 +173,17 @@
         protected virtual void Collapse(object item, int index)
         {
             IList Children = GetItemChildren(item);
+
+#if NETCOREAPP3_1
+            foreach (object? ChildItem in Children)
+                if (ChildItem != null)
+                {
+                    InternalRemove(index, ChildItem);
+
+                    if (IsExpanded(ChildItem))
+                        Collapse(ChildItem, index);
+                }
+#else
             foreach (object ChildItem in Children)
             {
                 InternalRemove(index, ChildItem);
@@ -162,6 +191,7 @@
                 if (IsExpanded(ChildItem))
                     Collapse(ChildItem, index);
             }
+#endif
         }
 
         /// <summary>

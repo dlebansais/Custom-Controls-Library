@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>netcoreapp3.1;net48;net5.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Authors>David Le Bansais</Authors>
     <Company />
     <Product />
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2019 David Le Bansais</Copyright>
-    <AssemblyVersion>1.0.4.709</AssemblyVersion>
-    <FileVersion>1.0.4.78</FileVersion>
+    <AssemblyVersion>1.0.5.711</AssemblyVersion>
+    <FileVersion>1.0.5.78</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
