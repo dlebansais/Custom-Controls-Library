@@ -72,6 +72,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreBuild", "PreBuild\PreBuild.csproj", "{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitViewDemo", "Test\SplitViewDemo\SplitViewDemo.csproj", "{5BAC8AE2-2AEA-4360-BA62-ECD063ED882F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeViewDemo", "Test\ExtendedTreeViewDemo\ExtendedTreeViewDemo.csproj", "{12EE1F9F-45F2-4494-B834-50521DAE2C50}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -134,6 +138,14 @@ Global
 		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Debug|x64.Build.0 = Debug|x64
 		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Release|x64.ActiveCfg = Release|x64
 		{397E62B5-D858-47F8-BFCA-5F0A3574DDAF}.Release|x64.Build.0 = Release|x64
+		{5BAC8AE2-2AEA-4360-BA62-ECD063ED882F}.Debug|x64.ActiveCfg = Debug|x64
+		{5BAC8AE2-2AEA-4360-BA62-ECD063ED882F}.Debug|x64.Build.0 = Debug|x64
+		{5BAC8AE2-2AEA-4360-BA62-ECD063ED882F}.Release|x64.ActiveCfg = Release|x64
+		{5BAC8AE2-2AEA-4360-BA62-ECD063ED882F}.Release|x64.Build.0 = Release|x64
+		{12EE1F9F-45F2-4494-B834-50521DAE2C50}.Debug|x64.ActiveCfg = Debug|x64
+		{12EE1F9F-45F2-4494-B834-50521DAE2C50}.Debug|x64.Build.0 = Debug|x64
+		{12EE1F9F-45F2-4494-B834-50521DAE2C50}.Release|x64.ActiveCfg = Release|x64
+		{12EE1F9F-45F2-4494-B834-50521DAE2C50}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

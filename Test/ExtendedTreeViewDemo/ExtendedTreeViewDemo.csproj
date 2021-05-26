@@ -7,14 +7,11 @@
     <LangVersion>9.0</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
-    <Version>1.0.1</Version>
     <Authors>David Le Bansais</Authors>
     <Company />
     <Product />
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2019 David Le Bansais</Copyright>
-    <AssemblyVersion>1.0.1.708</AssemblyVersion>
-    <FileVersion>1.0.1.131</FileVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -46,9 +43,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="ExtendedTreeView">
-      <HintPath>..\..\ExtendedTreeView\bin\$(Platform)\$(Configuration)\net48\ExtendedTreeView.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView.csproj" />
   </ItemGroup>
 
   <Target Name="_ResolveCopyLocalNuGetPackagePdbsAndXml" Condition="$(CopyLocalLockFileAssemblies) == true" AfterTargets="ResolveReferences">
@@ -58,13 +53,9 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(SolutionDir)'!='*Undefined*'">
     <Exec Command="if exist &quot;$(SolutionDir)updatecommit.bat&quot; call &quot;$(SolutionDir)updatecommit.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetPath)&quot;" />
-  </Target>
-
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <Exec Command="if exist &quot;$(SolutionDir)updatecommit.bat&quot; call &quot;$(SolutionDir)updatecommit.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(TargetPath)&quot;" />
-    <Exec Command="if exist &quot;$(SolutionDir)signfile.bat&quot; call &quot;$(SolutionDir)signfile.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(Configuration)-$(Platform)&quot; &quot;$(TargetPath)&quot;" />
+    <Exec Command="if exist &quot;$(SolutionDir)signfile.bat&quot; call &quot;$(SolutionDir)signfile.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(Configuration)-$(Platform)&quot; &quot;$(TargetPath)&quot;" Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
   </Target>
 
 </Project>

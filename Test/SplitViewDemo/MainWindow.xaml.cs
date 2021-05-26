@@ -57,6 +57,8 @@
                 ZoomTransform.ScaleX = Zoom;
                 ZoomTransform.ScaleY = Zoom;
             }
+
+            bool b = Ctrl.IsSplitRemovable;
         }
         #endregion
 
