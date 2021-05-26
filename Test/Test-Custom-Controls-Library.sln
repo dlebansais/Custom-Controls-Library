@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29613.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitViewDemo", "SplitViewDemo\SplitViewDemo.csproj", "{6AFD2244-FE0F-485C-9DCB-6E075AF0E935}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeViewDemo", "ExtendedTreeViewDemo\ExtendedTreeViewDemo.csproj", "{105C484C-C2F2-4AA2-BE5B-F06D92406151}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-BusyIndicator", "Test-BusyIndicator\Test-BusyIndicator.csproj", "{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test-DialogValidation", "Test-DialogValidation\Test-DialogValidation.csproj", "{32F0C528-7A29-4412-86ED-82EE5480C9DF}"
@@ -50,14 +46,6 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6AFD2244-FE0F-485C-9DCB-6E075AF0E935}.Debug|x64.ActiveCfg = Debug|x64
-		{6AFD2244-FE0F-485C-9DCB-6E075AF0E935}.Debug|x64.Build.0 = Debug|x64
-		{6AFD2244-FE0F-485C-9DCB-6E075AF0E935}.Release|x64.ActiveCfg = Release|x64
-		{6AFD2244-FE0F-485C-9DCB-6E075AF0E935}.Release|x64.Build.0 = Release|x64
-		{105C484C-C2F2-4AA2-BE5B-F06D92406151}.Debug|x64.ActiveCfg = Debug|x64
-		{105C484C-C2F2-4AA2-BE5B-F06D92406151}.Debug|x64.Build.0 = Debug|x64
-		{105C484C-C2F2-4AA2-BE5B-F06D92406151}.Release|x64.ActiveCfg = Release|x64
-		{105C484C-C2F2-4AA2-BE5B-F06D92406151}.Release|x64.Build.0 = Release|x64
 		{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}.Debug|x64.ActiveCfg = Debug|x64
 		{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}.Debug|x64.Build.0 = Debug|x64
 		{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}.Release|x64.ActiveCfg = Release|x64
