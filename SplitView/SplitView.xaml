@@ -4,9 +4,10 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              xmlns:app="clr-namespace:CustomControls"
              xmlns:ctrl="CustomControlsLibrary"
-             xmlns:conv="clr-namespace:Converters">
+             xmlns:conv="clr-namespace:Converters;assembly=XamlConverterLibrary"
+             xmlns:localconv="clr-namespace:Converters">
     <UserControl.Resources>
-        <conv:DoubleToPercentageConverter x:Key="convDoubleToPercentage"/>
+        <localconv:DoubleToPercentageConverter x:Key="convDoubleToPercentage"/>
         <conv:BooleanToObjectConverter x:Key="convBooleanToObject"/>
         <CompositeCollection x:Key="VisibleCollapsed">
             <Visibility>Visible</Visibility>
