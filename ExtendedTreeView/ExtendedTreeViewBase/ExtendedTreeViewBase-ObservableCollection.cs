@@ -136,101 +136,107 @@
 
             if (IsExpanded(item))
             {
-                if (oldIndex > newIndex)
-                {
-                    int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
-
-                    int RemoveIndex = ShownPreviousChildrenCount;
-                    RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex + 1, newIndex);
-
-                    IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
-                    RemoveContext.Start();
-
-                    if (itemList != null)
-                    {
-#if NETCOREAPP3_1
-                        foreach (object? ChildItem in itemList)
-                            if (ChildItem != null)
-                                RemoveChildren(RemoveContext, ChildItem, item);
-#else
-                        foreach (object ChildItem in itemList)
-                            RemoveChildren(RemoveContext, ChildItem, item);
-#endif
-                    }
-
-                    RemoveContext.Complete();
-                    RemoveContext.Close();
-
-                    int InsertIndex = ShownPreviousChildrenCount;
-                    InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
-
-                    IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
-                    InsertContext.Start();
-
-                    if (itemList != null)
-                    {
-#if NETCOREAPP3_1
-                        foreach (object? ChildItem in itemList)
-                            if (ChildItem != null)
-                                InsertChildren(InsertContext, ChildItem, item);
-#else
-                        foreach (object ChildItem in itemList)
-                            InsertChildren(InsertContext, ChildItem, item);
-#endif
-                    }
-
-                    InsertContext.Complete();
-                    InsertContext.Close();
-                }
-                else if (oldIndex < newIndex)
-                {
-                    int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
-
-                    int RemoveIndex = ShownPreviousChildrenCount;
-                    RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex, -1);
-
-                    IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
-                    RemoveContext.Start();
-
-                    if (itemList != null)
-                    {
-#if NETCOREAPP3_1
-                        foreach (object? ChildItem in itemList)
-                            if (ChildItem != null)
-                                RemoveChildren(RemoveContext, ChildItem, item);
-#else
-                        foreach (object ChildItem in itemList)
-                            RemoveChildren(RemoveContext, ChildItem, item);
-#endif
-                    }
-
-                    RemoveContext.Complete();
-                    RemoveContext.Close();
-
-                    int InsertIndex = ShownPreviousChildrenCount;
-                    InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
-
-                    IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
-                    InsertContext.Start();
-
-                    if (itemList != null)
-                    {
-#if NETCOREAPP3_1
-                        foreach (object? ChildItem in itemList)
-                            if (ChildItem != null)
-                                InsertChildren(InsertContext, ChildItem, item);
-#else
-                        foreach (object ChildItem in itemList)
-                            InsertChildren(InsertContext, ChildItem, item);
-#endif
-                    }
-
-                    InsertContext.Complete();
-                    InsertContext.Close();
-                }
+                if (oldIndex < newIndex)
+                    OnItemMoveChildrenPreviousBefore(item, oldIndex, newIndex, itemList);
+                else if (oldIndex > newIndex)
+                    OnItemMoveChildrenPreviousAfter(item, oldIndex, newIndex, itemList);
             }
 
             NotifyCollectionModified(TreeViewCollectionOperation.Move);
+        }
+
+        private void OnItemMoveChildrenPreviousBefore(object item, int oldIndex, int newIndex, IList? itemList)
+        {
+            int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
+
+            int RemoveIndex = ShownPreviousChildrenCount;
+            RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex, -1);
+
+            IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
+            RemoveContext.Start();
+
+            if (itemList != null)
+            {
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in itemList)
+                    if (ChildItem != null)
+                        RemoveChildren(RemoveContext, ChildItem, item);
+#else
+                foreach (object ChildItem in itemList)
+                    RemoveChildren(RemoveContext, ChildItem, item);
+#endif
+            }
+
+            RemoveContext.Complete();
+            RemoveContext.Close();
+
+            int InsertIndex = ShownPreviousChildrenCount;
+            InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
+
+            IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
+            InsertContext.Start();
+
+            if (itemList != null)
+            {
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in itemList)
+                    if (ChildItem != null)
+                        InsertChildren(InsertContext, ChildItem, item);
+#else
+                foreach (object ChildItem in itemList)
+                    InsertChildren(InsertContext, ChildItem, item);
+#endif
+            }
+
+            InsertContext.Complete();
+            InsertContext.Close();
+        }
+
+        private void OnItemMoveChildrenPreviousAfter(object item, int oldIndex, int newIndex, IList? itemList)
+        {
+            int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
+
+            int RemoveIndex = ShownPreviousChildrenCount;
+            RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex + 1, newIndex);
+
+            IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
+            RemoveContext.Start();
+
+            if (itemList != null)
+            {
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in itemList)
+                    if (ChildItem != null)
+                        RemoveChildren(RemoveContext, ChildItem, item);
+#else
+                foreach (object ChildItem in itemList)
+                    RemoveChildren(RemoveContext, ChildItem, item);
+#endif
+            }
+
+            RemoveContext.Complete();
+            RemoveContext.Close();
+
+            int InsertIndex = ShownPreviousChildrenCount;
+            InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
+
+            IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
+            InsertContext.Start();
+
+            if (itemList != null)
+            {
+#if NETCOREAPP3_1
+                foreach (object? ChildItem in itemList)
+                    if (ChildItem != null)
+                        InsertChildren(InsertContext, ChildItem, item);
+#else
+                foreach (object ChildItem in itemList)
+                    InsertChildren(InsertContext, ChildItem, item);
+#endif
+            }
+
+            InsertContext.Complete();
+            InsertContext.Close();
         }
 
         /// <summary>
