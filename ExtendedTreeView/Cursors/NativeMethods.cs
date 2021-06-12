@@ -1,10 +1,8 @@
 ﻿namespace CustomControls
 {
     using System;
-    using System.Collections.Generic;
-    using System.IO;
     using System.Runtime.InteropServices;
-    using System.Windows.Input;
+    using System.Text;
 
     /// <summary>
     /// Contains unmanaged methods to read resources from a file.
@@ -111,5 +109,17 @@
         [DllImport("kernel32.dll", SetLastError = true)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool FreeLibrary(IntPtr hMod);
+
+        /// <summary>
+        /// Gets the current thme name.
+        /// </summary>
+        /// <param name="pszThemeFileName">The theme file name upon return.</param>
+        /// <param name="dwMaxNameChars">The max size for the theme file name.</param>
+        /// <param name="pszColorBuff">The color buff.</param>
+        /// <param name="dwMaxColorChars">The max size for the color buff.</param>
+        /// <param name="pszSizeBuff">The size buff.</param>
+        /// <param name="cchMaxSizeChars">The max size for the size buff.</param>
+        [DllImport("uxtheme.dll", CharSet = CharSet.Auto)]
+        public static extern int GetCurrentThemeName(StringBuilder pszThemeFileName, int dwMaxNameChars, StringBuilder pszColorBuff, int dwMaxColorChars, StringBuilder pszSizeBuff, int cchMaxSizeChars);
     }
 }
