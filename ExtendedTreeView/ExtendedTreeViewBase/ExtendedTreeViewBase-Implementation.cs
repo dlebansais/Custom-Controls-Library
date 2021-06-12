@@ -50,16 +50,7 @@
         {
             NotifyPreviewCollectionModified(TreeViewCollectionOperation.Insert);
 
-            if (Content != null)
-            {
-                IInsertItemContext Context = CreateInsertItemContext(Content, 0);
-                Context.Start();
-
-                InsertChildren(Context, Content, null);
-
-                Context.Complete();
-                Context.Close();
-            }
+            InsertChildrenFromRootDontNotify();
 
             NotifyCollectionModified(TreeViewCollectionOperation.Insert);
         }

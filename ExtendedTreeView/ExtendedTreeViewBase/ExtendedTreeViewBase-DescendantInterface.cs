@@ -10,6 +10,20 @@
     public abstract partial class ExtendedTreeViewBase : MultiSelector
     {
         /// <summary>
+        /// Checks if an item is the current content.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>True if equal to the current content; otherwise, false.</returns>
+        protected abstract bool IsContent(object item);
+
+        /// <summary>
+        /// Checks if an item is of the same type as the current content.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>True if of the same type as the current content; otherwise, false.</returns>
+        protected abstract bool IsSameTypeAsContent(object? item);
+
+        /// <summary>
         /// Gets the parent of an item.
         /// </summary>
         /// <param name="item">The item.</param>
@@ -68,6 +82,11 @@
         protected abstract void DragDropCopy(object sourceItem, object destinationItem, IList? itemList, IList cloneList);
 
         /// <summary>
+        /// Inserts child items starting from the content root.
+        /// </summary>
+        protected abstract void InsertChildrenFromRootDontNotify();
+
+        /// <summary>
         /// Creates a list of items.
         /// </summary>
         /// <returns>The created list of items.</returns>
@@ -75,6 +94,12 @@
         {
             return new List<object>();
         }
+
+        /// <summary>
+        /// Sets the dragged items.
+        /// </summary>
+        /// <param name="dragSource">The drag source.</param>
+        protected abstract void SetDragItemList(IDragSourceControl dragSource);
 
         /// <summary>
         /// Creates a context for inserting.

@@ -21,7 +21,7 @@
 
             ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
 
-            if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart) || (ItemContainer == null && item == Content && IsRootAlwaysExpanded))
+            if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart) || (ItemContainer == null && IsContent(item) && IsRootAlwaysExpanded))
                 for (int i = 0; i < index; i++)
                     if (i != excludedIndex)
                     {
@@ -91,7 +91,7 @@
         /// <returns>True if collapsible; othewise, false.</returns>
         public bool IsItemCollapsible(object item)
         {
-            return !IsCtrlDown() && GetItemChildrenCount(item) > 0 && (item != Content || !IsRootAlwaysExpanded);
+            return !IsCtrlDown() && GetItemChildrenCount(item) > 0 && (!IsContent(item) || !IsRootAlwaysExpanded);
         }
 
         /// <summary>

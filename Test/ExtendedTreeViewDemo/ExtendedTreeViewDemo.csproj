@@ -47,6 +47,38 @@
     <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Resources\CSharpFile.png" />
+    <None Remove="Resources\CSharpProject.png" />
+    <None Remove="Resources\Faces\face-angel-2.png" />
+    <None Remove="Resources\Faces\face-cool.png" />
+    <None Remove="Resources\Faces\face-devilish-2.png" />
+    <None Remove="Resources\Faces\face-kiss-2.png" />
+    <None Remove="Resources\Faces\face-laugh.png" />
+    <None Remove="Resources\Faces\face-monkey-2.png" />
+    <None Remove="Resources\Faces\face-smile-big-2.png" />
+    <None Remove="Resources\Faces\face-wink-2.png" />
+    <None Remove="Resources\Faces\face-worried.png" />
+    <None Remove="Resources\Folder.png" />
+    <None Remove="Resources\RecycleBin.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\CSharpFile.png" />
+    <Resource Include="Resources\CSharpProject.png" />
+    <Resource Include="Resources\Faces\face-angel-2.png" />
+    <Resource Include="Resources\Faces\face-cool.png" />
+    <Resource Include="Resources\Faces\face-devilish-2.png" />
+    <Resource Include="Resources\Faces\face-kiss-2.png" />
+    <Resource Include="Resources\Faces\face-laugh.png" />
+    <Resource Include="Resources\Faces\face-monkey-2.png" />
+    <Resource Include="Resources\Faces\face-smile-big-2.png" />
+    <Resource Include="Resources\Faces\face-wink-2.png" />
+    <Resource Include="Resources\Faces\face-worried.png" />
+    <Resource Include="Resources\Folder.png" />
+    <Resource Include="Resources\RecycleBin.png" />
+  </ItemGroup>
+
   <Target Name="_ResolveCopyLocalNuGetPackagePdbsAndXml" Condition="$(CopyLocalLockFileAssemblies) == true" AfterTargets="ResolveReferences">
     <ItemGroup>
       <ReferenceCopyLocalPaths Include="@(ReferenceCopyLocalPaths->'%(RootDir)%(Directory)%(Filename).pdb')" Condition="'%(ReferenceCopyLocalPaths.NuGetPackageId)' != '' And Exists('%(RootDir)%(Directory)%(Filename).pdb') " />

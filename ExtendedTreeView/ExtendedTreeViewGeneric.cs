@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Windows;
 
     /// <summary>
     /// Represents a tree view control for a generic type of items.
@@ -11,10 +12,75 @@
     /// <typeparam name="TItem">The type of items.</typeparam>
     /// <typeparam name="TCollection">The type of collection of items.</typeparam>
     public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
-        where TItem : IExtendedTreeNode
+        where TItem : class, IExtendedTreeNode
         where TCollection : IExtendedTreeNodeCollection
     {
+        #region Content
+        /// <summary>
+        /// Identifies the <see cref="Content"/> attached property.
+        /// </summary>
+        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(TItem), typeof(ExtendedTreeViewGeneric<TItem, TCollection>), new FrameworkPropertyMetadata(default(TItem), OnContentChanged));
+
+        /// <summary>
+        /// Gets or sets the control content.
+        /// </summary>
+        public TItem Content
+        {
+            get { return (TItem)GetValue(ContentProperty); }
+            set { SetValue(ContentProperty, value); }
+        }
+
+        /// <summary>
+        /// Handles changes of the <see cref="Content"/> property.
+        /// </summary>
+        /// <param name="modifiedObject">The modified object.</param>
+        /// <param name="e">An object that contains event data.</param>
+        protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
+        {
+            if (modifiedObject == null)
+                throw new ArgumentNullException(nameof(modifiedObject));
+
+            ExtendedTreeViewGeneric<TItem, TCollection> ctrl = (ExtendedTreeViewGeneric<TItem, TCollection>)modifiedObject;
+            ctrl.OnContentChanged(e);
+        }
+
+        /// <summary>
+        /// Handles changes of the <see cref="Content"/> property.
+        /// </summary>
+        /// <param name="e">An object that contains event data.</param>
+        protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs e)
+        {
+            BuildFlatChildrenTables();
+        }
+        #endregion
+
         #region Ancestor Interface
+        /// <summary>
+        /// Checks if an item is the current content.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>True if equal to the current content; otherwise, false.</returns>
+        protected override bool IsContent(object item)
+        {
+            return item is TItem AsItem && AsItem == Content;
+        }
+
+        /// <summary>
+        /// Checks if an item is of the same type as the current content.
+        /// </summary>
+        /// <param name="item">The item.</param>
+        /// <returns>True if of the same type as the current content; otherwise, false.</returns>
+        protected override bool IsSameTypeAsContent(object? item)
+        {
+            if (item == null || Content == null)
+                return false;
+
+            if (item.GetType() != Content.GetType())
+                return false;
+
+            return true;
+        }
+
         /// <summary>
         /// Gets the parent of an item.
         /// </summary>
@@ -178,12 +244,38 @@
         }
 
         /// <summary>
+        /// Inserts child items starting from the content root.
+        /// </summary>
+        protected override void InsertChildrenFromRootDontNotify()
+        {
+            if (Content != null)
+            {
+                IInsertItemContext Context = CreateInsertItemContext(Content, 0);
+                Context.Start();
+
+                InsertChildren(Context, Content, null);
+
+                Context.Complete();
+                Context.Close();
+            }
+        }
+
+        /// <summary>
         /// Creates a list of items.
         /// </summary>
         /// <returns>The created list of items.</returns>
         protected override IList CreateItemList()
         {
             return new List<TItem>();
+        }
+
+        /// <summary>
+        /// Sets the dragged items.
+        /// </summary>
+        /// <param name="dragSource">The drag source.</param>
+        protected override void SetDragItemList(IDragSourceControl dragSource)
+        {
+            dragSource.SetDragItemList(Content, FlatItemList(dragSource.ItemList));
         }
         #endregion
 

@@ -12,44 +12,6 @@
     /// </summary>
     public abstract partial class ExtendedTreeViewBase : MultiSelector
     {
-        #region Content
-        /// <summary>
-        /// Identifies the <see cref="Content"/> attached property.
-        /// </summary>
-        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(object), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null, OnContentChanged));
-
-        /// <summary>
-        /// Gets or sets the control content.
-        /// </summary>
-        public object Content
-        {
-            get { return GetValue(ContentProperty); }
-            set { SetValue(ContentProperty, value); }
-        }
-
-        /// <summary>
-        /// Handles changes of the <see cref="Content"/> property.
-        /// </summary>
-        /// <param name="modifiedObject">The modified object.</param>
-        /// <param name="e">An object that contains event data.</param>
-        protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
-        {
-            if (modifiedObject == null)
-                throw new ArgumentNullException(nameof(modifiedObject));
-
-            ExtendedTreeViewBase ctrl = (ExtendedTreeViewBase)modifiedObject;
-            ctrl.OnContentChanged(e);
-        }
-
-        /// <summary>
-        /// Handles changes of the <see cref="Content"/> property.
-        /// </summary>
-        /// <param name="e">An object that contains event data.</param>
-        protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs e)
-        {
-            BuildFlatChildrenTables();
-        }
-        #endregion
         #region Selection Mode
         /// <summary>
         /// Identifies the <see cref="SelectionMode"/> attached property.

@@ -66,7 +66,7 @@
                     break;
 
                 case DragActivity.Starting:
-                    DragSource.SetDragItemList(Content, FlatItemList(DragSource.ItemList));
+                    SetDragItemList(DragSource);
 
                     CancellationToken cancellation = new CancellationToken();
                     NotifyDragStarting(cancellation);
@@ -186,10 +186,7 @@
             if (AsDragSource == null)
                 return null;
 
-            if (AsDragSource.RootItem == null || Content == null)
-                return null;
-
-            if (AsDragSource.RootItem.GetType() != Content.GetType())
+            if (!IsSameTypeAsContent(AsDragSource.RootItem))
                 return null;
 
             IList? FlatItemList = AsDragSource.FlatItemList;

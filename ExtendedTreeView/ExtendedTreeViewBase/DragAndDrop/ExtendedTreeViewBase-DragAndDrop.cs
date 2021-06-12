@@ -45,7 +45,7 @@
             SortedSelectedItems.Sort(SortByIndex);
 
             object FirstItem = SortedSelectedItems[0];
-            if (FirstItem == Content)
+            if (IsContent(FirstItem))
                 return false;
 
             object? FirstItemParent = GetItemParent(FirstItem);
