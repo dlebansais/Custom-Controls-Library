@@ -19,7 +19,7 @@
         /// <summary>
         /// Identifies the <see cref="Content"/> attached property.
         /// </summary>
-        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(TItem), typeof(ExtendedTreeViewGeneric<TItem, TCollection>), new FrameworkPropertyMetadata(default(TItem), OnContentChanged));
+        public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(TItem), typeof(ExtendedTreeViewGeneric<TItem, TCollection>), new FrameworkPropertyMetadata(new EmptyExtendedTreeNode<TItem, TCollection>(), OnContentChanged));
 
         /// <summary>
         /// Gets or sets the control content.
