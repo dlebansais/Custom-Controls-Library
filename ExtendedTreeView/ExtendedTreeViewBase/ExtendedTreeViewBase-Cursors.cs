@@ -32,6 +32,7 @@
         protected static Cursor LoadCursorFromResourceFile(string filePath, int resourceId)
         {
             CursorResource CursorFromResource = new CursorResource(filePath, (uint)resourceId);
+            CursorFromResource.Load();
             return CursorFromResource.AsCursor;
         }
 
