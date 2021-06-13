@@ -277,6 +277,50 @@
         {
             dragSource.SetDragItemList(Content, FlatItemList(dragSource.ItemList));
         }
+
+#if NET5_0
+        /// <summary>
+        /// Gets the list of visible items.
+        /// </summary>
+        public override List<TItem> VisibleItems()
+        {
+            List<TItem> Result = new List<TItem>();
+            IList BaseItemList = base.VisibleItems();
+
+            foreach (object item in BaseItemList)
+                Result.Add((TItem)item);
+
+            return Result;
+        }
+#elif NETCOREAPP3_1
+        /// <summary>
+        /// Gets the list of visible items.
+        /// </summary>
+        public override IList VisibleItems()
+        {
+            List<TItem?> Result = new List<TItem?>();
+            IList BaseItemList = base.VisibleItems();
+
+            foreach (object? item in BaseItemList)
+                Result.Add(item as TItem);
+
+            return Result;
+        }
+#else
+        /// <summary>
+        /// Gets the list of visible items.
+        /// </summary>
+        public override IList VisibleItems()
+        {
+            List<TItem> Result = new List<TItem>();
+            IList BaseItemList = base.VisibleItems();
+
+            foreach (object item in BaseItemList)
+                Result.Add((TItem)item);
+
+            return Result;
+        }
+#endif
         #endregion
 
         #region Implementation
@@ -292,6 +336,6 @@
             else
                 throw new ArgumentOutOfRangeException(nameof(sender));
         }
-        #endregion
+#endregion
     }
 }

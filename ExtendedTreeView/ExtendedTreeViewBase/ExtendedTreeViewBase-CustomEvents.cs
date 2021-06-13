@@ -33,6 +33,7 @@
             RaiseEvent(new TreeViewCollectionModifiedEventArgs(PreviewCollectionModifiedEvent, treeViewCollectionOperation, Items.Count));
         }
         #endregion
+
         #region Collection Modified
         /// <summary>
         /// Identifies the <see cref="CollectionModified"/> routed event.
@@ -57,6 +58,7 @@
             RaiseEvent(new TreeViewCollectionModifiedEventArgs(CollectionModifiedEvent, treeViewCollectionOperation, Items.Count));
         }
         #endregion
+
         #region Drag Starting
         /// <summary>
         /// Identifies the <see cref="DragStarting"/> routed event.
@@ -82,6 +84,7 @@
             RaiseEvent(Args);
         }
         #endregion
+
         #region Drop Check
         /// <summary>
         /// Identifies the <see cref="DropCheck"/> routed event.
@@ -108,6 +111,7 @@
             RaiseEvent(Args);
         }
         #endregion
+
         #region Preview Drop Completed
         /// <summary>
         /// Identifies the <see cref="PreviewDropCompleted"/> routed event.
@@ -134,6 +138,7 @@
             RaiseEvent(Args);
         }
         #endregion
+
         #region Drop Completed
         /// <summary>
         /// Identifies the <see cref="DropCompleted"/> routed event.

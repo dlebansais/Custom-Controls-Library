@@ -11,16 +11,13 @@
         /// <summary>
         /// Gets the list of visible items.
         /// </summary>
-        public virtual IList VisibleItems
+        public virtual IList VisibleItems()
         {
-            get
-            {
-                IList Result = CreateItemList();
-                foreach (object item in VisibleChildren)
-                    Result.Add(item);
+            IList Result = CreateItemList();
+            foreach (object item in VisibleChildren)
+                Result.Add(item);
 
-                return Result;
-            }
+            return Result;
         }
 
         /// <summary>

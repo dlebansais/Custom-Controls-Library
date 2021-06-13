@@ -1,7 +1,6 @@
 ﻿namespace CustomControls
 {
     using System;
-    using System.Collections;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Controls.Primitives;
@@ -27,6 +26,7 @@
             set { SetValue(SelectionModeProperty, value); }
         }
         #endregion
+
         #region Is Root Always Expanded
         /// <summary>
         /// Identifies the <see cref="IsRootAlwaysExpanded"/> attached property.
@@ -42,6 +42,7 @@
             set { SetValue(IsRootAlwaysExpandedProperty, value); }
         }
         #endregion
+
         #region Is Item Expanded At Start
         /// <summary>
         /// Identifies the <see cref="IsItemExpandedAtStart"/> attached property.
@@ -57,6 +58,7 @@
             set { SetValue(IsItemExpandedAtStartProperty, value); }
         }
         #endregion
+
         #region Allow Drag Drop
         /// <summary>
         /// Identifies the <see cref="AllowDragDrop"/> attached property.
@@ -97,6 +99,7 @@
                 AllowDrop = true;
         }
         #endregion
+
         #region Use Default Cursors
         /// <summary>
         /// Identifies the <see cref="UseDefaultCursors"/> attached property.
@@ -112,6 +115,7 @@
             set { SetValue(UseDefaultCursorsProperty, value); }
         }
         #endregion
+
         #region Cursor Forbidden
         /// <summary>
         /// Identifies the <see cref="CursorForbidden"/> attached property.
@@ -127,6 +131,7 @@
             set { SetValue(CursorForbiddenProperty, value); }
         }
         #endregion
+
         #region Cursor Move
         /// <summary>
         /// Identifies the <see cref="CursorMove"/> attached property.
@@ -142,6 +147,7 @@
             set { SetValue(CursorMoveProperty, value); }
         }
         #endregion
+
         #region Cursor Copy
         /// <summary>
         /// Identifies the <see cref="CursorCopy"/> attached property.
@@ -157,6 +163,7 @@
             set { SetValue(CursorCopyProperty, value); }
         }
         #endregion
+
         #region Expand Button Width
         /// <summary>
         /// Identifies the <see cref="ExpandButtonWidth"/> attached property.
@@ -183,6 +190,7 @@
             return Width >= 0;
         }
         #endregion
+
         #region Expand Button Style
         /// <summary>
         /// Identifies the <see cref="ExpandButtonStyle"/> attached property.
@@ -198,6 +206,7 @@
             set { SetValue(ExpandButtonStyleProperty, value); }
         }
         #endregion
+
         #region Indentation Width
         /// <summary>
         /// Identifies the <see cref="IndentationWidth"/> attached property.
@@ -224,6 +233,7 @@
             return Width >= 0;
         }
         #endregion
+
         #region Has Context Menu Open
         /// <summary>
         /// Identifies the HasContextMenuOpen attached property.
