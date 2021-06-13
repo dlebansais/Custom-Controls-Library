@@ -4,6 +4,7 @@
     using System.Collections;
     using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Diagnostics;
     using System.Windows;
 
     /// <summary>
@@ -209,36 +210,33 @@
         /// <param name="destinationItem">The destination item.</param>
         /// <param name="itemList">Children at the source.</param>
         /// <param name="cloneList">Cloned children at the destination.</param>
-        protected override void DragDropCopy(object sourceItem, object destinationItem, IList? itemList, IList cloneList)
+        protected override void DragDropCopy(object sourceItem, object destinationItem, IList itemList, IList cloneList)
         {
-            if (!(destinationItem is TItem AsDestinationItem))
-                throw new ArgumentNullException(nameof(destinationItem));
+            Debug.Assert(itemList.Count > 0);
 
-            TCollection DestinationCollection = (TCollection)AsDestinationItem.Children;
+            TItem DestinationItem = (TItem)destinationItem;
+            TCollection DestinationCollection = (TCollection)DestinationItem.Children;
 
-            if (itemList != null && cloneList != null)
-            {
 #if NETCOREAPP3_1
-                foreach (ICloneable? ChildItem in itemList)
-                    if (ChildItem != null)
-                    {
-                        TItem Clone = (TItem)ChildItem.Clone();
-                        Clone.ChangeParent((TItem)destinationItem);
-                        DestinationCollection.Add(Clone);
-
-                        cloneList.Add(Clone);
-                    }
-#else
-                foreach (ICloneable ChildItem in itemList)
+            foreach (ICloneable? ChildItem in itemList)
+                if (ChildItem != null)
                 {
                     TItem Clone = (TItem)ChildItem.Clone();
-                    Clone.ChangeParent((TItem)destinationItem);
+                    Clone.ChangeParent(DestinationItem);
                     DestinationCollection.Add(Clone);
 
                     cloneList.Add(Clone);
                 }
-#endif
+#else
+            foreach (ICloneable ChildItem in itemList)
+            {
+                TItem Clone = (TItem)ChildItem.Clone();
+                Clone.ChangeParent(DestinationItem);
+                DestinationCollection.Add(Clone);
+
+                cloneList.Add(Clone);
             }
+#endif
 
             DestinationCollection.Sort();
         }

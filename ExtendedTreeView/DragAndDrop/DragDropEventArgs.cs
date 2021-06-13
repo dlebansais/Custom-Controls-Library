@@ -1,6 +1,5 @@
 ﻿namespace CustomControls
 {
-    using System.Collections;
     using System.Windows;
 
     /// <summary>
@@ -19,11 +18,11 @@
             DragSource = dragSource;
         }
 
-        private IDragSourceControl DragSource;
-
         /// <summary>
         /// Gets a value indicating whether copy on drop is allowed.
         /// </summary>
         public virtual bool AllowDropCopy { get { return DragSource.AllowDropCopy; } }
+
+        private IDragSourceControl DragSource;
     }
 }

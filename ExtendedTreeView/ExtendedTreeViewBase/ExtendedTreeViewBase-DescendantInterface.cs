@@ -79,7 +79,7 @@
         /// <param name="destinationItem">The destination item.</param>
         /// <param name="itemList">Children at the source.</param>
         /// <param name="cloneList">Cloned children at the destination.</param>
-        protected abstract void DragDropCopy(object sourceItem, object destinationItem, IList? itemList, IList cloneList);
+        protected abstract void DragDropCopy(object sourceItem, object destinationItem, IList itemList, IList cloneList);
 
         /// <summary>
         /// Inserts child items starting from the content root.

@@ -1,6 +1,7 @@
 ﻿namespace CustomControls
 {
     using System.Collections;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls.Primitives;
 
@@ -39,19 +40,18 @@
 
                 if (IsDragPossible && DestinationItem != null)
                 {
+                    IList CloneList = CreateItemList();
+
+                    Debug.Assert(CloneList.Count == 0);
+                    NotifyPreviewDropCompleted(DestinationItem, e.Effects, CloneList);
+
                     if (e.Effects == DragDropEffects.Copy)
-                    {
-                        IList CloneList = CreateItemList();
-                        NotifyPreviewDropCompleted(DestinationItem, CloneList);
                         DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
-                        NotifyDropCompleted(DestinationItem, CloneList);
-                    }
                     else if (e.Effects == DragDropEffects.Move)
-                    {
-                        NotifyPreviewDropCompleted(DestinationItem, null);
                         DragDropMove(SourceItem, DestinationItem, ItemList);
-                        NotifyDropCompleted(DestinationItem, null);
-                    }
+
+                    Debug.Assert(CloneList.Count > 0 || e.Effects != DragDropEffects.Copy);
+                    NotifyDropCompleted(DestinationItem, e.Effects, CloneList);
 
                     Expand(DestinationItem);
                 }

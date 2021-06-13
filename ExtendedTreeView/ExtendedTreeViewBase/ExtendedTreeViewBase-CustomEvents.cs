@@ -1,6 +1,7 @@
 ﻿namespace CustomControls
 {
     using System.Collections;
+    using System.Diagnostics;
     using System.Windows;
     using System.Windows.Controls.Primitives;
 
@@ -131,10 +132,13 @@
         /// Invokes handlers of the <see cref="PreviewDropCompleted"/> event.
         /// </summary>
         /// <param name="dropDestinationItem">The drop destination item.</param>
-        /// <param name="cloneList">The list of dropped items.</param>
-        protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, IList? cloneList)
+        /// <param name="effect">The drop effect.</param>
+        /// <param name="cloneList">An empty list of items.</param>
+        protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, DragDropEffects effect, IList cloneList)
         {
-            DropCompletedEventArgs Args = new DropCompletedEventArgs(PreviewDropCompletedEvent, DragSource, dropDestinationItem, cloneList);
+            Debug.Assert(cloneList.Count == 0);
+
+            DropCompletedEventArgs Args = new DropCompletedEventArgs(PreviewDropCompletedEvent, DragSource, dropDestinationItem, effect, cloneList);
             RaiseEvent(Args);
         }
         #endregion
@@ -158,10 +162,11 @@
         /// Invokes handlers of the <see cref="DropCompleted"/> event.
         /// </summary>
         /// <param name="dropDestinationItem">The drop destination item.</param>
+        /// <param name="effect">The drop effect.</param>
         /// <param name="cloneList">The list of dropped items.</param>
-        protected virtual void NotifyDropCompleted(object dropDestinationItem, IList? cloneList)
+        protected virtual void NotifyDropCompleted(object dropDestinationItem, DragDropEffects effect, IList cloneList)
         {
-            DropCompletedEventArgs Args = new DropCompletedEventArgs(DropCompletedEvent, DragSource, dropDestinationItem, cloneList);
+            DropCompletedEventArgs Args = new DropCompletedEventArgs(DropCompletedEvent, DragSource, dropDestinationItem, effect, cloneList);
             RaiseEvent(Args);
         }
         #endregion
