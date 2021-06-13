@@ -21,21 +21,5 @@
         {
             SetValue(IsDropOverPropertyKey, ExtendedTreeViewBase.IsDropOver(this));
         }
-
-        /// <summary>
-        /// Updates the disconnected item.
-        /// </summary>
-        /// <param name="value">Candidate value for the disconnected object.</param>
-        public static void UpdateDisconnectedItem(object value)
-        {
-            if (DisconnectedItem == null && value != null)
-            {
-                Type ItemType = value.GetType();
-                if (ItemType.FullName == "MS.Internal.NamedObject")
-                    DisconnectedItem = value;
-            }
-        }
-
-        private static object? DisconnectedItem;
     }
 }

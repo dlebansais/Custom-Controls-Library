@@ -3,6 +3,7 @@
     using System.ComponentModel;
     using System.Windows;
     using System.Windows.Controls;
+    using System.Windows.Data;
 
     /// <summary>
     /// Represents an item in a tree view control.
@@ -18,9 +19,7 @@
         {
             base.OnContentChanged(oldContent, newContent);
 
-            UpdateDisconnectedItem(newContent);
-
-            if (DisconnectedItem != null && newContent != DisconnectedItem)
+            if (newContent != BindingOperations.DisconnectedSource)
                 NotifyPropertyChanged(nameof(Level));
         }
 

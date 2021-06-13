@@ -121,41 +121,38 @@
         /// <param name="e">The event data.</param>
         protected override void OnKeyDown(KeyEventArgs e)
         {
-            if (e != null)
+            switch (e.Key)
             {
-                switch (e.Key)
-                {
-                    case Key.Left:
-                        if (IsExpanded && Host.IsItemCollapsible(Content))
-                        {
-                            IsExpanded = false;
-                            e.Handled = true;
-                            return;
-                        }
+                case Key.Left:
+                    if (IsExpanded && Host.IsItemCollapsible(Content))
+                    {
+                        IsExpanded = false;
+                        e.Handled = true;
+                        return;
+                    }
 
-                        break;
+                    break;
 
-                    case Key.Right:
-                        if (!IsExpanded && Host.IsItemExpandable(Content))
-                        {
-                            IsExpanded = true;
-                            e.Handled = true;
-                            return;
-                        }
+                case Key.Right:
+                    if (!IsExpanded && Host.IsItemExpandable(Content))
+                    {
+                        IsExpanded = true;
+                        e.Handled = true;
+                        return;
+                    }
 
-                        break;
+                    break;
 
-                    case Key.Up:
-                        Host.ClickPreviousItem(Content);
-                        break;
+                case Key.Up:
+                    Host.ClickPreviousItem(Content);
+                    break;
 
-                    case Key.Down:
-                        Host.ClickNextItem(Content);
-                        break;
+                case Key.Down:
+                    Host.ClickNextItem(Content);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
 
             base.OnKeyDown(e);

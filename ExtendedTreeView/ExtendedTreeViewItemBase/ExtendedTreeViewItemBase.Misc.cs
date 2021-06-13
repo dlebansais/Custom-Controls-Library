@@ -1,7 +1,6 @@
 ﻿namespace CustomControls
 {
     using System.ComponentModel;
-    using System.Diagnostics.CodeAnalysis;
     using System.Runtime.CompilerServices;
     using System.Windows.Controls;
 
@@ -15,7 +14,6 @@
         /// Logs a call entry.
         /// </summary>
         /// <param name="callerName">Name of the caller.</param>
-        [SuppressMessage("Microsoft.Design", "CA1026:DefaultParametersShouldNotBeUsed", Justification = "Default parameter is mandatory with [CallerMemberName]")]
         protected virtual void DebugCall([CallerMemberName] string callerName = "")
         {
             bool EnableTraces = ExtendedTreeViewBase.EnableTraces;

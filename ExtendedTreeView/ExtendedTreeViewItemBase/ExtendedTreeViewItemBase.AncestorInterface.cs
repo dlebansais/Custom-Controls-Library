@@ -42,9 +42,6 @@
         /// <param name="e">The event data.</param>
         protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
-            if (modifiedObject == null)
-                throw new ArgumentNullException(nameof(modifiedObject));
-
             ExtendedTreeViewItemBase ctrl = (ExtendedTreeViewItemBase)modifiedObject;
             ctrl.OnContentChanged(e);
         }
