@@ -5,6 +5,7 @@
     using System.IO;
     using System.Runtime.InteropServices;
     using System.Windows.Input;
+    using Contracts;
 
     /// <summary>
     /// Represents a list of string resources loaded from a files.
@@ -41,51 +42,67 @@
             ResourceID = resourceID;
             PreferredSize = preferredSize;
         }
-
-        /// <summary>
-        /// Loads the cursor resources.
-        /// </summary>
-        public virtual void Load()
-        {
-            IntPtr hMod = LoadFile();
-            if (hMod != IntPtr.Zero)
-            {
-                NativeMethods.FileHeader Header;
-                List<NativeMethods.FileRecord> RecordList;
-                if (LoadDirectory(hMod, out Header, out RecordList))
-                {
-                    foreach (NativeMethods.FileRecord Record in RecordList)
-                        if (!LoadData(hMod, Record))
-                            return;
-
-                    ConvertToCursor(Header, RecordList);
-                }
-
-                FreeHandles(hMod);
-            }
-        }
         #endregion
 
         #region Properties
         /// <summary>
         /// Gets the path to the file resources are loaded from.
         /// </summary>
-        public string FilePath { get; private set; }
+        public string FilePath { get; }
 
         /// <summary>
         /// Gets the identifier used to find and load resources in the file.
         /// </summary>
-        public uint ResourceID { get; private set; }
+        public uint ResourceID { get; }
 
         /// <summary>
         /// Gets the width and height of the preferred size, in pixels.
         /// </summary>
-        public int PreferredSize { get; private set; }
+        public int PreferredSize { get; }
 
         /// <summary>
         /// Gets the loaded cursor resources.
         /// </summary>
         public Cursor AsCursor { get; private set; } = Cursors.None;
+        #endregion
+
+        #region Client Interface
+        /// <summary>
+        /// Loads the cursor resources.
+        /// </summary>
+        public virtual bool Load()
+        {
+            IntPtr hMod = LoadFile();
+            if (hMod == IntPtr.Zero)
+                return false;
+
+            NativeMethods.FileHeader Header;
+            List<NativeMethods.FileRecord> RecordList;
+            if (!LoadDirectory(hMod, out Header, out RecordList))
+            {
+                FreeHandle(hMod);
+                return false;
+            }
+
+            bool IsLoaded = true;
+            foreach (NativeMethods.FileRecord Record in RecordList)
+                if (!LoadData(hMod, Record))
+                {
+                    IsLoaded = false;
+                    break;
+                }
+
+            if (!IsLoaded)
+            {
+                FreeHandle(hMod);
+                return false;
+            }
+
+            ConvertToCursor(Header, RecordList);
+
+            FreeHandle(hMod);
+            return true;
+        }
         #endregion
 
         #region Implementation
@@ -110,11 +127,19 @@
         {
             IntPtr hResDir = NativeMethods.FindResource(hMod, (IntPtr)ResourceID, (IntPtr)NativeMethods.RT_GROUP_CURSOR);
             if (hResDir == IntPtr.Zero)
-                throw new ArgumentOutOfRangeException(nameof(hMod));
+            {
+                Contract.Unused(out header);
+                Contract.Unused(out recordList);
+                return false;
+            }
 
             uint size = NativeMethods.SizeofResource(hMod, hResDir);
             if (size < 6)
-                throw new ArgumentOutOfRangeException(nameof(hMod));
+            {
+                Contract.Unused(out header);
+                Contract.Unused(out recordList);
+                return false;
+            }
 
             IntPtr pt = NativeMethods.LoadResource(hMod, hResDir);
 
@@ -234,10 +259,10 @@
         }
 
         /// <summary>
-        /// Frees loaded handles from memory.
+        /// Frees loaded handle from memory.
         /// </summary>
         /// <param name="hMod">Handle to free.</param>
-        protected virtual void FreeHandles(IntPtr hMod)
+        protected virtual void FreeHandle(IntPtr hMod)
         {
             NativeMethods.FreeLibrary(hMod);
         }
