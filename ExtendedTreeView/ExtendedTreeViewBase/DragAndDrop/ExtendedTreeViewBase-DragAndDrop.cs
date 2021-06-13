@@ -245,18 +245,13 @@
         /// <returns>Merged allowed effects.</returns>
         protected virtual DragDropEffects MergedAllowedEffects(DragEventArgs e)
         {
-            if (e != null)
-            {
-                if (e.AllowedEffects.HasFlag(DragDropEffects.Move))
-                    if (e.AllowedEffects.HasFlag(DragDropEffects.Copy) && e.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
-                        return DragDropEffects.Copy;
-                    else
-                        return DragDropEffects.Move;
-                else if (e.AllowedEffects.HasFlag(DragDropEffects.Copy))
+            if (e.AllowedEffects.HasFlag(DragDropEffects.Move))
+                if (e.AllowedEffects.HasFlag(DragDropEffects.Copy) && e.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
                     return DragDropEffects.Copy;
                 else
-                    return DragDropEffects.None;
-            }
+                    return DragDropEffects.Move;
+            else if (e.AllowedEffects.HasFlag(DragDropEffects.Copy))
+                return DragDropEffects.Copy;
             else
                 return DragDropEffects.None;
         }

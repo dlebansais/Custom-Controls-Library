@@ -66,8 +66,7 @@
         /// <returns>The list of allowed effects.</returns>
         protected virtual DragDropEffects GetAllowedDropEffects(DragEventArgs e)
         {
-            IDragSourceControl? AsDragSource = ValidDragSourceFromArgs(e);
-            if (AsDragSource != null)
+            if (GetValidDragSourceFromArgs(e, out IDragSourceControl AsDragSource))
             {
                 if (GetValidDropDestinationFromArgs(e, AsDragSource, out object DropDestinationItem))
                 {

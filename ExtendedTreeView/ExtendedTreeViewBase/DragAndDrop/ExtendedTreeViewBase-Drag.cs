@@ -157,24 +157,28 @@
         /// Gets the drag source from arguments of a drag drop event.
         /// </summary>
         /// <param name="e">The event data.</param>
-        /// <returns>The drag source.</returns>
-        protected virtual IDragSourceControl? ValidDragSourceFromArgs(DragEventArgs e)
+        /// <param name="dragSource">The drag source upon return.</param>
+        /// <returns>True if successful.</returns>
+        protected virtual bool GetValidDragSourceFromArgs(DragEventArgs e, out IDragSourceControl dragSource)
         {
-            if (!e.Data.GetDataPresent(DragSource.GetType()))
-                return null;
+            if (e.Data.GetDataPresent(DragSource.GetType()))
+            {
+                if (e.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
+                {
+                    if (IsSameTypeAsContent(AsDragSource.RootItem))
+                    {
+                        IList? FlatItemList = AsDragSource.FlatItemList;
+                        if (FlatItemList != null && FlatItemList.Count > 0)
+                        {
+                            dragSource = AsDragSource;
+                            return true;
+                        }
+                    }
+                }
+            }
 
-            IDragSourceControl? AsDragSource = e.Data.GetData(DragSource.GetType()) as IDragSourceControl;
-            if (AsDragSource == null)
-                return null;
-
-            if (!IsSameTypeAsContent(AsDragSource.RootItem))
-                return null;
-
-            IList? FlatItemList = AsDragSource.FlatItemList;
-            if (FlatItemList == null || FlatItemList.Count == 0)
-                return null;
-
-            return AsDragSource;
+            Contract.Unused(out dragSource);
+            return false;
         }
     }
 }
