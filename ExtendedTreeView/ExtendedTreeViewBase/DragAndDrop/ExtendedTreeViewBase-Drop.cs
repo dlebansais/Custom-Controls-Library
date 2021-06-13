@@ -32,13 +32,12 @@
             {
                 ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(e);
                 IDragSourceControl AsDragSource = (IDragSourceControl)e.Data.GetData(DragSource.GetType());
-                object? SourceItem = AsDragSource.DragParentItem;
                 IList? ItemList = AsDragSource.ItemList;
                 object? DestinationItem = ItemContainer != null ? ItemContainer.Content : null;
 
                 UnselectAll();
 
-                if (SourceItem != null && DestinationItem != null)
+                if (AsDragSource.IsDragPossible(out object SourceItem) && DestinationItem != null)
                 {
                     if (e.Effects == DragDropEffects.Copy)
                     {
@@ -165,7 +164,7 @@
 
                 if (asDragSource.SourceGuid == DragSource.SourceGuid)
                 {
-                    if ((asDragSource.DragParentItem != DropDestinationItem) || (e.AllowedEffects.HasFlag(DragDropEffects.Copy) && e.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
+                    if (!asDragSource.IsDraggedItemParent(DropDestinationItem) || (e.AllowedEffects.HasFlag(DragDropEffects.Copy) && e.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
                     {
                         IList? FlatItemList = asDragSource.FlatItemList;
                         if (FlatItemList == null || !FlatItemList.Contains(DropDestinationItem))

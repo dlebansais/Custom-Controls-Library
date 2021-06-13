@@ -19,9 +19,9 @@
         }
 
         /// <summary>
-        /// Gets or sets the parent item when dragging.
+        /// Gets the parent item when dragging.
         /// </summary>
-        public object? DraggedItemParent { get; set; }
+        public object DraggedItemParent { get; private set; } = null!;
 
         /// <summary>
         /// Gets the list of selected items.
@@ -37,5 +37,14 @@
         /// Gets or sets the number of records in a branch.
         /// </summary>
         public int RecordCount { get; set; }
+
+        /// <summary>
+        /// Sets the dragged item parent.
+        /// </summary>
+        /// <param name="draggedItemParent">The dragged item parent.</param>
+        public void SetDraggedItemParent(object draggedItemParent)
+        {
+            DraggedItemParent = draggedItemParent;
+        }
     }
 }

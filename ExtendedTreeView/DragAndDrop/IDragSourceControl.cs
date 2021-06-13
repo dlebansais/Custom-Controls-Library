@@ -4,7 +4,6 @@
     using System.Collections;
     using System.Windows;
     using System.Windows.Input;
-    using System.Windows.Threading;
 
     /// <summary>
     /// Represents the interface of a control providing drag and drop features.
@@ -15,21 +14,6 @@
         /// Gets the control source of the dragged content.
         /// </summary>
         FrameworkElement SourceControl { get; }
-
-        /// <summary>
-        /// Gets the container where <see cref="SourceControl"/> can be found.
-        /// </summary>
-        ExtendedTreeViewItemBase? SourceContainer { get; }
-
-        /// <summary>
-        /// Gets the source location of a drag event.
-        /// </summary>
-        MouseEventArgs? SourceLocation { get; }
-
-        /// <summary>
-        /// Gets the parent item of the dragged item.
-        /// </summary>
-        object? DragParentItem { get; }
 
         /// <summary>
         /// Gets a value indicating whether copy is allowed on drop.
@@ -73,6 +57,13 @@
         void SetIsDragPossible(CanonicSelection canonicSelectedItemList);
 
         /// <summary>
+        /// Checks if an item is the parent of the dragged item.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>True if the parent of the dragged item; otherwise, false.</returns>
+        bool IsDraggedItemParent(object item);
+
+        /// <summary>
         /// Clears the value of IsDragPossible.
         /// </summary>
         void ClearIsDragPossible();
@@ -80,8 +71,9 @@
         /// <summary>
         /// Gets the value indicating if drag is possible.
         /// </summary>
+        /// <param name="draggedItemParent">The dragged parent item upon return.</param>
         /// <returns>True if drag is possible; otherwise, false.</returns>
-        bool IsDragPossible();
+        bool IsDragPossible(out object draggedItemParent);
 
         /// <summary>
         /// Called when a drag should begin after the mouse moved.

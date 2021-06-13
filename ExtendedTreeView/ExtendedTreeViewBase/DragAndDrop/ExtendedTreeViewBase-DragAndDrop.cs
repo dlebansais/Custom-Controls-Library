@@ -25,9 +25,6 @@
         /// <returns>True if successful; otherwise, false.</returns>
         protected virtual bool GetCanonicSelectedItemList(CanonicSelection canonicSelectedItemList)
         {
-            if (canonicSelectedItemList == null)
-                return false;
-
             if (SelectedItems.Count == 0)
                 return false;
 
@@ -54,13 +51,13 @@
             {
                 if (GetItemsWithSameParent(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
                 {
-                    canonicSelectedItemList.DraggedItemParent = FirstItemParent;
+                    canonicSelectedItemList.SetDraggedItemParent(FirstItemParent);
                     return true;
                 }
 
                 if (GetItemsInSameBranch(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
                 {
-                    canonicSelectedItemList.DraggedItemParent = FirstItemParent;
+                    canonicSelectedItemList.SetDraggedItemParent(FirstItemParent);
                     return true;
                 }
             }

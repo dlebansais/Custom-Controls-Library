@@ -22,11 +22,6 @@
         private IDragSourceControl DragSource;
 
         /// <summary>
-        /// Gets the parent of the dragged item.
-        /// </summary>
-        public virtual object? DragParentItem { get { return DragSource.DragParentItem; } }
-
-        /// <summary>
         /// Gets a value indicating whether copy on drop is allowed.
         /// </summary>
         public virtual bool AllowDropCopy { get { return DragSource.AllowDropCopy; } }

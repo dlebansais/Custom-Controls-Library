@@ -37,9 +37,9 @@
         /// </summary>
         protected virtual void UpdateIsDragDropPossible()
         {
-            CanonicSelection canonicSelectedItemList = new CanonicSelection(CreateItemList());
-            if (GetCanonicSelectedItemList(canonicSelectedItemList))
-                DragSource.SetIsDragPossible(canonicSelectedItemList);
+            CanonicSelection CanonicSelectedItemList = new CanonicSelection(CreateItemList());
+            if (GetCanonicSelectedItemList(CanonicSelectedItemList))
+                DragSource.SetIsDragPossible(CanonicSelectedItemList);
             else
                 DragSource.ClearIsDragPossible();
         }

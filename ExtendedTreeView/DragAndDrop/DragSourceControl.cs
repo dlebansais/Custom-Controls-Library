@@ -5,6 +5,7 @@
     using System.Windows;
     using System.Windows.Input;
     using System.Windows.Threading;
+    using Contracts;
 
     /// <summary>
     /// Represents a control providing drag and drop features.
@@ -24,9 +25,6 @@
         {
             SourceControl = sourceControl;
 
-            SourceContainer = null;
-            SourceLocation = null;
-            DragParentItem = null;
             AllowDropCopy = false;
             RootItem = null;
             ItemList = null;
@@ -39,22 +37,7 @@
         /// <summary>
         /// Gets the control source of the dragged content.
         /// </summary>
-        public FrameworkElement SourceControl { get; private set; }
-
-        /// <summary>
-        /// Gets the container where <see cref="SourceControl"/> can be found.
-        /// </summary>
-        public ExtendedTreeViewItemBase? SourceContainer { get; private set; }
-
-        /// <summary>
-        /// Gets the source location of a drag event.
-        /// </summary>
-        public MouseEventArgs? SourceLocation { get; private set; }
-
-        /// <summary>
-        /// Gets the parent item of the dragged item.
-        /// </summary>
-        public object? DragParentItem { get; private set; }
+        public FrameworkElement SourceControl { get; }
 
         /// <summary>
         /// Gets a value indicating whether copy is allowed on drop.
@@ -105,12 +88,9 @@
         /// <param name="canonicSelectedItemList">The lost of selected items.</param>
         public virtual void SetIsDragPossible(CanonicSelection canonicSelectedItemList)
         {
-            if (canonicSelectedItemList != null)
-            {
-                DragParentItem = canonicSelectedItemList.DraggedItemParent;
-                ItemList = canonicSelectedItemList.ItemList;
-                AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
-            }
+            DraggedItemParent = canonicSelectedItemList.DraggedItemParent;
+            ItemList = canonicSelectedItemList.ItemList;
+            AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
         }
 
         /// <summary>
@@ -118,17 +98,35 @@
         /// </summary>
         public virtual void ClearIsDragPossible()
         {
-            DragParentItem = null;
+            DraggedItemParent = null!;
             AllowDropCopy = false;
         }
 
         /// <summary>
         /// Gets the value indicating if drag is possible.
         /// </summary>
+        /// <param name="draggedItemParent">The dragged parent item upon return.</param>
         /// <returns>True if drag is possible; otherwise, false.</returns>
-        public virtual bool IsDragPossible()
+        public virtual bool IsDragPossible(out object draggedItemParent)
         {
-            return DragParentItem != null;
+            if (DraggedItemParent != null)
+            {
+                draggedItemParent = DraggedItemParent;
+                return true;
+            }
+
+            Contract.Unused(out draggedItemParent);
+            return false;
+        }
+
+        /// <summary>
+        /// Checks if an item is the parent of the dragged item.
+        /// </summary>
+        /// <param name="item">The item to check.</param>
+        /// <returns>True if the parent of the dragged item; otherwise, false.</returns>
+        public virtual bool IsDraggedItemParent(object item)
+        {
+            return DraggedItemParent == item;
         }
 
         /// <summary>
@@ -137,8 +135,6 @@
         /// <param name="sourceLocation">The source location.</param>
         public virtual void DragAfterMouseMove(MouseEventArgs sourceLocation)
         {
-            SourceLocation = sourceLocation;
-
             InitiateDrag();
         }
 
@@ -181,5 +177,6 @@
         }
 
         private DispatcherOperation? InitiateDragOperation;
+        private object DraggedItemParent = null!;
     }
 }
