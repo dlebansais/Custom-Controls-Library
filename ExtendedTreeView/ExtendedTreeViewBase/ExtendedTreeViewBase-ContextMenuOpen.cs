@@ -110,11 +110,8 @@
         /// <param name="container">The container.</param>
         protected virtual void TagContainer(ExtendedTreeViewItemBase container)
         {
-            if (container != null)
-            {
-                container.SetValue(HasContextMenuOpenPropertyKey, true);
-                MarkedContainerList.Add(container);
-            }
+            container.SetValue(HasContextMenuOpenPropertyKey, true);
+            MarkedContainerList.Add(container);
         }
 
         /// <summary>

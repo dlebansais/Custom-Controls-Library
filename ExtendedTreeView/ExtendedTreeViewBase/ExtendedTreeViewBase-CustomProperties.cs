@@ -81,9 +81,6 @@
         /// <param name="e">An object that contains event data.</param>
         protected static void OnAllowDragDropChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
-            if (modifiedObject == null)
-                throw new ArgumentNullException(nameof(modifiedObject));
-
             ExtendedTreeViewBase ctrl = (ExtendedTreeViewBase)modifiedObject;
             ctrl.OnAllowDragDropChanged(e);
         }

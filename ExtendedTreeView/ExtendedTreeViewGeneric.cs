@@ -71,7 +71,7 @@
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>True if of the same type as the current content; otherwise, false.</returns>
-        protected override bool IsSameTypeAsContent(object? item)
+        protected override bool IsSameTypeAsContent(object item)
         {
             if (item == null || Content == null)
                 return false;
@@ -165,40 +165,34 @@
         /// <param name="sourceItem">The source item.</param>
         /// <param name="destinationItem">The destination item.</param>
         /// <param name="itemList">Moved children.</param>
-        protected override void DragDropMove(object sourceItem, object destinationItem, IList? itemList)
+        protected override void DragDropMove(object sourceItem, object destinationItem, IList itemList)
         {
-            if (!(sourceItem is TItem AsSourceItem))
-                throw new ArgumentNullException(nameof(sourceItem));
-            if (!(destinationItem is TItem AsDestinationItem))
-                throw new ArgumentNullException(nameof(destinationItem));
+            TItem SourceItem = (TItem)sourceItem;
+            TItem DestinationItem = (TItem)destinationItem;
+            TCollection SourceCollection = (TCollection)SourceItem.Children;
+            TCollection DestinationCollection = (TCollection)DestinationItem.Children;
 
-            TCollection SourceCollection = (TCollection)AsSourceItem.Children;
-            TCollection DestinationCollection = (TCollection)AsDestinationItem.Children;
-
-            if (itemList != null)
-            {
 #if NETCOREAPP3_1
-                foreach (TItem? ChildItem in itemList)
-                    if (ChildItem != null)
-                        SourceCollection.Remove(ChildItem);
-
-                foreach (TItem? ChildItem in itemList)
-                    if (ChildItem != null)
-                    {
-                        ChildItem.ChangeParent((TItem)destinationItem);
-                        DestinationCollection.Add(ChildItem);
-                    }
-#else
-                foreach (TItem ChildItem in itemList)
+            foreach (TItem? ChildItem in itemList)
+                if (ChildItem != null)
                     SourceCollection.Remove(ChildItem);
 
-                foreach (TItem ChildItem in itemList)
+            foreach (TItem? ChildItem in itemList)
+                if (ChildItem != null)
                 {
                     ChildItem.ChangeParent((TItem)destinationItem);
                     DestinationCollection.Add(ChildItem);
                 }
-#endif
+#else
+            foreach (TItem ChildItem in itemList)
+                SourceCollection.Remove(ChildItem);
+
+            foreach (TItem ChildItem in itemList)
+            {
+                ChildItem.ChangeParent((TItem)destinationItem);
+                DestinationCollection.Add(ChildItem);
             }
+#endif
 
             DestinationCollection.Sort();
         }

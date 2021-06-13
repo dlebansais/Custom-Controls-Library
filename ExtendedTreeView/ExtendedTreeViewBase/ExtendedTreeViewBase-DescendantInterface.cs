@@ -21,7 +21,7 @@
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>True if of the same type as the current content; otherwise, false.</returns>
-        protected abstract bool IsSameTypeAsContent(object? item);
+        protected abstract bool IsSameTypeAsContent(object item);
 
         /// <summary>
         /// Gets the parent of an item.
@@ -70,7 +70,7 @@
         /// <param name="sourceItem">The source item.</param>
         /// <param name="destinationItem">The destination item.</param>
         /// <param name="itemList">Moved children.</param>
-        protected abstract void DragDropMove(object sourceItem, object destinationItem, IList? itemList);
+        protected abstract void DragDropMove(object sourceItem, object destinationItem, IList itemList);
 
         /// <summary>
         /// Copy items from source to destination.

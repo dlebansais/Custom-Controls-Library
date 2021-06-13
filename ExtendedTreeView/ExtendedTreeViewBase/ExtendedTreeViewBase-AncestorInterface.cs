@@ -38,15 +38,15 @@
         /// <summary>
         /// Ensures the <see cref="ItemsControl.ItemsSource"/> property contains a valid value.
         /// </summary>
-        /// <param name="modifiedObject">The object with the modified property.</param>
+        /// <param name="d">The object with the modified property.</param>
         /// <param name="value">The value to check.</param>
         /// <returns>True if valid; Otherwise, false.</returns>
-        protected static object? CoerceItemsSource(DependencyObject modifiedObject, object value)
+        protected static object CoerceItemsSource(DependencyObject d, object value)
         {
-            if (modifiedObject is ExtendedTreeViewBase ctrl)
+            if (d is ExtendedTreeViewBase ctrl)
                 return ctrl.CoerceItemsSource(value);
             else
-                throw new ArgumentOutOfRangeException(nameof(modifiedObject));
+                throw new ArgumentException(nameof(d));
         }
 
         /// <summary>
@@ -54,12 +54,9 @@
         /// </summary>
         /// <param name="value">The value to check.</param>
         /// <returns>True if valid; Otherwise, false.</returns>
-        protected virtual object? CoerceItemsSource(object value)
+        protected virtual object CoerceItemsSource(object value)
         {
-            if (value == VisibleChildren)
-                return value;
-            else
-                return null;
+            return VisibleChildren;
         }
 
         private void InitAncestor()
