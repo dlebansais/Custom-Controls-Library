@@ -34,10 +34,11 @@
                 IDragSourceControl AsDragSource = (IDragSourceControl)e.Data.GetData(DragSource.GetType());
                 IList? ItemList = AsDragSource.ItemList;
                 object? DestinationItem = ItemContainer != null ? ItemContainer.Content : null;
+                bool IsDragPossible = AsDragSource.IsDragPossible(out object SourceItem);
 
                 UnselectAll();
 
-                if (AsDragSource.IsDragPossible(out object SourceItem) && DestinationItem != null)
+                if (IsDragPossible && DestinationItem != null)
                 {
                     if (e.Effects == DragDropEffects.Copy)
                     {
