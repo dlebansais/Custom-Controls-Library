@@ -6,6 +6,7 @@
     using System.Collections.Specialized;
     using System.Diagnostics;
     using System.Windows;
+    using System.Windows.Data;
 
     /// <summary>
     /// Represents a tree view control for a generic type of items.
@@ -14,7 +15,7 @@
     /// <typeparam name="TCollection">The type of collection of items.</typeparam>
     public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
         where TItem : class, IExtendedTreeNode
-        where TCollection : IExtendedTreeNodeCollection
+        where TCollection : class, IExtendedTreeNodeCollection
     {
         #region Content
         /// <summary>
@@ -38,9 +39,6 @@
         /// <param name="e">An object that contains event data.</param>
         protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
         {
-            if (modifiedObject == null)
-                throw new ArgumentNullException(nameof(modifiedObject));
-
             ExtendedTreeViewGeneric<TItem, TCollection> ctrl = (ExtendedTreeViewGeneric<TItem, TCollection>)modifiedObject;
             ctrl.OnContentChanged(e);
         }
@@ -73,9 +71,6 @@
         /// <returns>True if of the same type as the current content; otherwise, false.</returns>
         protected override bool IsSameTypeAsContent(object item)
         {
-            if (item == null || Content == null)
-                return false;
-
             if (item.GetType() != Content.GetType())
                 return false;
 
@@ -89,10 +84,8 @@
         /// <returns>The parent item.</returns>
         protected override object? GetItemParent(object item)
         {
-            if (item is TItem AsItem)
-                return AsItem.Parent;
-            else
-                throw new ArgumentNullException(nameof(item));
+            TItem Item = (TItem)item;
+            return Item.Parent;
         }
 
         /// <summary>
@@ -102,10 +95,8 @@
         /// <returns>The number of children.</returns>
         protected override int GetItemChildrenCount(object item)
         {
-            if (item is TItem AsItem)
-                return ((IList)AsItem.Children).Count;
-            else
-                throw new ArgumentNullException(nameof(item));
+            TItem Item = (TItem)item;
+            return ((IList)Item.Children).Count;
         }
 
         /// <summary>
@@ -115,10 +106,8 @@
         /// <returns>The children.</returns>
         protected override IList GetItemChildren(object item)
         {
-            if (item is TItem AsItem)
-                return AsItem.Children;
-            else
-                throw new ArgumentNullException(nameof(item));
+            TItem Item = (TItem)item;
+            return Item.Children;
         }
 
         /// <summary>
@@ -129,10 +118,8 @@
         /// <returns>The child at the provided index.</returns>
         protected override object GetItemChild(object item, int index)
         {
-            if (item is TItem AsItem)
-                return ((IList)AsItem.Children)[index]!;
-            else
-                throw new ArgumentNullException(nameof(item));
+            TItem Item = (TItem)item;
+            return ((IList)Item.Children)[index]!;
         }
 
         /// <summary>
@@ -141,10 +128,8 @@
         /// <param name="item">The item.</param>
         protected override void InstallHandlers(object item)
         {
-            if (item is TItem AsItem)
-                AsItem.Children.CollectionChanged += OnItemChildrenChanged;
-            else
-                throw new ArgumentNullException(nameof(item));
+            TItem Item = (TItem)item;
+            Item.Children.CollectionChanged += OnItemChildrenChanged;
         }
 
         /// <summary>
@@ -153,10 +138,8 @@
         /// <param name="item">The item.</param>
         protected override void UninstallHandlers(object item)
         {
-            if (item is TItem AsItem)
-                AsItem.Children.CollectionChanged -= OnItemChildrenChanged;
-            else
-                throw new ArgumentNullException(nameof(item));
+            TItem Item = (TItem)item;
+            Item.Children.CollectionChanged -= OnItemChildrenChanged;
         }
 
         /// <summary>
@@ -240,12 +223,12 @@
         /// </summary>
         protected override void InsertChildrenFromRootDontNotify()
         {
-            if (Content != null)
+            if (Content is TItem Item)
             {
-                IInsertItemContext Context = CreateInsertItemContext(Content, 0);
+                IInsertItemContext Context = CreateInsertItemContext(Item, 0);
                 Context.Start();
 
-                InsertChildren(Context, Content, null);
+                InsertChildren(Context, Item, null);
 
                 Context.Complete();
                 Context.Close();
@@ -333,10 +316,10 @@
         /// <param name="e">The event data.</param>
         protected virtual void OnItemChildrenChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
-            if (sender is TCollection ItemCollection && ItemCollection.Parent is object Item)
-                HandleChildrenChanged(Item, e);
-            else
-                throw new ArgumentOutOfRangeException(nameof(sender));
+            Contracts.Contract.RequireNotNull(sender, out TCollection ItemCollection);
+            Contracts.Contract.RequireNotNull(ItemCollection.Parent, out object Item);
+
+            HandleChildrenChanged(Item, e);
         }
 #endregion
     }

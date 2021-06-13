@@ -7,7 +7,7 @@
     /// </summary>
     /// <typeparam name="TItem">The type of items.</typeparam>
     /// <typeparam name="TCollection">The type of collection of items.</typeparam>
-    public class EmptyExtendedTreeNode<TItem, TCollection> : IExtendedTreeNode
+    internal class EmptyExtendedTreeNode<TItem, TCollection> : IExtendedTreeNode
         where TItem : class, IExtendedTreeNode
         where TCollection : IExtendedTreeNodeCollection
     {

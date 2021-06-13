@@ -5,16 +5,6 @@
     /// </summary>
     public class CancellationToken
     {
-        #region Init
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CancellationToken"/> class.
-        /// </summary>
-        public CancellationToken()
-        {
-            this.IsCanceled = false;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         /// Gets a value indicating whether the associated operation has been canceled by any handler.
