@@ -21,11 +21,6 @@
         bool AllowDropCopy { get; }
 
         /// <summary>
-        /// Gets the list of dragged items.
-        /// </summary>
-        IList? ItemList { get; }
-
-        /// <summary>
         /// Gets the GUID of the source.
         /// </summary>
         Guid SourceGuid { get; }
@@ -62,8 +57,9 @@
         /// Gets the value indicating if drag is possible.
         /// </summary>
         /// <param name="draggedItemParent">The dragged parent item upon return.</param>
+        /// <param name="itemList">The list of dragged items upon return.</param>
         /// <returns>True if drag is possible; otherwise, false.</returns>
-        bool IsDragPossible(out object draggedItemParent);
+        bool IsDragPossible(out object draggedItemParent, out IList itemList);
 
         /// <summary>
         /// Called when a drag should begin after the mouse moved.
@@ -77,16 +73,16 @@
         void CancelDrag();
 
         /// <summary>
-        /// Sets the dragged items.
+        /// Sets the flat list of dragged items.
         /// </summary>
         /// <param name="rootItem">The root item.</param>
         /// <param name="flatItemList">The flat list of dragged items.</param>
-        void SetDragItemList(object rootItem, IList flatItemList);
+        void SetFlatDraggedItemList(object rootItem, IList flatItemList);
 
         /// <summary>
-        /// Clears the dragged items.
+        /// Clears the flat list of dragged items.
         /// </summary>
-        void ClearDragItemList();
+        void ClearFlatDraggedItemList();
 
         /// <summary>
         /// Checks if there are dragged items.

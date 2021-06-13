@@ -109,7 +109,7 @@
         /// <returns>True if allowed; Otherwise, false.</returns>
         public virtual bool IsCopyPossible
         {
-            get { return DragSource.IsDragPossible(out _); }
+            get { return DragSource.IsDragPossible(out _, out _); }
         }
     }
 }

@@ -26,7 +26,6 @@
             SourceControl = sourceControl;
 
             AllowDropCopy = false;
-            ItemList = null;
             SourceGuid = Guid.NewGuid();
             DragActivity = DragActivity.Idle;
             InitiateDragOperation = null;
@@ -41,11 +40,6 @@
         /// Gets a value indicating whether copy is allowed on drop.
         /// </summary>
         public bool AllowDropCopy { get; private set; }
-
-        /// <summary>
-        /// Gets the list of dragged items.
-        /// </summary>
-        public IList? ItemList { get; private set; }
 
         /// <summary>
         /// Gets the GUID of the source.
@@ -82,7 +76,7 @@
         }
 
         /// <summary>
-        /// Clears the value of IsDragPossible.
+        /// Clears the value indicating if drag is possible.
         /// </summary>
         public virtual void ClearIsDragPossible()
         {
@@ -94,16 +88,19 @@
         /// Gets the value indicating if drag is possible.
         /// </summary>
         /// <param name="draggedItemParent">The dragged parent item upon return.</param>
+        /// <param name="itemList">The list of dragged items upon return.</param>
         /// <returns>True if drag is possible; otherwise, false.</returns>
-        public virtual bool IsDragPossible(out object draggedItemParent)
+        public virtual bool IsDragPossible(out object draggedItemParent, out IList itemList)
         {
             if (DraggedItemParent != null)
             {
                 draggedItemParent = DraggedItemParent;
+                itemList = ItemList;
                 return true;
             }
 
             Contract.Unused(out draggedItemParent);
+            Contract.Unused(out itemList);
             return false;
         }
 
@@ -135,20 +132,20 @@
         }
 
         /// <summary>
-        /// Sets the dragged items.
+        /// Sets the flat list of dragged items.
         /// </summary>
         /// <param name="rootItem">The root item.</param>
         /// <param name="flatItemList">The flat list of dragged items.</param>
-        public virtual void SetDragItemList(object rootItem, IList flatItemList)
+        public virtual void SetFlatDraggedItemList(object rootItem, IList flatItemList)
         {
             RootItem = rootItem;
             FlatItemList = flatItemList;
         }
 
         /// <summary>
-        /// Clears the dragged items.
+        /// Clears the flat list of dragged items.
         /// </summary>
-        public virtual void ClearDragItemList()
+        public virtual void ClearFlatDraggedItemList()
         {
             RootItem = null!;
             FlatItemList = null!;
@@ -196,6 +193,7 @@
         private DispatcherOperation? InitiateDragOperation;
         private object DraggedItemParent = null!;
         private object RootItem = null!;
+        private IList ItemList = null!;
         private IList FlatItemList = null!;
     }
 }

@@ -99,7 +99,8 @@
         /// Sets the dragged items.
         /// </summary>
         /// <param name="dragSource">The drag source.</param>
-        protected abstract void SetDragItemList(IDragSourceControl dragSource);
+        /// <param name="itemList">The list of dragged items.</param>
+        protected abstract void SetDragItemList(IDragSourceControl dragSource, IList itemList);
 
         /// <summary>
         /// Clears the dragged items.

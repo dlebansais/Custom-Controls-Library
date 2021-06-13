@@ -25,10 +25,5 @@
         /// Gets a value indicating whether copy on drop is allowed.
         /// </summary>
         public virtual bool AllowDropCopy { get { return DragSource.AllowDropCopy; } }
-
-        /// <summary>
-        /// Gets the list of dragged items.
-        /// </summary>
-        public virtual IList? ItemList { get { return DragSource.ItemList; } }
     }
 }

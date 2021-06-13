@@ -32,9 +32,8 @@
             {
                 ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(e);
                 IDragSourceControl AsDragSource = (IDragSourceControl)e.Data.GetData(DragSource.GetType());
-                IList? ItemList = AsDragSource.ItemList;
+                bool IsDragPossible = AsDragSource.IsDragPossible(out object SourceItem, out IList ItemList);
                 object? DestinationItem = ItemContainer != null ? ItemContainer.Content : null;
-                bool IsDragPossible = AsDragSource.IsDragPossible(out object SourceItem);
 
                 UnselectAll();
 

@@ -43,7 +43,7 @@
             else
             {
                 DragSource.ClearIsDragPossible();
-                DragSource.ClearDragItemList();
+                DragSource.ClearFlatDraggedItemList();
             }
         }
 
@@ -65,7 +65,10 @@
                     break;
 
                 case DragActivity.Starting:
-                    SetDragItemList(DragSource);
+                    bool IsDragPossible = DragSource.IsDragPossible(out _, out IList ItemList);
+                    Debug.Assert(IsDragPossible);
+
+                    SetDragItemList(DragSource, ItemList);
 
                     CancellationToken cancellation = new CancellationToken();
                     NotifyDragStarting(cancellation);

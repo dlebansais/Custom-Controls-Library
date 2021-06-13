@@ -273,9 +273,10 @@
         /// Sets the dragged items.
         /// </summary>
         /// <param name="dragSource">The drag source.</param>
-        protected override void SetDragItemList(IDragSourceControl dragSource)
+        /// <param name="itemList">The list of dragged items.</param>
+        protected override void SetDragItemList(IDragSourceControl dragSource, IList itemList)
         {
-            dragSource.SetDragItemList(Content, FlatItemList(dragSource.ItemList));
+            dragSource.SetFlatDraggedItemList(Content, FlatItemList(itemList));
         }
 
         /// <summary>
@@ -284,7 +285,7 @@
         /// <param name="dragSource">The drag source.</param>
         protected override void ClearDragItemList(IDragSourceControl dragSource)
         {
-            dragSource.ClearDragItemList();
+            dragSource.ClearFlatDraggedItemList();
         }
 
 #if NET5_0
