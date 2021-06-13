@@ -73,10 +73,8 @@
         /// <returns>The event source.</returns>
         protected virtual ExtendedTreeViewItemBase? GetEventSourceItem(RoutedEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             DependencyObject? Current = e.OriginalSource as DependencyObject;
+
             while (Current != null)
             {
                 if (Current is ExtendedTreeViewItemBase AsContainerItem)
@@ -89,16 +87,6 @@
             }
 
             return null;
-        }
-
-        /// <summary>
-        /// Gets the target of a drop event.
-        /// </summary>
-        /// <param name="e">The event data.</param>
-        /// <returns>The event target.</returns>
-        protected virtual ExtendedTreeViewItemBase? GetTarget(DragEventArgs e)
-        {
-            return GetEventSourceItem(e);
         }
 
         /// <summary>

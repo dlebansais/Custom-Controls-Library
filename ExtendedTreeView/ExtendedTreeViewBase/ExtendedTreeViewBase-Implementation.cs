@@ -63,9 +63,6 @@
         /// <param name="parentItem">The parent item.</param>
         protected virtual void InsertChildren(IInsertItemContext context, object item, object? parentItem)
         {
-            if (context == null)
-                throw new ArgumentNullException(nameof(context));
-
             IList Children = GetItemChildren(item);
             bool IsExpanded = IsItemExpandedAtStart || (parentItem == null && IsRootAlwaysExpanded);
 
@@ -93,8 +90,7 @@
         /// </summary>
         /// <param name="context">The remove context.</param>
         /// <param name="item">The item from which to remove children.</param>
-        /// <param name="parentItem">The parent item.</param>
-        protected virtual void RemoveChildren(IRemoveItemContext context, object item, object? parentItem)
+        protected virtual void RemoveChildren(IRemoveItemContext context, object item)
         {
             ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
 
@@ -105,10 +101,10 @@
 #if NETCOREAPP3_1
                 foreach (object? ChildItem in Children)
                     if (ChildItem != null)
-                        RemoveChildren(context, ChildItem, item);
+                        RemoveChildren(context, ChildItem);
 #else
                 foreach (object ChildItem in Children)
-                    RemoveChildren(context, ChildItem, item);
+                    RemoveChildren(context, ChildItem);
 #endif
             }
 

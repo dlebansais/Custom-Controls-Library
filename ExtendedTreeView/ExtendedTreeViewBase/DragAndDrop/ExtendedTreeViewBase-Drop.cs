@@ -91,7 +91,7 @@
             if (isLeaving)
                 DropTarget = null;
             else
-                DropTarget = GetTarget(e);
+                DropTarget = GetEventSourceItem(e);
 
             if (DropTargetContainer != DropTarget)
             {
