@@ -63,7 +63,7 @@ deploy:
     artifact: $(APPVEYOR_PROJECT_NAME)-Package-Debug
     username: dlebansais
     api_key:
-      secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
+      secure: GZGy3nOU2PstP5qqBJ3xRNo4X9mywcmtoF6iO9JlOPgxksM+QkVjQdR+nJ62+76n
     on:
       branch: deployment
       configuration: Debug
@@ -73,7 +73,7 @@ deploy:
     skip_symbols: true
     username: dlebansais
     api_key:
-      secure: GOksqNi8I7Vs6dcsfosJvSa9vMaZH3zLQJjnx+ruJy6ZeLF075mifj4MdRI34E8W
+      secure: GZGy3nOU2PstP5qqBJ3xRNo4X9mywcmtoF6iO9JlOPgxksM+QkVjQdR+nJ62+76n
     on:
       branch: deployment
       configuration: Release
