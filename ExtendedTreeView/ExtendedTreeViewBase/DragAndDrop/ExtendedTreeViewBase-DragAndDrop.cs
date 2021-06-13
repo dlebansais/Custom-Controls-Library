@@ -256,7 +256,7 @@
                 return DragDropEffects.None;
         }
 
-        private IDragSourceControl DragSource = new EmptyDragSourceControl();
+        private IDragSourceControl DragSource = null!;
         private static ExtendedTreeViewItemBase? DropTargetContainer;
         private static int DropTargetContainerIndex;
     }
