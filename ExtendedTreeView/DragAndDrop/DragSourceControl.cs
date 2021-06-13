@@ -28,7 +28,6 @@
             AllowDropCopy = false;
             SourceGuid = Guid.NewGuid();
             DragActivity = DragActivity.Idle;
-            InitiateDragOperation = null;
         }
 
         /// <summary>
