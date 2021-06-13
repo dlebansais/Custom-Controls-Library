@@ -26,7 +26,7 @@
         /// <param name="item">Item to be made visible.</param>
         public virtual void ScrollIntoView(object item)
         {
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
             if (ItemContainer != null)
                 ItemContainer.BringIntoView();
         }
@@ -47,7 +47,7 @@
         /// <param name="item">The item.</param>
         public virtual void Expand(object item)
         {
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
             if (ItemContainer != null)
                 ItemContainer.IsExpanded = true;
         }
@@ -58,7 +58,7 @@
         /// <param name="item">The item.</param>
         public virtual void Collapse(object item)
         {
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
             if (ItemContainer != null)
                 ItemContainer.IsExpanded = false;
         }
@@ -69,7 +69,7 @@
         /// <param name="item">The item.</param>
         public virtual void ToggleIsExpanded(object item)
         {
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
             if (ItemContainer != null)
                 ItemContainer.IsExpanded = !ItemContainer.IsExpanded;
         }

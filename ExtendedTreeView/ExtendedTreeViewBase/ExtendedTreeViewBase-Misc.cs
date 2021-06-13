@@ -13,13 +13,18 @@
     public abstract partial class ExtendedTreeViewBase : MultiSelector
     {
         /// <summary>
+        /// Enables traces.
+        /// </summary>
+        public const bool EnableTraces = false;
+
+        /// <summary>
         /// Gets the container associated to an item.
         /// </summary>
         /// <param name="item">The item.</param>
         /// <returns>The container.</returns>
-        protected virtual ExtendedTreeViewItemBase ContainerFromItem(object item)
+        protected virtual ExtendedTreeViewItemBase? ContainerFromItem(object item)
         {
-            return (ExtendedTreeViewItemBase)ItemContainerGenerator.ContainerFromItem(item);
+            return ItemContainerGenerator.ContainerFromItem(item) as ExtendedTreeViewItemBase;
         }
 
         /// <summary>
@@ -27,9 +32,9 @@
         /// </summary>
         /// <param name="index">the item position.</param>
         /// <returns>The container.</returns>
-        protected virtual ExtendedTreeViewItemBase ContainerFromIndex(int index)
+        protected virtual ExtendedTreeViewItemBase? ContainerFromIndex(int index)
         {
-            return (ExtendedTreeViewItemBase)ItemContainerGenerator.ContainerFromIndex(index);
+            return ItemContainerGenerator.ContainerFromIndex(index) as ExtendedTreeViewItemBase;
         }
 
         /// <summary>

@@ -73,14 +73,14 @@
                 foreach (object? Item in SelectedItems)
                     if (Item != null)
                     {
-                        ExtendedTreeViewItemBase Container = ContainerFromItem(Item);
+                        ExtendedTreeViewItemBase? Container = ContainerFromItem(Item);
                         if (Container != null)
                             TagContainer(Container);
                     }
 #else
                 foreach (object Item in SelectedItems)
                 {
-                    ExtendedTreeViewItemBase Container = ContainerFromItem(Item);
+                    ExtendedTreeViewItemBase? Container = ContainerFromItem(Item);
                     if (Container != null)
                         TagContainer(Container);
                 }

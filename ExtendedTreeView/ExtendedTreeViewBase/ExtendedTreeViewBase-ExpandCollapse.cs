@@ -19,7 +19,7 @@
         {
             int Result = 1;
 
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
 
             if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart) || (ItemContainer == null && IsContent(item) && IsRootAlwaysExpanded))
                 for (int i = 0; i < index; i++)
@@ -41,7 +41,7 @@
         {
             int Result = 0;
 
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
 
             if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart))
             {

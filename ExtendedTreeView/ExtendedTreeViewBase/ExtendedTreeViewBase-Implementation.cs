@@ -96,7 +96,7 @@
         /// <param name="parentItem">The parent item.</param>
         protected virtual void RemoveChildren(IRemoveItemContext context, object item, object? parentItem)
         {
-            ExtendedTreeViewItemBase ItemContainer = ContainerFromItem(item);
+            ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
 
             if ((ItemContainer != null && ItemContainer.IsExpanded) || (ItemContainer == null && IsItemExpandedAtStart))
             {
