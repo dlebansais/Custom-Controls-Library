@@ -278,6 +278,15 @@
             dragSource.SetDragItemList(Content, FlatItemList(dragSource.ItemList));
         }
 
+        /// <summary>
+        /// Clears the dragged items.
+        /// </summary>
+        /// <param name="dragSource">The drag source.</param>
+        protected override void ClearDragItemList(IDragSourceControl dragSource)
+        {
+            dragSource.ClearDragItemList();
+        }
+
 #if NET5_0
         /// <summary>
         /// Gets the list of visible items.

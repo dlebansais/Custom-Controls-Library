@@ -102,6 +102,12 @@
         protected abstract void SetDragItemList(IDragSourceControl dragSource);
 
         /// <summary>
+        /// Clears the dragged items.
+        /// </summary>
+        /// <param name="dragSource">The drag source.</param>
+        protected abstract void ClearDragItemList(IDragSourceControl dragSource);
+
+        /// <summary>
         /// Creates a context for inserting.
         /// </summary>
         /// <param name="item">The item where insertion takes place.</param>

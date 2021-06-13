@@ -27,18 +27,8 @@
         public virtual bool AllowDropCopy { get { return DragSource.AllowDropCopy; } }
 
         /// <summary>
-        /// Gets the root item.
-        /// </summary>
-        public virtual object? RootItem { get { return DragSource.RootItem; } }
-
-        /// <summary>
         /// Gets the list of dragged items.
         /// </summary>
         public virtual IList? ItemList { get { return DragSource.ItemList; } }
-
-        /// <summary>
-        /// Gets the flat list of dragged items.
-        /// </summary>
-        public virtual IList? FlatItemList { get { return DragSource.FlatItemList; } }
     }
 }

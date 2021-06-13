@@ -41,7 +41,10 @@
             if (GetCanonicSelectedItemList(CanonicSelectedItemList))
                 DragSource.SetIsDragPossible(CanonicSelectedItemList);
             else
+            {
                 DragSource.ClearIsDragPossible();
+                DragSource.ClearDragItemList();
+            }
         }
 
         /// <summary>
@@ -165,14 +168,10 @@
             {
                 if (e.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
                 {
-                    if (IsSameTypeAsContent(AsDragSource.RootItem))
+                    if (AsDragSource.HasDragItemList(out object RootItem, out IList _) && IsSameTypeAsContent(RootItem))
                     {
-                        IList? FlatItemList = AsDragSource.FlatItemList;
-                        if (FlatItemList != null && FlatItemList.Count > 0)
-                        {
-                            dragSource = AsDragSource;
-                            return true;
-                        }
+                        dragSource = AsDragSource;
+                        return true;
                     }
                 }
             }

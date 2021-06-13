@@ -21,19 +21,9 @@
         bool AllowDropCopy { get; }
 
         /// <summary>
-        /// Gets the root of dragged items.
-        /// </summary>
-        object? RootItem { get; }
-
-        /// <summary>
         /// Gets the list of dragged items.
         /// </summary>
         IList? ItemList { get; }
-
-        /// <summary>
-        /// Gets the flat list of dragged items.
-        /// </summary>
-        IList? FlatItemList { get; }
 
         /// <summary>
         /// Gets the GUID of the source.
@@ -92,5 +82,18 @@
         /// <param name="rootItem">The root item.</param>
         /// <param name="flatItemList">The flat list of dragged items.</param>
         void SetDragItemList(object rootItem, IList flatItemList);
+
+        /// <summary>
+        /// Clears the dragged items.
+        /// </summary>
+        void ClearDragItemList();
+
+        /// <summary>
+        /// Checks if there are dragged items.
+        /// </summary>
+        /// <param name="rootItem">The root of dragged items upon return.</param>
+        /// <param name="flatItemList">The flat list of dragged items upon return.</param>
+        /// <returns>True if successful; otherwise, false.</returns>
+        bool HasDragItemList(out object rootItem, out IList flatItemList);
     }
 }

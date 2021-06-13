@@ -167,8 +167,7 @@
                 {
                     if (!asDragSource.IsDraggedItemParent(DropDestinationItem) || (e.AllowedEffects.HasFlag(DragDropEffects.Copy) && e.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
                     {
-                        IList? FlatItemList = asDragSource.FlatItemList;
-                        if (FlatItemList == null || !FlatItemList.Contains(DropDestinationItem))
+                        if (!asDragSource.HasDragItemList(out _, out IList FlatItemList) || !FlatItemList.Contains(DropDestinationItem))
                         {
                             destinationItem = DropDestinationItem;
                             return true;

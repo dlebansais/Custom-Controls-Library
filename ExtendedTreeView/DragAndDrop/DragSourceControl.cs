@@ -26,9 +26,7 @@
             SourceControl = sourceControl;
 
             AllowDropCopy = false;
-            RootItem = null;
             ItemList = null;
-            FlatItemList = null;
             SourceGuid = Guid.NewGuid();
             DragActivity = DragActivity.Idle;
             InitiateDragOperation = null;
@@ -45,19 +43,9 @@
         public bool AllowDropCopy { get; private set; }
 
         /// <summary>
-        /// Gets the root of dragged items.
-        /// </summary>
-        public object? RootItem { get; private set; }
-
-        /// <summary>
         /// Gets the list of dragged items.
         /// </summary>
         public IList? ItemList { get; private set; }
-
-        /// <summary>
-        /// Gets the flat list of dragged items.
-        /// </summary>
-        public IList? FlatItemList { get; private set; }
 
         /// <summary>
         /// Gets the GUID of the source.
@@ -153,8 +141,37 @@
         /// <param name="flatItemList">The flat list of dragged items.</param>
         public virtual void SetDragItemList(object rootItem, IList flatItemList)
         {
-            this.RootItem = rootItem;
-            this.FlatItemList = flatItemList;
+            RootItem = rootItem;
+            FlatItemList = flatItemList;
+        }
+
+        /// <summary>
+        /// Clears the dragged items.
+        /// </summary>
+        public virtual void ClearDragItemList()
+        {
+            RootItem = null!;
+            FlatItemList = null!;
+        }
+
+        /// <summary>
+        /// Checks if there are dragged items.
+        /// </summary>
+        /// <param name="rootItem">The root of dragged items upon return.</param>
+        /// <param name="flatItemList">The flat list of dragged items upon return.</param>
+        /// <returns>True if successful; otherwise, false.</returns>
+        public virtual bool HasDragItemList(out object rootItem, out IList flatItemList)
+        {
+            if (RootItem != null && FlatItemList != null && FlatItemList.Count > 0)
+            {
+                rootItem = RootItem;
+                flatItemList = FlatItemList;
+                return true;
+            }
+
+            Contract.Unused(out rootItem);
+            Contract.Unused(out flatItemList);
+            return false;
         }
 
         private void InitiateDrag()
@@ -178,5 +195,7 @@
 
         private DispatcherOperation? InitiateDragOperation;
         private object DraggedItemParent = null!;
+        private object RootItem = null!;
+        private IList FlatItemList = null!;
     }
 }
