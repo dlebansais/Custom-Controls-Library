@@ -5,22 +5,12 @@
     /// </summary>
     public class PermissionToken
     {
-        #region Init
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PermissionToken"/> class.
-        /// </summary>
-        public PermissionToken()
-        {
-            this.IsAllowed = true;
-        }
-        #endregion
-
         #region Properties
         /// <summary>
         /// Gets a value indicating whether the associated operation has been authorized by any handler.
         /// </summary>
         /// <returns>True indicates that a handler has allowed the operation. False indicates that the operation associated to the event is denied.</returns>
-        public bool IsAllowed { get; private set; }
+        public bool IsAllowed { get; private set; } = true;
         #endregion
 
         #region Client Interface

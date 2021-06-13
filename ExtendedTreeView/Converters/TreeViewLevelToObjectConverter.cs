@@ -12,7 +12,7 @@
         /// <summary>
         /// Converts an array of indentation levels to an object from a collection.
         /// </summary>
-        /// <param name="values">The array of values that the source bindings in the <see cref="System.Windows.Data.MultiBinding"/> produces.</param>
+        /// <param name="values">The array of values that the source bindings in the <see cref="MultiBinding"/> produces.</param>
         /// <param name="targetType">The type of the binding target property.</param>
         /// <param name="parameter">The converter parameter to use.</param>
         /// <param name="culture">The culture to use in the converter.</param>
