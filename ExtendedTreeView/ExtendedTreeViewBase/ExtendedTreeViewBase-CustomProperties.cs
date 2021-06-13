@@ -120,7 +120,7 @@
         /// <summary>
         /// Identifies the <see cref="CursorForbidden"/> attached property.
         /// </summary>
-        public static readonly DependencyProperty CursorForbiddenProperty = DependencyProperty.Register("CursorForbidden", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CursorForbiddenProperty = DependencyProperty.Register("CursorForbidden", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
 
         /// <summary>
         /// Gets or sets the forbidden cursor.
@@ -136,7 +136,7 @@
         /// <summary>
         /// Identifies the <see cref="CursorMove"/> attached property.
         /// </summary>
-        public static readonly DependencyProperty CursorMoveProperty = DependencyProperty.Register("CursorMove", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CursorMoveProperty = DependencyProperty.Register("CursorMove", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
 
         /// <summary>
         /// Gets or sets the move cursor.
@@ -152,7 +152,7 @@
         /// <summary>
         /// Identifies the <see cref="CursorCopy"/> attached property.
         /// </summary>
-        public static readonly DependencyProperty CursorCopyProperty = DependencyProperty.Register("CursorCopy", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null));
+        public static readonly DependencyProperty CursorCopyProperty = DependencyProperty.Register("CursorCopy", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
 
         /// <summary>
         /// Gets or sets the copy cursor.

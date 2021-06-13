@@ -1,6 +1,5 @@
 ﻿namespace CustomControls
 {
-    using System;
     using System.Collections;
     using System.Windows;
     using System.Windows.Controls.Primitives;
@@ -11,14 +10,21 @@
     public abstract partial class ExtendedTreeViewBase : MultiSelector
     {
         /// <summary>
-        /// Invoked when an unhandled <see cref="System.Windows.UIElement.Drop"/> attached event reaches an element in its route that is derived from this class.
+        /// Checks whether a container is the destination of a drop.
+        /// </summary>
+        /// <param name="itemContainer">The container.</param>
+        /// <returns>True if destination of a drop; otherwise, false.</returns>
+        public static bool IsDropOver(ExtendedTreeViewItemBase itemContainer)
+        {
+            return itemContainer == DropTargetContainer;
+        }
+
+        /// <summary>
+        /// Invoked when an unhandled <see cref="UIElement.Drop"/> attached event reaches an element in its route that is derived from this class.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnDrop(DragEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             e.Effects = GetAllowedDropEffects(e);
             e.Handled = true;
 
@@ -63,8 +69,7 @@
             IDragSourceControl? AsDragSource = ValidDragSourceFromArgs(e);
             if (AsDragSource != null)
             {
-                object? DropDestinationItem = ValidDropDestinationFromArgs(e, AsDragSource);
-                if (DropDestinationItem != null)
+                if (GetValidDropDestinationFromArgs(e, AsDragSource, out object DropDestinationItem))
                 {
                     PermissionToken permission = new PermissionToken();
                     NotifyDropCheck(DropDestinationItem, permission);
@@ -151,26 +156,30 @@
         /// </summary>
         /// <param name="e">The event data.</param>
         /// <param name="asDragSource">The drag source.</param>
-        /// <returns>The drag target.</returns>
-        protected virtual object? ValidDropDestinationFromArgs(DragEventArgs e, IDragSourceControl asDragSource)
+        /// <param name="destinationItem">The drag target upon return.</param>
+        /// <returns>True if successful.</returns>
+        protected virtual bool GetValidDropDestinationFromArgs(DragEventArgs e, IDragSourceControl asDragSource, out object destinationItem)
         {
-            if (DropTargetContainer == null || e == null || asDragSource == null)
-                return null;
+            if (DropTargetContainer != null)
+            {
+                object DropDestinationItem = DropTargetContainer.Content;
 
-            object DropDestinationItem = DropTargetContainer.Content;
+                if (asDragSource.SourceGuid == DragSource.SourceGuid)
+                {
+                    if ((asDragSource.DragParentItem != DropDestinationItem) || (e.AllowedEffects.HasFlag(DragDropEffects.Copy) && e.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
+                    {
+                        IList? FlatItemList = asDragSource.FlatItemList;
+                        if (FlatItemList == null || !FlatItemList.Contains(DropDestinationItem))
+                        {
+                            destinationItem = DropDestinationItem;
+                            return true;
+                        }
+                    }
+                }
+            }
 
-            if (asDragSource.SourceGuid != DragSource.SourceGuid)
-                return null;
-
-            if (asDragSource.DragParentItem == DropDestinationItem)
-                if (!e.AllowedEffects.HasFlag(DragDropEffects.Copy) || !e.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
-                    return null;
-
-            IList? FlatItemList = asDragSource.FlatItemList;
-            if (FlatItemList != null && FlatItemList.Contains(DropDestinationItem))
-                return null;
-
-            return DropDestinationItem;
+            Contracts.Contract.Unused(out destinationItem);
+            return false;
         }
     }
 }

@@ -6,6 +6,7 @@
     using System.Windows;
     using System.Windows.Controls.Primitives;
     using System.Windows.Input;
+    using Contracts;
 
     /// <summary>
     /// Represents a control with a tree of nodes that can be moved around with Drag and Drop.
@@ -18,9 +19,6 @@
         /// <param name="e">The event data.</param>
         protected virtual void DragAfterMouseMove(MouseEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             if (AllowDragDrop && e.LeftButton == MouseButtonState.Pressed && (Keyboard.FocusedElement is ExtendedTreeViewItemBase))
                 if (IsCopyPossible)
                 {
@@ -53,10 +51,8 @@
         /// <param name="e">The event data.</param>
         protected virtual void OnDragActivityChanged(object? sender, EventArgs e)
         {
-            if (sender == null)
-                throw new ArgumentNullException(nameof(sender));
+            Contract.RequireNotNull(sender, out IDragSourceControl Ctrl);
 
-            IDragSourceControl Ctrl = (IDragSourceControl)sender;
             bool IsHandled = false;
 
             switch (Ctrl.DragActivity)
@@ -100,73 +96,61 @@
         /// <param name="e">The event data.</param>
         protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
         {
-            if (e != null)
+            Cursor FeedbackCursor;
+
+            if (UseDefaultCursors)
+                FeedbackCursor = Cursors.None;
+            else if (e.Effects.HasFlag(DragDropEffects.Copy))
+                FeedbackCursor = (CursorCopy != Cursors.None) ? CursorCopy : DefaultCursorCopy;
+            else if (e.Effects.HasFlag(DragDropEffects.Move))
+                FeedbackCursor = (CursorMove != Cursors.None) ? CursorMove : DefaultCursorMove;
+            else
+                FeedbackCursor = (CursorForbidden != Cursors.None) ? CursorForbidden : DefaultCursorForbidden;
+
+            if (FeedbackCursor != Cursors.None)
             {
-                Cursor? FeedbackCursor;
-
-                if (UseDefaultCursors)
-                    FeedbackCursor = null;
-                else if (e.Effects.HasFlag(DragDropEffects.Copy))
-                    FeedbackCursor = (CursorCopy != null) ? CursorCopy : DefaultCursorCopy;
-                else if (e.Effects.HasFlag(DragDropEffects.Move))
-                    FeedbackCursor = (CursorMove != null) ? CursorMove : DefaultCursorMove;
-                else
-                    FeedbackCursor = (CursorForbidden != null) ? CursorForbidden : DefaultCursorForbidden;
-
-                if (FeedbackCursor != null)
-                {
-                    e.UseDefaultCursors = false;
-                    Mouse.SetCursor(FeedbackCursor);
-                    e.Handled = true;
-                }
-                else
-                    base.OnGiveFeedback(e);
+                e.UseDefaultCursors = false;
+                Mouse.SetCursor(FeedbackCursor);
+                e.Handled = true;
             }
+            else
+                base.OnGiveFeedback(e);
         }
 
         /// <summary>
-        /// Invoked when an unhandled <see cref="System.Windows.UIElement.DragEnter"/> attached event reaches an element in its route that is derived from this class.
+        /// Invoked when an unhandled <see cref="UIElement.DragEnter"/> attached event reaches an element in its route that is derived from this class.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnDragEnter(DragEventArgs e)
         {
-            if (e != null)
-            {
-                UpdateCurrentDropTarget(e, false);
+            UpdateCurrentDropTarget(e, false);
 
-                e.Effects = GetAllowedDropEffects(e);
-                e.Handled = true;
-            }
+            e.Effects = GetAllowedDropEffects(e);
+            e.Handled = true;
         }
 
         /// <summary>
-        /// Invoked when an unhandled <see cref="System.Windows.UIElement.DragLeave"/> attached event reaches an element in its route that is derived from this class.
+        /// Invoked when an unhandled <see cref="UIElement.DragLeave"/> attached event reaches an element in its route that is derived from this class.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnDragLeave(DragEventArgs e)
         {
-            if (e != null)
-            {
-                UpdateCurrentDropTarget(e, true);
+            UpdateCurrentDropTarget(e, true);
 
-                e.Effects = GetAllowedDropEffects(e);
-                e.Handled = true;
-            }
+            e.Effects = GetAllowedDropEffects(e);
+            e.Handled = true;
         }
 
         /// <summary>
-        /// Invoked when an unhandled <see cref="System.Windows.UIElement.DragOver"/> attached event reaches an element in its route that is derived from this class.
+        /// Invoked when an unhandled <see cref="UIElement.DragOver"/> attached event reaches an element in its route that is derived from this class.
         /// </summary>
         /// <param name="e">The event data.</param>
         protected override void OnDragOver(DragEventArgs e)
         {
-            if (e != null)
-            {
-                UpdateCurrentDropTarget(e, false);
+            UpdateCurrentDropTarget(e, false);
 
-                e.Effects = GetAllowedDropEffects(e);
-                e.Handled = true;
-            }
+            e.Effects = GetAllowedDropEffects(e);
+            e.Handled = true;
         }
 
         /// <summary>
@@ -176,9 +160,6 @@
         /// <returns>The drag source.</returns>
         protected virtual IDragSourceControl? ValidDragSourceFromArgs(DragEventArgs e)
         {
-            if (e == null)
-                throw new ArgumentNullException(nameof(e));
-
             if (!e.Data.GetDataPresent(DragSource.GetType()))
                 return null;
 

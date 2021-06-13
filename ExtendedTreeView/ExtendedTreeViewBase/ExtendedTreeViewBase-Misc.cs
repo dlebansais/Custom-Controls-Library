@@ -67,16 +67,6 @@
         }
 
         /// <summary>
-        /// Checks whether a container is the destination of a drop.
-        /// </summary>
-        /// <param name="itemContainer">The container.</param>
-        /// <returns>True if destination of a drop; otherwise, false.</returns>
-        public static bool IsDropOver(ExtendedTreeViewItemBase itemContainer)
-        {
-            return itemContainer == DropTargetContainer;
-        }
-
-        /// <summary>
         /// Gets the source of an event.
         /// </summary>
         /// <param name="e">The event data.</param>
