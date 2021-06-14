@@ -133,12 +133,13 @@
         /// </summary>
         /// <param name="dropDestinationItem">The drop destination item.</param>
         /// <param name="effect">The drop effect.</param>
+        /// <param name="itemList">The list of items.</param>
         /// <param name="cloneList">An empty list of items.</param>
-        protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, DragDropEffects effect, IList cloneList)
+        protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
         {
             Debug.Assert(cloneList.Count == 0);
 
-            DropCompletedEventArgs Args = new DropCompletedEventArgs(PreviewDropCompletedEvent, DragSource, dropDestinationItem, effect, cloneList);
+            DropCompletedEventArgs Args = new DropCompletedEventArgs(PreviewDropCompletedEvent, DragSource, dropDestinationItem, effect, itemList, cloneList);
             RaiseEvent(Args);
         }
         #endregion
@@ -163,10 +164,11 @@
         /// </summary>
         /// <param name="dropDestinationItem">The drop destination item.</param>
         /// <param name="effect">The drop effect.</param>
-        /// <param name="cloneList">The list of dropped items.</param>
-        protected virtual void NotifyDropCompleted(object dropDestinationItem, DragDropEffects effect, IList cloneList)
+        /// <param name="itemList">The list of items.</param>
+        /// <param name="cloneList">The list of cloned items.</param>
+        protected virtual void NotifyDropCompleted(object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
         {
-            DropCompletedEventArgs Args = new DropCompletedEventArgs(DropCompletedEvent, DragSource, dropDestinationItem, effect, cloneList);
+            DropCompletedEventArgs Args = new DropCompletedEventArgs(DropCompletedEvent, DragSource, dropDestinationItem, effect, itemList, cloneList);
             RaiseEvent(Args);
         }
         #endregion

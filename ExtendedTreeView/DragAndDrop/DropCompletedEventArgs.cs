@@ -16,12 +16,14 @@
         /// <param name="dragSource">The drag source.</param>
         /// <param name="dropDestinationItem">The destination of the drop.</param>
         /// <param name="effect">The drop effect.</param>
-        /// <param name="cloneList">The list of items to clone.</param>
-        internal DropCompletedEventArgs(RoutedEvent routedEvent, IDragSourceControl dragSource, object dropDestinationItem, DragDropEffects effect, IList cloneList)
+        /// <param name="itemList">The list of moved items.</param>
+        /// <param name="cloneList">The list of cloned items.</param>
+        internal DropCompletedEventArgs(RoutedEvent routedEvent, IDragSourceControl dragSource, object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
             : base(routedEvent, dragSource)
         {
             DropDestinationItem = dropDestinationItem;
             Effect = effect;
+            ItemList = itemList;
             CloneList = cloneList;
         }
 
@@ -36,7 +38,12 @@
         public DragDropEffects Effect { get; }
 
         /// <summary>
-        /// Gets the list of items to clone.
+        /// Gets the list of moved items.
+        /// </summary>
+        public IList ItemList { get; }
+
+        /// <summary>
+        /// Gets the list of cloned items.
         /// </summary>
         public IList CloneList { get; }
     }

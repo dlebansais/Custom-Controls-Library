@@ -43,7 +43,7 @@
                     IList CloneList = CreateItemList();
 
                     Debug.Assert(CloneList.Count == 0);
-                    NotifyPreviewDropCompleted(DestinationItem, e.Effects, CloneList);
+                    NotifyPreviewDropCompleted(DestinationItem, e.Effects, ItemList, CloneList);
 
                     if (e.Effects == DragDropEffects.Copy)
                         DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
@@ -51,7 +51,7 @@
                         DragDropMove(SourceItem, DestinationItem, ItemList);
 
                     Debug.Assert(CloneList.Count > 0 || e.Effects != DragDropEffects.Copy);
-                    NotifyDropCompleted(DestinationItem, e.Effects, CloneList);
+                    NotifyDropCompleted(DestinationItem, e.Effects, ItemList, CloneList);
 
                     Expand(DestinationItem);
                 }
