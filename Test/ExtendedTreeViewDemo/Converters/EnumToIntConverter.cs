@@ -1,38 +1,37 @@
-﻿namespace Converters
+﻿namespace Converters;
+
+using System;
+using System.Globalization;
+using System.Windows.Data;
+
+[ValueConversion(typeof(object), typeof(int))]
+public class EnumToIntConverter : IValueConverter
 {
-    using System;
-    using System.Globalization;
-    using System.Windows.Data;
-
-    [ValueConversion(typeof(object), typeof(int))]
-    public class EnumToIntConverter : IValueConverter
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        if (value is not null)
         {
-            if (value != null)
+            Array Values = value.GetType().GetEnumValues();
+            for (int i = 0; i < Values.Length; i++)
             {
-                Array Values = value.GetType().GetEnumValues();
-                for (int i = 0; i < Values.Length; i++)
-                {
-                    object EnumValue = Values.GetValue(i)!;
-                    if (value.Equals(EnumValue))
-                        return i;
-                }
+                object EnumValue = Values.GetValue(i)!;
+                if (value.Equals(EnumValue))
+                    return i;
             }
-
-            return -1;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        return -1;
+    }
+
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        if (targetType is not null && targetType.IsEnum)
         {
-            if (targetType != null && targetType.IsEnum)
-            {
-                int IndexValue = (int)value;
-                Array Values = targetType.GetEnumValues();
-                return Values.GetValue(IndexValue)!;
-            }
-            else
-                return value;
+            int IndexValue = (int)value;
+            Array Values = targetType.GetEnumValues();
+            return Values.GetValue(IndexValue)!;
         }
+        else
+            return value;
     }
 }

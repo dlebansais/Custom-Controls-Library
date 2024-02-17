@@ -1,45 +1,44 @@
-﻿namespace CustomControls
+﻿namespace CustomControls;
+
+using System.ComponentModel;
+using System.Windows.Controls;
+
+/// <summary>
+/// Represents an item in a tree view control.
+/// </summary>
+public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyChanged
 {
-    using System.ComponentModel;
-    using System.Windows.Controls;
+    /// <summary>
+    /// Selects the item because a left button down event occured.
+    /// </summary>
+    protected void SelectItemOnLeftButtonDown()
+    {
+        _ = Focus();
+        Host.LeftClickSelect(Content);
+    }
 
     /// <summary>
-    /// Represents an item in a tree view control.
+    /// Unselects the item because a left button up event occured.
     /// </summary>
-    public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyChanged
+    protected void UnselectItemOnLeftButtonUp()
     {
-        /// <summary>
-        /// Selects the item because a left button down event occured.
-        /// </summary>
-        protected void SelectItemOnLeftButtonDown()
-        {
-            Focus();
-            Host.LeftClickSelect(Content);
-        }
+        Host.LeftClickUnselect(Content);
+    }
 
-        /// <summary>
-        /// Unselects the item because a left button up event occured.
-        /// </summary>
-        protected void UnselectItemOnLeftButtonUp()
-        {
-            Host.LeftClickUnselect(Content);
-        }
+    /// <summary>
+    /// Selects the item because a right button down event occured.
+    /// </summary>
+    protected void SelectItemOnRightButtonDown()
+    {
+        _ = Focus();
+        Host.RightClickSelect(Content);
+    }
 
-        /// <summary>
-        /// Selects the item because a right button down event occured.
-        /// </summary>
-        protected void SelectItemOnRightButtonDown()
-        {
-            Focus();
-            Host.RightClickSelect(Content);
-        }
-
-        /// <summary>
-        /// Unselects the item because a right button up event occured.
-        /// </summary>
-        protected void UnselectItemOnRightButtonUp()
-        {
-            Host.RightClickUnselect(Content);
-        }
+    /// <summary>
+    /// Unselects the item because a right button up event occured.
+    /// </summary>
+    protected void UnselectItemOnRightButtonUp()
+    {
+        Host.RightClickUnselect(Content);
     }
 }

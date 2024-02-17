@@ -14,8 +14,8 @@
 
             if (parameter is CompositeCollection ArrayParameter && ArrayParameter.Count > 0)
             {
-                Random r = new Random(IndexValue);
-                int Index = r.Next(ArrayParameter.Count);
+                Random Random = new(IndexValue);
+                int Index = Random.Next(ArrayParameter.Count);
                 object Result = ArrayParameter[Index];
 
                 if (Result is Image AsImage)

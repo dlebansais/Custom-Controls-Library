@@ -1,33 +1,32 @@
-﻿namespace CustomControls
+﻿namespace CustomControls;
+
+/// <summary>
+/// States of a drag drop operation.
+/// </summary>
+public enum DragActivity
 {
     /// <summary>
-    /// States of a drag drop operation.
+    /// No operation.
     /// </summary>
-    public enum DragActivity
-    {
-        /// <summary>
-        /// No operation.
-        /// </summary>
-        Idle,
+    Idle,
 
-        /// <summary>
-        /// The drag should start shortly.
-        /// </summary>
-        Scheduled,
+    /// <summary>
+    /// The drag should start shortly.
+    /// </summary>
+    Scheduled,
 
-        /// <summary>
-        /// Drag is starting.
-        /// </summary>
-        Starting,
+    /// <summary>
+    /// Drag is starting.
+    /// </summary>
+    Starting,
 
-        /// <summary>
-        /// Drag started.
-        /// </summary>
-        Started,
+    /// <summary>
+    /// Drag started.
+    /// </summary>
+    Started,
 
-        /// <summary>
-        /// The operation has been canceled.
-        /// </summary>
-        Canceled,
-    }
+    /// <summary>
+    /// The operation has been canceled.
+    /// </summary>
+    Canceled,
 }

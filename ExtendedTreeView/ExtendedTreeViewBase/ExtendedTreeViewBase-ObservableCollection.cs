@@ -1,288 +1,291 @@
-﻿namespace CustomControls
+﻿namespace CustomControls;
+
+using System.Collections;
+using System.Collections.Specialized;
+using System.Windows.Controls.Primitives;
+using Contracts;
+
+/// <summary>
+/// Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+/// </summary>
+public abstract partial class ExtendedTreeViewBase : MultiSelector
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Specialized;
-    using System.Diagnostics;
-    using System.Windows.Controls.Primitives;
-    using Contracts;
+    /// <summary>
+    /// Called when children of an item have changed.
+    /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="e">The event data.</param>
+    protected virtual void HandleChildrenChanged(object item, NotifyCollectionChangedEventArgs e)
+    {
+        NotifyCollectionChangedEventArgs Args = Contract.AssertNotNull(e);
+        IList OldItems;
+        IList NewItems;
+
+        switch (Args.Action)
+        {
+            case NotifyCollectionChangedAction.Add:
+                Contract.RequireNotNull(Args.NewItems, out NewItems);
+                OnItemAddChildren(item, Args.NewStartingIndex, NewItems);
+                break;
+
+            case NotifyCollectionChangedAction.Remove:
+                Contract.RequireNotNull(Args.OldItems, out OldItems);
+                OnItemRemoveChildren(item, Args.OldStartingIndex, OldItems);
+                break;
+
+            case NotifyCollectionChangedAction.Replace:
+                Contract.RequireNotNull(Args.OldItems, out OldItems);
+                Contract.RequireNotNull(Args.NewItems, out NewItems);
+                OnItemRemoveChildren(item, Args.OldStartingIndex, OldItems);
+                OnItemAddChildren(item, Args.NewStartingIndex, NewItems);
+                break;
+
+            case NotifyCollectionChangedAction.Move:
+                Contract.RequireNotNull(Args.NewItems, out NewItems);
+                OnItemMoveChildren(item, Args.OldStartingIndex, Args.NewStartingIndex, NewItems);
+                break;
+
+            case NotifyCollectionChangedAction.Reset:
+                OnItemResetChildren(item);
+                break;
+        }
+    }
 
     /// <summary>
-    /// Represents a control with a tree of nodes that can be moved around with Drag and Drop.
+    /// Called when children have been added to an item.
     /// </summary>
-    public abstract partial class ExtendedTreeViewBase : MultiSelector
+    /// <param name="item">The item.</param>
+    /// <param name="startIndex">Index where the first child is added.</param>
+    /// <param name="itemList">The list of children.</param>
+    protected virtual void OnItemAddChildren(object item, int startIndex, IList itemList)
     {
-        /// <summary>
-        /// Called when children of an item have changed.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="e">The event data.</param>
-        protected virtual void HandleChildrenChanged(object item, NotifyCollectionChangedEventArgs e)
+        IList ItemList = Contract.AssertNotNull(itemList);
+
+        NotifyPreviewCollectionModified(TreeViewCollectionOperation.Insert);
+
+        if (IsExpanded(item))
         {
-            IList OldItems;
-            IList NewItems;
+            int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
+            ShownPreviousChildrenCount += CountPreviousChildrenExpanded(item, startIndex, -1);
 
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    Contract.RequireNotNull(e.NewItems, out NewItems);
-                    OnItemAddChildren(item, e.NewStartingIndex, NewItems);
-                    break;
+            int ShownIndex = ShownPreviousChildrenCount;
 
-                case NotifyCollectionChangedAction.Remove:
-                    Contract.RequireNotNull(e.OldItems, out OldItems);
-                    OnItemRemoveChildren(item, e.OldStartingIndex, OldItems);
-                    break;
-
-                case NotifyCollectionChangedAction.Replace:
-                    Contract.RequireNotNull(e.OldItems, out OldItems);
-                    Contract.RequireNotNull(e.NewItems, out NewItems);
-                    OnItemRemoveChildren(item, e.OldStartingIndex, OldItems);
-                    OnItemAddChildren(item, e.NewStartingIndex, NewItems);
-                    break;
-
-                case NotifyCollectionChangedAction.Move:
-                    Contract.RequireNotNull(e.NewItems, out NewItems);
-                    OnItemMoveChildren(item, e.OldStartingIndex, e.NewStartingIndex, NewItems);
-                    break;
-
-                case NotifyCollectionChangedAction.Reset:
-                    OnItemResetChildren(item);
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Called when children have been added to an item.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="startIndex">Index where the first child is added.</param>
-        /// <param name="itemList">The list of children.</param>
-        protected virtual void OnItemAddChildren(object item, int startIndex, IList itemList)
-        {
-            NotifyPreviewCollectionModified(TreeViewCollectionOperation.Insert);
-
-            if (IsExpanded(item))
-            {
-                int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
-                ShownPreviousChildrenCount += CountPreviousChildrenExpanded(item, startIndex, -1);
-
-                int ShownIndex = ShownPreviousChildrenCount;
-
-                IInsertItemContext Context = CreateInsertItemContext(item, ShownIndex);
-                Context.Start();
+            IInsertItemContext Context = CreateInsertItemContext(item, ShownIndex);
+            Context.Start();
 
 #if NETCOREAPP3_1
-                foreach (object? ChildItem in itemList)
-                    if (ChildItem != null)
-                        InsertChildren(Context, ChildItem, item);
-#else
-                foreach (object ChildItem in itemList)
+            foreach (object? ChildItem in ItemList)
+                if (ChildItem is not null)
                     InsertChildren(Context, ChildItem, item);
+#else
+            foreach (object ChildItem in ItemList)
+                InsertChildren(Context, ChildItem, item);
 #endif
 
-                Context.Complete();
-                Context.Close();
-            }
-
-            NotifyCollectionModified(TreeViewCollectionOperation.Insert);
+            Context.Complete();
+            Context.Close();
         }
 
-        /// <summary>
-        /// Called when children of an item have been removed.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="startIndex">Index of the first removed child.</param>
-        /// <param name="itemList">The list of removed children.</param>
-        protected virtual void OnItemRemoveChildren(object item, int startIndex, IList itemList)
+        NotifyCollectionModified(TreeViewCollectionOperation.Insert);
+    }
+
+    /// <summary>
+    /// Called when children of an item have been removed.
+    /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="startIndex">Index of the first removed child.</param>
+    /// <param name="itemList">The list of removed children.</param>
+    protected virtual void OnItemRemoveChildren(object item, int startIndex, IList itemList)
+    {
+        IList ItemList = Contract.AssertNotNull(itemList);
+
+        NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
+
+        if (IsExpanded(item))
         {
-            NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
+            int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
+            ShownPreviousChildrenCount += CountPreviousChildrenExpanded(item, startIndex, -1);
 
-            if (IsExpanded(item))
-            {
-                int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
-                ShownPreviousChildrenCount += CountPreviousChildrenExpanded(item, startIndex, -1);
+            int ShownIndex = ShownPreviousChildrenCount;
 
-                int ShownIndex = ShownPreviousChildrenCount;
-
-                IRemoveItemContext Context = CreateRemoveItemContext(item, ShownIndex);
-                Context.Start();
+            IRemoveItemContext Context = CreateRemoveItemContext(item, ShownIndex);
+            Context.Start();
 
 #if NETCOREAPP3_1
-                foreach (object? ChildItem in itemList)
-                    if (ChildItem != null)
-                        RemoveChildren(Context, ChildItem);
-#else
-                foreach (object ChildItem in itemList)
+            foreach (object? ChildItem in ItemList)
+                if (ChildItem is not null)
                     RemoveChildren(Context, ChildItem);
+#else
+            foreach (object ChildItem in ItemList)
+                RemoveChildren(Context, ChildItem);
 #endif
 
-                Context.Complete();
-                Context.Close();
-            }
-
-            NotifyCollectionModified(TreeViewCollectionOperation.Remove);
+            Context.Complete();
+            Context.Close();
         }
 
-        /// <summary>
-        /// Called when children of an item have been moved.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        /// <param name="oldIndex">Index of the previous position of the first child.</param>
-        /// <param name="newIndex">Index of the new position of the first child.</param>
-        /// <param name="itemList">The list of moved children.</param>
-        protected virtual void OnItemMoveChildren(object item, int oldIndex, int newIndex, IList itemList)
+        NotifyCollectionModified(TreeViewCollectionOperation.Remove);
+    }
+
+    /// <summary>
+    /// Called when children of an item have been moved.
+    /// </summary>
+    /// <param name="item">The item.</param>
+    /// <param name="oldIndex">Index of the previous position of the first child.</param>
+    /// <param name="newIndex">Index of the new position of the first child.</param>
+    /// <param name="itemList">The list of moved children.</param>
+    protected virtual void OnItemMoveChildren(object item, int oldIndex, int newIndex, IList itemList)
+    {
+        IList ItemList = Contract.AssertNotNull(itemList);
+
+        NotifyPreviewCollectionModified(TreeViewCollectionOperation.Move);
+
+        if (IsExpanded(item))
         {
-            NotifyPreviewCollectionModified(TreeViewCollectionOperation.Move);
-
-            if (IsExpanded(item))
-            {
-                if (oldIndex < newIndex)
-                    OnItemMoveChildrenPreviousBefore(item, oldIndex, newIndex, itemList);
-                else if (oldIndex > newIndex)
-                    OnItemMoveChildrenPreviousAfter(item, oldIndex, newIndex, itemList);
-            }
-
-            NotifyCollectionModified(TreeViewCollectionOperation.Move);
+            if (oldIndex < newIndex)
+                OnItemMoveChildrenPreviousBefore(item, oldIndex, newIndex, ItemList);
+            else if (oldIndex > newIndex)
+                OnItemMoveChildrenPreviousAfter(item, oldIndex, newIndex, ItemList);
         }
 
-        private void OnItemMoveChildrenPreviousBefore(object item, int oldIndex, int newIndex, IList itemList)
-        {
-            int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
+        NotifyCollectionModified(TreeViewCollectionOperation.Move);
+    }
 
-            int RemoveIndex = ShownPreviousChildrenCount;
-            RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex, -1);
+    private void OnItemMoveChildrenPreviousBefore(object item, int oldIndex, int newIndex, IList itemList)
+    {
+        int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
 
-            IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
-            RemoveContext.Start();
+        int RemoveIndex = ShownPreviousChildrenCount;
+        RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex, -1);
+
+        IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
+        RemoveContext.Start();
 
 #if NETCOREAPP3_1
-            foreach (object? ChildItem in itemList)
-                if (ChildItem != null)
-                    RemoveChildren(RemoveContext, ChildItem);
-#else
-            foreach (object ChildItem in itemList)
+        foreach (object? ChildItem in itemList)
+            if (ChildItem is not null)
                 RemoveChildren(RemoveContext, ChildItem);
+#else
+        foreach (object ChildItem in itemList)
+            RemoveChildren(RemoveContext, ChildItem);
 #endif
 
-            RemoveContext.Complete();
-            RemoveContext.Close();
+        RemoveContext.Complete();
+        RemoveContext.Close();
 
-            int InsertIndex = ShownPreviousChildrenCount;
-            InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
+        int InsertIndex = ShownPreviousChildrenCount;
+        InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
 
-            IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
-            InsertContext.Start();
+        IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
+        InsertContext.Start();
 
 #if NETCOREAPP3_1
-            foreach (object? ChildItem in itemList)
-                if (ChildItem != null)
-                    InsertChildren(InsertContext, ChildItem, item);
-#else
-            foreach (object ChildItem in itemList)
+        foreach (object? ChildItem in itemList)
+            if (ChildItem is not null)
                 InsertChildren(InsertContext, ChildItem, item);
+#else
+        foreach (object ChildItem in itemList)
+            InsertChildren(InsertContext, ChildItem, item);
 #endif
 
-            InsertContext.Complete();
-            InsertContext.Close();
-        }
+        InsertContext.Complete();
+        InsertContext.Close();
+    }
 
-        private void OnItemMoveChildrenPreviousAfter(object item, int oldIndex, int newIndex, IList itemList)
-        {
-            int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
+    private void OnItemMoveChildrenPreviousAfter(object item, int oldIndex, int newIndex, IList itemList)
+    {
+        int ShownPreviousChildrenCount = VisibleChildren.IndexOf(item);
 
-            int RemoveIndex = ShownPreviousChildrenCount;
-            RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex + 1, newIndex);
+        int RemoveIndex = ShownPreviousChildrenCount;
+        RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex + 1, newIndex);
 
-            IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
-            RemoveContext.Start();
+        IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
+        RemoveContext.Start();
 
 #if NETCOREAPP3_1
-            foreach (object? ChildItem in itemList)
-                if (ChildItem != null)
-                    RemoveChildren(RemoveContext, ChildItem);
-#else
-            foreach (object ChildItem in itemList)
+        foreach (object? ChildItem in itemList)
+            if (ChildItem is not null)
                 RemoveChildren(RemoveContext, ChildItem);
+#else
+        foreach (object ChildItem in itemList)
+            RemoveChildren(RemoveContext, ChildItem);
 #endif
 
-            RemoveContext.Complete();
-            RemoveContext.Close();
+        RemoveContext.Complete();
+        RemoveContext.Close();
 
-            int InsertIndex = ShownPreviousChildrenCount;
-            InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
+        int InsertIndex = ShownPreviousChildrenCount;
+        InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
 
-            IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
-            InsertContext.Start();
+        IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
+        InsertContext.Start();
 
 #if NETCOREAPP3_1
-            foreach (object? ChildItem in itemList)
-                if (ChildItem != null)
-                    InsertChildren(InsertContext, ChildItem, item);
-#else
-            foreach (object ChildItem in itemList)
+        foreach (object? ChildItem in itemList)
+            if (ChildItem is not null)
                 InsertChildren(InsertContext, ChildItem, item);
+#else
+        foreach (object ChildItem in itemList)
+            InsertChildren(InsertContext, ChildItem, item);
 #endif
 
-            InsertContext.Complete();
-            InsertContext.Close();
-        }
+        InsertContext.Complete();
+        InsertContext.Close();
+    }
 
-        /// <summary>
-        /// Called when children of an item are reset.
-        /// </summary>
-        /// <param name="item">The item.</param>
-        protected virtual void OnItemResetChildren(object item)
+    /// <summary>
+    /// Called when children of an item are reset.
+    /// </summary>
+    /// <param name="item">The item.</param>
+    protected virtual void OnItemResetChildren(object item)
+    {
+        NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
+
+        if (IsExpanded(item))
         {
-            NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
+            object? ParentItem = GetItemParent(item);
 
-            if (IsExpanded(item))
+            int StartIndex;
+            int RemoveCount;
+
+            if (ParentItem is not null)
             {
-                object? ParentItem = GetItemParent(item);
+                StartIndex = VisibleChildren.IndexOf(item) + 1;
 
-                int StartIndex;
-                int RemoveCount;
-
-                if (ParentItem != null)
+                IList Siblings = GetItemChildren(ParentItem);
+                int ItemIndex = Siblings.IndexOf(item);
+                if (ItemIndex + 1 < Siblings.Count)
                 {
-                    StartIndex = VisibleChildren.IndexOf(item) + 1;
-
-                    IList Siblings = GetItemChildren(ParentItem);
-                    int ItemIndex = Siblings.IndexOf(item);
-                    if (ItemIndex + 1 < Siblings.Count)
-                    {
-                        object NextItem = Siblings[ItemIndex + 1]!;
-                        int EndIndex = VisibleChildren.IndexOf(NextItem);
-                        RemoveCount = EndIndex - StartIndex;
-                    }
-                    else
-                        RemoveCount = CountVisibleChildren(item);
+                    object NextItem = Siblings[ItemIndex + 1]!;
+                    int EndIndex = VisibleChildren.IndexOf(NextItem);
+                    RemoveCount = EndIndex - StartIndex;
                 }
                 else
-                {
-                    StartIndex = 1;
-                    RemoveCount = VisibleChildren.Count - 1;
-                }
-
-                IRemoveItemContext Context = CreateRemoveItemContext(item, StartIndex);
-                Context.Start();
-
-                for (int i = 0; i < RemoveCount; i++)
-                {
-                    object RemovedItem = VisibleChildren[Context.ShownIndex];
-
-                    InternalRemove(Context.ShownIndex, RemovedItem);
-                    Context.NextIndex();
-
-                    if (ExpandedChildren.ContainsKey(RemovedItem))
-                        ExpandedChildren.Remove(RemovedItem);
-                }
-
-                Context.Complete();
-                Context.Close();
+                    RemoveCount = CountVisibleChildren(item);
+            }
+            else
+            {
+                StartIndex = 1;
+                RemoveCount = VisibleChildren.Count - 1;
             }
 
-            NotifyCollectionModified(TreeViewCollectionOperation.Remove);
+            IRemoveItemContext Context = CreateRemoveItemContext(item, StartIndex);
+            Context.Start();
+
+            for (int i = 0; i < RemoveCount; i++)
+            {
+                object RemovedItem = VisibleChildren[Context.ShownIndex];
+
+                InternalRemove(Context.ShownIndex, RemovedItem);
+                Context.NextIndex();
+
+                _ = ExpandedChildren.Remove(RemovedItem);
+            }
+
+            Context.Complete();
+            Context.Close();
         }
+
+        NotifyCollectionModified(TreeViewCollectionOperation.Remove);
     }
 }

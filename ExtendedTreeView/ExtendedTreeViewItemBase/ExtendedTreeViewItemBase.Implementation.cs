@@ -1,48 +1,47 @@
-﻿namespace CustomControls
+﻿namespace CustomControls;
+
+using System.ComponentModel;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+
+/// <summary>
+/// Represents an item in a tree view control.
+/// </summary>
+public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyChanged
 {
-    using System.ComponentModel;
-    using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
+    /// <summary>
+    /// Called when the <see cref="ContentControl.Content"/> property changes.
+    /// </summary>
+    /// <param name="oldContent">The old value of the <see cref="ContentControl.Content"/> property.</param>
+    /// <param name="newContent">The new value of the <see cref="ContentControl.Content"/> property.</param>
+    protected override void OnContentChanged(object oldContent, object newContent)
+    {
+        base.OnContentChanged(oldContent, newContent);
+
+        if (newContent != BindingOperations.DisconnectedSource)
+            NotifyPropertyChanged(nameof(Level));
+    }
 
     /// <summary>
-    /// Represents an item in a tree view control.
+    /// Raises the <see cref="UIElement.GotFocus"/> routed event by using the event data that is provided.
     /// </summary>
-    public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyChanged
+    /// <param name="e">The event data.</param>
+    protected override void OnGotFocus(RoutedEventArgs e)
     {
-        /// <summary>
-        /// Called when the <see cref="ContentControl.Content"/> property changes.
-        /// </summary>
-        /// <param name="oldContent">The old value of the <see cref="ContentControl.Content"/> property.</param>
-        /// <param name="newContent">The new value of the <see cref="ContentControl.Content"/> property.</param>
-        protected override void OnContentChanged(object oldContent, object newContent)
-        {
-            base.OnContentChanged(oldContent, newContent);
+        base.OnLostFocus(e);
 
-            if (newContent != BindingOperations.DisconnectedSource)
-                NotifyPropertyChanged(nameof(Level));
-        }
+        Host.ContainerGotFocus(this);
+    }
 
-        /// <summary>
-        /// Raises the <see cref="UIElement.GotFocus"/> routed event by using the event data that is provided.
-        /// </summary>
-        /// <param name="e">The event data.</param>
-        protected override void OnGotFocus(RoutedEventArgs e)
-        {
-            base.OnLostFocus(e);
+    /// <summary>
+    /// Raises the <see cref="UIElement.LostFocus"/> routed event by using the event data that is provided.
+    /// </summary>
+    /// <param name="e">The event data.</param>
+    protected override void OnLostFocus(RoutedEventArgs e)
+    {
+        Host.ContainerLostFocus();
 
-            Host.ContainerGotFocus(this);
-        }
-
-        /// <summary>
-        /// Raises the <see cref="UIElement.LostFocus"/> routed event by using the event data that is provided.
-        /// </summary>
-        /// <param name="e">The event data.</param>
-        protected override void OnLostFocus(RoutedEventArgs e)
-        {
-            Host.ContainerLostFocus();
-
-            base.OnLostFocus(e);
-        }
+        base.OnLostFocus(e);
     }
 }

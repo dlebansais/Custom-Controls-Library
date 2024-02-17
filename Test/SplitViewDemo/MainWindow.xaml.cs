@@ -38,7 +38,6 @@
         #region Events
         private void OnViewLoaded(object sender, RoutedEventArgs e)
         {
-            SplitView Ctrl = (SplitView)sender;
             ViewLoadedEventArgs Args = (ViewLoadedEventArgs)e;
             FrameworkElement View = Args.ViewContent;
 
@@ -57,8 +56,6 @@
                 ZoomTransform.ScaleX = Zoom;
                 ZoomTransform.ScaleY = Zoom;
             }
-
-            bool b = Ctrl.IsSplitRemovable;
         }
         #endregion
 

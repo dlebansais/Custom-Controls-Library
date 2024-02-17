@@ -1,121 +1,120 @@
-﻿namespace CustomControls
+﻿namespace CustomControls;
+
+using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+/// <summary>
+/// Represents a list of string resources loaded from a files.
+/// </summary>
+internal class StringResource
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Runtime.InteropServices;
+    #region Init
+    /// <summary>
+    /// Initializes a new instance of the <see cref="StringResource"/> class.
+    /// </summary>
+    /// <param name="filePath">Path to the file to read.</param>
+    /// <param name="resourceID">Identifier of the resources.</param>
+    public StringResource(string filePath, uint resourceID)
+    {
+        FilePath = filePath;
+        ResourceID = resourceID;
+
+        AsStrings = new List<string>();
+    }
 
     /// <summary>
-    /// Represents a list of string resources loaded from a files.
+    /// Loads the string resources.
     /// </summary>
-    internal class StringResource
+    public void Load()
     {
-        #region Init
-        /// <summary>
-        /// Initializes a new instance of the <see cref="StringResource"/> class.
-        /// </summary>
-        /// <param name="filePath">Path to the file to read.</param>
-        /// <param name="resourceID">Identifier of the resources.</param>
-        public StringResource(string filePath, uint resourceID)
+        IntPtr hMod = LoadFile();
+        if (hMod != IntPtr.Zero)
         {
-            FilePath = filePath;
-            ResourceID = resourceID;
-
-            AsStrings = new List<string>();
+            _ = LoadStringValues(hMod);
+            FreeHandles(hMod);
         }
-
-        /// <summary>
-        /// Loads the string resources.
-        /// </summary>
-        public void Load()
-        {
-            IntPtr hMod = LoadFile();
-            if (hMod != IntPtr.Zero)
-            {
-                LoadStringValues(hMod);
-                FreeHandles(hMod);
-            }
-        }
-        #endregion
-
-        #region Properties
-        /// <summary>
-        /// Gets the path to the file resources are loaded from.
-        /// </summary>
-        public string FilePath { get; private set; }
-
-        /// <summary>
-        /// Gets the identifier used to find and load resources in the file.
-        /// </summary>
-        public uint ResourceID { get; private set; }
-
-        /// <summary>
-        /// Gets the loaded string resources.
-        /// </summary>
-        public IList<string> AsStrings { get; private set; }
-        #endregion
-
-        #region Implementation
-        /// <summary>
-        /// Load the file containing the resources in memory.
-        /// </summary>
-        /// <returns>Handle to the loaded file.</returns>
-        protected virtual IntPtr LoadFile()
-        {
-            IntPtr hMod = NativeMethods.LoadLibraryEx(FilePath, IntPtr.Zero, NativeMethods.LOAD_LIBRARY_AS_DATAFILE);
-            return hMod;
-        }
-
-        /// <summary>
-        /// Load the string resources and fill the AsStrings property.
-        /// </summary>
-        /// <param name="hMod">Handle of the resource to load.</param>
-        /// <returns>True if the resource has been loaded successfully; Otherwise, false.</returns>
-        protected virtual bool LoadStringValues(IntPtr hMod)
-        {
-            IntPtr hResDir = NativeMethods.FindResource(hMod, (IntPtr)ResourceID, (IntPtr)NativeMethods.RT_STRING);
-            if (hResDir == IntPtr.Zero)
-                return false;
-
-            uint size = NativeMethods.SizeofResource(hMod, hResDir);
-            IntPtr pt = NativeMethods.LoadResource(hMod, hResDir);
-
-            byte[] bPtr = new byte[size];
-            Marshal.Copy(pt, bPtr, 0, (int)size);
-
-            List<string> Values = new List<string>();
-
-            int Offset = 0;
-            while (Offset + 2 < size)
-            {
-                ushort Length = BitConverter.ToUInt16(bPtr, Offset);
-                Offset += 2;
-
-                string Value = string.Empty;
-                for (int j = 0; j < Length && Offset + 2 < size; j++)
-                {
-                    Value += BitConverter.ToChar(bPtr, Offset);
-                    Offset += 2;
-                }
-
-                Value = Value.Replace('&', '_');
-                Values.Add(Value);
-            }
-
-            AsStrings.Clear();
-            for (int i = 0; i < Values.Count; i++)
-                AsStrings.Add(Values[i]);
-
-            return true;
-        }
-
-        /// <summary>
-        /// Frees loaded handles from memory.
-        /// </summary>
-        /// <param name="hMod">Handle to free.</param>
-        protected virtual void FreeHandles(IntPtr hMod)
-        {
-            NativeMethods.FreeLibrary(hMod);
-        }
-        #endregion
     }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    /// Gets the path to the file resources are loaded from.
+    /// </summary>
+    public string FilePath { get; private set; }
+
+    /// <summary>
+    /// Gets the identifier used to find and load resources in the file.
+    /// </summary>
+    public uint ResourceID { get; private set; }
+
+    /// <summary>
+    /// Gets the loaded string resources.
+    /// </summary>
+    public IList<string> AsStrings { get; private set; }
+    #endregion
+
+    #region Implementation
+    /// <summary>
+    /// Load the file containing the resources in memory.
+    /// </summary>
+    /// <returns>Handle to the loaded file.</returns>
+    protected virtual IntPtr LoadFile()
+    {
+        IntPtr hMod = NativeMethods.LoadLibraryEx(FilePath, IntPtr.Zero, NativeMethods.LOAD_LIBRARY_AS_DATAFILE);
+        return hMod;
+    }
+
+    /// <summary>
+    /// Load the string resources and fill the AsStrings property.
+    /// </summary>
+    /// <param name="hMod">Handle of the resource to load.</param>
+    /// <returns>True if the resource has been loaded successfully; Otherwise, false.</returns>
+    protected virtual bool LoadStringValues(IntPtr hMod)
+    {
+        IntPtr hResDir = NativeMethods.FindResource(hMod, (IntPtr)ResourceID, (IntPtr)NativeMethods.RT_STRING);
+        if (hResDir == IntPtr.Zero)
+            return false;
+
+        uint size = NativeMethods.SizeofResource(hMod, hResDir);
+        IntPtr pt = NativeMethods.LoadResource(hMod, hResDir);
+
+        byte[] bPtr = new byte[size];
+        Marshal.Copy(pt, bPtr, 0, (int)size);
+
+        List<string> values = new();
+
+        int offset = 0;
+        while (offset + 2 < size)
+        {
+            ushort length = BitConverter.ToUInt16(bPtr, offset);
+            offset += 2;
+
+            string value = string.Empty;
+            for (int j = 0; j < length && offset + 2 < size; j++)
+            {
+                value += BitConverter.ToChar(bPtr, offset);
+                offset += 2;
+            }
+
+            value = value.Replace('&', '_');
+            values.Add(value);
+        }
+
+        AsStrings.Clear();
+        for (int i = 0; i < values.Count; i++)
+            AsStrings.Add(values[i]);
+
+        return true;
+    }
+
+    /// <summary>
+    /// Frees loaded handles from memory.
+    /// </summary>
+    /// <param name="hMod">Handle to free.</param>
+    protected virtual void FreeHandles(IntPtr hMod)
+    {
+        _ = NativeMethods.FreeLibrary(hMod);
+    }
+    #endregion
 }

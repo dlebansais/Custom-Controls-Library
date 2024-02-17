@@ -1,55 +1,45 @@
-﻿namespace CustomControls
+﻿namespace CustomControls;
+
+using System;
+using System.IO;
+using System.Text;
+using System.Windows;
+
+/// <summary>
+/// Represents the manager of a dictionary of shared resources.
+/// </summary>
+internal static class SharedResourceDictionaryManager
 {
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Windows;
-
     /// <summary>
-    /// Represents the manager of a dictionary of shared resources.
+    /// Gets the resource dictionary.
     /// </summary>
-    internal static class SharedResourceDictionaryManager
+    internal static ResourceDictionary SharedDictionary
     {
-        /// <summary>
-        /// Gets the resource dictionary.
-        /// </summary>
-        internal static ResourceDictionary SharedDictionary
+        get
         {
-            get
+            if (SharedDictionaryInternal.Count == 0)
             {
-                if (SharedDictionaryInternal.Count == 0)
+                const int MaxPath = 260;
+                char[] ThemeFileName = new char[MaxPath];
+                char[] ColorBuff = new char[MaxPath];
+                char[] SizeBuff = new char[MaxPath];
+                NativeMethods.GetCurrentThemeName(ThemeFileName, MaxPath, ColorBuff, MaxPath, SizeBuff, MaxPath);
+
+                string FileName = Path.GetFileName(new string(ThemeFileName).ToUpperInvariant());
+                string ThemeChoice = FileName switch
                 {
-                    StringBuilder ThemeFileName = new StringBuilder(0x200);
-                    StringBuilder ColorBuff = new StringBuilder(0x200);
-                    StringBuilder SizeBuff = new StringBuilder(0x200);
-                    NativeMethods.GetCurrentThemeName(ThemeFileName, ThemeFileName.Capacity, ColorBuff, ColorBuff.Capacity, SizeBuff, SizeBuff.Capacity);
-                    string FileName = Path.GetFileName(ThemeFileName.ToString().ToLower());
-
-                    string ThemeChoice;
-                    switch (FileName)
-                    {
-                        case "aero.msstyles":
-                            ThemeChoice = "aero.normalcolor";
-                            break;
-                        case "aero2.msstyles":
-                            ThemeChoice = "aero2.normalcolor";
-                            break;
-                        case "aerolite.msstyles":
-                            ThemeChoice = "aerolite.normalcolor";
-                            break;
-                        default:
-                            ThemeChoice = "generic";
-                            break;
-                    }
-
-                    Uri ResourceLocater = new Uri($"/ExtendedTreeView;component/themes/{ThemeChoice}.xaml", UriKind.Relative);
-                    SharedDictionaryInternal = (ResourceDictionary)Application.LoadComponent(ResourceLocater);
-                }
-
-                return SharedDictionaryInternal;
+                    "AERO.MSSTYLES" => "aero.normalcolor",
+                    "AERO2.MSSTYLES" => "aero2.normalcolor",
+                    "AEROLITE.MSSTYLES" => "aerolite.normalcolor",
+                    _ => "generic",
+                };
+                Uri ResourceLocater = new($"/ExtendedTreeView;component/themes/{ThemeChoice}.xaml", UriKind.Relative);
+                SharedDictionaryInternal = (ResourceDictionary)Application.LoadComponent(ResourceLocater);
             }
-        }
 
-        private static ResourceDictionary SharedDictionaryInternal = new ResourceDictionary();
+            return SharedDictionaryInternal;
+        }
     }
+
+    private static ResourceDictionary SharedDictionaryInternal = new();
 }

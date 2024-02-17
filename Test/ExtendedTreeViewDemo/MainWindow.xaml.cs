@@ -76,16 +76,16 @@
             panelMain.Children.Clear();
             UpdateProgress(0, 0);
 
-            ExtendedTreeView treeviewSample = new ExtendedTreeView();
-            treeviewSample.SetValue(ScrollViewer.IsDeferredScrollingEnabledProperty, TreeViewSettingsWindow.IsDeferredScrollingEnabled);
-            treeviewSample.SetValue(VirtualizingPanel.IsVirtualizingProperty, TreeViewSettingsWindow.IsVirtualizing);
-            treeviewSample.SetValue(VirtualizingPanel.VirtualizationModeProperty, TreeViewSettingsWindow.VirtualizationMode);
-            treeviewSample.SelectionMode = TreeViewSettingsWindow.SelectionMode;
-            treeviewSample.AllowDragDrop = TreeViewSettingsWindow.AllowDragDrop;
-            treeviewSample.IsRootAlwaysExpanded = TreeViewSettingsWindow.IsRootAlwaysExpanded;
-            treeviewSample.IsItemExpandedAtStart = TreeViewSettingsWindow.IsItemExpandedAtStart;
-            treeviewSample.Content = GenerateRoot(TreeViewSettingsWindow.IsCloneable);
-            treeviewSample.DropCheck += OnDropCheck;
+            ExtendedTreeView TreeviewSample = new();
+            TreeviewSample.SetValue(ScrollViewer.IsDeferredScrollingEnabledProperty, TreeViewSettingsWindow.IsDeferredScrollingEnabled);
+            TreeviewSample.SetValue(VirtualizingPanel.IsVirtualizingProperty, TreeViewSettingsWindow.IsVirtualizing);
+            TreeviewSample.SetValue(VirtualizingPanel.VirtualizationModeProperty, TreeViewSettingsWindow.VirtualizationMode);
+            TreeviewSample.SelectionMode = TreeViewSettingsWindow.SelectionMode;
+            TreeviewSample.AllowDragDrop = TreeViewSettingsWindow.AllowDragDrop;
+            TreeviewSample.IsRootAlwaysExpanded = TreeViewSettingsWindow.IsRootAlwaysExpanded;
+            TreeviewSample.IsItemExpandedAtStart = TreeViewSettingsWindow.IsItemExpandedAtStart;
+            TreeviewSample.Content = GenerateRoot(TreeViewSettingsWindow.IsCloneable);
+            TreeviewSample.DropCheck += OnDropCheck;
 
             Collection<ResourceDictionary> MergedDictionaries = Application.Current.Resources.MergedDictionaries;
             MergedDictionaries.Clear();
@@ -96,9 +96,9 @@
             {
                 case TreeViewType.VS2013:
                     MergedDictionaries.Add(VS2013Dictionnary);
-                    treeviewSample.ExpandButtonStyle = (Style)FindResource("VS2013ExpandButtonStyle");
-                    treeviewSample.ExpandButtonWidth = 16;
-                    treeviewSample.IndentationWidth = 16;
+                    TreeviewSample.ExpandButtonStyle = (Style)FindResource("VS2013ExpandButtonStyle");
+                    TreeviewSample.ExpandButtonWidth = 16;
+                    TreeviewSample.IndentationWidth = 16;
                     IsHandled = true;
                     break;
 
@@ -109,11 +109,11 @@
                     Style NewButtonStyle = new Style(typeof(ToggleButton), ButtonStyle);
                     NewButtonStyle.Setters.Add(new EventSetter(ToggleButton.LoadedEvent, new RoutedEventHandler(OnButtonLoaded)));
                     NewButtonStyle.Setters.Add(new EventSetter(ToggleButton.UnloadedEvent, new RoutedEventHandler(OnButtonUnloaded)));
-                    treeviewSample.ExpandButtonStyle = NewButtonStyle;
-                    treeviewSample.ExpandButtonWidth = 12;
-                    treeviewSample.IndentationWidth = 8;
-                    treeviewSample.MouseEnter += OnTreeViewMouseEnter;
-                    treeviewSample.MouseLeave += OnTreeViewMouseLeave;
+                    TreeviewSample.ExpandButtonStyle = NewButtonStyle;
+                    TreeviewSample.ExpandButtonWidth = 12;
+                    TreeviewSample.IndentationWidth = 8;
+                    TreeviewSample.MouseEnter += OnTreeViewMouseEnter;
+                    TreeviewSample.MouseLeave += OnTreeViewMouseLeave;
                     IsHandled = true;
                     break;
 
@@ -141,7 +141,7 @@
 
             Debug.Assert(IsHandled);
 
-            panelMain.Children.Add(treeviewSample);
+            panelMain.Children.Add(TreeviewSample);
         }
 
         protected virtual IExtendedTreeNode GenerateRoot(bool isCloneable)
@@ -177,7 +177,7 @@
         protected delegate void GenerateNextHandler(bool isCloneable, int itemCount, int averageChildrenCount, Random randomNumberGenerator, IExtendedTreeNode root, int generated, Collection<IExtendedTreeNode> parentChain, int parentIndex, IExtendedTreeNode? parentTreeNode, int childIndex, int childrenCount);
         protected virtual void GenerateNext(bool isCloneable, int itemCount, int averageChildrenCount, Random randomNumberGenerator, IExtendedTreeNode root, int generated, Collection<IExtendedTreeNode> parentChain, int parentIndex, IExtendedTreeNode? parentTreeNode, int childIndex, int childrenCount)
         {
-            if (randomNumberGenerator == null || parentChain == null)
+            if (randomNumberGenerator is null || parentChain is null)
                 return;
 
             int ThisPassCount = 0;
@@ -223,28 +223,28 @@
 
         protected virtual void OnDropCheck(object sender, RoutedEventArgs e)
         {
-            if (e == null)
+            if (e is null)
                 throw new ArgumentNullException(nameof(e));
 
             DropCheckEventArgs Args = (DropCheckEventArgs)e;
             IExtendedTreeNode DropDestinationItem = (IExtendedTreeNode)Args.DropDestinationItem;
 
-            if (DropDestinationItem != null && ((ICollection<IExtendedTreeNode>)DropDestinationItem.Children).Count == 0 && TreeViewSettingsWindow.AreLeavesSealed)
+            if (DropDestinationItem is not null && ((ICollection<IExtendedTreeNode>)DropDestinationItem.Children).Count == 0 && TreeViewSettingsWindow.AreLeavesSealed)
                 Args.Deny();
         }
 
         protected virtual void OnTreeViewMouseEnter(object sender, MouseEventArgs e)
         {
-            Storyboard res = (Storyboard)FindResource("ShowButton");
+            Storyboard Resource = (Storyboard)FindResource("ShowButton");
             foreach (FrameworkElement Button in ButtonList)
-                Button.BeginStoryboard(res);
+                Button.BeginStoryboard(Resource);
         }
 
         protected virtual void OnTreeViewMouseLeave(object sender, MouseEventArgs e)
         {
-            Storyboard res = (Storyboard)FindResource("HideButton");
+            Storyboard Resource = (Storyboard)FindResource("HideButton");
             foreach (FrameworkElement Button in ButtonList)
-                Button.BeginStoryboard(res);
+                Button.BeginStoryboard(Resource);
         }
 
         protected virtual void OnButtonLoaded(object sender, RoutedEventArgs e)
