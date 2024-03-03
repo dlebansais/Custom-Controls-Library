@@ -3,7 +3,6 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using Converters;
 
 /// <summary>
 /// Represents a collection of <see cref="ActiveCommand"/> objects.

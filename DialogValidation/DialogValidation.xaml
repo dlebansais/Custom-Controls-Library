@@ -2,26 +2,25 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:ctrl="clr-namespace:CustomControls"
-             xmlns:conv="clr-namespace:Converters"
              HorizontalContentAlignment="Right"
              VerticalContentAlignment="Bottom"
              Padding="10">
     <UserControl.Resources>
-       <conv:ActiveCommandToContentConverter x:Key="convActiveCommandToContent"/>
+       <ctrl:ActiveCommandToContentConverter x:Key="convActiveCommandToContent"/>
         <Style TargetType="{x:Type Button}" x:Key="DialogButtonStyle">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding IsLocalized, RelativeSource={RelativeSource AncestorType={x:Type ctrl:DialogValidation}}}" Value="True">
+                <DataTrigger Binding="{Binding IsLocalized, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="True">
                     <Setter Property="Content">
                         <Setter.Value>
                             <MultiBinding Converter="{StaticResource convActiveCommandToContent}">
-                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type ctrl:DialogValidation}}"/>
-                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type ctrl:DialogValidation}}" Path="IsLocalized"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}"/>
+                                <Binding RelativeSource="{RelativeSource AncestorType={x:Type UserControl}}" Path="IsLocalized"/>
                                 <Binding/>
                             </MultiBinding>
                         </Setter.Value>
                     </Setter>
                 </DataTrigger>
-                <DataTrigger Binding="{Binding IsLocalized, RelativeSource={RelativeSource AncestorType={x:Type ctrl:DialogValidation}}}" Value="False">
+                <DataTrigger Binding="{Binding IsLocalized, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="False">
                     <Setter Property="Content">
                         <Setter.Value>
                             <Binding Path="FriendlyName"/>
@@ -38,12 +37,12 @@
             </Grid>
         </DataTemplate>
     </UserControl.Resources>
-    <ItemsControl ItemsSource="{Binding ActualActiveCommands, RelativeSource={RelativeSource AncestorType={x:Type ctrl:DialogValidation}}}" Focusable="False">
+    <ItemsControl ItemsSource="{Binding ActualActiveCommands, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Focusable="False">
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
-                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type ctrl:DialogValidation}}, FallbackValue=Horizontal}" 
-                            HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ctrl:DialogValidation}}, FallbackValue=Right}" 
-                            VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ctrl:DialogValidation}}, FallbackValue=Bottom}"/>
+                <StackPanel Orientation="{Binding Orientation, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, FallbackValue=Horizontal}" 
+                            HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, FallbackValue=Right}" 
+                            VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}, FallbackValue=Bottom}"/>
             </ItemsPanelTemplate>
         </ItemsControl.ItemsPanel>
     </ItemsControl>

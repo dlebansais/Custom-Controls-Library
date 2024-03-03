@@ -6,7 +6,6 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows.Input;
 using System.Windows.Markup;
-using Converters;
 
 /// <summary>
 /// Represents a command that has a neutral name and a localized name.

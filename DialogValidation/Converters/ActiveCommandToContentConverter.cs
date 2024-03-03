@@ -1,4 +1,4 @@
-﻿namespace Converters;
+﻿namespace CustomControls;
 
 using System;
 using System.Diagnostics;
@@ -6,7 +6,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
-using CustomControls;
 
 /// <summary>
 /// Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.

@@ -1,10 +1,9 @@
-﻿namespace Converters;
+﻿namespace CustomControls;
 
 using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.Windows;
-using CustomControls;
 
 /// <summary>
 /// Converter from a string to a <see cref="ActiveCommand"/>.
