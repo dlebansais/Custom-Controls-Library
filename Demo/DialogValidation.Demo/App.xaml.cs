@@ -1,4 +1,4 @@
-﻿namespace TestDialogValidation;
+﻿namespace DialogValidationDemo;
 
 using System;
 using System.Diagnostics;
@@ -18,7 +18,7 @@ public partial class App : Application
 
         if (args.Length > 1)
             if (args[1] == "unset")
-                TestDialogValidation.MainWindow.TestUnset = true;
+                DialogValidationDemo.MainWindow.TestUnset = true;
             else
                 Process.GetCurrentProcess().Kill();
     }

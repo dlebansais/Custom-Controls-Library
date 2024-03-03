@@ -1,6 +1,7 @@
 ﻿namespace CustomControls;
 
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Windows;
@@ -129,7 +130,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// Until the <see cref="ActiveCommands"/> property is set, this property returns the default set, which is OK and Cancel.
     /// After the <see cref="ActiveCommands"/> property is set, this property returns the content of the <see cref="ActiveCommands"/> property.
     /// </remarks>
-    public IEnumerable ActualActiveCommands
+    public IList<ActiveCommand> ActualActiveCommands
     {
         get
         {
@@ -143,7 +144,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <summary>
     /// The default collection of commands as loaded by the static constructor.
     /// </summary>
-    private static readonly IEnumerable DefaultCommandCollection = InitDefaultCommandCollection();
+    private static readonly IList<ActiveCommand> DefaultCommandCollection = InitDefaultCommandCollection();
     #endregion
 
     #region Orientation

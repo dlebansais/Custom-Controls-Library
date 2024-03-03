@@ -1,4 +1,4 @@
-﻿namespace TestDialogValidation;
+﻿namespace DialogValidationDemo;
 
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,7 @@ using CustomControls;
 /// </summary>
 public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
 {
+    #region Init
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
     /// </summary>
@@ -25,10 +26,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         InitializeComponent();
         DataContext = this;
 
-        int CommandCount = 0;
-        foreach (object Item in ctrl.ActualActiveCommands)
-            CommandCount++;
-        Debug.Assert(CommandCount == 2);
+        Debug.Assert(ctrl.ActualActiveCommands.Count == 2);
 
         Loaded += OnLoaded;
 
@@ -36,7 +34,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
             UnsetTimer = new Timer(new TimerCallback(UnsetTimerCallback), this, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(2));
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e)
+    private void OnLoaded(object sender, RoutedEventArgs args)
     {
         ActiveCommandCollection ActiveCommands = ctrl.ActiveCommands;
 
@@ -86,7 +84,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         Debug.Assert(!LoadedResources.Any());
     }
 
-    private void ConvertActiveCommandCollection(TypeConverter collectionConverter, object from, out bool isConvertedFrom, ActiveCommandCollection to, out bool isConvertedTo)
+    private static void ConvertActiveCommandCollection(TypeConverter collectionConverter, object from, out bool isConvertedFrom, ActiveCommandCollection to, out bool isConvertedTo)
     {
         try
         {
@@ -109,7 +107,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         }
     }
 
-    private void ConvertActiveCommand(TypeConverter converter, object from, out bool isConvertedFrom, ActiveCommand to, out bool isConvertedTo)
+    private static void ConvertActiveCommand(TypeConverter converter, object from, out bool isConvertedFrom, ActiveCommand to, out bool isConvertedTo)
     {
         try
         {
@@ -131,54 +129,59 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
             isConvertedTo = false;
         }
     }
+    #endregion
+
+    #region Properties
+    /// <summary>
+    /// Gets or sets a value indicating whether Unset is tested.
+    /// </summary>
+    public static bool TestUnset { get; set; }
 
     /// <summary>
     /// Gets a value indicating whether the Yes command is added.
     /// </summary>
-    public bool IsYesAdded
-    {
-        get { return ctrl.ActiveCommands.Count != 2; }
-    }
+    public bool IsYesAdded => ctrl.ActiveCommands.Count != 2;
 
     /// <summary>
     /// Gets a value indicating whether the orientation is horizontal.
     /// </summary>
-    public bool IsHorizontal
-    {
-        get { return ctrl.Orientation == Orientation.Horizontal; }
-    }
+    public bool IsHorizontal => ctrl.Orientation == Orientation.Horizontal;
 
     /// <summary>
     /// Gets a value indicating whether the set command was executed.
     /// </summary>
     public bool IsSetCommandAvailable { get; private set; } = true;
+    #endregion
 
-    private void OnOk(object sender, ExecutedRoutedEventArgs e)
+    #region Event handlers
+    private void OnOk(object sender, ExecutedRoutedEventArgs args)
     {
+        Close();
     }
 
-    private void OnCanExecuteOk(object sender, CanExecuteRoutedEventArgs e)
+    private void OnCanExecuteOk(object sender, CanExecuteRoutedEventArgs args)
     {
-        e.CanExecute = true;
+        args.CanExecute = true;
     }
 
-    private void OnCancel(object sender, ExecutedRoutedEventArgs e)
+    private void OnCancel(object sender, ExecutedRoutedEventArgs args)
     {
+        Close();
     }
 
-    private void OnIsLocalizedSet(object sender, RoutedEventArgs e)
+    private void OnIsLocalizedSet(object sender, RoutedEventArgs args)
     {
         if (!ctrl.IsLocalized)
             ctrl.IsLocalized = true;
     }
 
-    private void OnIsLocalizedCleared(object sender, RoutedEventArgs e)
+    private void OnIsLocalizedCleared(object sender, RoutedEventArgs args)
     {
         if (ctrl.IsLocalized)
             ctrl.IsLocalized = false;
     }
 
-    private void OnAddYesSet(object sender, RoutedEventArgs e)
+    private void OnAddYesSet(object sender, RoutedEventArgs args)
     {
         if (ctrl.ActiveCommands.Count == 2)
         {
@@ -195,7 +198,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         }
     }
 
-    private void OnAddYesCleared(object sender, RoutedEventArgs e)
+    private void OnAddYesCleared(object sender, RoutedEventArgs args)
     {
         if (ctrl.ActiveCommands.Count == 11)
         {
@@ -212,7 +215,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         }
     }
 
-    private void OnHorizontalSet(object sender, RoutedEventArgs e)
+    private void OnHorizontalSet(object sender, RoutedEventArgs args)
     {
         if (ctrl.Orientation == Orientation.Vertical)
         {
@@ -221,14 +224,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         }
     }
 
-    private void OnHorizontalCleared(object sender, RoutedEventArgs e)
+    private void OnHorizontalCleared(object sender, RoutedEventArgs args)
     {
         Debug.Assert(ctrl.Orientation == Orientation.Horizontal);
         ctrl.Orientation = Orientation.Vertical;
         NotifyPropertyChanged(nameof(IsHorizontal));
     }
 
-    private void OnSetCustomCommands(object sender, RoutedEventArgs e)
+    private void OnSetCustomCommands(object sender, RoutedEventArgs args)
     {
         Debug.Assert(((RoutedUICommand)ctrl.CommandOk).Text == "Ok");
         ctrl.CommandOk = new RoutedUICommand();
@@ -288,15 +291,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         IsSetCommandAvailable = false;
         NotifyPropertyChanged(nameof(IsSetCommandAvailable));
     }
+    #endregion
 
-    /// <summary>
-    /// Gets or sets a value indicating whether Unset is tested.
-    /// </summary>
-    public static bool TestUnset { get; set; } = false;
-
+    #region Implementation
     private void UnsetTimerCallback(object? parameter)
     {
-        _ = Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnUnsetTimer));
+        _ = Dispatcher.BeginInvoke(OnUnsetTimer);
     }
 
     private void OnUnsetTimer()
@@ -323,11 +323,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     }
 
     private readonly Timer UnsetTimer = new(new TimerCallback((object? parameter) => { }));
-    private int UnsetStep = 0;
+    private int UnsetStep;
     private bool disposedValue;
+    #endregion
 
     #region Implementation of INotifyPropertyChanged
-
     /// <summary>
     /// The PropertyChanged event.
     /// </summary>
@@ -343,7 +343,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
     }
+    #endregion
 
+    #region Implementation of IDisposable
     /// <summary>
     /// Disposes of managed and unmanaged resources.
     /// </summary>
