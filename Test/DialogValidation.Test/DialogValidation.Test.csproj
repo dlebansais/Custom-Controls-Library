@@ -41,10 +41,8 @@
     </ItemGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\..\Demo\DialogValidation.Demo\DialogValidation.Demo.csproj" />
         <ProjectReference Include="..\..\DialogValidation\DialogValidation.csproj" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Properties\" />
     </ItemGroup>
 
 </Project>

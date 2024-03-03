@@ -1,8 +1,9 @@
-﻿namespace TestBusyIndicator;
+﻿namespace BusyIndicatorDemo;
 
 using System;
 using System.Threading;
 using System.Windows;
+using System.Windows.Threading;
 
 /// <summary>
 /// Main window of the BusyIndicatorDemo program.
@@ -22,7 +23,7 @@ public partial class MainWindow : Window, IDisposable
 
     private void StopTimerCallback(object? parameter)
     {
-        _ = Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Normal, new Action(OnStopTimer));
+        _ = Dispatcher.BeginInvoke(OnStopTimer);
     }
 
     private void OnStopTimer()

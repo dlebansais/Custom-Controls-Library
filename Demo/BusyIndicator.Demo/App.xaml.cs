@@ -1,4 +1,4 @@
-﻿namespace TestBusyIndicator;
+﻿namespace BusyIndicatorDemo;
 
 using System.Windows;
 

@@ -82,10 +82,10 @@ public class UnitTest
         Thread.Sleep(TimeSpan.FromSeconds(10));
 
         AppiumOptions appiumOptions = new();
-        appiumOptions.AddAdditionalCapability("app", @".\Test\Test-DialogValidation\bin\x64\Debug\Test-DialogValidation.exe");
+        appiumOptions.AddAdditionalCapability("app", @".\Test\DialogValidation.Test\bin\x64\Debug\net8.0-windows7.0\DialogValidation.Demo.exe");
         appiumOptions.AddAdditionalCapability("appArguments", "ignore");
 
-        return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
+        return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:9515"), appiumOptions);
     }
 
     private static void StopApp(WindowsDriver<WindowsElement> session)
