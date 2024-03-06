@@ -8,5 +8,5 @@ public class ActiveCommandOk : ActiveCommandOkBase
     /// <summary>
     /// Gets a value indicating whether a button using this command should be a default button.
     /// </summary>
-    public override bool IsDefault { get { return true; } }
+    public override bool IsDefault => true;
 }

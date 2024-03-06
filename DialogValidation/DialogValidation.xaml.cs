@@ -18,21 +18,17 @@ using System.Windows.Markup;
 /// <remarks>
 /// Documentation available in Dialogvalidation.pdf.
 /// </remarks>
-[ContentProperty("ActiveCommands")]
-[DefaultProperty("ActiveCommands")]
+[ContentProperty(nameof(ActiveCommands))]
+[DefaultProperty(nameof(ActiveCommands))]
 public partial class DialogValidation : UserControl, INotifyPropertyChanged
 {
     #region Init
     /// <summary>
     /// Gets default commands to use when the client does not specifically define them.
     /// </summary>
-    private static List<ActiveCommand> InitDefaultCommandCollection()
+    private static IList<ActiveCommand> InitDefaultCommandCollection()
     {
-        List<ActiveCommand> DefaultList = new();
-        DefaultList.Add(ActiveCommand.Ok);
-        DefaultList.Add(ActiveCommand.Cancel);
-
-        return DefaultList;
+        return [ActiveCommand.Ok, ActiveCommand.Cancel];
     }
 
     /// <summary>
@@ -40,10 +36,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     private static RoutedUICommand CreateDefaultCommand(string text)
     {
-        RoutedUICommand Command = new();
-        Command.Text = text;
-
-        return Command;
+        return new RoutedUICommand() { Text = text };
     }
 
     /// <summary>
@@ -60,9 +53,9 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     /// <parameters>
     /// <param name="sender">This parameter is not used.</param>
-    /// <param name="e">This parameter is not used.</param>
+    /// <param name="args">This parameter is not used.</param>
     /// </parameters>
-    private void OnInitialized(object? sender, EventArgs e)
+    private void OnInitialized(object? sender, EventArgs args)
     {
         InitializeCommands();
     }
@@ -72,18 +65,24 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     private void InitializeCommands()
     {
+        IList<DependencyProperty> Properties =
+        [
+            ContentOkProperty,
+            ContentCancelProperty,
+            ContentAbortProperty,
+            ContentRetryProperty,
+            ContentIgnoreProperty,
+            ContentYesProperty,
+            ContentNoProperty,
+            ContentCloseProperty,
+            ContentHelpProperty,
+            ContentTryAgainProperty,
+            ContentContinueProperty,
+        ];
+
         ActiveCommands = CreateActiveCommandCollection();
-        InitializeDefaultString(ContentOkProperty, 0);
-        InitializeDefaultString(ContentCancelProperty, 1);
-        InitializeDefaultString(ContentAbortProperty, 2);
-        InitializeDefaultString(ContentRetryProperty, 3);
-        InitializeDefaultString(ContentIgnoreProperty, 4);
-        InitializeDefaultString(ContentYesProperty, 5);
-        InitializeDefaultString(ContentNoProperty, 6);
-        InitializeDefaultString(ContentCloseProperty, 7);
-        InitializeDefaultString(ContentHelpProperty, 8);
-        InitializeDefaultString(ContentTryAgainProperty, 9);
-        InitializeDefaultString(ContentContinueProperty, 10);
+        for (int i = 0; i < Properties.Count; i++)
+            InitializeDefaultString(Properties[i], i);
     }
 
     /// <summary>
@@ -166,9 +165,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <param name="propertyName">The property name.</param>
     public void NotifyPropertyChanged(string propertyName)
     {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
     #endregion
 }

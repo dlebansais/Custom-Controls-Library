@@ -1,6 +1,5 @@
 ﻿namespace CustomControls;
 
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -21,67 +20,56 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a OK command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandOk = CreateDefaultCommand(ActiveCommand.Ok.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Cancel command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandCancel = CreateDefaultCommand(ActiveCommand.Cancel.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Abort command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandAbort = CreateDefaultCommand(ActiveCommand.Abort.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Retry command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandRetry = CreateDefaultCommand(ActiveCommand.Retry.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Ignore command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandIgnore = CreateDefaultCommand(ActiveCommand.Ignore.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Yes command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandYes = CreateDefaultCommand(ActiveCommand.Yes.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a No command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandNo = CreateDefaultCommand(ActiveCommand.No.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Close command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandClose = CreateDefaultCommand(ActiveCommand.Close.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Help command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandHelp = CreateDefaultCommand(ActiveCommand.Help.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Try Again command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandTryAgain = CreateDefaultCommand(ActiveCommand.TryAgain.Name);
 
     /// <summary>
     /// <see cref="RoutedCommand"/> object for a Continue command.
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "Only mutable field not used")]
     public static readonly RoutedUICommand DefaultCommandContinue = CreateDefaultCommand(ActiveCommand.Continue.Name);
     #endregion
 
@@ -92,7 +80,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="IsLocalized"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty IsLocalizedProperty = DependencyProperty.Register("IsLocalized", typeof(bool), typeof(DialogValidation), new PropertyMetadata(false));
+    public static readonly DependencyProperty IsLocalizedProperty = DependencyProperty.Register(nameof(IsLocalized), typeof(bool), typeof(DialogValidation), new PropertyMetadata(false));
 
     /// <summary>
     /// Gets or sets a value indicating whether buttons should display the english or localized text.
@@ -111,7 +99,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ActiveCommands"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ActiveCommandsProperty = DependencyProperty.Register("ActiveCommands", typeof(ActiveCommandCollection), typeof(DialogValidation), new PropertyMetadata(new ActiveCommandCollection()));
+    public static readonly DependencyProperty ActiveCommandsProperty = DependencyProperty.Register(nameof(ActiveCommands), typeof(ActiveCommandCollection), typeof(DialogValidation), new PropertyMetadata(new ActiveCommandCollection()));
 
     /// <summary>
     /// Gets or sets the list of commands to activate. This will display as many buttons as there are active commands.
@@ -154,7 +142,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="Orientation"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register("Orientation", typeof(Orientation), typeof(DialogValidation), new PropertyMetadata(Orientation.Horizontal));
+    public static readonly DependencyProperty OrientationProperty = DependencyProperty.Register(nameof(Orientation), typeof(Orientation), typeof(DialogValidation), new PropertyMetadata(Orientation.Horizontal));
 
     /// <summary>
     /// Gets or sets the orientation (horizontal or vertical) of buttons.
@@ -173,7 +161,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandOk"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandOkProperty = DependencyProperty.Register("CommandOk", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandOk));
+    public static readonly DependencyProperty CommandOkProperty = DependencyProperty.Register(nameof(CommandOk), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandOk));
 
     /// <summary>
     /// Gets or sets the command to use for OK buttons. The initial value is the corresponding static default command.
@@ -192,7 +180,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentOk"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentOkProperty = DependencyProperty.Register("ContentOk", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentOkProperty = DependencyProperty.Register(nameof(ContentOk), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for OK buttons. The default value is the English or localized name string for this command.
@@ -211,7 +199,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandCancel"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandCancelProperty = DependencyProperty.Register("CommandCancel", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandCancel));
+    public static readonly DependencyProperty CommandCancelProperty = DependencyProperty.Register(nameof(CommandCancel), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandCancel));
 
     /// <summary>
     /// Gets or sets the command to use for Cancel buttons. The initial value is the corresponding static default command.
@@ -230,7 +218,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentCancel"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentCancelProperty = DependencyProperty.Register("ContentCancel", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentCancelProperty = DependencyProperty.Register(nameof(ContentCancel), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Cancel buttons. The default value is the English or localized name string for this command.
@@ -249,7 +237,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandAbort"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandAbortProperty = DependencyProperty.Register("CommandAbort", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandAbort));
+    public static readonly DependencyProperty CommandAbortProperty = DependencyProperty.Register(nameof(CommandAbort), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandAbort));
 
     /// <summary>
     /// Gets or sets the command to use for Abort buttons. The initial value is the corresponding static default command.
@@ -268,7 +256,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentAbort"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentAbortProperty = DependencyProperty.Register("ContentAbort", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentAbortProperty = DependencyProperty.Register(nameof(ContentAbort), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Abort buttons. The default value is the English or localized name string for this command.
@@ -287,7 +275,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandRetry"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandRetryProperty = DependencyProperty.Register("CommandRetry", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandRetry));
+    public static readonly DependencyProperty CommandRetryProperty = DependencyProperty.Register(nameof(CommandRetry), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandRetry));
 
     /// <summary>
     /// Gets or sets the command to use for Retry buttons. The initial value is the corresponding static default command.
@@ -306,7 +294,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentRetry"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentRetryProperty = DependencyProperty.Register("ContentRetry", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentRetryProperty = DependencyProperty.Register(nameof(ContentRetry), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Retry buttons. The default value is the English or localized name string for this command.
@@ -325,7 +313,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandIgnore"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandIgnoreProperty = DependencyProperty.Register("CommandIgnore", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandIgnore));
+    public static readonly DependencyProperty CommandIgnoreProperty = DependencyProperty.Register(nameof(CommandIgnore), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandIgnore));
 
     /// <summary>
     /// Gets or sets the command to use for Ignore buttons. The initial value is the corresponding static default command.
@@ -344,7 +332,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentIgnore"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentIgnoreProperty = DependencyProperty.Register("ContentIgnore", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentIgnoreProperty = DependencyProperty.Register(nameof(ContentIgnore), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Ignore buttons. The default value is the English or localized name string for this command.
@@ -363,7 +351,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandYes"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandYesProperty = DependencyProperty.Register("CommandYes", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandYes));
+    public static readonly DependencyProperty CommandYesProperty = DependencyProperty.Register(nameof(CommandYes), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandYes));
 
     /// <summary>
     /// Gets or sets the command to use for Yes buttons. The initial value is the corresponding static default command.
@@ -382,7 +370,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentYes"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentYesProperty = DependencyProperty.Register("ContentYes", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentYesProperty = DependencyProperty.Register(nameof(ContentYes), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Yes buttons. The default value is the English or localized name string for this command.
@@ -401,7 +389,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandNo"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandNoProperty = DependencyProperty.Register("CommandNo", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandNo));
+    public static readonly DependencyProperty CommandNoProperty = DependencyProperty.Register(nameof(CommandNo), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandNo));
 
     /// <summary>
     /// Gets or sets the command to use for No buttons. The initial value is the corresponding static default command.
@@ -420,7 +408,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentNo"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentNoProperty = DependencyProperty.Register("ContentNo", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentNoProperty = DependencyProperty.Register(nameof(ContentNo), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for No buttons. The default value is the English or localized name string for this command.
@@ -439,7 +427,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandClose"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandCloseProperty = DependencyProperty.Register("CommandClose", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandClose));
+    public static readonly DependencyProperty CommandCloseProperty = DependencyProperty.Register(nameof(CommandClose), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandClose));
 
     /// <summary>
     /// Gets or sets the command to use for Close buttons. The initial value is the corresponding static default command.
@@ -458,7 +446,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentClose"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentCloseProperty = DependencyProperty.Register("ContentClose", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentCloseProperty = DependencyProperty.Register(nameof(ContentClose), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Close buttons. The default value is the English or localized name string for this command.
@@ -477,7 +465,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandHelp"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandHelpProperty = DependencyProperty.Register("CommandHelp", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandHelp));
+    public static readonly DependencyProperty CommandHelpProperty = DependencyProperty.Register(nameof(CommandHelp), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandHelp));
 
     /// <summary>
     /// Gets or sets the command to use for Help buttons. The initial value is the corresponding static default command.
@@ -496,7 +484,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentHelp"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentHelpProperty = DependencyProperty.Register("ContentHelp", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentHelpProperty = DependencyProperty.Register(nameof(ContentHelp), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Help buttons. The default value is the English or localized name string for this command.
@@ -515,7 +503,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandTryAgain"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandTryAgainProperty = DependencyProperty.Register("CommandTryAgain", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandTryAgain));
+    public static readonly DependencyProperty CommandTryAgainProperty = DependencyProperty.Register(nameof(CommandTryAgain), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandTryAgain));
 
     /// <summary>
     /// Gets or sets the command to use for Try Again buttons. The initial value is the corresponding static default command.
@@ -534,7 +522,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ContentTryAgain"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentTryAgainProperty = DependencyProperty.Register("ContentTryAgain", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentTryAgainProperty = DependencyProperty.Register(nameof(ContentTryAgain), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Try Again buttons. The default value is the English or localized name string for this command.
@@ -553,7 +541,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="CommandContinue"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CommandContinueProperty = DependencyProperty.Register("CommandContinue", typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandContinue));
+    public static readonly DependencyProperty CommandContinueProperty = DependencyProperty.Register(nameof(CommandContinue), typeof(ICommand), typeof(DialogValidation), new PropertyMetadata(DefaultCommandContinue));
 
     /// <summary>
     /// Gets or sets the command to use for Continue buttons. The initial value is the corresponding static default command.
@@ -565,14 +553,14 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     }
     #endregion
 
-    #region Continue Content
+    #region Content Continue
     /// <summary>
     /// Identifies the <see cref="ContentContinue"/> dependency property.
     /// </summary>
     /// <returns>
     /// The identifier for the <see cref="ContentContinue"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ContentContinueProperty = DependencyProperty.Register("ContentContinue", typeof(object), typeof(DialogValidation));
+    public static readonly DependencyProperty ContentContinueProperty = DependencyProperty.Register(nameof(ContentContinue), typeof(object), typeof(DialogValidation));
 
     /// <summary>
     /// Gets or sets the content to use for Continue buttons. The default value is the English or localized name string for this command.

@@ -18,7 +18,7 @@ internal class ActiveCommandTypeConverter : TypeConverter
     /// <param name="name">The command name to compare.</param>
     /// <param name="handler">A handler to execute if a command is found.</param>
     /// <returns>
-    /// True if a match is found; otherwise, false.
+    /// <see langword="true"/> if a match is found; Otherwise, <see langword="false"/>.
     /// </returns>
     public static bool TryParseName(string name, Action<ActiveCommand> handler)
     {
@@ -35,10 +35,10 @@ internal class ActiveCommandTypeConverter : TypeConverter
     /// <summary>
     /// Tell the system this converter can convert a string to a <see cref="ActiveCommand"/>.
     /// </summary>
-    /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
-    /// <param name="sourceType">A System.Type that represents the type you want to convert from.</param>
+    /// <param name="context">A <see cref="ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="sourceType">A <see cref="Type"/> that represents the type you want to convert from.</param>
     /// <returns>
-    /// True if <paramref name="sourceType"/> is <see cref="string"/>, or if the base converter can perform the conversion; otherwise, false.
+    /// <see langword="true"/> if <paramref name="sourceType"/> is <see cref="string"/>, or if the base converter can perform the conversion; Otherwise, <see langword="false"/>.
     /// </returns>
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
@@ -51,14 +51,14 @@ internal class ActiveCommandTypeConverter : TypeConverter
     /// <summary>
     /// Converts the given object to the type of this converter, using the specified context and culture information.
     /// </summary>
-    /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
-    /// <param name="culture">The System.Globalization.CultureInfo to use as the current culture.</param>
-    /// <param name="value">The System.Object to convert.</param>
+    /// <param name="context">A <see cref="ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="culture">The <see cref="CultureInfo"/> to use as the current culture.</param>
+    /// <param name="value">The <see cref="object"/> to convert.</param>
     /// <returns>
     /// An <see cref="ActiveCommand"/> that represents the converted value.
     /// </returns>
     /// <remarks>
-    /// Compare a name with known command names and return the courresponding <see cref="ActiveCommand"/>.
+    /// Compare a name with known command names and return the corresponding <see cref="ActiveCommand"/>.
     /// </remarks>
     public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
     {
@@ -78,10 +78,10 @@ internal class ActiveCommandTypeConverter : TypeConverter
     /// <summary>
     /// Converts a <see cref="ActiveCommand"/> to a string, using the specified context and culture information.
     /// </summary>
-    /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
-    /// <param name="culture">A System.Globalization.CultureInfo. If null is passed, the current culture is assumed.</param>
+    /// <param name="context">A <see cref="ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="culture">A <see cref="CultureInfo"/>. If <see langword="null"/> is passed, the current culture is assumed.</param>
     /// <param name="value">The <see cref="ActiveCommand"/> to convert.</param>
-    /// <param name="destinationType">The System.Type to convert the value parameter to.</param>
+    /// <param name="destinationType">The <see cref="Type"/> to convert the value parameter to.</param>
     /// <returns>
     /// A string that represents the converted value.
     /// </returns>

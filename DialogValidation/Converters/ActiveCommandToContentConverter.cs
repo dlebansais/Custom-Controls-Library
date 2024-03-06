@@ -16,12 +16,12 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
     /// <summary>
     /// Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
     /// </summary>
-    /// <param name="values">The array of values that the source bindings in the <see cref="MultiBinding"/> produces. The value <see cref="System.Windows.DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param>
+    /// <param name="values">The array of values that the source bindings in the <see cref="MultiBinding"/> produces. The value <see cref="DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param>
     /// <param name="targetType">The type of the binding target property.</param>
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>
-    /// A System.Object that represents the converted value.
+    /// A <see cref="object"/> that represents the converted value.
     /// </returns>
     /// <remarks>
     /// <para>The first value must be a <see cref="DialogValidation"/>.</para>
@@ -33,7 +33,7 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
 
         object Result;
 
-        if ((values[0] is DialogValidation Control) && (values[1] is bool IsLocalized) && (values[2] is ActiveCommand Command))
+        if (values[0] is DialogValidation Control && values[1] is bool IsLocalized && values[2] is ActiveCommand Command)
             Result = ConvertValidValues(Control, IsLocalized, Command);
         else
             Result = string.Empty;
@@ -41,9 +41,7 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
         return Result;
     }
 
-#pragma warning disable CA1822 // Mark members as static
     private object ConvertValidValues(DialogValidation control, bool isLocalized, ActiveCommand command)
-#pragma warning restore CA1822 // Mark members as static
     {
         // This value is used to trigger a conversion when the content has changed. See DialogValidation.UpdateButtonContent().
         Debug.Assert(isLocalized == control.IsLocalized);
@@ -52,22 +50,23 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
 
         Result = command switch
         {
-            ActiveCommandCancel AsCancel => control.ContentCancel,
-            ActiveCommandAbort AsAbort => control.ContentAbort,
-            ActiveCommandRetry AsRetry => control.ContentRetry,
-            ActiveCommandIgnore AsIgnore => control.ContentIgnore,
-            ActiveCommandYes AsYes => control.ContentYes,
-            ActiveCommandNo AsNo => control.ContentNo,
-            ActiveCommandClose AsClose => control.ContentClose,
-            ActiveCommandHelp AsHelp => control.ContentHelp,
-            ActiveCommandTryAgain AsTryAgain => control.ContentTryAgain,
-            ActiveCommandContinue AsContinue => control.ContentContinue,
+            ActiveCommandCancel => control.ContentCancel,
+            ActiveCommandAbort => control.ContentAbort,
+            ActiveCommandRetry => control.ContentRetry,
+            ActiveCommandIgnore => control.ContentIgnore,
+            ActiveCommandYes => control.ContentYes,
+            ActiveCommandNo => control.ContentNo,
+            ActiveCommandClose => control.ContentClose,
+            ActiveCommandHelp => control.ContentHelp,
+            ActiveCommandTryAgain => control.ContentTryAgain,
+            ActiveCommandContinue => control.ContentContinue,
             _ => control.ContentOk,
         };
+
         Debug.Assert(Result != DependencyProperty.UnsetValue);
 
 #if DEBUG
-        Type[] ConversionTargetTypes = new Type[] { typeof(DialogValidation), typeof(bool), typeof(ActiveCommand) };
+        Type[] ConversionTargetTypes = [typeof(DialogValidation), typeof(bool), typeof(ActiveCommand)];
         object ConversionParameters = new object[] { control, command };
         object[] ConvertedBackValues = ConvertBack(Result, ConversionTargetTypes, ConversionParameters, CultureInfo.CurrentCulture);
         Debug.Assert(ConvertedBackValues.Length > 2);
@@ -108,7 +107,7 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
         bool IsLocalized = Control.IsLocalized;
         ActiveCommand Command = (ActiveCommand)ConversionParameters[1];
 
-        object[] Result = new object[] { Control, IsLocalized, Command };
+        object[] Result = [Control, IsLocalized, Command];
         return Result;
     }
 }

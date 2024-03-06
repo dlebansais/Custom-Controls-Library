@@ -8,5 +8,5 @@ public class ActiveCommandCancel : ActiveCommandCancelBase
     /// <summary>
     /// Gets a value indicating whether a button using this command should be a cancel button.
     /// </summary>
-    public override bool IsCancel { get { return true; } }
+    public override bool IsCancel => true;
 }

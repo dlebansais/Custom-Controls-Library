@@ -19,8 +19,6 @@ internal class StringResource
     {
         FilePath = filePath;
         ResourceID = resourceID;
-
-        AsStrings = new List<string>();
     }
 
     /// <summary>
@@ -41,17 +39,17 @@ internal class StringResource
     /// <summary>
     /// Gets the path to the file resources are loaded from.
     /// </summary>
-    public string FilePath { get; private set; }
+    public string FilePath { get; }
 
     /// <summary>
     /// Gets the identifier used to find and load resources in the file.
     /// </summary>
-    public uint ResourceID { get; private set; }
+    public uint ResourceID { get; }
 
     /// <summary>
     /// Gets the loaded string resources.
     /// </summary>
-    public IList<string> AsStrings { get; private set; }
+    public IList<string> AsStrings { get; } = new List<string>();
     #endregion
 
     #region Implementation

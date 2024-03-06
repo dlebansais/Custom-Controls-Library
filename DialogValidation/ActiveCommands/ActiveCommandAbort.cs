@@ -7,12 +7,18 @@ using System.Windows.Input;
 /// </summary>
 public class ActiveCommandAbort : ActiveCommand
 {
-    /// <summary>Gets the neutral name of the <see cref="ActiveCommandAbort"/> object.</summary>
-    public override string Name { get { return "Abort"; } }
+    /// <summary>
+    /// Gets the neutral name of the <see cref="ActiveCommandAbort"/> object.
+    /// </summary>
+    public override string Name => "Abort";
 
-    /// <summary>Gets the localized name of the <see cref="ActiveCommandAbort"/> object.</summary>
-    public override string FriendlyName { get { return "_Abort"; } }
+    /// <summary>
+    /// Gets the localized name of the <see cref="ActiveCommandAbort"/> object.
+    /// </summary>
+    public override string FriendlyName => "_Abort";
 
-    /// <summary>Gets the routed command of the <see cref="ActiveCommandAbort"/> object.</summary>
-    public override RoutedUICommand Command { get { return DialogValidation.DefaultCommandAbort; } }
+    /// <summary>
+    /// Gets the routed command of the <see cref="ActiveCommandAbort"/> object.
+    /// </summary>
+    public override RoutedUICommand Command => DialogValidation.DefaultCommandAbort;
 }

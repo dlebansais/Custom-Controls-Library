@@ -36,8 +36,8 @@ public class ActiveCommandCollection : ObservableCollection<ActiveCommand>
     /// Called when the content of the collection has changed.
     /// </summary>
     /// <param name="sender">This parameter is not used.</param>
-    /// <param name="e">Arguments for the associated event.</param>
-    protected virtual void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    /// <param name="args">Arguments for the associated event.</param>
+    protected virtual void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
     {
         SetCollectionModified();
     }

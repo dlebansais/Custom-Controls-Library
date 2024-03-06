@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 
 /// <summary>
 /// Converter from a string to a collection of <see cref="ActiveCommand"/>.
@@ -14,10 +15,10 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
     /// <summary>
     /// Tell the system this converter can convert a string to a <see cref="ActiveCommandCollection"/>.
     /// </summary>
-    /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
-    /// <param name="sourceType">A System.Type that represents the type you want to convert from.</param>
+    /// <param name="context">A <see cref="ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="sourceType">A <see cref="Type"/> that represents the type you want to convert from.</param>
     /// <returns>
-    /// True if <paramref name="sourceType"/> is <see cref="string"/>, or if the base converter can perform the conversion; otherwise, false.
+    /// <see langword="true"/> if <paramref name="sourceType"/> is <see cref="string"/>, or if the base converter can perform the conversion; Otherwise, <see langword="false"/>.
     /// </returns>
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
@@ -30,11 +31,11 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
     /// <summary>
     /// Converts the given object to the type of this converter, using the specified context and culture information.
     /// </summary>
-    /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
-    /// <param name="culture">The System.Globalization.CultureInfo to use as the current culture.</param>
-    /// <param name="value">The System.Object to convert.</param>
+    /// <param name="context">A <see cref="ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="culture">The <see cref="CultureInfo"/> to use as the current culture.</param>
+    /// <param name="value">The <see cref="object"/> to convert.</param>
     /// <returns>
-    /// An <see cref="ActiveCommandCollection"/> that represents the converted value.
+    /// A <see cref="ActiveCommandCollection"/> that represents the converted value.
     /// </returns>
     /// <remarks>
     /// <para>This method will convert a string with format "&lt;commandname&gt;, ..." where &lt;commandname&gt; is the name of one of the supported commands.</para>
@@ -67,10 +68,10 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
     /// <summary>
     /// Converts a <see cref="ActiveCommandCollection"/> to a string, using the specified context and culture information.
     /// </summary>
-    /// <param name="context">A System.ComponentModel.ITypeDescriptorContext that provides a format context.</param>
-    /// <param name="culture">A System.Globalization.CultureInfo. If null is passed, the current culture is assumed.</param>
+    /// <param name="context">A <see cref="ITypeDescriptorContext"/> that provides a format context.</param>
+    /// <param name="culture">A <see cref="CultureInfo"/>. If <see langword="null"/> is passed, the current culture is assumed.</param>
     /// <param name="value">The <see cref="ActiveCommandCollection"/> to convert.</param>
-    /// <param name="destinationType">The System.Type to convert the value parameter to.</param>
+    /// <param name="destinationType">The <see cref="Type"/> to convert the value parameter to.</param>
     /// <returns>
     /// A string that represents the converted value.
     /// </returns>
@@ -81,19 +82,7 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
     public override object? ConvertTo(ITypeDescriptorContext? context, CultureInfo? culture, object? value, Type destinationType)
     {
         if (value is ActiveCommandCollection ActiveCommandCollection && destinationType == typeof(string))
-        {
-            string Result = string.Empty;
-
-            foreach (ActiveCommand Command in ActiveCommandCollection)
-            {
-                if (Result.Length > 0)
-                    Result += ",";
-
-                Result += Command.Name;
-            }
-
-            return Result;
-        }
+            return string.Join(',', ActiveCommandCollection.Select(command => command.Name));
         else
             return base.ConvertTo(context, culture, value, destinationType);
     }
