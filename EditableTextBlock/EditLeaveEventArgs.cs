@@ -29,6 +29,6 @@ public class EditLeaveEventArgs : EditableTextBlockEventArgs
     /// Gets a value indicating whether editing has been canceled.
     /// </summary>
     /// <returns>True indicates that editing has been canceled. False indicates that editing has been completed successfully.</returns>
-    public bool IsEditCanceled { get; private set; }
+    public bool IsEditCanceled { get; }
     #endregion
 }

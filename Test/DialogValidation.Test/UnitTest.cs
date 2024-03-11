@@ -1,4 +1,4 @@
-﻿namespace TestDialogValidation;
+﻿namespace DialogValidation.Test;
 
 using OpenQA.Selenium.Appium;
 using OpenQA.Selenium.Appium.Windows;

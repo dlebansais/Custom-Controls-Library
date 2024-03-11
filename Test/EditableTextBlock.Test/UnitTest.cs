@@ -1,106 +1,105 @@
-﻿namespace TestEditableTextBlock
+﻿namespace EditableTextBlock.Test;
+
+using NUnit.Framework;
+using OpenQA.Selenium.Appium;
+using OpenQA.Selenium.Appium.Windows;
+using OpenQA.Selenium.Interactions;
+using System;
+using System.Threading;
+
+[TestFixture]
+public class UnitTest
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using OpenQA.Selenium.Appium;
-    using OpenQA.Selenium.Appium.Windows;
-    using OpenQA.Selenium.Interactions;
-    using System;
-    using System.Threading;
-
-    [TestClass]
-    public class UnitTest
+    [Test]
+    public void TestDefault1()
     {
-        [TestMethod]
-        public void TestDefault1()
-        {
-            WindowsDriver<WindowsElement> Session = LaunchApp();
+        WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            ClickBox(Session);
+        ClickBox(Session);
 
-            StopApp(Session);
-        }
+        StopApp(Session);
+    }
 
-        [TestMethod]
-        public void TestDefault2()
-        {
-            WindowsDriver<WindowsElement> Session = LaunchApp();
+    [Test]
+    public void TestDefault2()
+    {
+        WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            ClickBox(Session);
-            ClickBox(Session);
+        ClickBox(Session);
+        ClickBox(Session);
 
-            StopApp(Session);
-        }
+        StopApp(Session);
+    }
 
-        [TestMethod]
-        public void TestDefault3()
-        {
-            WindowsDriver<WindowsElement> Session = LaunchApp();
+    [Test]
+    public void TestDefault3()
+    {
+        WindowsDriver<WindowsElement> Session = LaunchApp();
 
-            DoubleClickBox(Session);
+        DoubleClickBox(Session);
 
-            WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
-            CheckIsEditableElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+        WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
+        CheckIsEditableElement.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            ClickBox(Session);
+        ClickBox(Session);
 
-            CheckIsEditableElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+        CheckIsEditableElement.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            ClickBox(Session);
+        ClickBox(Session);
 
-            CheckIsEditableElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+        CheckIsEditableElement.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            StopApp(Session);
-        }
+        StopApp(Session);
+    }
 
-        private WindowsDriver<WindowsElement> LaunchApp()
-        {
-            Thread.Sleep(TimeSpan.FromSeconds(10));
+    private static WindowsDriver<WindowsElement> LaunchApp()
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(10));
 
-            AppiumOptions appiumOptions = new AppiumOptions();
-            appiumOptions.AddAdditionalCapability("app", @".\Test\Test-EditableTextBlock\bin\x64\Debug\Test-EditableTextBlock.exe");
-            appiumOptions.AddAdditionalCapability("appArguments", "ignore");
+        AppiumOptions appiumOptions = new();
+        appiumOptions.AddAdditionalCapability("app", @".\Test\Test-EditableTextBlock\bin\x64\Debug\Test-EditableTextBlock.exe");
+        appiumOptions.AddAdditionalCapability("appArguments", "ignore");
 
-            return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
-        }
+        return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
+    }
 
-        private void ClickBox(WindowsDriver<WindowsElement> session)
-        {
-            WindowsElement TextElement = session.FindElementByName("Init");
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            TextElement = session.FindElementByAccessibilityId("editableTextBlock");
+    private static void ClickBox(WindowsDriver<WindowsElement> session)
+    {
+        WindowsElement TextElement = session.FindElementByName("Init");
+        TextElement.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        TextElement = session.FindElementByAccessibilityId("editableTextBlock");
 
-            Actions action = new Actions(session);
-            action.MoveToElement(TextElement, 10, 10);
-            action.Click();
-            action.Perform();
+        Actions action = new(session);
+        _ = action.MoveToElement(TextElement, 10, 10);
+        _ = action.Click();
+        action.Perform();
 
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-        }
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+    }
 
-        private void DoubleClickBox(WindowsDriver<WindowsElement> session)
-        {
-            WindowsElement TextElement = session.FindElementByName("Init");
-            TextElement.Click();
-            Thread.Sleep(TimeSpan.FromSeconds(1));
-            TextElement = session.FindElementByAccessibilityId("editableTextBlock");
+    private static void DoubleClickBox(WindowsDriver<WindowsElement> session)
+    {
+        WindowsElement TextElement = session.FindElementByName("Init");
+        TextElement.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        TextElement = session.FindElementByAccessibilityId("editableTextBlock");
 
-            Actions action = new Actions(session);
-            action.MoveToElement(TextElement, 10, 10);
-            action.DoubleClick();
-            action.Perform();
+        Actions action = new(session);
+        _ = action.MoveToElement(TextElement, 10, 10);
+        _ = action.DoubleClick();
+        action.Perform();
 
-            Thread.Sleep(TimeSpan.FromSeconds(2));
-        }
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+    }
 
-        private void StopApp(WindowsDriver<WindowsElement> session)
-        {
-            Thread.Sleep(TimeSpan.FromSeconds(2));
+    private static void StopApp(WindowsDriver<WindowsElement> session)
+    {
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
-            using WindowsDriver<WindowsElement> DeletedSession = session;
-        }
+        using WindowsDriver<WindowsElement> DeletedSession = session;
     }
 }

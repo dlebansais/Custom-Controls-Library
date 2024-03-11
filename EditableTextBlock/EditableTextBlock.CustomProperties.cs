@@ -29,7 +29,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="ClickDelay"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ClickDelayProperty = DependencyProperty.Register("ClickDelay", typeof(TimeSpan), typeof(EditableTextBlock), new FrameworkPropertyMetadata(DefaultClickDelay), new ValidateValueCallback(IsValidClickDelay));
+    public static readonly DependencyProperty ClickDelayProperty = DependencyProperty.Register(nameof(ClickDelay), typeof(TimeSpan), typeof(EditableTextBlock), new FrameworkPropertyMetadata(DefaultClickDelay), new ValidateValueCallback(IsValidClickDelay));
 
     /// <summary>
     /// Gets or sets The delay between a click and the actual switch to editing mode.
@@ -61,7 +61,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="Editable"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty EditableProperty = DependencyProperty.Register("Editable", typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(true));
+    public static readonly DependencyProperty EditableProperty = DependencyProperty.Register(nameof(Editable), typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(true));
 
     /// <summary>
     /// Gets or sets a value indicating whether the user can click on the control to start editing.
@@ -82,7 +82,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="IsEditing"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty IsEditingProperty = DependencyProperty.Register("IsEditing", typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(false, OnIsEditingChanged));
+    public static readonly DependencyProperty IsEditingProperty = DependencyProperty.Register(nameof(IsEditing), typeof(bool), typeof(EditableTextBlock), new FrameworkPropertyMetadata(false, OnIsEditingChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the text is being edited.
@@ -99,8 +99,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Called when the <see cref="IsEditing"/> dependency property is changed on <paramref name="modifiedObject"/>.
     /// </summary>
     /// <param name="modifiedObject">The object that had its property modified.</param>
-    /// <param name="e">Information about the change.</param>
-    private static void OnIsEditingChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
+    /// <param name="args">Information about the change.</param>
+    private static void OnIsEditingChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
         EditableTextBlock Ctrl = (EditableTextBlock)modifiedObject;
         Ctrl.OnIsEditingChanged();
@@ -126,7 +126,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="EditEnter"/> routed event.
     /// </returns>
-    public static readonly RoutedEvent EditEnterEvent = EventManager.RegisterRoutedEvent("EditEnter", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
+    public static readonly RoutedEvent EditEnterEvent = EventManager.RegisterRoutedEvent(nameof(EditEnter), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
 
     /// <summary>
     /// Sent when the control is about to enter editing mode because of a user action (clicking the control).
@@ -167,7 +167,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="EditLeave"/> routed event.
     /// </returns>
-    public static readonly RoutedEvent EditLeaveEvent = EventManager.RegisterRoutedEvent("EditLeave", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
+    public static readonly RoutedEvent EditLeaveEvent = EventManager.RegisterRoutedEvent(nameof(EditLeave), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
 
     /// <summary>
     /// Sent when the control is about to leave editing mode because of a user action (hitting the Return or Escape key, or changing the focus)
@@ -212,7 +212,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="Text"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(EditableTextBlock), new FrameworkPropertyMetadata(string.Empty));
+    public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(EditableTextBlock), new FrameworkPropertyMetadata(string.Empty));
 
     /// <summary>
     /// Gets or sets the text displayed by the control. Does not change while the user is editing it.
@@ -232,7 +232,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <returns>
     /// The identifier for the <see cref="TextChanged"/> routed event.
     /// </returns>
-    public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent("TextChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
+    public static readonly RoutedEvent TextChangedEvent = EventManager.RegisterRoutedEvent(nameof(TextChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(EditableTextBlock));
 
     /// <summary>
     /// Reports that the user pressed the Return key to validate a change. The Text content may have not been modified.

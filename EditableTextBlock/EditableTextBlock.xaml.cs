@@ -53,7 +53,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     private void InitializeEditing()
     {
-        _ = Dispatcher.BeginInvoke(DispatcherPriority.Normal, new InitPositioningHandler(InitPositioning));
+        _ = Dispatcher.BeginInvoke(InitPositioning);
     }
 
     /// <summary>
@@ -172,8 +172,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Cancel editing the control if focus moved to another focus zone.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">An object that contains no event data.</param>
-    private void OnIsSelectionActiveChanged(object? sender, EventArgs e)
+    /// <param name="args">An object that contains no event data.</param>
+    private void OnIsSelectionActiveChanged(object? sender, EventArgs args)
     {
         OnStopEditing();
     }
@@ -202,10 +202,10 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Called when the user clicks the left mouse button.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">An object that contains no event data.</param>
-    private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    /// <param name="args">An object that contains no event data.</param>
+    private void OnMouseLeftButtonDown(object sender, MouseButtonEventArgs args)
     {
-        if (e.ClickCount < 2)
+        if (args.ClickCount < 2)
         {
             ResetClickCount();
 
@@ -223,8 +223,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Called when the user releases the left mouse button.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">An object that contains no event data.</param>
-    private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    /// <param name="args">An object that contains no event data.</param>
+    private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs args)
     {
         IncrementClickCount();
 
@@ -247,10 +247,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     {
         DependencyObject Current = this;
 
-        while (Current is UIElement)
+        while (Current is UIElement AsUIElement)
         {
-            UIElement AsUIElement = (UIElement)Current;
-
             if (AsUIElement.IsFocused)
                 return AsUIElement;
 
@@ -264,8 +262,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Called when the edit box looses focus.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">An object that contains no event data.</param>
-    private void OnEditLostFocus(object sender, RoutedEventArgs e)
+    /// <param name="args">An object that contains no event data.</param>
+    private void OnEditLostFocus(object sender, RoutedEventArgs args)
     {
         OnStopEditing();
     }
@@ -274,10 +272,10 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Called when the user presses a key on the keyboard.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">State of the key pressed.</param>
-    private void OnEditPreviewKeyDown(object sender, KeyEventArgs e)
+    /// <param name="args">State of the key pressed.</param>
+    private void OnEditPreviewKeyDown(object sender, KeyEventArgs args)
     {
-        if (e.Key == Key.Return)
+        if (args.Key is Key.Return)
         {
             CancellationToken Cancellation = new();
             NotifyEditLeave(Cancellation, false);
@@ -292,13 +290,13 @@ public partial class EditableTextBlock : UserControl, IDisposable
                     SetValue(TextProperty, ctrlTextBox.Text);
             }
 
-            e.Handled = true;
+            args.Handled = true;
         }
-        else if (e.Key == Key.Escape)
+        else if (args.Key is Key.Escape)
         {
             OnStopEditing();
 
-            e.Handled = true;
+            args.Handled = true;
         }
     }
 

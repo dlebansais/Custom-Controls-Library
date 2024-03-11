@@ -28,7 +28,7 @@ public class EditableTextBlockEventArgs : RoutedEventArgs
     /// Gets a value that is the current content of the control.
     /// </summary>
     /// <returns>The current content of the control.</returns>
-    public string Text { get; private set; }
+    public string Text { get; }
 
     /// <summary>
     /// Gets a token that indicates if the associated operation has been canceled by any handler.
