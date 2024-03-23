@@ -1,9 +1,9 @@
 ﻿namespace Converters;
 
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Data;
+using Contracts;
 
 /// <summary>
 /// Converter from an enum to an array of values it can have. The actual value is ignored.
@@ -12,7 +12,7 @@ using System.Windows.Data;
 internal class EnumToItemsConverter : IValueConverter
 {
     /// <summary>
-    /// Converter from an enum to an array of values it can have. The actual value is ignored.
+    /// Converts from an enum to an array of values it can have. The actual value is ignored.
     /// </summary>
     /// <param name="value">Any enum. Only its type is used, not its actual value.</param>
     /// <param name="targetType">The type of the binding target property.</param>
@@ -21,17 +21,10 @@ internal class EnumToItemsConverter : IValueConverter
     /// <returns>A converted value.</returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        object Result;
+        Type ValueType = value.GetType();
+        Contract.Require(ValueType.IsEnum);
 
-        Type EnumType = value.GetType();
-        if (EnumType.IsEnum)
-            Result = EnumType.GetEnumValues();
-        else
-            Result = Array.CreateInstance(EnumType, 0);
-
-        Debug.Assert(Result == ConvertBack(Result, typeof(object), parameter, culture));
-
-        return Result;
+        return ValueType.GetEnumValues();
     }
 
     /// <summary>
@@ -44,6 +37,6 @@ internal class EnumToItemsConverter : IValueConverter
     /// <returns>A converted value.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value;
+        throw new NotSupportedException();
     }
 }

@@ -1,12 +1,8 @@
 ﻿namespace CustomControls;
 
-using System;
 using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using Converters;
 
 /// <summary>
 /// Represents a radio button with specific support for enum types.
@@ -26,7 +22,7 @@ public partial class EnumRadioButton : RadioButton
     /// <returns>
     /// The identifier for the <see cref="EnumBinding"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register("EnumBinding", typeof(object), typeof(EnumRadioButton), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
+    public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register(nameof(EnumBinding), typeof(object), typeof(EnumRadioButton), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
 
 #pragma warning disable SA1629 // Documentation text should end with a period
     /// <summary>
@@ -70,7 +66,7 @@ public partial class EnumRadioButton : RadioButton
     /// <returns>
     /// The identifier for the <see cref="EnumValue"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty EnumValueProperty = DependencyProperty.Register("EnumValue", typeof(object), typeof(EnumRadioButton), new UIPropertyMetadata(null));
+    public static readonly DependencyProperty EnumValueProperty = DependencyProperty.Register(nameof(EnumValue), typeof(object), typeof(EnumRadioButton), new UIPropertyMetadata(null));
 
 #pragma warning disable SA1629 // Documentation text should end with a period
     /// <summary>

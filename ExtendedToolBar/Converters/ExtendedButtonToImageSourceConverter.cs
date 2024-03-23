@@ -58,7 +58,7 @@ public class ExtendedButtonToImageSourceConverter : IValueConverter
     }
 
     /// <summary>
-    /// This method is not used and will always return null.
+    /// This method is not used.
     /// </summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
@@ -67,6 +67,6 @@ public class ExtendedButtonToImageSourceConverter : IValueConverter
     /// <returns>A converted value.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value;
+        throw new NotSupportedException();
     }
 }

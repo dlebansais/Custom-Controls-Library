@@ -22,11 +22,8 @@ public partial class EnumComboBox : ComboBox
     /// <summary>
     /// Identifies the <see cref="EnumBinding"/> dependency property.
     /// </summary>
-    ///
-    /// <returns>
-    /// The identifier for the <see cref="EnumBinding"/> dependency property.
-    /// </returns>
-    public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register("EnumBinding", typeof(object), typeof(EnumComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
+    /// <returns>The identifier for the <see cref="EnumBinding"/> dependency property.</returns>
+    public static readonly DependencyProperty EnumBindingProperty = DependencyProperty.Register(nameof(EnumBinding), typeof(object), typeof(EnumComboBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnEnumBindingChanged));
 
 #pragma warning disable SA1629 // Documentation text should end with a period
     /// <summary>
@@ -73,11 +70,8 @@ public partial class EnumComboBox : ComboBox
     /// <summary>
     /// Identifies the <see cref="NameConverter"/> dependency property.
     /// </summary>
-    ///
-    /// <returns>
-    /// The identifier for the <see cref="NameConverter"/> dependency property.
-    /// </returns>
-    public static readonly DependencyProperty NameConverterProperty = DependencyProperty.Register("NameConverter", typeof(IValueConverter), typeof(EnumComboBox), new PropertyMetadata(new Converters.IdentityStringConverter()));
+    /// <returns>The identifier for the <see cref="NameConverter"/> dependency property.</returns>
+    public static readonly DependencyProperty NameConverterProperty = DependencyProperty.Register(nameof(NameConverter), typeof(IValueConverter), typeof(EnumComboBox), new PropertyMetadata(new Converters.IdentityStringConverter()));
 
     /// <summary>
     /// Gets or sets the converter to use to convert an enum value to its localized content (usually a string).
@@ -93,11 +87,8 @@ public partial class EnumComboBox : ComboBox
     /// <summary>
     /// Identifies the <see cref="NameConverterParameter"/> dependency property.
     /// </summary>
-    ///
-    /// <returns>
-    /// The identifier for the <see cref="NameConverterParameter"/> dependency property.
-    /// </returns>
-    public static readonly DependencyProperty NameConverterParameterProperty = DependencyProperty.Register("NameConverterParameter", typeof(object), typeof(EnumComboBox), new PropertyMetadata(string.Empty));
+    /// <returns>The identifier for the <see cref="NameConverterParameter"/> dependency property.</returns>
+    public static readonly DependencyProperty NameConverterParameterProperty = DependencyProperty.Register(nameof(NameConverterParameter), typeof(object), typeof(EnumComboBox), new PropertyMetadata(string.Empty));
 
     /// <summary>
     /// Gets or sets the converter parameter to use when converting an enum value to its localized content.
@@ -113,11 +104,8 @@ public partial class EnumComboBox : ComboBox
     /// <summary>
     /// Identifies the <see cref="NameConverterCulture"/> dependency property.
     /// </summary>
-    ///
-    /// <returns>
-    /// The identifier for the <see cref="NameConverterCulture"/> dependency property.
-    /// </returns>
-    public static readonly DependencyProperty NameConverterCultureProperty = DependencyProperty.Register("NameConverterCulture", typeof(CultureInfo), typeof(EnumComboBox), new PropertyMetadata(CultureInfo.CurrentCulture));
+    /// <returns>The identifier for the <see cref="NameConverterCulture"/> dependency property.</returns>
+    public static readonly DependencyProperty NameConverterCultureProperty = DependencyProperty.Register(nameof(NameConverterCulture), typeof(CultureInfo), typeof(EnumComboBox), new PropertyMetadata(CultureInfo.CurrentCulture));
 
     /// <summary>
     /// Gets or sets the converter culture to use when converting an enum value to its localized content.

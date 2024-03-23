@@ -1,7 +1,6 @@
 ﻿namespace Converters;
 
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 using System.Resources;
@@ -31,19 +30,17 @@ internal class EnumToNameConverter : IValueConverter
     /// </returns>
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
+        Type ValueType = value.GetType();
+        Contract.Require(ValueType.IsEnum);
         Contract.RequireNotNull(parameter, out string ParameterString);
 
-        Type EnumType = value.GetType();
-        Debug.Assert(EnumType.IsEnum);
-
-        Assembly ResourceAssembly = EnumType.Assembly;
+        Assembly ResourceAssembly = ValueType.Assembly;
         Contract.RequireNotNull(ResourceAssembly.GetType(ParameterString), out Type ResourceSource);
+
         ResourceManager Manager = new(ResourceSource);
         string ResourceName = value.ToString()!;
 
         Contract.RequireNotNull(Manager.GetString(ResourceName, CultureInfo.CurrentCulture), out object Result);
-
-        Debug.Assert(Result == ConvertBack(Result, typeof(object), parameter, culture));
 
         return Result;
     }
@@ -60,6 +57,6 @@ internal class EnumToNameConverter : IValueConverter
     /// </returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value;
+        throw new NotSupportedException();
     }
 }

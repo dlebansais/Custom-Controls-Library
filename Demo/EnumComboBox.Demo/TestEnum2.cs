@@ -1,7 +1,12 @@
-﻿namespace TestEnumComboBox
+﻿namespace EnumComboBoxDemo;
+
+/// <summary>
+/// Enum for test.
+/// </summary>
+public enum TestEnum2
 {
-    public enum TestEnum2
-    {
-        XX,
-    }
+    /// <summary>
+    /// The X value.
+    /// </summary>
+    XX,
 }

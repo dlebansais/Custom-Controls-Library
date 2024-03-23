@@ -1,8 +1,8 @@
-﻿<Window x:Class="TestEnumComboBox.MainWindow"
+﻿<Window x:Class="EnumComboBoxDemo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
-        xmlns:local="clr-namespace:TestEnumComboBox"
+        xmlns:local="clr-namespace:EnumComboBoxDemo"
         Title="Test-EnumComboBox"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">

@@ -85,12 +85,8 @@ public partial class EnumComboBox : ComboBox
     /// <summary>
     /// Calculates the size of an enum value localized string.
     /// </summary>
-    /// <parameters>
     /// <param name="text">The localized string corresponding to one of the enum values.</param>
-    /// </parameters>
-    /// <returns>
-    /// The width and height of the string, including trailing whitespaces.
-    /// </returns>
+    /// <returns>The width and height of the string, including trailing whitespaces.</returns>
     private Size GetTextSize(string text)
     {
 #pragma warning disable CS0618 // Type or member is obsolete

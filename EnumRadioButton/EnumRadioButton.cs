@@ -1,8 +1,6 @@
 ﻿namespace CustomControls;
 
 using System;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -28,7 +26,6 @@ public partial class EnumRadioButton : RadioButton
     /// </code>
     /// <para>With ctrl: the namespace prefix (you can use any prefix you like) for the custom control library.</para>
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification="This class has not field that could mutate")]
     public static readonly IValueConverter EnumItems = new EnumToItemsConverter();
 
     /// <summary>
@@ -39,7 +36,6 @@ public partial class EnumRadioButton : RadioButton
     /// </code>
     /// <para>With ctrl: the namespace prefix (you can use any prefix you like) for the custom control library.</para>
     /// </summary>
-    [SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "This class has not field that could mutate")]
     public static readonly IValueConverter EnumName = new EnumToNameConverter();
 
     /// <summary>

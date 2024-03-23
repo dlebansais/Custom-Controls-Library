@@ -13,7 +13,7 @@ using System.Windows.Data;
 internal class DoubleToPercentageConverter : IValueConverter
 {
     /// <summary>
-    /// Converter from a positive double to the equivalent percentage.
+    /// Converts from a positive double to the equivalent percentage.
     /// </summary>
     /// <param name="value">The double value to convert.</param>
     /// <param name="targetType">The type of the binding target property.</param>
@@ -33,7 +33,7 @@ internal class DoubleToPercentageConverter : IValueConverter
     }
 
     /// <summary>
-    /// This method is not used and will always return null.
+    /// This method is not used.
     /// </summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
@@ -42,6 +42,6 @@ internal class DoubleToPercentageConverter : IValueConverter
     /// <returns>The converted value.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        return value;
+        throw new NotSupportedException();
     }
 }
