@@ -1,9 +1,22 @@
-﻿namespace TestEnumRadioButton
+﻿namespace EnumRadioButtonDemo;
+
+/// <summary>
+/// Enum for test.
+/// </summary>
+public enum TestEnum1
 {
-    public enum TestEnum1
-    {
-        X,
-        Y,
-        Z,
-    }
+    /// <summary>
+    /// The X enum value.
+    /// </summary>
+    X,
+
+    /// <summary>
+    /// The Y enum value.
+    /// </summary>
+    Y,
+
+    /// <summary>
+    /// The Z enum value.
+    /// </summary>
+    Z,
 }

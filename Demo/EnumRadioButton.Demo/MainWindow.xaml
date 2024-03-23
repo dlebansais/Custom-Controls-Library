@@ -1,8 +1,8 @@
-﻿<Window x:Class="TestEnumRadioButton.MainWindow"
+﻿<Window x:Class="EnumRadioButtonDemo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
-        xmlns:local="clr-namespace:TestEnumRadioButton"
+        xmlns:local="clr-namespace:EnumRadioButtonDemo"
         Title="Test-EnumRadioButton"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight" MinWidth="200" MinHeight="100">
