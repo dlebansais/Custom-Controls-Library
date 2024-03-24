@@ -10,6 +10,7 @@ public class ActiveDocumentRoutedCommand : LocalizedRoutedCommand
     /// Gets or sets the key to use to find a localized menu header in standard resource files when a document is inactive.
     /// </summary>
     public string InactiveHeaderKey { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets or sets the key to use to find a localized tooltip in standard resource files when a document is inactive.
     /// </summary>
@@ -19,6 +20,7 @@ public class ActiveDocumentRoutedCommand : LocalizedRoutedCommand
     /// Gets the localized menu header when a document is inactive.
     /// </summary>
     public string InactiveMenuHeader { get { return Reference.GetString(InactiveHeaderKey); } }
+
     /// <summary>
     /// Gets the localized tooltip when a document is inactive.
     /// </summary>

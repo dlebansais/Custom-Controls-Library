@@ -1,6 +1,5 @@
 ﻿namespace CustomControls;
 
-using System.Diagnostics.CodeAnalysis;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -13,7 +12,6 @@ public partial class ExtendedToolBarMenuItem : MenuItem
     /// <summary>
     /// Initializes static members of the <see cref="ExtendedToolBarMenuItem"/> class.
     /// </summary>
-    [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Can't be done inline - too complex")]
     static ExtendedToolBarMenuItem()
     {
         OverrideAncestorMetadata();

@@ -1,22 +1,27 @@
-﻿namespace TestExtendedCommandControls
+﻿namespace ExtendedCommandControlsDemo;
+
+using System.Windows;
+using System.Windows.Input;
+
+/// <summary>
+/// Interaction logic for MainWindow.xaml.
+/// </summary>
+public partial class MainWindow : Window
 {
-    using System.Windows;
-    using System.Windows.Input;
-
-    public partial class MainWindow : Window
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MainWindow"/> class.
+    /// </summary>
+    public MainWindow()
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            DataContext = this;
-        }
+        InitializeComponent();
+        DataContext = this;
+    }
 
-        private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-        }
+    private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)
+    {
+    }
 
-        private void TestExecuted(object sender, ExecutedRoutedEventArgs e)
-        {
-        }
+    private void TestExecuted(object sender, ExecutedRoutedEventArgs e)
+    {
     }
 }

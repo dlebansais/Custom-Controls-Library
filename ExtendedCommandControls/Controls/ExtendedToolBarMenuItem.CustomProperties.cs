@@ -16,7 +16,7 @@ public partial class ExtendedToolBarMenuItem : MenuItem
     /// <returns>
     /// The identifier for the <see cref="CanShow"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty CanShowProperty = DependencyProperty.Register("CanShow", typeof(bool), typeof(ExtendedToolBarMenuItem), new PropertyMetadata(true));
+    public static readonly DependencyProperty CanShowProperty = DependencyProperty.Register(nameof(CanShow), typeof(bool), typeof(ExtendedToolBarMenuItem), new PropertyMetadata(true));
 
     /// <summary>
     /// Gets or sets a value indicating whether the button can be shown in any menu.

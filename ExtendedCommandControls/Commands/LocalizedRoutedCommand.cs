@@ -19,14 +19,17 @@ public class LocalizedRoutedCommand : ExtendedRoutedCommand
     /// Gets or sets the <see cref="CommandResourceReference"/> this command is associated to.
     /// </summary>
     public CommandResourceReference Reference { get; set; } = CommandResourceReference.Default;
+
     /// <summary>
     /// Gets or sets the key to use to find a localized menu header in standard resource files.
     /// </summary>
     public string HeaderKey { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets or sets the key to use to find a localized tooltip in standard resource files.
     /// </summary>
     public string ToolTipKey { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets or sets the key to use to find an image in standard resource files.
     /// </summary>
@@ -36,10 +39,12 @@ public class LocalizedRoutedCommand : ExtendedRoutedCommand
     /// Gets the localized menu header.
     /// </summary>
     public override string MenuHeader { get { return Reference.GetString(HeaderKey); } }
+
     /// <summary>
     /// Gets the localized tooltip.
     /// </summary>
     public override string ButtonToolTip { get { return Reference.GetString(ToolTipKey); } }
+
     /// <summary>
     /// Gets the localized image.
     /// </summary>

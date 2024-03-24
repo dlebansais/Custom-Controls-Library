@@ -15,5 +15,5 @@ public class SolutionCommandGroup
     /// <summary>
     /// Gets the default <see cref="SolutionCommandGroup"/>.
     /// </summary>
-    public static SolutionCommandGroup Default { get; } = new SolutionCommandGroup();
+    public static SolutionCommandGroup Default { get; } = new();
 }

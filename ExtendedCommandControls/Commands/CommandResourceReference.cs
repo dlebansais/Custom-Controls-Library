@@ -52,10 +52,12 @@ public class CommandResourceReference
     /// Gets or sets the name of the assembly.
     /// </summary>
     public string AssemblyName { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets or sets the extension of resource files to find within the assembly.
     /// </summary>
     public string ResourceExtension { get; set; } = string.Empty;
+
     /// <summary>
     /// Gets or sets the path to icon resources within the assembly.
     /// </summary>
@@ -84,7 +86,7 @@ public class CommandResourceReference
         Initialize();
 
         string AssemblyName = InitResourceAssembly.GetName().Name !;
-        string UriPath = "pack://application:,,,/" + AssemblyName + ";component/" + IconPath + name;
+        string UriPath = $"pack://application:,,,/{AssemblyName};component/{IconPath}{name}";
 
         try
         {
@@ -103,10 +105,12 @@ public class CommandResourceReference
     /// Cached location of the assembly.
     /// </summary>
     private Assembly InitResourceAssembly = Assembly.GetExecutingAssembly();
+
     /// <summary>
     /// Cached location of a type used to find resources in the assembly.
     /// </summary>
     private Type InitResourceSource = typeof(object);
+
     /// <summary>
     /// Cached location of a <see cref="ResourceManager"/> used to find strings in the assembly.
     /// </summary>

@@ -15,7 +15,7 @@ public partial class ExtendedToolBarButton : Button
     /// <returns>
     /// The identifier for the <see cref="Reference"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ReferenceProperty = DependencyProperty.Register("Reference", typeof(CommandResourceReference), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(null));
+    public static readonly DependencyProperty ReferenceProperty = DependencyProperty.Register(nameof(Reference), typeof(CommandResourceReference), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(null));
 
     /// <summary>
     /// Gets or sets The reference to an assembly where to find resources associated to the button.
@@ -28,6 +28,7 @@ public partial class ExtendedToolBarButton : Button
         set { SetValue(ReferenceProperty, value); }
     }
     #endregion
+
     #region Is Checkable
     /// <summary>
     /// Identifies the <see cref="IsCheckable"/> dependency property.
@@ -35,7 +36,7 @@ public partial class ExtendedToolBarButton : Button
     /// <returns>
     /// The identifier for the <see cref="IsCheckable"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register("IsCheckable", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsCheckableChanged));
+    public static readonly DependencyProperty IsCheckableProperty = DependencyProperty.Register(nameof(IsCheckable), typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsCheckableChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the user can check the button as visible.
@@ -67,6 +68,7 @@ public partial class ExtendedToolBarButton : Button
         UpdateVisibility();
     }
     #endregion
+
     #region Is Default Active
     /// <summary>
     /// Identifies the <see cref="IsDefaultActive"/> dependency property.
@@ -74,7 +76,7 @@ public partial class ExtendedToolBarButton : Button
     /// <returns>
     /// The identifier for the <see cref="IsDefaultActive"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty IsDefaultActiveProperty = DependencyProperty.Register("IsDefaultActive", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsDefaultActiveChanged));
+    public static readonly DependencyProperty IsDefaultActiveProperty = DependencyProperty.Register(nameof(IsDefaultActive), typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsDefaultActiveChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the default setting  is True.
@@ -106,6 +108,7 @@ public partial class ExtendedToolBarButton : Button
         InitializeIsActive();
     }
     #endregion
+
     #region Is Active
     /// <summary>
     /// Identifies the <see cref="IsActive"/> dependency property.
@@ -113,7 +116,7 @@ public partial class ExtendedToolBarButton : Button
     /// <returns>
     /// The identifier for the <see cref="IsActive"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register("IsActive", typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsActiveChanged));
+    public static readonly DependencyProperty IsActiveProperty = DependencyProperty.Register(nameof(IsActive), typeof(bool), typeof(ExtendedToolBarButton), new FrameworkPropertyMetadata(true, OnIsActiveChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the the button is visible.
@@ -146,6 +149,7 @@ public partial class ExtendedToolBarButton : Button
         NotifyIsActiveChanged();
     }
     #endregion
+
     #region Is Active Changed
     /// <summary>
     /// Identifies the <see cref="IsActiveChanged"/> routed event.
@@ -153,7 +157,7 @@ public partial class ExtendedToolBarButton : Button
     /// <returns>
     /// The identifier for the <see cref="IsActiveChanged"/> routed event.
     /// </returns>
-    public static readonly RoutedEvent IsActiveChangedEvent = EventManager.RegisterRoutedEvent("IsActiveChanged", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedToolBarButton));
+    public static readonly RoutedEvent IsActiveChangedEvent = EventManager.RegisterRoutedEvent(nameof(IsActiveChanged), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedToolBarButton));
 
     /// <summary>
     /// Sent when the <see cref="IsActive"/> has changed.
