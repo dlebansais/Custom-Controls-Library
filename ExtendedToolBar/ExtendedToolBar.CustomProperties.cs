@@ -15,7 +15,7 @@ public partial class ExtendedToolBar : ToolBar
     /// <returns>
     /// The identifier for the <see cref="ToolBarName"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ToolBarNameProperty = DependencyProperty.Register("ToolBarName", typeof(string), typeof(ExtendedToolBar), new FrameworkPropertyMetadata(null));
+    public static readonly DependencyProperty ToolBarNameProperty = DependencyProperty.Register(nameof(ToolBarName), typeof(string), typeof(ExtendedToolBar), new FrameworkPropertyMetadata(null));
 
     /// <summary>
     /// Gets or sets the localized name of the toolbar. Can be null.

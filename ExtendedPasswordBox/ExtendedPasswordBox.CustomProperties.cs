@@ -1,10 +1,8 @@
 ﻿namespace CustomControls;
 
 using System.ComponentModel;
-using System.Security;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 
 /// <summary>
 /// Represents a password box that can optionally display the password characters.
@@ -26,7 +24,7 @@ public partial class ExtendedPasswordBox : UserControl
     /// <returns>
     /// The identifier for the <see cref="Text"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTextChanged));
+    public static readonly DependencyProperty TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, OnTextChanged));
 
     /// <summary>
     /// Gets or sets the password.
@@ -38,17 +36,17 @@ public partial class ExtendedPasswordBox : UserControl
         set { SetValue(TextProperty, value); }
     }
 
-    private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
     {
         ExtendedPasswordBox ecb = (ExtendedPasswordBox)d;
-        ecb.OnTextChanged(e);
+        ecb.OnTextChanged(args);
     }
 
-    private void OnTextChanged(DependencyPropertyChangedEventArgs e)
+    private void OnTextChanged(DependencyPropertyChangedEventArgs args)
     {
         if (!IsUserChange)
         {
-            string NewText = (string)e.NewValue;
+            string NewText = (string)args.NewValue;
             if (NewText.Length > 0)
                 HasTextBeenShown = true;
 
@@ -61,6 +59,7 @@ public partial class ExtendedPasswordBox : UserControl
         }
     }
     #endregion
+
     #region Show Password
     /// <summary>
     /// Identifies the <see cref="ShowPassword"/> dependency property.
@@ -68,7 +67,7 @@ public partial class ExtendedPasswordBox : UserControl
     /// <returns>
     /// The identifier for the <see cref="ShowPassword"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ShowPasswordProperty = DependencyProperty.Register("ShowPassword", typeof(bool), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(false, OnShowPasswordChanged));
+    public static readonly DependencyProperty ShowPasswordProperty = DependencyProperty.Register(nameof(ShowPassword), typeof(bool), typeof(ExtendedPasswordBox), new FrameworkPropertyMetadata(false, OnShowPasswordChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether the password should be displayed as plain text.
@@ -79,17 +78,17 @@ public partial class ExtendedPasswordBox : UserControl
         set { SetValue(ShowPasswordProperty, value); }
     }
 
-    private static void OnShowPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnShowPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
     {
         ExtendedPasswordBox ecb = (ExtendedPasswordBox)d;
-        ecb.OnShowPasswordChanged(e);
+        ecb.OnShowPasswordChanged(args);
     }
 
-    private void OnShowPasswordChanged(DependencyPropertyChangedEventArgs e)
+    private void OnShowPasswordChanged(DependencyPropertyChangedEventArgs args)
     {
         UninstallHandlers();
 
-        bool NewShowPassword = (bool)e.NewValue;
+        bool NewShowPassword = (bool)args.NewValue;
         if (NewShowPassword)
         {
             Text = passPassword.Password;
@@ -109,8 +108,9 @@ public partial class ExtendedPasswordBox : UserControl
         InstallHandlers();
     }
     #endregion
+
     #region Is Password Empty
-    private static readonly DependencyPropertyKey IsPasswordEmptyPropertyKey = DependencyProperty.RegisterReadOnly("IsPasswordEmpty", typeof(bool), typeof(ExtendedPasswordBox), new PropertyMetadata(true));
+    private static readonly DependencyPropertyKey IsPasswordEmptyPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsPasswordEmpty), typeof(bool), typeof(ExtendedPasswordBox), new PropertyMetadata(true));
 
     /// <summary>
     /// Identifies the <see cref="IsPasswordEmpty"/> dependency property.

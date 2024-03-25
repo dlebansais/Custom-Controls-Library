@@ -16,7 +16,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="SelectionMode"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty SelectionModeProperty = DependencyProperty.Register("SelectionMode", typeof(SelectionMode), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(SelectionMode.Single));
+    public static readonly DependencyProperty SelectionModeProperty = DependencyProperty.Register(nameof(SelectionMode), typeof(SelectionMode), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(SelectionMode.Single));
 
     /// <summary>
     /// Gets or sets the control selection mode.
@@ -32,7 +32,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="IsRootAlwaysExpanded"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty IsRootAlwaysExpandedProperty = DependencyProperty.Register("IsRootAlwaysExpanded", typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false));
+    public static readonly DependencyProperty IsRootAlwaysExpandedProperty = DependencyProperty.Register(nameof(IsRootAlwaysExpanded), typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false));
 
     /// <summary>
     /// Gets or sets a value indicating whether the control root is always expanded.
@@ -48,7 +48,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="IsItemExpandedAtStart"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty IsItemExpandedAtStartProperty = DependencyProperty.Register("IsItemExpandedAtStart", typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false));
+    public static readonly DependencyProperty IsItemExpandedAtStartProperty = DependencyProperty.Register(nameof(IsItemExpandedAtStart), typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false));
 
     /// <summary>
     /// Gets or sets a value indicating whether items should start expanded when the content changes.
@@ -64,7 +64,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="AllowDragDrop"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty AllowDragDropProperty = DependencyProperty.Register("AllowDragDrop", typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false, OnAllowDragDropChanged));
+    public static readonly DependencyProperty AllowDragDropProperty = DependencyProperty.Register(nameof(AllowDragDrop), typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false, OnAllowDragDropChanged));
 
     /// <summary>
     /// Gets or sets a value indicating whether drag and drop is allowed.
@@ -102,7 +102,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="UseDefaultCursors"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty UseDefaultCursorsProperty = DependencyProperty.Register("UseDefaultCursors", typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false));
+    public static readonly DependencyProperty UseDefaultCursorsProperty = DependencyProperty.Register(nameof(UseDefaultCursors), typeof(bool), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(false));
 
     /// <summary>
     /// Gets or sets a value indicating whether to use default cursors.
@@ -118,7 +118,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="CursorForbidden"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty CursorForbiddenProperty = DependencyProperty.Register("CursorForbidden", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
+    public static readonly DependencyProperty CursorForbiddenProperty = DependencyProperty.Register(nameof(CursorForbidden), typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
 
     /// <summary>
     /// Gets or sets the forbidden cursor.
@@ -134,7 +134,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="CursorMove"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty CursorMoveProperty = DependencyProperty.Register("CursorMove", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
+    public static readonly DependencyProperty CursorMoveProperty = DependencyProperty.Register(nameof(CursorMove), typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
 
     /// <summary>
     /// Gets or sets the move cursor.
@@ -150,7 +150,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="CursorCopy"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty CursorCopyProperty = DependencyProperty.Register("CursorCopy", typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
+    public static readonly DependencyProperty CursorCopyProperty = DependencyProperty.Register(nameof(CursorCopy), typeof(Cursor), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(Cursors.None));
 
     /// <summary>
     /// Gets or sets the copy cursor.
@@ -166,7 +166,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="ExpandButtonWidth"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty ExpandButtonWidthProperty = DependencyProperty.Register("ExpandButtonWidth", typeof(double), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(0.0), new ValidateValueCallback(IsValidExpandButtonWidth));
+    public static readonly DependencyProperty ExpandButtonWidthProperty = DependencyProperty.Register(nameof(ExpandButtonWidth), typeof(double), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(0.0), new ValidateValueCallback(IsValidExpandButtonWidth));
 
     /// <summary>
     /// Gets or sets the expand button width.
@@ -193,7 +193,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="ExpandButtonStyle"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty ExpandButtonStyleProperty = DependencyProperty.Register("ExpandButtonStyle", typeof(Style), typeof(ExtendedTreeViewBase));
+    public static readonly DependencyProperty ExpandButtonStyleProperty = DependencyProperty.Register(nameof(ExpandButtonStyle), typeof(Style), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Gets or sets the expand button style.
@@ -209,7 +209,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="IndentationWidth"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty IndentationWidthProperty = DependencyProperty.Register("IndentationWidth", typeof(double), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(0.0), new ValidateValueCallback(IsValidIndentationWidth));
+    public static readonly DependencyProperty IndentationWidthProperty = DependencyProperty.Register(nameof(IndentationWidth), typeof(double), typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(0.0), new ValidateValueCallback(IsValidIndentationWidth));
 
     /// <summary>
     /// Gets or sets the indentation width.

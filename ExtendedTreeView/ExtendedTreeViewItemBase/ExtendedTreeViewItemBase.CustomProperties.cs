@@ -32,7 +32,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Identifies the <see cref="IsExpanded"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register("IsExpanded", typeof(bool), typeof(ExtendedTreeViewItemBase), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal, new PropertyChangedCallback(OnIsExpandedChanged)));
+    public static readonly DependencyProperty IsExpandedProperty = DependencyProperty.Register(nameof(IsExpanded), typeof(bool), typeof(ExtendedTreeViewItemBase), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault | FrameworkPropertyMetadataOptions.Journal, new PropertyChangedCallback(OnIsExpandedChanged)));
 
     /// <summary>
     /// Gets or sets a value indicating whether the item is expanded.
@@ -47,22 +47,22 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// Handles changes of the <see cref="IsExpanded"/> property.
     /// </summary>
     /// <param name="modifiedObject">The modified object.</param>
-    /// <param name="e">An object that contains event data.</param>
-    protected static void OnIsExpandedChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
+    /// <param name="args">An object that contains event data.</param>
+    protected static void OnIsExpandedChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
         ExtendedTreeViewItemBase ctrl = Contract.AssertNotNull((ExtendedTreeViewItemBase)modifiedObject);
-        ctrl.OnIsExpandedChanged(e);
+        ctrl.OnIsExpandedChanged(args);
     }
 
     /// <summary>
     /// Handles changes of the <see cref="IsExpanded"/> property.
     /// </summary>
-    /// <param name="e">An object that contains event data.</param>
-    protected virtual void OnIsExpandedChanged(DependencyPropertyChangedEventArgs e)
+    /// <param name="args">An object that contains event data.</param>
+    protected virtual void OnIsExpandedChanged(DependencyPropertyChangedEventArgs args)
     {
         if (!IsContentInitializing)
         {
-            bool NewIsExpanded = (bool)e.NewValue;
+            bool NewIsExpanded = (bool)args.NewValue;
             if (NewIsExpanded)
                 Host.SetItemExpanded(Content);
             else
@@ -97,7 +97,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// Identifies the <see cref="IsDropOver"/> attached property.
     /// </summary>
     public static readonly DependencyProperty IsDropOverProperty = IsDropOverPropertyKey?.DependencyProperty!;
-    private static readonly DependencyPropertyKey IsDropOverPropertyKey = DependencyProperty.RegisterReadOnly("IsDropOver", typeof(bool), typeof(ExtendedTreeViewItemBase), new PropertyMetadata(false));
+    private static readonly DependencyPropertyKey IsDropOverPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsDropOver), typeof(bool), typeof(ExtendedTreeViewItemBase), new PropertyMetadata(false));
 
     /// <summary>
     /// Gets a value indicating whether the item is the destination of a drop.

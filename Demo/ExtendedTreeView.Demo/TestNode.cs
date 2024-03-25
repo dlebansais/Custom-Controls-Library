@@ -1,31 +1,58 @@
-﻿namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo;
+
+using System.Globalization;
+using CustomControls;
+
+/// <summary>
+/// Represents a test node.
+/// </summary>
+internal class TestNode : IExtendedTreeNode
 {
-    using System.Globalization;
-    using CustomControls;
-
-    internal class TestNode : IExtendedTreeNode
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TestNode"/> class.
+    /// </summary>
+    /// <param name="parent">The parent.</param>
+    /// <param name="index">The index.</param>
+    public TestNode(TestNode? parent, int index)
     {
-        public TestNode(TestNode? parent, int index)
-        {
-            Parent = parent;
-            Index = index;
+        Parent = parent;
+        Index = index;
 
-            Children = new TestNodeCollection(this);
-        }
+        Children = new TestNodeCollection(this);
+    }
 
-        public IExtendedTreeNode? Parent { get; private set; }
-        public int Index { get; private set; }
-        public IExtendedTreeNodeCollection Children { get; private set; }
-        public string Text { get { return "TestNode #" + Index.ToString(CultureInfo.InvariantCulture); } }
+    /// <summary>
+    /// Gets the parent.
+    /// </summary>
+    public IExtendedTreeNode? Parent { get; private set; }
 
-        public void ChangeParent(IExtendedTreeNode newParent)
-        {
-            Parent = newParent;
-        }
+    /// <summary>
+    /// Gets the index.
+    /// </summary>
+    public int Index { get; }
 
-        public override string ToString()
-        {
-            return base.ToString() + " #" + Index.ToString(CultureInfo.InvariantCulture);
-        }
+    /// <summary>
+    /// Gets children.
+    /// </summary>
+    public IExtendedTreeNodeCollection Children { get; }
+
+    /// <summary>
+    /// Gets the node text.
+    /// </summary>
+    public string Text { get { return "TestNode #" + Index.ToString(CultureInfo.InvariantCulture); } }
+
+    /// <summary>
+    /// Changes the parent.
+    /// </summary>
+    /// <param name="newParent">The new parent.</param>
+    public void ChangeParent(IExtendedTreeNode newParent)
+    {
+        Parent = newParent;
+    }
+
+    /// <inheritdoc/>
+    public override string ToString()
+    {
+        return $"{base.ToString()} #{Index}";
     }
 }

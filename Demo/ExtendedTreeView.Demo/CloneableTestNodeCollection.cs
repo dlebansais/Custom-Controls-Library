@@ -1,66 +1,85 @@
-﻿namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo;
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CustomControls;
+
+/// <summary>
+/// Represents a collection of cleaneable nodes.
+/// </summary>
+internal class CloneableTestNodeCollection : ObservableCollection<CloneableTestNode>, IExtendedTreeNodeCollection
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using CustomControls;
-
-    internal class CloneableTestNodeCollection : ObservableCollection<CloneableTestNode>, IExtendedTreeNodeCollection
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CloneableTestNodeCollection"/> class.
+    /// </summary>
+    /// <param name="parent">The parent node.</param>
+    public CloneableTestNodeCollection(CloneableTestNode parent)
     {
-        public CloneableTestNodeCollection(CloneableTestNode parent)
-        {
-            this.Parent = parent;
-        }
+        this.Parent = parent;
+    }
 
-        public IExtendedTreeNode Parent { get; private set; }
+    /// <summary>
+    /// Gets the collection parent node.
+    /// </summary>
+    public IExtendedTreeNode Parent { get; }
 
-        public void Sort()
-        {
-        }
+    /// <inheritdoc/>
+    public void Sort()
+    {
+    }
 
-        int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item)
-        {
-            return IndexOf((CloneableTestNode)item);
-        }
+    /// <inheritdoc/>
+    int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item)
+    {
+        return IndexOf((CloneableTestNode)item);
+    }
 
-        void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item)
-        {
-            Insert(index, (CloneableTestNode)item);
-        }
+    /// <inheritdoc/>
+    void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item)
+    {
+        Insert(index, (CloneableTestNode)item);
+    }
 
-        IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
-        {
-            get { return this[index]; }
-            set { this[index] = (CloneableTestNode)value; }
-        }
+    /// <inheritdoc/>
+    IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
+    {
+        get { return this[index]; }
+        set { this[index] = (CloneableTestNode)value; }
+    }
 
-        void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item)
-        {
-            Add((CloneableTestNode)item);
-        }
+    /// <inheritdoc/>
+    void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item)
+    {
+        Add((CloneableTestNode)item);
+    }
 
-        bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item)
-        {
-            return Contains((CloneableTestNode)item);
-        }
+    /// <inheritdoc/>
+    bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item)
+    {
+        return Contains((CloneableTestNode)item);
+    }
 
-        void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
-        {
-            CopyTo((CloneableTestNode[])array, arrayIndex);
-        }
+    /// <inheritdoc/>
+    void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
+    {
+        CopyTo((CloneableTestNode[])array, arrayIndex);
+    }
 
-        bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)
-        {
-            return Remove((CloneableTestNode)item);
-        }
+    /// <inheritdoc/>
+    bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)
+    {
+        return Remove((CloneableTestNode)item);
+    }
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+    /// <inheritdoc/>
+    public bool IsReadOnly
+    {
+        get { return false; }
+    }
 
-        IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    /// <inheritdoc/>
+    IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

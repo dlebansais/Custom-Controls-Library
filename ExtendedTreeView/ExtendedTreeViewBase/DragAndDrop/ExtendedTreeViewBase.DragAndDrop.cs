@@ -241,18 +241,18 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Merges allowed effects with those allowed by a drag drop event.
     /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <param name="args">The event data.</param>
     /// <returns>Merged allowed effects.</returns>
-    protected virtual DragDropEffects MergedAllowedEffects(DragEventArgs e)
+    protected virtual DragDropEffects MergedAllowedEffects(DragEventArgs args)
     {
-        DragEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(args, out DragEventArgs Args);
 
-        if (args.AllowedEffects.HasFlag(DragDropEffects.Move))
-            if (args.AllowedEffects.HasFlag(DragDropEffects.Copy) && args.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
+        if (Args.AllowedEffects.HasFlag(DragDropEffects.Move))
+            if (Args.AllowedEffects.HasFlag(DragDropEffects.Copy) && Args.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
                 return DragDropEffects.Copy;
             else
                 return DragDropEffects.Move;
-        else if (args.AllowedEffects.HasFlag(DragDropEffects.Copy))
+        else if (Args.AllowedEffects.HasFlag(DragDropEffects.Copy))
             return DragDropEffects.Copy;
         else
             return DragDropEffects.None;

@@ -40,22 +40,22 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// Called when the <see cref="ContentControl.Content"/> property has changed.
     /// </summary>
     /// <param name="modifiedObject">The object for which the property changed.</param>
-    /// <param name="e">The event data.</param>
-    protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
+    /// <param name="args">The event data.</param>
+    protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
         ExtendedTreeViewItemBase ctrl = Contract.AssertNotNull((ExtendedTreeViewItemBase)modifiedObject);
-        ctrl.OnContentChanged(e);
+        ctrl.OnContentChanged(args);
     }
 
     /// <summary>
     /// Called when the <see cref="ContentControl.Content"/> property has changed.
     /// </summary>
-    /// <param name="e">The event data.</param>
-    protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs e)
+    /// <param name="args">The event data.</param>
+    protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs args)
     {
         BeginInitializeContent();
 
-        object NewContent = e.NewValue;
+        object NewContent = args.NewValue;
         IsExpanded = Host.IsExpanded(NewContent);
 
         EndInitializeContent();

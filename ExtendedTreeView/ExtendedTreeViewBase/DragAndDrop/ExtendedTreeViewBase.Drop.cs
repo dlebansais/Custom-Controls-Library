@@ -27,15 +27,15 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="e">The event data.</param>
     protected override void OnDrop(DragEventArgs e)
     {
-        DragEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(e, out DragEventArgs Args);
 
-        args.Effects = GetAllowedDropEffects(args);
-        args.Handled = true;
+        Args.Effects = GetAllowedDropEffects(Args);
+        Args.Handled = true;
 
-        if (args.Effects != DragDropEffects.None)
+        if (Args.Effects != DragDropEffects.None)
         {
-            ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(args);
-            IDragSourceControl AsDragSource = (IDragSourceControl)args.Data.GetData(DragSource.GetType());
+            ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(Args);
+            IDragSourceControl AsDragSource = (IDragSourceControl)Args.Data.GetData(DragSource.GetType());
             bool IsDragPossible = AsDragSource.IsDragPossible(out object SourceItem, out IList ItemList);
             object? DestinationItem = ItemContainer?.Content;
 
@@ -46,15 +46,15 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 IList CloneList = CreateItemList();
 
                 Debug.Assert(CloneList.Count == 0);
-                NotifyPreviewDropCompleted(DestinationItem, args.Effects, ItemList, CloneList);
+                NotifyPreviewDropCompleted(DestinationItem, Args.Effects, ItemList, CloneList);
 
-                if (args.Effects == DragDropEffects.Copy)
+                if (Args.Effects == DragDropEffects.Copy)
                     DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
-                else if (args.Effects == DragDropEffects.Move)
+                else if (Args.Effects == DragDropEffects.Move)
                     DragDropMove(SourceItem, DestinationItem, ItemList);
 
-                Debug.Assert(CloneList.Count > 0 || args.Effects != DragDropEffects.Copy);
-                NotifyDropCompleted(DestinationItem, args.Effects, ItemList, CloneList);
+                Debug.Assert(CloneList.Count > 0 || Args.Effects != DragDropEffects.Copy);
+                NotifyDropCompleted(DestinationItem, Args.Effects, ItemList, CloneList);
 
                 Expand(DestinationItem);
             }
@@ -160,8 +160,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <returns>True if successful.</returns>
     protected virtual bool GetValidDropDestinationFromArgs(DragEventArgs e, IDragSourceControl asDragSource, out object destinationItem)
     {
-        DragEventArgs Args = Contract.AssertNotNull(e);
-        IDragSourceControl AsDragSource = Contract.AssertNotNull(asDragSource);
+        Contract.RequireNotNull(e, out DragEventArgs Args);
+        Contract.RequireNotNull(asDragSource, out IDragSourceControl AsDragSource);
 
         if (DropTargetContainer is not null)
         {

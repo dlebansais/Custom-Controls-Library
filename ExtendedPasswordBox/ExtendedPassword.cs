@@ -56,5 +56,5 @@ public class ExtendedPassword
     /// <returns>
     /// The password as a secure string. Null if the <see cref="IsSecure"/> property is False.
     /// </returns>
-    public SecureString SecurePassword { get; private set; } = new SecureString();
+    public SecureString SecurePassword { get; private set; } = new();
 }

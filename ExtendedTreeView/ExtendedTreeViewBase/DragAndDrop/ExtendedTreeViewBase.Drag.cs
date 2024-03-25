@@ -143,12 +143,12 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="e">The event data.</param>
     protected override void OnDragEnter(DragEventArgs e)
     {
-        DragEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(e, out DragEventArgs Args);
 
-        UpdateCurrentDropTarget(args, false);
+        UpdateCurrentDropTarget(Args, false);
 
-        args.Effects = GetAllowedDropEffects(args);
-        args.Handled = true;
+        Args.Effects = GetAllowedDropEffects(Args);
+        Args.Handled = true;
     }
 
     /// <summary>
@@ -157,12 +157,12 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="e">The event data.</param>
     protected override void OnDragLeave(DragEventArgs e)
     {
-        DragEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(e, out DragEventArgs Args);
 
-        UpdateCurrentDropTarget(args, true);
+        UpdateCurrentDropTarget(Args, true);
 
-        args.Effects = GetAllowedDropEffects(args);
-        args.Handled = true;
+        Args.Effects = GetAllowedDropEffects(Args);
+        Args.Handled = true;
     }
 
     /// <summary>
@@ -171,27 +171,27 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="e">The event data.</param>
     protected override void OnDragOver(DragEventArgs e)
     {
-        DragEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(e, out DragEventArgs Args);
 
-        UpdateCurrentDropTarget(args, false);
+        UpdateCurrentDropTarget(Args, false);
 
-        args.Effects = GetAllowedDropEffects(args);
-        args.Handled = true;
+        Args.Effects = GetAllowedDropEffects(Args);
+        Args.Handled = true;
     }
 
     /// <summary>
     /// Gets the drag source from arguments of a drag drop event.
     /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <param name="args">The event data.</param>
     /// <param name="dragSource">The drag source upon return.</param>
     /// <returns>True if successful.</returns>
-    protected virtual bool GetValidDragSourceFromArgs(DragEventArgs e, out IDragSourceControl dragSource)
+    protected virtual bool GetValidDragSourceFromArgs(DragEventArgs args, out IDragSourceControl dragSource)
     {
-        DragEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(args, out DragEventArgs Args);
 
-        if (args.Data.GetDataPresent(DragSource.GetType()))
+        if (Args.Data.GetDataPresent(DragSource.GetType()))
         {
-            if (args.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
+            if (Args.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
             {
                 if (AsDragSource.HasDragItemList(out object RootItem, out IList _) && IsSameTypeAsContent(RootItem))
                 {

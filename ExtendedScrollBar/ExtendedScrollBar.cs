@@ -1,6 +1,5 @@
 ﻿namespace CustomControls;
 
-using System;
 using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -42,14 +41,14 @@ public partial class ExtendedScrollBar : ScrollBar
         switch (Orientation)
         {
             case Orientation.Horizontal:
-                _ = SetBinding(MaximumProperty, new Binding("ScrollableWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
-                _ = SetBinding(ViewportSizeProperty, new Binding("ViewportWidth") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
+                _ = SetBinding(MaximumProperty, new Binding(nameof(ScrollViewer.ScrollableWidth)) { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
+                _ = SetBinding(ViewportSizeProperty, new Binding(nameof(ScrollViewer.ViewportWidth)) { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
                 IsHandled = true;
                 break;
 
             case Orientation.Vertical:
-                _ = SetBinding(MaximumProperty, new Binding("ScrollableHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
-                _ = SetBinding(ViewportSizeProperty, new Binding("ViewportHeight") { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
+                _ = SetBinding(MaximumProperty, new Binding(nameof(ScrollViewer.ScrollableHeight)) { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
+                _ = SetBinding(ViewportSizeProperty, new Binding(nameof(ScrollViewer.ViewportHeight)) { Source = BoundScrollViewer, Mode = BindingMode.OneWay });
                 IsHandled = true;
                 break;
         }
@@ -65,23 +64,23 @@ public partial class ExtendedScrollBar : ScrollBar
     /// </summary>
     /// <parameters>
     /// <param name="sender">This parameter is not used.</param>
-    /// <param name="e">Describes a change in the scrolling state.</param>
+    /// <param name="args">Describes a change in the scrolling state.</param>
     /// </parameters>
-    private void BoundScrollChanged(object sender, ScrollChangedEventArgs e)
+    private void BoundScrollChanged(object sender, ScrollChangedEventArgs args)
     {
-        ScrollChangedEventArgs args = Contracts.Contract.AssertNotNull(e);
+        Contract.RequireNotNull(args, out ScrollChangedEventArgs Args);
 
         bool IsHandled = false;
 
         switch (Orientation)
         {
             case Orientation.Horizontal:
-                Value = args.HorizontalOffset;
+                Value = Args.HorizontalOffset;
                 IsHandled = true;
                 break;
 
             case Orientation.Vertical:
-                Value = args.VerticalOffset;
+                Value = Args.VerticalOffset;
                 IsHandled = true;
                 break;
         }
@@ -94,23 +93,23 @@ public partial class ExtendedScrollBar : ScrollBar
     /// </summary>
     /// <parameters>
     /// <param name="sender">This parameter is not used.</param>
-    /// <param name="e">Provides data for a System.Windows.Controls.Primitives.ScrollBar.Scroll event.</param>
+    /// <param name="args">Provides data for a System.Windows.Controls.Primitives.ScrollBar.Scroll event.</param>
     /// </parameters>
-    private void OnScroll(object sender, ScrollEventArgs e)
+    private void OnScroll(object sender, ScrollEventArgs args)
     {
-        ScrollEventArgs args = Contracts.Contract.AssertNotNull(e);
+        Contract.RequireNotNull(args, out ScrollEventArgs Args);
 
         bool IsHandled = false;
 
         switch (Orientation)
         {
             case Orientation.Horizontal:
-                BoundScrollViewer.ScrollToHorizontalOffset(args.NewValue);
+                BoundScrollViewer.ScrollToHorizontalOffset(Args.NewValue);
                 IsHandled = true;
                 break;
 
             case Orientation.Vertical:
-                BoundScrollViewer.ScrollToVerticalOffset(args.NewValue);
+                BoundScrollViewer.ScrollToVerticalOffset(Args.NewValue);
                 IsHandled = true;
                 break;
         }

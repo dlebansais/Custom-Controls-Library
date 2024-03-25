@@ -22,7 +22,7 @@ public partial class ExtendedScrollBar : ScrollBar
     /// <returns>
     /// The identifier for the <see cref="BoundScrollViewer"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty BoundScrollViewerProperty = DependencyProperty.Register("BoundScrollViewer", typeof(ScrollViewer), typeof(ExtendedScrollBar), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnBoundScrollViewerPropertyChanged)));
+    public static readonly DependencyProperty BoundScrollViewerProperty = DependencyProperty.Register(nameof(BoundScrollViewer), typeof(ScrollViewer), typeof(ExtendedScrollBar), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnBoundScrollViewerPropertyChanged)));
 
     /// <summary>
     /// Gets or sets the scroll viewer property to bind on.
@@ -34,15 +34,15 @@ public partial class ExtendedScrollBar : ScrollBar
         set { SetValue(BoundScrollViewerProperty, value); }
     }
 
-    private static void OnBoundScrollViewerPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    private static void OnBoundScrollViewerPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
     {
         ExtendedScrollBar ctrl = (ExtendedScrollBar)d;
-        ctrl.OnBoundScrollViewerPropertyChanged(e);
+        ctrl.OnBoundScrollViewerPropertyChanged(args);
     }
 
-    private void OnBoundScrollViewerPropertyChanged(DependencyPropertyChangedEventArgs e)
+    private void OnBoundScrollViewerPropertyChanged(DependencyPropertyChangedEventArgs args)
     {
-        if (e.NewValue is not null)
+        if (args.NewValue is not null)
             UpdateBindings();
     }
     #endregion

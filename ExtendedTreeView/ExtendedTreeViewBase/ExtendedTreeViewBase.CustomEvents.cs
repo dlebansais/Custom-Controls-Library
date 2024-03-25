@@ -15,7 +15,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="PreviewCollectionModified"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent PreviewCollectionModifiedEvent = EventManager.RegisterRoutedEvent("PreviewCollectionModified", RoutingStrategy.Tunnel, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
+    public static readonly RoutedEvent PreviewCollectionModifiedEvent = EventManager.RegisterRoutedEvent(nameof(PreviewCollectionModified), RoutingStrategy.Tunnel, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Occurs before the content collection is modified.
@@ -40,7 +40,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="CollectionModified"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent CollectionModifiedEvent = EventManager.RegisterRoutedEvent("CollectionModified", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
+    public static readonly RoutedEvent CollectionModifiedEvent = EventManager.RegisterRoutedEvent(nameof(CollectionModified), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Occurs after the content collection is modified.
@@ -65,7 +65,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="DragStarting"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent DragStartingEvent = EventManager.RegisterRoutedEvent("DragStarting", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
+    public static readonly RoutedEvent DragStartingEvent = EventManager.RegisterRoutedEvent(nameof(DragStarting), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Occurs when drag is starting.
@@ -91,7 +91,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="DropCheck"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent DropCheckEvent = EventManager.RegisterRoutedEvent("DropCheck", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
+    public static readonly RoutedEvent DropCheckEvent = EventManager.RegisterRoutedEvent(nameof(DropCheck), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Occurs when checking if drop is permitted.
@@ -118,7 +118,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="PreviewDropCompleted"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent PreviewDropCompletedEvent = EventManager.RegisterRoutedEvent("PreviewDropCompleted", RoutingStrategy.Tunnel, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
+    public static readonly RoutedEvent PreviewDropCompletedEvent = EventManager.RegisterRoutedEvent(nameof(PreviewDropCompleted), RoutingStrategy.Tunnel, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Occurs before a drop operation is completed.
@@ -150,7 +150,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Identifies the <see cref="DropCompleted"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent DropCompletedEvent = EventManager.RegisterRoutedEvent("DropCompleted", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
+    public static readonly RoutedEvent DropCompletedEvent = EventManager.RegisterRoutedEvent(nameof(DropCompleted), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewBase));
 
     /// <summary>
     /// Occurs after a drop operation is completed.

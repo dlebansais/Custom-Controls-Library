@@ -221,47 +221,45 @@ internal class CursorResource
     /// <param name="recordList">List of records.</param>
     protected virtual void ConvertToCursor(NativeMethods.FileHeader header, List<NativeMethods.FileRecord> recordList)
     {
-        using (MemoryStream ms = new())
+        using MemoryStream ms = new();
+        byte[] FieldData;
+
+        FieldData = BitConverter.GetBytes(header.Reserved);
+        ms.Write(FieldData, 0, FieldData.Length);
+        FieldData = BitConverter.GetBytes(header.Type);
+        ms.Write(FieldData, 0, FieldData.Length);
+
+        short ImageCount = (short)recordList.Count;
+        FieldData = BitConverter.GetBytes(ImageCount);
+        ms.Write(FieldData, 0, FieldData.Length);
+
+        int DataOffset = 6 + (recordList.Count * 16);
+
+        foreach (NativeMethods.FileRecord Record in recordList)
         {
-            byte[] FieldData;
-
-            FieldData = BitConverter.GetBytes(header.Reserved);
+            ms.WriteByte(Record.bWidth);
+            ms.WriteByte(Record.bHeight);
+            ms.WriteByte(Record.bColorCount);
+            ms.WriteByte(Record.bReserved);
+            FieldData = BitConverter.GetBytes(Record.HotspotX);
             ms.Write(FieldData, 0, FieldData.Length);
-            FieldData = BitConverter.GetBytes(header.Type);
-            ms.Write(FieldData, 0, FieldData.Length);
-
-            short ImageCount = (short)recordList.Count;
-            FieldData = BitConverter.GetBytes(ImageCount);
+            FieldData = BitConverter.GetBytes(Record.HotspotY);
             ms.Write(FieldData, 0, FieldData.Length);
 
-            int DataOffset = 6 + (recordList.Count * 16);
+            int DataLength = Record.Data.Length - 4;
+            FieldData = BitConverter.GetBytes(DataLength);
+            ms.Write(FieldData, 0, FieldData.Length);
+            FieldData = BitConverter.GetBytes(DataOffset);
+            ms.Write(FieldData, 0, FieldData.Length);
 
-            foreach (NativeMethods.FileRecord Record in recordList)
-            {
-                ms.WriteByte(Record.bWidth);
-                ms.WriteByte(Record.bHeight);
-                ms.WriteByte(Record.bColorCount);
-                ms.WriteByte(Record.bReserved);
-                FieldData = BitConverter.GetBytes(Record.HotspotX);
-                ms.Write(FieldData, 0, FieldData.Length);
-                FieldData = BitConverter.GetBytes(Record.HotspotY);
-                ms.Write(FieldData, 0, FieldData.Length);
-
-                int DataLength = Record.Data.Length - 4;
-                FieldData = BitConverter.GetBytes(DataLength);
-                ms.Write(FieldData, 0, FieldData.Length);
-                FieldData = BitConverter.GetBytes(DataOffset);
-                ms.Write(FieldData, 0, FieldData.Length);
-
-                DataOffset += DataLength;
-            }
-
-            foreach (NativeMethods.FileRecord Record in recordList)
-                ms.Write(Record.Data, 4, Record.Data.Length - 4);
-
-            _ = ms.Seek(0, SeekOrigin.Begin);
-            AsCursor = new Cursor(ms);
+            DataOffset += DataLength;
         }
+
+        foreach (NativeMethods.FileRecord Record in recordList)
+            ms.Write(Record.Data, 4, Record.Data.Length - 4);
+
+        _ = ms.Seek(0, SeekOrigin.Begin);
+        AsCursor = new Cursor(ms);
     }
 
     /// <summary>
@@ -272,5 +270,5 @@ internal class CursorResource
     {
         _ = NativeMethods.FreeLibrary(hMod);
     }
-#endregion
+    #endregion
 }

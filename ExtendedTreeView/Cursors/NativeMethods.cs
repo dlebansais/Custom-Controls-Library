@@ -2,7 +2,6 @@
 
 using System;
 using System.Runtime.InteropServices;
-using System.Text;
 
 /// <summary>
 /// Contains unmanaged methods to read resources from a file.

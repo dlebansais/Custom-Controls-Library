@@ -64,7 +64,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Identifies the <see cref="Expanded"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent ExpandedEvent = EventManager.RegisterRoutedEvent("Expanded", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewItemBase));
+    public static readonly RoutedEvent ExpandedEvent = EventManager.RegisterRoutedEvent(nameof(Expanded), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewItemBase));
 
     /// <summary>
     /// Occurs after the item is expanded.
@@ -89,7 +89,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Identifies the <see cref="Collapsed"/> routed event.
     /// </summary>
-    public static readonly RoutedEvent CollapsedEvent = EventManager.RegisterRoutedEvent("Collapsed", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewItemBase));
+    public static readonly RoutedEvent CollapsedEvent = EventManager.RegisterRoutedEvent(nameof(Collapsed), RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(ExtendedTreeViewItemBase));
 
     /// <summary>
     /// Occurs after the item is collapsed.

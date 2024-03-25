@@ -1,6 +1,5 @@
 ﻿namespace CustomControls;
 
-using System.ComponentModel;
 using System.Security;
 using System.Windows;
 using System.Windows.Controls;
@@ -98,7 +97,7 @@ public partial class ExtendedPasswordBox : UserControl
     #endregion
 
     #region Events
-    private void OnVisibleTextChanged(object sender, TextChangedEventArgs e)
+    private void OnVisibleTextChanged(object sender, TextChangedEventArgs args)
     {
         TextBox Ctrl = (TextBox)sender;
 
@@ -109,7 +108,7 @@ public partial class ExtendedPasswordBox : UserControl
         UpdateIsPasswordEmptyProperty(NewText);
     }
 
-    private void OnHiddenTextChanged(object sender, RoutedEventArgs e)
+    private void OnHiddenTextChanged(object sender, RoutedEventArgs args)
     {
         PasswordBox Ctrl = (PasswordBox)sender;
 
@@ -141,7 +140,7 @@ public partial class ExtendedPasswordBox : UserControl
 
     private void UpdateIsPasswordEmptyProperty(string newText)
     {
-        bool IsEmpty = newText is null || newText.Length == 0;
+        bool IsEmpty = string.IsNullOrEmpty(newText);
         SetValue(IsPasswordEmptyPropertyKey, IsEmpty);
     }
 

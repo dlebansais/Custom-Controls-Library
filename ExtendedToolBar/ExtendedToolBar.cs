@@ -21,7 +21,6 @@ public partial class ExtendedToolBar : ToolBar
     /// <summary>
     /// Initializes static members of the <see cref="ExtendedToolBar"/> class.
     /// </summary>
-    [SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Can't be done inline - too complex")]
     static ExtendedToolBar()
     {
         OverrideAncestorMetadata();
@@ -50,7 +49,7 @@ public partial class ExtendedToolBar : ToolBar
     /// </summary>
     protected static void OverrideMetadataDefaultStyleKey()
     {
-        ToolBar.DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBar), new FrameworkPropertyMetadata(typeof(ExtendedToolBar)));
+        DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBar), new FrameworkPropertyMetadata(typeof(ExtendedToolBar)));
     }
     #endregion
 
@@ -170,7 +169,7 @@ public partial class ExtendedToolBar : ToolBar
         Loaded += OnLoaded;
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e)
+    private void OnLoaded(object sender, RoutedEventArgs args)
     {
         if (VisualTreeHelper.GetChildrenCount(this) > 0)
             if (VisualTreeHelper.GetChild(this, 0) is FrameworkElement FirstChild)
@@ -190,8 +189,8 @@ public partial class ExtendedToolBar : ToolBar
     /// Called when the "Add or Remove Button" button is checked.
     /// </summary>
     /// <param name="sender">The button object.</param>
-    /// <param name="e">This parameter is not used.</param>
-    protected virtual void OnAddRemoveButtonChecked(object sender, RoutedEventArgs e)
+    /// <param name="args">This parameter is not used.</param>
+    protected virtual void OnAddRemoveButtonChecked(object sender, RoutedEventArgs args)
     {
         if (sender is ToggleButton AddRemoveButton)
             AddRemoveButton.IsEnabled = false;
@@ -201,8 +200,8 @@ public partial class ExtendedToolBar : ToolBar
     /// Called when the toolbar overflow button is unchecked.
     /// </summary>
     /// <param name="sender">The button object.</param>
-    /// <param name="e">This parameter is not used.</param>
-    protected virtual void OnOverflowButtonUnchecked(object sender, RoutedEventArgs e)
+    /// <param name="args">This parameter is not used.</param>
+    protected virtual void OnOverflowButtonUnchecked(object sender, RoutedEventArgs args)
     {
         if (sender is ToggleButton OverflowButton)
             if (OverflowButton.Parent is FrameworkElement ParentControl)
@@ -217,8 +216,8 @@ public partial class ExtendedToolBar : ToolBar
     /// Called when the "Reset ToolBar" button is clicked.
     /// </summary>
     /// <param name="sender">The button object.</param>
-    /// <param name="e">This parameter is not used.</param>
-    protected virtual void OnResetToolBarClicked(object sender, RoutedEventArgs e)
+    /// <param name="args">This parameter is not used.</param>
+    protected virtual void OnResetToolBarClicked(object sender, RoutedEventArgs args)
     {
         if (IsResetConfirmedByUser())
             Reset();
@@ -236,7 +235,7 @@ public partial class ExtendedToolBar : ToolBar
         string Title = Application.Current.MainWindow.Title;
 
         string Question;
-        if (ToolBarName is null || ToolBarName.Length == 0)
+        if (string.IsNullOrEmpty(ToolBarName))
             Question = Properties.Resources.ConfirmResetThisToolBarQuestion;
         else
         {

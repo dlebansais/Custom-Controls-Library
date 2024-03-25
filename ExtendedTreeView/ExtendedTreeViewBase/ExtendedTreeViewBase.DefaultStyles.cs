@@ -11,10 +11,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Gets the default control style.
     /// </summary>
-    public static Style DefaultStyle { get; private set; } = new Style();
+    public static Style DefaultStyle { get; private set; } = new();
 
     /// <summary>
     /// Gets the default control container style.
     /// </summary>
-    public static Style DefaultItemContainerStyle { get; private set; } = new Style();
+    public static Style DefaultItemContainerStyle { get; private set; } = new();
 }

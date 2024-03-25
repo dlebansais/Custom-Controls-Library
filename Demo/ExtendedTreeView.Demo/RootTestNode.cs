@@ -1,10 +1,15 @@
-﻿namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo;
+
+/// <summary>
+/// Represents a root test node.
+/// </summary>
+internal class RootTestNode : TestNode
 {
-    internal class RootTestNode : TestNode
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RootTestNode"/> class.
+    /// </summary>
+    public RootTestNode()
+        : base(null, 0)
     {
-        public RootTestNode()
-            : base(null, 0)
-        {
-        }
     }
 }

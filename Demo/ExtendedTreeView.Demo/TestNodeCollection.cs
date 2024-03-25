@@ -1,66 +1,85 @@
-﻿namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo;
+
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using CustomControls;
+
+/// <summary>
+/// Represents a collection of nodes.
+/// </summary>
+internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTreeNodeCollection
 {
-    using System.Collections.Generic;
-    using System.Collections.ObjectModel;
-    using CustomControls;
-
-    internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTreeNodeCollection
+    /// <summary>
+    /// Initializes a new instance of the <see cref="TestNodeCollection"/> class.
+    /// </summary>
+    /// <param name="parent">The parent node.</param>
+    public TestNodeCollection(TestNode parent)
     {
-        public TestNodeCollection(TestNode parent)
-        {
-            this.Parent = parent;
-        }
+        this.Parent = parent;
+    }
 
-        public IExtendedTreeNode Parent { get; private set; }
+    /// <summary>
+    /// Gets the parent node.
+    /// </summary>
+    public IExtendedTreeNode Parent { get; private set; }
 
-        public void Sort()
-        {
-        }
+    /// <inheritdoc/>
+    public void Sort()
+    {
+    }
 
-        int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item)
-        {
-            return IndexOf((TestNode)item);
-        }
+    /// <inheritdoc/>
+    int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item)
+    {
+        return IndexOf((TestNode)item);
+    }
 
-        void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item)
-        {
-            Insert(index, (TestNode)item);
-        }
+    /// <inheritdoc/>
+    void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item)
+    {
+        Insert(index, (TestNode)item);
+    }
 
-        IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
-        {
-            get { return this[index]; }
-            set { this[index] = (TestNode)value; }
-        }
+    /// <inheritdoc/>
+    IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
+    {
+        get { return this[index]; }
+        set { this[index] = (TestNode)value; }
+    }
 
-        void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item)
-        {
-            Add((TestNode)item);
-        }
+    /// <inheritdoc/>
+    void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item)
+    {
+        Add((TestNode)item);
+    }
 
-        bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item)
-        {
-            return Contains((TestNode)item);
-        }
+    /// <inheritdoc/>
+    bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item)
+    {
+        return Contains((TestNode)item);
+    }
 
-        void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
-        {
-            CopyTo((TestNode[])array, arrayIndex);
-        }
+    /// <inheritdoc/>
+    void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
+    {
+        CopyTo((TestNode[])array, arrayIndex);
+    }
 
-        bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)
-        {
-            return Remove((TestNode)item);
-        }
+    /// <inheritdoc/>
+    bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)
+    {
+        return Remove((TestNode)item);
+    }
 
-        public bool IsReadOnly
-        {
-            get { return false; }
-        }
+    /// <inheritdoc/>
+    public bool IsReadOnly
+    {
+        get { return false; }
+    }
 
-        IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+    /// <inheritdoc/>
+    IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

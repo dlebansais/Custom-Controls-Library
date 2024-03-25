@@ -13,10 +13,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Gets the list of child items visible in the scroll view.
     /// </summary>
-    protected ObservableCollection<object> VisibleChildren { get; } = new ObservableCollection<object>();
+    protected ObservableCollection<object> VisibleChildren { get; } = new();
 
     /// <summary>
     /// Gets a list of expanded items.
     /// </summary>
-    protected Dictionary<object, IList> ExpandedChildren { get; } = new Dictionary<object, IList>();
+    protected Dictionary<object, IList> ExpandedChildren { get; } = new();
 }

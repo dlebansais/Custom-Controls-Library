@@ -33,7 +33,7 @@ public class TreeViewMarginConverter : IMultiValueConverter
     }
 
     /// <summary>
-    /// Converts a binding target value to the source binding values.
+    /// This method is not used.
     /// </summary>
     /// <param name="value">The value that the binding target produces.</param>
     /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
@@ -42,6 +42,6 @@ public class TreeViewMarginConverter : IMultiValueConverter
     /// <returns>An array of values that have been converted from the target value back to the source values.</returns>
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
-        return Array.Empty<object>();
+        throw new NotSupportedException();
     }
 }

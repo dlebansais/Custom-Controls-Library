@@ -14,10 +14,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// Called when children of an item have changed.
     /// </summary>
     /// <param name="item">The item.</param>
-    /// <param name="e">The event data.</param>
-    protected virtual void HandleChildrenChanged(object item, NotifyCollectionChangedEventArgs e)
+    /// <param name="args">The event data.</param>
+    protected virtual void HandleChildrenChanged(object item, NotifyCollectionChangedEventArgs args)
     {
-        NotifyCollectionChangedEventArgs Args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(args, out NotifyCollectionChangedEventArgs Args);
         IList OldItems;
         IList NewItems;
 
@@ -59,7 +59,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="itemList">The list of children.</param>
     protected virtual void OnItemAddChildren(object item, int startIndex, IList itemList)
     {
-        IList ItemList = Contract.AssertNotNull(itemList);
+        Contract.RequireNotNull(itemList, out IList ItemList);
 
         NotifyPreviewCollectionModified(TreeViewCollectionOperation.Insert);
 
@@ -97,7 +97,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="itemList">The list of removed children.</param>
     protected virtual void OnItemRemoveChildren(object item, int startIndex, IList itemList)
     {
-        IList ItemList = Contract.AssertNotNull(itemList);
+        Contract.RequireNotNull(itemList, out IList ItemList);
 
         NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
 
@@ -136,7 +136,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="itemList">The list of moved children.</param>
     protected virtual void OnItemMoveChildren(object item, int oldIndex, int newIndex, IList itemList)
     {
-        IList ItemList = Contract.AssertNotNull(itemList);
+        Contract.RequireNotNull(itemList, out IList ItemList);
 
         NotifyPreviewCollectionModified(TreeViewCollectionOperation.Move);
 

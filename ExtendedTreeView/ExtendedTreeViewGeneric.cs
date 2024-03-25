@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Windows;
-using System.Windows.Data;
 using Contracts;
 
 /// <summary>
@@ -22,7 +21,7 @@ public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     /// <summary>
     /// Identifies the <see cref="Content"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty ContentProperty = DependencyProperty.Register("Content", typeof(TItem), typeof(ExtendedTreeViewGeneric<TItem, TCollection>), new FrameworkPropertyMetadata(new EmptyExtendedTreeNode<TItem, TCollection>(), OnContentChanged));
+    public static readonly DependencyProperty ContentProperty = DependencyProperty.Register(nameof(Content), typeof(TItem), typeof(ExtendedTreeViewGeneric<TItem, TCollection>), new FrameworkPropertyMetadata(new EmptyExtendedTreeNode<TItem, TCollection>(), OnContentChanged));
 
     /// <summary>
     /// Gets or sets the control content.
@@ -37,18 +36,18 @@ public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     /// Handles changes of the <see cref="Content"/> property.
     /// </summary>
     /// <param name="modifiedObject">The modified object.</param>
-    /// <param name="e">An object that contains event data.</param>
-    protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
+    /// <param name="args">An object that contains event data.</param>
+    protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
         ExtendedTreeViewGeneric<TItem, TCollection> ctrl = Contract.AssertNotNull((ExtendedTreeViewGeneric<TItem, TCollection>)modifiedObject);
-        ctrl.OnContentChanged(e);
+        ctrl.OnContentChanged(args);
     }
 
     /// <summary>
     /// Handles changes of the <see cref="Content"/> property.
     /// </summary>
-    /// <param name="e">An object that contains event data.</param>
-    protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs e)
+    /// <param name="args">An object that contains event data.</param>
+    protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs args)
     {
         BuildFlatChildrenTables();
     }
@@ -406,8 +405,8 @@ public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     /// <param name="e">The event data.</param>
     protected virtual void OnItemChildrenChanged(object? sender, NotifyCollectionChangedEventArgs e)
     {
-        Contracts.Contract.RequireNotNull(sender, out TCollection ItemCollection);
-        Contracts.Contract.RequireNotNull(ItemCollection.Parent, out object Item);
+        Contract.RequireNotNull(sender, out TCollection ItemCollection);
+        Contract.RequireNotNull(ItemCollection.Parent, out object Item);
 
         HandleChildrenChanged(Item, e);
     }

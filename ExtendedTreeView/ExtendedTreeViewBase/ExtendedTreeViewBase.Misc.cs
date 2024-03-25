@@ -69,11 +69,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Gets the source of an event.
     /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <param name="args">The event data.</param>
     /// <returns>The event source.</returns>
-    protected virtual ExtendedTreeViewItemBase? GetEventSourceItem(RoutedEventArgs e)
+    protected virtual ExtendedTreeViewItemBase? GetEventSourceItem(RoutedEventArgs args)
     {
-        DependencyObject? Current = e?.OriginalSource as DependencyObject;
+        DependencyObject? Current = args?.OriginalSource as DependencyObject;
 
         while (Current is not null)
         {

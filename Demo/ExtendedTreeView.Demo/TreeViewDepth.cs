@@ -1,9 +1,22 @@
-﻿namespace ExtendedTreeViewDemo
+﻿namespace ExtendedTreeViewDemo;
+
+/// <summary>
+/// Thye depth of a tree view.
+/// </summary>
+public enum TreeViewDepth
 {
-    public enum TreeViewDepth
-    {
-        Small,
-        Medium,
-        Large,
-    }
+    /// <summary>
+    /// The small depth.
+    /// </summary>
+    Small,
+
+    /// <summary>
+    /// The medium depth.
+    /// </summary>
+    Medium,
+
+    /// <summary>
+    /// The large depth.
+    /// </summary>
+    Large,
 }
