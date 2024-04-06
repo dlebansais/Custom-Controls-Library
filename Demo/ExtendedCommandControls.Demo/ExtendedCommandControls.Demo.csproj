@@ -31,8 +31,23 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <PropertyGroup>
+        <NoWarn>RG0000</NoWarn>
+    </PropertyGroup>
+
     <ItemGroup>
       <None Remove="Resources\Icons\Close.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Resource Include="Resources\Icons\Close.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <EmbeddedResource Update="Properties\Resources.resx">
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -68,9 +83,17 @@
         <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Resource Include="Resources\Icons\Close.png" />
-    </ItemGroup>
+    <Target Name="GenerateDesignerFilesOnce" BeforeTargets="GetFrameworkPaths" Condition="'$(TargetFramework)'=='net481' And !Exists('.\Properties\Resources.Designer.cs')">
+        <Exec Command="echo Initializing designer files..." />
+        <GenerateResource SdkToolsPath="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools" Sources="@(EmbeddedResource)" StronglyTypedLanguage="C#" StronglyTypedClassName="%(FileName)" StronglyTypedNamespace="EnumRadioButtonDemo.Properties" StronglyTypedFileName="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" PublicClass="true" />
+        <Delete Files="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).resources')" />
+    </Target>
+
+    <Target Name="GenerateDesignerFiles" BeforeTargets="PreBuildEvent" Inputs="@(EmbeddedResource)" Outputs="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" Condition="'$(TargetFramework)'=='net481'">
+        <Exec Command="echo Updating designer files... Framework=$(TargetFramework)" />
+        <GenerateResource SdkToolsPath="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools" Sources="@(EmbeddedResource)" StronglyTypedLanguage="C#" StronglyTypedClassName="%(FileName)" StronglyTypedNamespace="EnumRadioButtonDemo.Properties" StronglyTypedFileName="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" PublicClass="true" />
+        <Delete Files="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).resources')" />
+    </Target>
 
     <Target Name="_ResolveCopyLocalNuGetPackagePdbsAndXml" Condition="$(CopyLocalLockFileAssemblies) == true" AfterTargets="ResolveReferences">
         <ItemGroup>
