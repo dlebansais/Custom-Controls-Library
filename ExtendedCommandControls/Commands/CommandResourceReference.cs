@@ -87,6 +87,7 @@ public class CommandResourceReference
 
         string AssemblyName = InitResourceAssembly.GetName().Name !;
         string UriPath = $"pack://application:,,,/{AssemblyName};component/{IconPath}{name}";
+        UriPath = UriPath.ToLower(CultureInfo.CurrentCulture);
 
         try
         {

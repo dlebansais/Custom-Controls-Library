@@ -1,10 +1,10 @@
 <Project>
   <PropertyGroup>
-    <AssemblyName>ExtendedTreeView.Demo</AssemblyName>
+    <AssemblyName>EnumComboBox.Demo</AssemblyName>
     <IntermediateOutputPath>obj\x64\Debug\</IntermediateOutputPath>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
-    <MSBuildProjectExtensionsPath>C:\Projects\Custom-Controls-Library\Demo\ExtendedTreeView.Demo\obj\</MSBuildProjectExtensionsPath>
-    <_TargetAssemblyProjectName>ExtendedTreeView.Demo</_TargetAssemblyProjectName>
+    <MSBuildProjectExtensionsPath>C:\Projects\Custom-Controls-Library\Demo\EnumComboBox.Demo\obj\</MSBuildProjectExtensionsPath>
+    <_TargetAssemblyProjectName>EnumComboBox.Demo</_TargetAssemblyProjectName>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
@@ -15,14 +15,14 @@
     <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
-    <RootNamespace>ExtendedCommandControlsDemo</RootNamespace>
+    <RootNamespace>EnumComboBoxDemo</RootNamespace>
     <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6.742</AssemblyVersion>
-    <FileVersion>1.0.6.55</FileVersion>
+    <AssemblyVersion>1.0.6.753</AssemblyVersion>
+    <FileVersion>1.0.6.56</FileVersion>
     <Authors>David Le Bansais</Authors>
     <Company />
     <Product />
-    <Description>Extended TreeView Demo</Description>
+    <Description>Enum Combo Box demo</Description>
     <Copyright>Copyright © 2024 David Le Bansais</Copyright>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -33,9 +33,6 @@
     <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
     <IsPackable>false</IsPackable>
-  </PropertyGroup>
-  <PropertyGroup>
-    <NoWarn>SA0001</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Costura.Fody" Version="5.7.0">
@@ -64,28 +61,9 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="XamlConverterLibrary-Debug" Version="1.0.7" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-    <PackageReference Include="XamlConverterLibrary" Version="1.0.7" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ExtendedTreeView\ExtendedTreeView.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\CSharpFile.png" />
-    <None Remove="Resources\CSharpProject.png" />
-    <None Remove="Resources\Faces\face-angel-2.png" />
-    <None Remove="Resources\Faces\face-cool.png" />
-    <None Remove="Resources\Faces\face-devilish-2.png" />
-    <None Remove="Resources\Faces\face-kiss-2.png" />
-    <None Remove="Resources\Faces\face-laugh.png" />
-    <None Remove="Resources\Faces\face-monkey-2.png" />
-    <None Remove="Resources\Faces\face-smile-big-2.png" />
-    <None Remove="Resources\Faces\face-wink-2.png" />
-    <None Remove="Resources\Faces\face-worried.png" />
-    <None Remove="Resources\Folder.png" />
-    <None Remove="Resources\RecycleBin.png" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\..\EnumComboBox\EnumComboBox.csproj" />
   </ItemGroup>
   <Target Name="_ResolveCopyLocalNuGetPackagePdbsAndXml" Condition="$(CopyLocalLockFileAssemblies) == true" AfterTargets="ResolveReferences">
     <ItemGroup>
@@ -99,9 +77,7 @@
   </Target>
   <ItemGroup>
     <ReferencePath Include="C:\Users\DLB\.nuget\packages\costura.fody\5.7.0\lib\netstandard1.0\Costura.dll" />
-    <ReferencePath Include="C:\Projects\Custom-Controls-Library\ExtendedCommandControls\bin\x64\Debug\net481\ExtendedCommandControls.dll" />
-    <ReferencePath Include="C:\Projects\Custom-Controls-Library\ExtendedTreeView\bin\x64\Debug\net481\ExtendedTreeView.dll" />
-    <ReferencePath Include="C:\Users\DLB\.nuget\packages\method.contracts-debug\1.2.0\lib\net481\Method.Contracts.dll" />
+    <ReferencePath Include="C:\Projects\Custom-Controls-Library\EnumComboBox\bin\x64\Debug\net481\EnumComboBox.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\Facades\Microsoft.Win32.Primitives.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\mscorlib.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\PresentationCore.dll" />
@@ -149,7 +125,6 @@
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\UIAutomationTypes.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\WindowsBase.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\WindowsFormsIntegration.dll" />
-    <ReferencePath Include="C:\Users\DLB\.nuget\packages\xamlconverterlibrary-debug\1.0.7\lib\net481\XamlConverterLibrary.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\Facades\netstandard.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\Facades\System.Collections.Concurrent.dll" />
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\Facades\System.Collections.dll" />
@@ -234,10 +209,9 @@
     <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8.1\Facades\System.Xml.XPath.XDocument.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\ExtendedTreeView.Demo\obj\x64\Debug\net481\MainWindow.g.cs" />
-    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\ExtendedTreeView.Demo\obj\x64\Debug\net481\TreeViewSettingsWindow.g.cs" />
-    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\ExtendedTreeView.Demo\obj\x64\Debug\net481\App.g.cs" />
-    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\ExtendedTreeView.Demo\obj\x64\Debug\net481\GeneratedInternalTypeHelper.g.cs" />
+    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\EnumComboBox.Demo\obj\x64\Debug\net481\MainWindow.g.cs" />
+    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\EnumComboBox.Demo\obj\x64\Debug\net481\App.g.cs" />
+    <Compile Include="C:\Projects\Custom-Controls-Library\Demo\EnumComboBox.Demo\obj\x64\Debug\net481\GeneratedInternalTypeHelper.g.cs" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\dotnet\sdk\8.0.101\Sdks\Microsoft.NET.Sdk\targets\..\analyzers\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />

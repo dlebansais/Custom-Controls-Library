@@ -1,51 +1,45 @@
 ﻿namespace EnumRadioButton.Test;
 
+using FlaUI.Core.AutomationElements;
 using NUnit.Framework;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
 using System;
 using System.Threading;
+using TestTools;
 
 [TestFixture]
 public class UnitTest
 {
+    private const string DemoAppName = "EnumRadioButton.Demo";
+
     [Test]
     public void TestDefault1()
     {
-        WindowsDriver<WindowsElement> Session = LaunchApp();
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
+        Assert.That(DemoApp, Is.Not.Null);
 
-        WindowsElement ComboElement = Session.FindElementByAccessibilityId("enumRadioButtonX");
+        Window MainWindow = DemoApp.MainWindow;
+        Assert.That(MainWindow, Is.Not.Null);
+
+        AutomationElement ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId("enumRadioButtonX"));
+        Assert.That(ComboElement, Is.Not.Null);
+
+        AutomationElement CheckboxNullElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Null"));
+        Assert.That(CheckboxNullElement, Is.Not.Null);
+
+        AutomationElement CheckboxBadElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Bad"));
+        Assert.That(CheckboxBadElement, Is.Not.Null);
+
         ComboElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        WindowsElement CheckboxNullElement = Session.FindElementByName("Null");
         CheckboxNullElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
         CheckboxNullElement.Click();
 
-        WindowsElement CheckboxBadElement = Session.FindElementByName("Bad");
         CheckboxBadElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
         CheckboxBadElement.Click();
 
-        StopApp(Session);
-    }
-
-    private static WindowsDriver<WindowsElement> LaunchApp()
-    {
-        Thread.Sleep(TimeSpan.FromSeconds(10));
-
-        AppiumOptions appiumOptions = new();
-        appiumOptions.AddAdditionalCapability("app", @".\Test\Test-EnumRadioButton\bin\x64\Debug\Test-EnumRadioButton.exe");
-        appiumOptions.AddAdditionalCapability("appArguments", "ignore");
-
-        return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
-    }
-
-    private static void StopApp(WindowsDriver<WindowsElement> session)
-    {
-        Thread.Sleep(TimeSpan.FromSeconds(2));
-
-        using WindowsDriver<WindowsElement> DeletedSession = session;
+        DemoApplication.Stop(DemoApp);
     }
 }

@@ -1,16 +1,15 @@
 <Project>
   <PropertyGroup>
-    <AssemblyName>EditableTextBlock</AssemblyName>
+    <AssemblyName>ExtendedTreeView</AssemblyName>
     <IntermediateOutputPath>obj\x64\Debug\</IntermediateOutputPath>
     <BaseIntermediateOutputPath>obj\</BaseIntermediateOutputPath>
-    <MSBuildProjectExtensionsPath>C:\Projects\Custom-Controls-Library\EditableTextBlock\obj\</MSBuildProjectExtensionsPath>
-    <_TargetAssemblyProjectName>EditableTextBlock</_TargetAssemblyProjectName>
+    <MSBuildProjectExtensionsPath>C:\Projects\Custom-Controls-Library\ExtendedTreeView\obj\</MSBuildProjectExtensionsPath>
+    <_TargetAssemblyProjectName>ExtendedTreeView</_TargetAssemblyProjectName>
   </PropertyGroup>
   <Import Project="Sdk.props" Sdk="Microsoft.NET.Sdk" />
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net481;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <UseWindowsForms>true</UseWindowsForms>
     <LangVersion>12</LangVersion>
     <Nullable>enable</Nullable>
     <Platforms>x64</Platforms>
@@ -21,8 +20,8 @@
     <Product />
     <Description>WPF Custom Control</Description>
     <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-    <AssemblyVersion>1.0.6.742</AssemblyVersion>
-    <FileVersion>1.0.6.146</FileVersion>
+    <AssemblyVersion>1.0.6.753</AssemblyVersion>
+    <FileVersion>1.0.6.142</FileVersion>
     <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
     <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
     <NeutralLanguage>en-US</NeutralLanguage>
@@ -67,6 +66,11 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="Method.Contracts-Debug" Version="1.2.0" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <PackageReference Include="Method.Contracts" Version="1.2.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ExtendedCommandControls\ExtendedCommandControls.csproj" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net481'">
   </ItemGroup>
@@ -84,6 +88,8 @@
   <ItemGroup>
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\Accessibility.dll" />
     <ReferencePath Include="C:\Users\DLB\.nuget\packages\costura.fody\5.7.0\lib\netstandard1.0\Costura.dll" />
+    <ReferencePath Include="C:\Projects\Custom-Controls-Library\ExtendedCommandControls\bin\x64\Debug\netcoreapp3.1\ExtendedCommandControls.dll" />
+    <ReferencePath Include="C:\Users\DLB\.nuget\packages\method.contracts-debug\1.2.0\lib\netcoreapp3.1\Method.Contracts.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\Microsoft.CSharp.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\Microsoft.VisualBasic.Core.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\Microsoft.VisualBasic.dll" />
@@ -124,7 +130,6 @@
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Data.Common.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Data.DataSetExtensions.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Data.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Design.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Diagnostics.Contracts.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Diagnostics.Debug.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Diagnostics.DiagnosticSource.dll" />
@@ -139,9 +144,7 @@
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Diagnostics.Tracing.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.DirectoryServices.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Drawing.Common.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Drawing.Design.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Drawing.dll" />
+    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Drawing.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Drawing.Primitives.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Dynamic.Runtime.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Globalization.Calendars.dll" />
@@ -261,9 +264,6 @@
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Controls.Ribbon.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.NETCore.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Extensions.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Forms.Design.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Forms.Design.Editors.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Forms.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Input.Manipulations.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Windows.Presentation.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\System.Xaml.dll" />
@@ -281,11 +281,9 @@
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\UIAutomationProvider.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\UIAutomationTypes.dll" />
     <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\WindowsBase.dll" />
-    <ReferencePath Include="C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.1.0\ref\netcoreapp3.1\WindowsFormsIntegration.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="C:\Projects\Custom-Controls-Library\EditableTextBlock\obj\x64\Debug\netcoreapp3.1\EditableTextBlock.g.cs" />
-    <Compile Include="C:\Projects\Custom-Controls-Library\EditableTextBlock\obj\x64\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs" />
+    <Compile Include="C:\Projects\Custom-Controls-Library\ExtendedTreeView\obj\x64\Debug\netcoreapp3.1\GeneratedInternalTypeHelper.g.cs" />
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\dotnet\sdk\8.0.101\Sdks\Microsoft.NET.Sdk\targets\..\analyzers\Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll" />
