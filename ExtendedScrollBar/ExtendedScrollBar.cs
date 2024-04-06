@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
+using Contracts;
 
 /// <summary>
 /// Represents a scroll with specific support for binding to a scrollviewer.

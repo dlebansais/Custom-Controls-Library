@@ -20,8 +20,8 @@ public class ZoomChangedEventArgs : RoutedEventArgs
     public ZoomChangedEventArgs(RoutedEvent routedEvent, FrameworkElement viewContent, double zoom)
         : base(routedEvent)
     {
-        this.ViewContent = viewContent;
-        this.Zoom = zoom;
+        ViewContent = viewContent;
+        Zoom = zoom;
     }
     #endregion
 
@@ -32,7 +32,7 @@ public class ZoomChangedEventArgs : RoutedEventArgs
     /// <returns>
     /// The control representing the view to which the new zoom applies.
     /// </returns>
-    public FrameworkElement ViewContent { get; private set; }
+    public FrameworkElement ViewContent { get; }
 
     /// <summary>
     /// Gets the new zoom value.
@@ -43,6 +43,6 @@ public class ZoomChangedEventArgs : RoutedEventArgs
     /// <remarks>
     /// A value of <see cref="Zoom"/>=1.0 means no zoom (or 100%).
     /// </remarks>
-    public double Zoom { get; private set; }
+    public double Zoom { get; }
     #endregion
 }

@@ -4,18 +4,31 @@
         <OutputType>WinExe</OutputType>
         <TargetFrameworks>net481;net6.0-windows;net7.0-windows;net8.0-windows</TargetFrameworks>
         <UseWPF>true</UseWPF>
+        <UseWindowsForms>true</UseWindowsForms>
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
+
+        <RootNamespace>SplitViewDemo</RootNamespace>
+        <Version>1.0.6</Version>
+        <AssemblyVersion>1.0.6.752</AssemblyVersion>
+        <FileVersion>1.0.6.56</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
-        <Description>WPF Custom Control</Description>
+        <Description>SplitView Demo</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
+
         <NeutralLanguage>en-US</NeutralLanguage>
-        <RootNamespace>CustomControls</RootNamespace>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+        <AnalysisLevel>latest-all</AnalysisLevel>
+        <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+
+        <IsPackable>false</IsPackable>
     </PropertyGroup>
 
     <PropertyGroup>

@@ -5,20 +5,15 @@
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
-        <IsTestProject>true</IsTestProject>
-
-        <RootNamespace>EnumComboBox.Test</RootNamespace>
-
+        
+        <RootNamespace>TestTools</RootNamespace>
+        
         <NeutralLanguage>en-US</NeutralLanguage>
         <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <AnalysisLevel>latest-all</AnalysisLevel>
         <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-    </PropertyGroup>
-
-    <PropertyGroup>
-        <DefineConstants>$(DefineConstants);ENABLE_REMOTE</DefineConstants>
     </PropertyGroup>
 
     <ItemGroup>
@@ -30,19 +25,15 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="FlaUI.UIA3" Version="4.0.0" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-        <PackageReference Include="NUnit" Version="3.13.3" />
-        <PackageReference Include="NUnit.Analyzers" Version="3.9.0">
+        <PackageReference Include="NuGet.Configuration" Version="6.9.1" />
+        <PackageReference Include="PolySharp" Version="1.14.1">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    </ItemGroup>
-
-    <ItemGroup>
-        <ProjectReference Include="..\..\Demo\EnumComboBox.Demo\EnumComboBox.Demo.csproj" />
-        <ProjectReference Include="..\..\EnumComboBox\EnumComboBox.csproj" />
-        <ProjectReference Include="..\TestTools\TestTools.csproj" />
+        <PackageReference Include="Method.Contracts-Debug" Version="1.2.0" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="Method.Contracts" Version="1.2.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
 </Project>

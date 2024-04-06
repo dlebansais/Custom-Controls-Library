@@ -1,105 +1,104 @@
 ﻿namespace EditableTextBlock.Test;
 
-using NUnit.Framework;
-using OpenQA.Selenium.Appium;
-using OpenQA.Selenium.Appium.Windows;
-using OpenQA.Selenium.Interactions;
 using System;
 using System.Threading;
+using FlaUI.Core.AutomationElements;
+using FlaUI.Core.Input;
+using NUnit.Framework;
+using TestTools;
 
 [TestFixture]
 public class UnitTest
 {
+    private const string DemoAppName = "EditableTextBlock.Demo";
+
     [Test]
     public void TestDefault1()
     {
-        WindowsDriver<WindowsElement> Session = LaunchApp();
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
+        Assert.That(DemoApp, Is.Not.Null);
 
-        ClickBox(Session);
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        StopApp(Session);
+        DemoApplication.Stop(DemoApp);
     }
 
     [Test]
     public void TestDefault2()
     {
-        WindowsDriver<WindowsElement> Session = LaunchApp();
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
+        Assert.That(DemoApp, Is.Not.Null);
 
-        ClickBox(Session);
-        ClickBox(Session);
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        StopApp(Session);
+        Mouse.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        DemoApplication.Stop(DemoApp);
     }
 
     [Test]
     public void TestDefault3()
     {
-        WindowsDriver<WindowsElement> Session = LaunchApp();
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
+        Assert.That(DemoApp, Is.Not.Null);
 
-        DoubleClickBox(Session);
+        Window MainWindow = DemoApp.MainWindow;
+        Assert.That(MainWindow, Is.Not.Null);
 
-        WindowsElement CheckIsEditableElement = Session.FindElementByName("Editable");
+        DoubleClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        AutomationElement CheckIsEditableElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Editable"));
+        Assert.That(CheckIsEditableElement, Is.Not.Null);
+
         CheckIsEditableElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        ClickBox(Session);
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
         CheckIsEditableElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        ClickBox(Session);
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
         CheckIsEditableElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        StopApp(Session);
+        DemoApplication.Stop(DemoApp);
     }
 
-    private static WindowsDriver<WindowsElement> LaunchApp()
+    private static void ClickBox(DemoApp demoApp)
     {
-        Thread.Sleep(TimeSpan.FromSeconds(10));
-
-        AppiumOptions appiumOptions = new();
-        appiumOptions.AddAdditionalCapability("app", @".\Test\Test-EditableTextBlock\bin\x64\Debug\Test-EditableTextBlock.exe");
-        appiumOptions.AddAdditionalCapability("appArguments", "ignore");
-
-        return new WindowsDriver<WindowsElement>(new Uri("http://127.0.0.1:4723"), appiumOptions);
+        MoveToClickablePoint(demoApp);
+        Mouse.Click();
     }
 
-    private static void ClickBox(WindowsDriver<WindowsElement> session)
+    private static void DoubleClickBox(DemoApp demoApp)
     {
-        WindowsElement TextElement = session.FindElementByName("Init");
+        MoveToClickablePoint(demoApp);
+        Mouse.DoubleClick();
+    }
+
+    private static void MoveToClickablePoint(DemoApp demoApp)
+    {
+        Window MainWindow = demoApp.MainWindow;
+        Assert.That(MainWindow, Is.Not.Null);
+
+        AutomationElement TextElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Init"));
+        Assert.That(TextElement, Is.Not.Null);
+
         TextElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(1));
-        TextElement = session.FindElementByAccessibilityId("editableTextBlock");
 
-        Actions action = new(session);
-        _ = action.MoveToElement(TextElement, 10, 10);
-        _ = action.Click();
-        action.Perform();
+        TextElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId("editableTextBlock"));
+        Assert.That(TextElement, Is.Not.Null);
 
-        Thread.Sleep(TimeSpan.FromSeconds(2));
-    }
-
-    private static void DoubleClickBox(WindowsDriver<WindowsElement> session)
-    {
-        WindowsElement TextElement = session.FindElementByName("Init");
-        TextElement.Click();
-        Thread.Sleep(TimeSpan.FromSeconds(1));
-        TextElement = session.FindElementByAccessibilityId("editableTextBlock");
-
-        Actions action = new(session);
-        _ = action.MoveToElement(TextElement, 10, 10);
-        _ = action.DoubleClick();
-        action.Perform();
-
-        Thread.Sleep(TimeSpan.FromSeconds(2));
-    }
-
-    private static void StopApp(WindowsDriver<WindowsElement> session)
-    {
-        Thread.Sleep(TimeSpan.FromSeconds(2));
-
-        using WindowsDriver<WindowsElement> DeletedSession = session;
+        var Point = TextElement.GetClickablePoint();
+        Mouse.MoveTo(Point.X, Point.Y);
     }
 }

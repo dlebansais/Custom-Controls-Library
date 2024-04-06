@@ -31,7 +31,7 @@ internal class LazyConverter : IValueConverter
     }
 
     /// <summary>
-    /// This method is not used.
+    /// This method converts an object to itself.
     /// </summary>
     /// <param name="value">The value that is produced by the binding target.</param>
     /// <param name="targetType">The type to convert to.</param>
@@ -40,6 +40,6 @@ internal class LazyConverter : IValueConverter
     /// <returns>A converted value.</returns>
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        throw new NotSupportedException();
+        return value;
     }
 }

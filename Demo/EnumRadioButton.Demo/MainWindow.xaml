@@ -28,7 +28,6 @@
                 <CheckBox Checked="OnNullSet" Unchecked="OnNullCleared">Null</CheckBox>
                 <CheckBox Checked="OnBadSet" Unchecked="OnBadCleared">Bad</CheckBox>
                 <ItemsControl ItemsSource="{Binding TestProperty, Mode=OneTime, Converter={x:Static ctrl:EnumRadioButton.EnumItems}}" ItemTemplate="{StaticResource RadioButtonTemplate}" Margin="5,10,5,5"/>
-                <ItemsControl ItemsSource="{Binding BadProperty, Mode=OneTime, Converter={x:Static ctrl:EnumRadioButton.EnumItems}}" ItemTemplate="{StaticResource RadioButtonTemplate}" Margin="5,10,5,5"/>
             </StackPanel>
         </GroupBox>
     </DockPanel>

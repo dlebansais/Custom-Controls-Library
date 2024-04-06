@@ -16,7 +16,7 @@ public class ViewLoadedEventArgs : RoutedEventArgs
     public ViewLoadedEventArgs(RoutedEvent routedEvent, FrameworkElement viewContent)
         : base(routedEvent)
     {
-        this.ViewContent = viewContent;
+        ViewContent = viewContent;
     }
     #endregion
 
@@ -27,6 +27,6 @@ public class ViewLoadedEventArgs : RoutedEventArgs
     /// <returns>
     /// The control representing the view that has been loaded.
     /// </returns>
-    public FrameworkElement ViewContent { get; private set; }
+    public FrameworkElement ViewContent { get; }
     #endregion
 }

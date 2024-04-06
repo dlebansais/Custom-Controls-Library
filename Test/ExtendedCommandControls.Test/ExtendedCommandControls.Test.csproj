@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0-windows7.0</TargetFramework>
+        <TargetFramework>net8.0-windows</TargetFramework>
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
@@ -26,7 +26,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Appium.WebDriver" Version="4.4.5" />
         <PackageReference Include="dlebansais.CSharpLatest" Version="0.0.7">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -43,6 +42,7 @@
     <ItemGroup>
         <ProjectReference Include="..\..\Demo\ExtendedCommandControls.Demo\ExtendedCommandControls.Demo.csproj" />
         <ProjectReference Include="..\..\ExtendedCommandControls\ExtendedCommandControls.csproj" />
+        <ProjectReference Include="..\TestTools\TestTools.csproj" />
     </ItemGroup>
 
 </Project>

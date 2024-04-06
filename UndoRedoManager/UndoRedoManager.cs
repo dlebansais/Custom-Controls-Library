@@ -16,7 +16,7 @@ public class UndoRedoManager
     /// <returns>
     /// The list of operation that can be reversed.
     /// </returns>
-    public ObservableCollection<IReversibleOperation> UndoList { get; } = new ObservableCollection<IReversibleOperation>();
+    public ObservableCollection<IReversibleOperation> UndoList { get; } = new();
 
     /// <summary>
     /// Gets the list of operation that have been reversed.
@@ -24,7 +24,7 @@ public class UndoRedoManager
     /// <returns>
     /// The list of operation that have been reversed.
     /// </returns>
-    public ObservableCollection<IReversibleOperation> RedoList { get; } = new ObservableCollection<IReversibleOperation>();
+    public ObservableCollection<IReversibleOperation> RedoList { get; } = new();
 
     /// <summary>
     /// Gets the last operation that was either performed or reversed.

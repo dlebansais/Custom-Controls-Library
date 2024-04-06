@@ -1,8 +1,10 @@
-﻿namespace CustomControls
-{
-    using System.Windows;
+﻿namespace SplitViewDemo;
 
-    public partial class App : Application
-    {
-    }
+using System.Windows;
+
+/// <summary>
+/// The SplitViewDemo program.
+/// </summary>
+public partial class App : Application
+{
 }

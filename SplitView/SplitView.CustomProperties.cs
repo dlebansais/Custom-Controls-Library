@@ -30,7 +30,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <returns>
     /// The identifier for the <see cref="ViewTemplate"/> dependency property.
     /// </returns>
-    public static readonly DependencyProperty ViewTemplateProperty = DependencyProperty.Register("ViewTemplate", typeof(DataTemplate), typeof(SplitView), new PropertyMetadata(null));
+    public static readonly DependencyProperty ViewTemplateProperty = DependencyProperty.Register(nameof(ViewTemplate), typeof(DataTemplate), typeof(SplitView), new PropertyMetadata(null));
 
     /// <summary>
     /// Gets or sets the <see cref="DataTemplate"/> used to display each view.
@@ -43,7 +43,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     #endregion
 
     #region Zoom Options
-    private static readonly DependencyPropertyKey ZoomOptionsPropertyKey = DependencyProperty.RegisterReadOnly("ZoomOptions", typeof(Collection<double>), typeof(SplitView), new PropertyMetadata(null));
+    private static readonly DependencyPropertyKey ZoomOptionsPropertyKey = DependencyProperty.RegisterReadOnly(nameof(ZoomOptions), typeof(Collection<double>), typeof(SplitView), new PropertyMetadata(null));
     /// <summary>
     /// Identifies the <see cref="ZoomOptions"/> dependency property.
     /// </summary>
@@ -65,7 +65,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Identifies the ViewLoaded routed event.
     /// </summary>
-    public static readonly RoutedEvent ViewLoadedEvent = EventManager.RegisterRoutedEvent("ViewLoaded", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
+    public static readonly RoutedEvent ViewLoadedEvent = EventManager.RegisterRoutedEvent(nameof(ViewLoaded), RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
     /// <summary>
     /// Sent when a view has been loaded.
@@ -91,7 +91,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Identifies the ViewUnloaded routed event.
     /// </summary>
-    public static readonly RoutedEvent ViewUnloadedEvent = EventManager.RegisterRoutedEvent("ViewUnloaded", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
+    public static readonly RoutedEvent ViewUnloadedEvent = EventManager.RegisterRoutedEvent(nameof(ViewUnloaded), RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
     /// <summary>
     /// Sent when a view has been unloaded.
@@ -117,7 +117,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Identifies the TopRowVisibilityChanged routed event.
     /// </summary>
-    public static readonly RoutedEvent TopRowVisibilityChangedEvent = EventManager.RegisterRoutedEvent("TopRowVisibilityChanged", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
+    public static readonly RoutedEvent TopRowVisibilityChangedEvent = EventManager.RegisterRoutedEvent(nameof(TopRowVisibilityChanged), RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
     /// <summary>
     /// Sent when the top row view has becomed visible or collapsed.
@@ -142,7 +142,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Identifies the ZoomChanged routed event.
     /// </summary>
-    public static readonly RoutedEvent ZoomChangedEvent = EventManager.RegisterRoutedEvent("ZoomChanged", RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
+    public static readonly RoutedEvent ZoomChangedEvent = EventManager.RegisterRoutedEvent(nameof(ZoomChanged), RoutingStrategy.Bubble, typeof(RoutedEvent), typeof(SplitView));
 
     /// <summary>
     /// Sent when the zoom of one of the views has changed.

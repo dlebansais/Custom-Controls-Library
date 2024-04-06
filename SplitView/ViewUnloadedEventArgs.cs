@@ -16,7 +16,7 @@ public class ViewUnloadedEventArgs : RoutedEventArgs
     public ViewUnloadedEventArgs(RoutedEvent routedEvent, FrameworkElement viewContent)
         : base(routedEvent)
     {
-        this.ViewContent = viewContent;
+        ViewContent = viewContent;
     }
     #endregion
 
@@ -27,6 +27,6 @@ public class ViewUnloadedEventArgs : RoutedEventArgs
     /// <returns>
     /// The control representing the view that has been unloaded.
     /// </returns>
-    public FrameworkElement ViewContent { get; private set; }
+    public FrameworkElement ViewContent { get; }
     #endregion
 }

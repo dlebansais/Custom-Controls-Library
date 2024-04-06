@@ -74,17 +74,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PreBuild", "PreBuild\PreBui
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Demo", "Demo", "{80EA239E-CFC7-4470-B0F1-12F024D284B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusyIndicator.Demo", "Demo\BusyIndicator.Demo\BusyIndicator.Demo.csproj", "{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusyIndicator.Demo", "Demo\BusyIndicator.Demo\BusyIndicator.Demo.csproj", "{F01CB87B-C95A-4AA9-84C7-93B192E31BCD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogValidation.Demo", "Demo\DialogValidation.Demo\DialogValidation.Demo.csproj", "{32F0C528-7A29-4412-86ED-82EE5480C9DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogValidation.Demo", "Demo\DialogValidation.Demo\DialogValidation.Demo.csproj", "{32F0C528-7A29-4412-86ED-82EE5480C9DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditableTextBlock.Demo", "Demo\EditableTextBlock.Demo\EditableTextBlock.Demo.csproj", "{0FE827B2-66DA-406F-A4B7-309A31D11BCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditableTextBlock.Demo", "Demo\EditableTextBlock.Demo\EditableTextBlock.Demo.csproj", "{0FE827B2-66DA-406F-A4B7-309A31D11BCB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumComboBox.Demo", "Demo\EnumComboBox.Demo\EnumComboBox.Demo.csproj", "{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox.Demo", "Demo\EnumComboBox.Demo\EnumComboBox.Demo.csproj", "{3A59BC48-87AD-4894-B3B4-D074F8CBABB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumRadioButton.Demo", "Demo\EnumRadioButton.Demo\EnumRadioButton.Demo.csproj", "{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton.Demo", "Demo\EnumRadioButton.Demo\EnumRadioButton.Demo.csproj", "{D0CD1AB0-C630-4F4F-A2F5-0E933833383B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedCommandControls.Demo", "Demo\ExtendedCommandControls.Demo\ExtendedCommandControls.Demo.csproj", "{DCBD29A9-7EFD-4C16-B9EC-0B848F005427}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedCommandControls.Demo", "Demo\ExtendedCommandControls.Demo\ExtendedCommandControls.Demo.csproj", "{DCBD29A9-7EFD-4C16-B9EC-0B848F005427}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedTreeView.Demo", "Demo\ExtendedTreeView.Demo\ExtendedTreeView.Demo.csproj", "{2B83E2F1-2374-493A-B4B5-2AB11AD90D36}"
 EndProject
@@ -92,15 +92,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SplitView.Demo", "Demo\Spli
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DialogValidation.Test", "Test\DialogValidation.Test\DialogValidation.Test.csproj", "{BADF93FA-E0D6-4AFB-B3E7-C6585E1A4C7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DialogValidation.Test", "Test\DialogValidation.Test\DialogValidation.Test.csproj", "{BADF93FA-E0D6-4AFB-B3E7-C6585E1A4C7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditableTextBlock.Test", "Test\EditableTextBlock.Test\EditableTextBlock.Test.csproj", "{1B4F1DFF-77E7-4BD8-9CA9-A53D677A563C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EditableTextBlock.Test", "Test\EditableTextBlock.Test\EditableTextBlock.Test.csproj", "{1B4F1DFF-77E7-4BD8-9CA9-A53D677A563C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumComboBox.Test", "Test\EnumComboBox.Test\EnumComboBox.Test.csproj", "{6D2F86FF-4793-4A19-8991-8BB63C7707E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumComboBox.Test", "Test\EnumComboBox.Test\EnumComboBox.Test.csproj", "{6D2F86FF-4793-4A19-8991-8BB63C7707E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EnumRadioButton.Test", "Test\EnumRadioButton.Test\EnumRadioButton.Test.csproj", "{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EnumRadioButton.Test", "Test\EnumRadioButton.Test\EnumRadioButton.Test.csproj", "{E71E41B6-49DF-45D7-8AAD-3CE647204F8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendedCommandControls.Test", "Test\ExtendedCommandControls.Test\ExtendedCommandControls.Test.csproj", "{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendedCommandControls.Test", "Test\ExtendedCommandControls.Test\ExtendedCommandControls.Test.csproj", "{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestTools", "Test\TestTools\TestTools.csproj", "{E4F3FC20-383B-42A6-B1B9-F3D4E4039426}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -216,6 +218,10 @@ Global
 		{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE}.Debug|x64.Build.0 = Debug|x64
 		{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE}.Release|x64.ActiveCfg = Release|x64
 		{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE}.Release|x64.Build.0 = Release|x64
+		{E4F3FC20-383B-42A6-B1B9-F3D4E4039426}.Debug|x64.ActiveCfg = Debug|x64
+		{E4F3FC20-383B-42A6-B1B9-F3D4E4039426}.Debug|x64.Build.0 = Debug|x64
+		{E4F3FC20-383B-42A6-B1B9-F3D4E4039426}.Release|x64.ActiveCfg = Release|x64
+		{E4F3FC20-383B-42A6-B1B9-F3D4E4039426}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -234,6 +240,7 @@ Global
 		{6D2F86FF-4793-4A19-8991-8BB63C7707E5} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
 		{E71E41B6-49DF-45D7-8AAD-3CE647204F8C} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
 		{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
+		{E4F3FC20-383B-42A6-B1B9-F3D4E4039426} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06C6BCBE-BE16-41F7-A401-83A862DA0367}

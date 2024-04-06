@@ -3,7 +3,6 @@
 using System;
 using System.Windows;
 using System.Windows.Controls;
-using Contracts;
 
 /// <summary>
 /// Represents <see cref="TabControl"/> that starts with a size large enough to contains all its <see cref="TabItem"/> items.
@@ -42,21 +41,21 @@ public class TightfittingTabControl : TabControl
         LargestHeight = 0;
     }
 
-    private void OnSizeChanged(object sender, SizeChangedEventArgs e)
+    private void OnSizeChanged(object sender, SizeChangedEventArgs args)
     {
-        UpdateLargestSize(e);
+        UpdateLargestSize(args);
 
         if (!CycleDone)
             UpdateCycle();
     }
 
-    private void UpdateLargestSize(SizeChangedEventArgs e)
+    private void UpdateLargestSize(SizeChangedEventArgs args)
     {
-        if (e.WidthChanged && LargestWidth < e.NewSize.Width)
-            LargestWidth = e.NewSize.Width;
+        if (args.WidthChanged && LargestWidth < args.NewSize.Width)
+            LargestWidth = args.NewSize.Width;
 
-        if (e.HeightChanged && LargestHeight < e.NewSize.Height)
-            LargestHeight = e.NewSize.Height;
+        if (args.HeightChanged && LargestHeight < args.NewSize.Height)
+            LargestHeight = args.NewSize.Height;
     }
 
     private void UpdateCycle()

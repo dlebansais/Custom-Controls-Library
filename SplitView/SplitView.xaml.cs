@@ -1,5 +1,6 @@
 ﻿namespace CustomControls;
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -195,7 +196,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     #endregion
 
     #region Events
-    private void OnContentControlLoaded(object sender, RoutedEventArgs e)
+    private void OnContentControlLoaded(object sender, RoutedEventArgs args)
     {
         ContentControl Content = (ContentControl)sender;
 
@@ -210,7 +211,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
         }
     }
 
-    private void OnContentControlUnloaded(object sender, RoutedEventArgs e)
+    private void OnContentControlUnloaded(object sender, RoutedEventArgs args)
     {
         ContentControl Content = (ContentControl)sender;
 
@@ -221,12 +222,12 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
 
     private delegate void UpdateLengthHandler(FrameworkElement element, Size adjustedSize);
 
-    private void OnBottomScrollBar0SizeChanged(object sender, SizeChangedEventArgs e)
+    private void OnBottomScrollBar0SizeChanged(object sender, SizeChangedEventArgs args)
     {
         FixSiblingDimension(sender, "comboZoom0", UpdateHeightAndIndex, OnBottomScrollBar0SizeChanged);
     }
 
-    private void OnBottomScrollBar1SizeChanged(object sender, SizeChangedEventArgs e)
+    private void OnBottomScrollBar1SizeChanged(object sender, SizeChangedEventArgs args)
     {
         FixSiblingDimension(sender, "comboZoom1", UpdateHeightAndIndex, OnBottomScrollBar1SizeChanged);
     }
@@ -236,10 +237,9 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
         element.Height = adjustedSize.Height;
 
         if (element is ComboBox AsComboBox)
-            _ = Dispatcher.BeginInvoke(DispatcherPriority.Normal, new UpdateIndexHandler(OnUpdateIndex), AsComboBox);
+            _ = Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action<ComboBox>(OnUpdateIndex), AsComboBox);
     }
 
-    private delegate void UpdateIndexHandler(ComboBox asComboBox);
     private void OnUpdateIndex(ComboBox asComboBox)
     {
         asComboBox.SelectedIndex = 3;
@@ -288,7 +288,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
         }
     }
 
-    private void OnMainGridSizeChanged(object sender, SizeChangedEventArgs e)
+    private void OnMainGridSizeChanged(object sender, SizeChangedEventArgs args)
     {
         Grid MainGrid = (Grid)sender;
         if ((!double.IsNaN(MainGrid.ActualWidth) && MainGrid.ActualWidth > 0) &&
@@ -300,12 +300,12 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
         }
     }
 
-    private void OnZoom0Changed(object sender, SelectionChangedEventArgs e)
+    private void OnZoom0Changed(object sender, SelectionChangedEventArgs args)
     {
         OnZoomChanged(sender, viewer0);
     }
 
-    private void OnZoom1Changed(object sender, SelectionChangedEventArgs e)
+    private void OnZoom1Changed(object sender, SelectionChangedEventArgs args)
     {
         OnZoomChanged(sender, viewer1);
     }
@@ -335,17 +335,17 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
         }
     }
 
-    private void OnSplitClick(object sender, MouseButtonEventArgs e)
+    private void OnSplitClick(object sender, MouseButtonEventArgs args)
     {
-        e.Handled = true;
+        args.Handled = true;
 
-        MouseButtonEventArgs args = new(InputManager.Current.PrimaryMouseDevice, e.Timestamp, MouseButton.Left);
-        args.RoutedEvent = e.RoutedEvent;
-        args.Source = splitterLine;
-        splitterLine.RaiseEvent(args);
+        MouseButtonEventArgs RaisedEventArgs = new(InputManager.Current.PrimaryMouseDevice, args.Timestamp, MouseButton.Left);
+        RaisedEventArgs.RoutedEvent = args.RoutedEvent;
+        RaisedEventArgs.Source = splitterLine;
+        splitterLine.RaiseEvent(RaisedEventArgs);
     }
 
-    private void OnDragCompleted(object sender, DragCompletedEventArgs e)
+    private void OnDragCompleted(object sender, DragCompletedEventArgs args)
     {
         bool OldIsVisible = IsTopRowVisible;
 

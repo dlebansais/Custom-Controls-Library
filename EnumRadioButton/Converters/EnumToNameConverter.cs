@@ -40,7 +40,8 @@ internal class EnumToNameConverter : IValueConverter
         ResourceManager Manager = new(ResourceSource);
         string ResourceName = value.ToString()!;
 
-        Contract.RequireNotNull(Manager.GetString(ResourceName, CultureInfo.CurrentCulture), out object Result);
+        string? Resource = Manager.GetString(ResourceName, culture);
+        Contract.RequireNotNull(Resource, out object Result);
 
         return Result;
     }

@@ -30,9 +30,9 @@ public partial class EditableTextBlock : UserControl, IDisposable
 {
     #region Constants
     /// <summary>
-    /// Delay before editing happens, to ignore double-click.
+    /// Gets the delay before editing happens, to ignore double-click.
     /// </summary>
-    public static readonly TimeSpan DefaultClickDelay = TimeSpan.FromSeconds(0.4);
+    public static TimeSpan DefaultClickDelay { get; } = TimeSpan.FromSeconds(0.4);
     #endregion
 
     #region Init
