@@ -7,7 +7,6 @@ using System.Threading;
 using Contracts;
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
-using FlaUI.Core.Definitions;
 using NuGet.Configuration;
 
 public static class DemoApplication
@@ -25,8 +24,8 @@ public static class DemoApplication
 
         if (Application.Launch(CoverageAppName, CoverageAppArgs) is Application CoverageApp)
         {
-            Thread.Sleep(TimeSpan.FromSeconds(2));
             Console.WriteLine($"{DateTime.Now} - CoverageAppName launched");
+            Thread.Sleep(TimeSpan.FromSeconds(15));
 
             if (Application.Attach(AppName) is Application App)
             {
