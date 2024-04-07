@@ -31,6 +31,10 @@
         <IsPackable>false</IsPackable>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(APPVEYOR)' == 'True'">
+        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+    </PropertyGroup>
+
     <PropertyGroup>
         <NoWarn>RG0000</NoWarn>
     </PropertyGroup>
