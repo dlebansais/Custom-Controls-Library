@@ -6,7 +6,7 @@
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
-
+        
         <RootNamespace>CustomControls</RootNamespace>
         <Version>1.0.6</Version>
         <Authors>David Le Bansais</Authors>
@@ -34,6 +34,7 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(APPVEYOR)' == 'True'">
+        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
         <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
     </PropertyGroup>
 

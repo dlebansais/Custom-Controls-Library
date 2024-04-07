@@ -14,7 +14,7 @@
         <Product />
         <Description>WPF Custom Control</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <AssemblyVersion>1.0.6.752</AssemblyVersion>
+        <AssemblyVersion>1.0.6.754</AssemblyVersion>
         <FileVersion>1.0.6.142</FileVersion>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
@@ -33,9 +33,10 @@
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
-    <ItemGroup>
-        <None Remove="Resources\Icons\HorizontalSplit.png" />
-    </ItemGroup>
+    <PropertyGroup Condition="'$(APPVEYOR)' == 'True'">
+        <RuntimeIdentifier>win7-x64</RuntimeIdentifier>
+        <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+    </PropertyGroup>
 
     <ItemGroup>
         <None Include="..\.editorconfig" Link=".editorconfig" />
@@ -83,6 +84,10 @@
         <Reference Include="PresentationFramework" />
         <Reference Include="System.Xaml" />
         <Reference Include="WindowsBase" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Remove="Resources\Icons\HorizontalSplit.png" />
     </ItemGroup>
 
     <ItemGroup>
