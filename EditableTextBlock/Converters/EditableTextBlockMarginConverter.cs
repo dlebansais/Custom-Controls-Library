@@ -43,7 +43,7 @@ internal class EditableTextBlockMarginConverter : IMultiValueConverter
         return ConvertValidValues(IsEditing, TextBlockMargin, TextBlockPadding, TextBoxBorder, TextBoxPadding, ExpectedResult);
     }
 
-#pragma warning disable CA1822 // Mark members as static
+#pragma warning disable CA1822 // Mark members as static (for Release build)
     private object ConvertValidValues(bool isEditing, Thickness textBlockMargin, Thickness textBlockPadding, Thickness textBoxBorder, Thickness textBoxPadding, string expectedResult)
 #pragma warning restore CA1822 // Mark members as static
     {
