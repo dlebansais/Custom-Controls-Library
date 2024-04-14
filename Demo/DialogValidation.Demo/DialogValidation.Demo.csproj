@@ -9,9 +9,9 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>BusyIndicatorDemo</RootNamespace>
-        <Version>1.0.6</Version>
-        <AssemblyVersion>1.0.6.754</AssemblyVersion>
-        <FileVersion>1.0.6.54</FileVersion>
+        <Version>1.0.7</Version>
+        <AssemblyVersion>1.0.7.757</AssemblyVersion>
+        <FileVersion>1.0.7.54</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
@@ -41,6 +41,10 @@
         <PackageReference Include="Fody" Version="6.8.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="IDisposableAnalyzers" Version="4.0.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556">
             <PrivateAssets>all</PrivateAssets>

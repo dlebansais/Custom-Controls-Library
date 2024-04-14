@@ -59,29 +59,24 @@ internal class CursorResource
     /// Gets the width and height of the preferred size, in pixels.
     /// </summary>
     public int PreferredSize { get; }
-
-    /// <summary>
-    /// Gets the loaded cursor resources.
-    /// </summary>
-    public Cursor AsCursor { get; private set; } = Cursors.None;
     #endregion
 
     #region Client Interface
     /// <summary>
     /// Loads the cursor resources.
     /// </summary>
-    public virtual bool Load()
+    public virtual Cursor? Load()
     {
         IntPtr hMod = LoadFile();
         if (hMod == IntPtr.Zero)
-            return false;
+            return null;
 
         NativeMethods.FileHeader Header;
         List<NativeMethods.FileRecord> RecordList;
         if (!LoadDirectory(hMod, out Header, out RecordList))
         {
             FreeHandle(hMod);
-            return false;
+            return null;
         }
 
         bool IsLoaded = true;
@@ -95,13 +90,14 @@ internal class CursorResource
         if (!IsLoaded)
         {
             FreeHandle(hMod);
-            return false;
+            return null;
         }
 
-        ConvertToCursor(Header, RecordList);
+        Cursor Result = ConvertToCursor(Header, RecordList);
 
         FreeHandle(hMod);
-        return true;
+
+        return Result;
     }
     #endregion
 
@@ -219,7 +215,7 @@ internal class CursorResource
     /// </summary>
     /// <param name="header">Header of the file.</param>
     /// <param name="recordList">List of records.</param>
-    protected virtual void ConvertToCursor(NativeMethods.FileHeader header, List<NativeMethods.FileRecord> recordList)
+    protected virtual Cursor ConvertToCursor(NativeMethods.FileHeader header, List<NativeMethods.FileRecord> recordList)
     {
         using MemoryStream ms = new();
         byte[] FieldData;
@@ -259,7 +255,8 @@ internal class CursorResource
             ms.Write(Record.Data, 4, Record.Data.Length - 4);
 
         _ = ms.Seek(0, SeekOrigin.Begin);
-        AsCursor = new Cursor(ms);
+
+        return new Cursor(ms);
     }
 
     /// <summary>

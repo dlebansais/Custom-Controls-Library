@@ -8,14 +8,14 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>CustomControls</RootNamespace>
-        <Version>1.0.6</Version>
+        <Version>1.0.7</Version>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
         <Description>WPF Custom Control</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <AssemblyVersion>1.0.6.754</AssemblyVersion>
-        <FileVersion>1.0.6.144</FileVersion>
+        <AssemblyVersion>1.0.7.757</AssemblyVersion>
+        <FileVersion>1.0.7.144</FileVersion>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 
@@ -49,6 +49,10 @@
         <PackageReference Include="Fody" Version="6.8.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="IDisposableAnalyzers" Version="4.0.7">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="StyleCop.Analyzers.Unstable" Version="1.2.0.556">
             <PrivateAssets>all</PrivateAssets>

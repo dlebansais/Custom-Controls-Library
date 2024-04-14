@@ -82,7 +82,7 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
     {
         base.OnRender(drawingContext);
 
-        DrawingContext DrawingContext = Contract.AssertNotNull(drawingContext);
+        using DrawingContext DrawingContext = Contract.AssertNotNull(drawingContext);
 
         double Length = Math.Min(ActualWidth, ActualHeight);
         Point Center = new(ActualWidth / 2, ActualHeight / 2);

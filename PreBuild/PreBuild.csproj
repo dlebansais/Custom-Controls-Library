@@ -9,4 +9,11 @@
         <Exec Command="call &quot;$(SolutionDir)updateversion.bat&quot; &quot;$(SolutionDir)&quot; &quot;$(SolutionPath)&quot;" />
     </Target>
 
+    <ItemGroup>
+      <PackageReference Include="IDisposableAnalyzers" Version="4.0.7">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
 </Project>

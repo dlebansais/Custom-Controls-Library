@@ -32,9 +32,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     protected static Cursor LoadCursorFromResourceFile(string filePath, int resourceId)
     {
         CursorResource CursorFromResource = new(filePath, (uint)resourceId);
-        _ = CursorFromResource.Load();
-
-        return CursorFromResource.AsCursor;
+        return CursorFromResource.Load()!;
     }
 
     /// <summary>
