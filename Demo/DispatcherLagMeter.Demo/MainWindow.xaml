@@ -6,7 +6,8 @@
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight"
         MinWidth="400"
-        MinHeight="300">
+        MinHeight="300"
+        Closing="OnClosing">
     <DockPanel Margin="10">
         <Grid DockPanel.Dock="Bottom">
             <Grid.ColumnDefinitions>

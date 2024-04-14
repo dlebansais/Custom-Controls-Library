@@ -29,6 +29,15 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         Dispatcher.Hooks.OperationAborted += (s, e) => Interlocked.Decrement(ref DispatcherQueueLength);
 
         Clock.Start();
+
+        Dispatcher.ShutdownStarted += OnShutdownStarted;
+    }
+
+    private void OnShutdownStarted(object? sender, EventArgs e)
+    {
+        SamplingTimer.Stop();
+        NotificationTimer.Stop();
+        DisplayTimer.Stop();
     }
     #endregion
 
@@ -82,7 +91,8 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
     {
         base.OnRender(drawingContext);
 
-        using DrawingContext DrawingContext = Contract.AssertNotNull(drawingContext);
+        // Do not dispose of this DrawingContext, it's disposed of upon return of OnRender.
+        DrawingContext DrawingContext = Contract.AssertNotNull(drawingContext);
 
         double Length = Math.Min(ActualWidth, ActualHeight);
         Point Center = new(ActualWidth / 2, ActualHeight / 2);

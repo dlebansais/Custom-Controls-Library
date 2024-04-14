@@ -1,6 +1,7 @@
 ﻿namespace DispatcherLagMeterDemo;
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
 using System.Windows;
@@ -66,10 +67,19 @@ public partial class MainWindow : Window
     private void LagGeneration()
     {
         QueuedOperations--;
-        Thread.Sleep((int)Duration);
 
-        while (QueuedOperations < Count)
-            QueueLagOperation();
+        if (IsClosing)
+        {
+            if (QueuedOperations == 0)
+                Close();
+        }
+        else
+        {
+            Thread.Sleep((int)Duration);
+
+            while (QueuedOperations < Count)
+                QueueLagOperation();
+        }
     }
 
     private int QueuedOperations;
@@ -79,4 +89,16 @@ public partial class MainWindow : Window
         LagMeasuredEventArgs Args = (LagMeasuredEventArgs)e;
         Debug.WriteLine($"OnLagMeasured: {Math.Round(Args.DispatcherLag.Lag * 1000)}, {Math.Round(Args.DispatcherLag.QueueLength, 1)}");
     }
+
+    private void OnClosing(object sender, CancelEventArgs e)
+    {
+        if (QueuedOperations > 0)
+        {
+            // Only close when no operation is pending.
+            e.Cancel = true;
+            IsClosing = true;
+        }
+    }
+
+    private bool IsClosing;
 }
