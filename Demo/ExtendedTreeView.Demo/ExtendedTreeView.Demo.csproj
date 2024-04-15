@@ -11,7 +11,7 @@
 
         <RootNamespace>ExtendedCommandControlsDemo</RootNamespace>
         <Version>1.0.7</Version>
-        <AssemblyVersion>1.0.7.757</AssemblyVersion>
+        <AssemblyVersion>1.0.7.758</AssemblyVersion>
         <FileVersion>1.0.7.56</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
@@ -70,8 +70,8 @@
         <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="XamlConverterLibrary-Debug" Version="1.0.7" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="XamlConverterLibrary" Version="1.0.7" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="XamlConverterLibrary-Debug" Version="1.0.8" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="XamlConverterLibrary" Version="1.0.8" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
     <ItemGroup>

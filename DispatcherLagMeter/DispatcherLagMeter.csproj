@@ -14,8 +14,8 @@
         <Product />
         <Description>WPF Custom Control</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <AssemblyVersion>1.0.7.757</AssemblyVersion>
-        <FileVersion>1.0.7.146</FileVersion>
+        <AssemblyVersion>1.0.7.758</AssemblyVersion>
+        <FileVersion>1.0.7.147</FileVersion>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 
