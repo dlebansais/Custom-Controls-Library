@@ -14,7 +14,7 @@
         <Product />
         <Description>WPF Custom Control</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <AssemblyVersion>1.0.7.757</AssemblyVersion>
+        <AssemblyVersion>1.0.7.758</AssemblyVersion>
         <FileVersion>1.0.7.142</FileVersion>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
@@ -74,7 +74,7 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Method.Contracts-Debug" Version="1.2.1" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="Method.Contracts" Version="1.2.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="Method.Contracts" Version="1.2.1" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework)'=='net481'">

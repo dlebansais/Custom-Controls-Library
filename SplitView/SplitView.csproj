@@ -74,7 +74,7 @@
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="Method.Contracts-Debug" Version="1.2.1" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="Method.Contracts" Version="1.2.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="Method.Contracts" Version="1.2.1" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
         <PackageReference Include="XamlConverterLibrary-Debug" Version="1.0.8" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
         <PackageReference Include="XamlConverterLibrary" Version="1.0.8" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
