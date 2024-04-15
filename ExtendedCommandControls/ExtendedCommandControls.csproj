@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp3.1;net481;net6.0-windows7.0;net7.0-windows7.0;net8.0-windows7.0</TargetFrameworks>
+        <TargetFrameworks>netcoreapp3.1;net481;net8.0-windows</TargetFrameworks>
         <UseWPF>true</UseWPF>
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
@@ -14,7 +14,7 @@
         <Product />
         <Description>WPF Custom Control</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <AssemblyVersion>1.0.7.757</AssemblyVersion>
+        <AssemblyVersion>1.0.7.758</AssemblyVersion>
         <FileVersion>1.0.7.141</FileVersion>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
