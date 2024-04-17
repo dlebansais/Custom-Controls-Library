@@ -16,7 +16,12 @@ public static class DemoApplication
         string? OpenCoverBasePath = GetPackagePath("opencover");
 
         string TestDirectory = AppDomain.CurrentDomain.BaseDirectory;
+
+#if NETFRAMEWORK
+        string AppDirectory = TestDirectory.Replace(@"\Test\", @"\Demo\").Replace(@".Test\", @".Demo\");
+#else
         string AppDirectory = TestDirectory.Replace(@"\Test\", @"\Demo\", StringComparison.InvariantCulture).Replace(@".Test\", @".Demo\", StringComparison.InvariantCulture);
+#endif
         string AppName = Path.Combine(AppDirectory, $"{demoAppName}.exe");
         string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? "result.xml";
         string CoverageAppName = @$"{OpenCoverBasePath}\tools\OpenCover.Console.exe";

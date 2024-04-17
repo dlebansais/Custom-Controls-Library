@@ -9,13 +9,13 @@
 
         <RootNamespace>CustomControls</RootNamespace>
         <Version>1.0.7</Version>
+        <AssemblyVersion>1.0.7.758</AssemblyVersion>
+        <FileVersion>1.0.7.148</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
         <Description>WPF Custom Control</Description>
         <Copyright>Copyright © 2024 David Le Bansais</Copyright>
-        <AssemblyVersion>1.0.7.758</AssemblyVersion>
-        <FileVersion>1.0.7.148</FileVersion>
         <RepositoryUrl>https://github.com/dlebansais/Custom-Controls-Library</RepositoryUrl>
         <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
 

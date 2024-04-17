@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net8.0-windows</TargetFramework>
+        <TargetFrameworks>net481;net8.0-windows</TargetFrameworks>
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>

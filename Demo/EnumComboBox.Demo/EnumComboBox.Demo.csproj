@@ -4,14 +4,13 @@
         <OutputType>WinExe</OutputType>
         <TargetFrameworks>net481;net8.0-windows</TargetFrameworks>
         <UseWPF>true</UseWPF>
-        <UseWindowsForms>true</UseWindowsForms>
         <LangVersion>12</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
 
         <RootNamespace>EnumComboBoxDemo</RootNamespace>
         <Version>1.0.7</Version>
-        <AssemblyVersion>1.0.7.757</AssemblyVersion>
+        <AssemblyVersion>1.0.7.758</AssemblyVersion>
         <FileVersion>1.0.7.56</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
