@@ -26,7 +26,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <returns>True if successful; otherwise, false.</returns>
     protected virtual bool GetCanonicSelectedItemList(CanonicSelection canonicSelectedItemList)
     {
-        CanonicSelection CanonicSelectedItemList = Contract.AssertNotNull(canonicSelectedItemList);
+        Contract.RequireNotNull(canonicSelectedItemList, out CanonicSelection CanonicSelectedItemList);
 
         if (SelectedItems.Count == 0)
             return false;

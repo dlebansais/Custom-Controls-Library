@@ -79,11 +79,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// Handles changes of the <see cref="AllowDragDrop"/> property.
     /// </summary>
     /// <param name="modifiedObject">The modified object.</param>
-    /// <param name="e">An object that contains event data.</param>
-    protected static void OnAllowDragDropChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs e)
+    /// <param name="args">An object that contains event data.</param>
+    protected static void OnAllowDragDropChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
-        ExtendedTreeViewBase ctrl = Contract.AssertNotNull((ExtendedTreeViewBase)modifiedObject);
-        ctrl.OnAllowDragDropChanged(e);
+        Contract.RequireNotNull(modifiedObject, out ExtendedTreeViewBase Control);
+        Control.OnAllowDragDropChanged(args);
     }
 
     /// <summary>

@@ -43,8 +43,8 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <param name="args">The event data.</param>
     protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
-        ExtendedTreeViewItemBase ctrl = Contract.AssertNotNull((ExtendedTreeViewItemBase)modifiedObject);
-        ctrl.OnContentChanged(args);
+        Contract.RequireNotNull(modifiedObject, out ExtendedTreeViewItemBase Control);
+        Control.OnContentChanged(args);
     }
 
     /// <summary>

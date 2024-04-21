@@ -92,7 +92,7 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         base.OnRender(drawingContext);
 
         // Do not dispose of this DrawingContext, it's disposed of upon return of OnRender.
-        DrawingContext DrawingContext = Contract.AssertNotNull(drawingContext);
+        DrawingContext DrawingContext = Contract.RequireNotNull(drawingContext);
 
         double Length = Math.Min(ActualWidth, ActualHeight);
         Point Center = new(ActualWidth / 2, ActualHeight / 2);

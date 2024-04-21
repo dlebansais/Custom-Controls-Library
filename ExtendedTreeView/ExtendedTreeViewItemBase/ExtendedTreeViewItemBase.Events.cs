@@ -122,15 +122,15 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <param name="e">The event data.</param>
     protected override void OnKeyDown(KeyEventArgs e)
     {
-        KeyEventArgs args = Contract.AssertNotNull(e);
+        Contract.RequireNotNull(e, out KeyEventArgs Args);
 
-        switch (args.Key)
+        switch (Args.Key)
         {
             case Key.Left:
                 if (IsExpanded && Host.IsItemCollapsible(Content))
                 {
                     IsExpanded = false;
-                    args.Handled = true;
+                    Args.Handled = true;
                     return;
                 }
 
@@ -140,7 +140,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
                 if (!IsExpanded && Host.IsItemExpandable(Content))
                 {
                     IsExpanded = true;
-                    args.Handled = true;
+                    Args.Handled = true;
                     return;
                 }
 

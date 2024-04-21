@@ -64,7 +64,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="parentItem">The parent item.</param>
     protected virtual void InsertChildren(IInsertItemContext context, object item, object? parentItem)
     {
-        IInsertItemContext Context = Contract.AssertNotNull(context);
+        Contract.RequireNotNull(context, out IInsertItemContext Context);
 
         IList Children = GetItemChildren(item);
         bool IsExpanded = IsItemExpandedAtStart || (parentItem is null && IsRootAlwaysExpanded);

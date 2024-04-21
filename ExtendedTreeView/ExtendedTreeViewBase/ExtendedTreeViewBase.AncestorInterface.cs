@@ -43,9 +43,9 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <returns>True if valid; Otherwise, false.</returns>
     protected static object CoerceItemsSource(DependencyObject d, object value)
     {
-        ExtendedTreeViewBase Ctrl = Contract.AssertNotNull((ExtendedTreeViewBase)d);
+        Contract.RequireNotNull(d, out ExtendedTreeViewBase Control);
 
-        return Ctrl.CoerceItemsSource(value);
+        return Control.CoerceItemsSource(value);
     }
 
     /// <summary>

@@ -39,8 +39,9 @@ public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     /// <param name="args">An object that contains event data.</param>
     protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
     {
-        ExtendedTreeViewGeneric<TItem, TCollection> ctrl = Contract.AssertNotNull((ExtendedTreeViewGeneric<TItem, TCollection>)modifiedObject);
-        ctrl.OnContentChanged(args);
+        Contract.RequireNotNull(modifiedObject, out ExtendedTreeViewGeneric<TItem, TCollection> Control);
+
+        Control.OnContentChanged(args);
     }
 
     /// <summary>
