@@ -9,9 +9,9 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>CustomControls</RootNamespace>
-        <Version>1.0.7</Version>
-        <AssemblyVersion>1.0.7.758</AssemblyVersion>
-        <FileVersion>1.0.7.147</FileVersion>
+        <Version>1.0.8</Version>
+        <AssemblyVersion>1.0.8.758</AssemblyVersion>
+        <FileVersion>1.0.8.147</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
