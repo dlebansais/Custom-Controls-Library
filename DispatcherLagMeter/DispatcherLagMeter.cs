@@ -86,13 +86,12 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         return (byte)Math.Max(Math.Min(255, x * 255), 0);
     }
 
-    /// <inheritdoc/>
-    protected override void OnRender(DrawingContext drawingContext)
+    /// <inheritdoc cref="UIElement.OnRender"/>
+    [Access("protected", "override")]
+    [RequireNotNull(nameof(drawingContext))]
+    private void OnRenderVerified(DrawingContext drawingContext)
     {
         base.OnRender(drawingContext);
-
-        // Do not dispose of this DrawingContext, it's disposed of upon return of OnRender.
-        DrawingContext DrawingContext = Contract.RequireNotNull(drawingContext);
 
         double Length = Math.Min(ActualWidth, ActualHeight);
         Point Center = new(ActualWidth / 2, ActualHeight / 2);
@@ -111,11 +110,11 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         const double Blue = 0;
         Brush Brush = new SolidColorBrush(Color.FromRgb(ToByteColor(Red), ToByteColor(Green), ToByteColor(Blue)));
 
-        DrawingContext.PushTransform(new TranslateTransform(Center.X, Center.Y));
-        DrawingContext.PushTransform(new RotateTransform(Angle));
-        DrawingContext.DrawEllipse(Brush, null, new Point(0, 0), RadiusX, RadiusY);
-        DrawingContext.Pop();
-        DrawingContext.Pop();
+        drawingContext.PushTransform(new TranslateTransform(Center.X, Center.Y));
+        drawingContext.PushTransform(new RotateTransform(Angle));
+        drawingContext.DrawEllipse(Brush, null, new Point(0, 0), RadiusX, RadiusY);
+        drawingContext.Pop();
+        drawingContext.Pop();
     }
 
     private void DisplayTimerCallback()

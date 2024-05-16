@@ -9,7 +9,7 @@ using Contracts;
 /// Converter from an enum to an array of values it can have. The actual value is ignored.
 /// </summary>
 [ValueConversion(typeof(object), typeof(Array))]
-internal class EnumToItemsConverter : IValueConverter
+internal partial class EnumToItemsConverter : IValueConverter
 {
     /// <summary>
     /// Converts from an enum to an array of values it can have. The actual value is ignored.
@@ -19,12 +19,12 @@ internal class EnumToItemsConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value.</returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    [Access("public")]
+    [Require("value.GetType().IsEnum")]
+    private static object ConvertVerified(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        Type ValueType = value.GetType();
-        Contract.Require(ValueType.IsEnum);
-
-        return ValueType.GetEnumValues();
+        object Result = value.GetType().GetEnumValues();
+        return Result;
     }
 
     /// <summary>

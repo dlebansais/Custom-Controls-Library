@@ -69,19 +69,17 @@ public partial class ExtendedScrollBar : ScrollBar
     /// </parameters>
     private void BoundScrollChanged(object sender, ScrollChangedEventArgs args)
     {
-        Contract.RequireNotNull(args, out ScrollChangedEventArgs Args);
-
         bool IsHandled = false;
 
         switch (Orientation)
         {
             case Orientation.Horizontal:
-                Value = Args.HorizontalOffset;
+                Value = args.HorizontalOffset;
                 IsHandled = true;
                 break;
 
             case Orientation.Vertical:
-                Value = Args.VerticalOffset;
+                Value = args.VerticalOffset;
                 IsHandled = true;
                 break;
         }
@@ -98,19 +96,17 @@ public partial class ExtendedScrollBar : ScrollBar
     /// </parameters>
     private void OnScroll(object sender, ScrollEventArgs args)
     {
-        Contract.RequireNotNull(args, out ScrollEventArgs Args);
-
         bool IsHandled = false;
 
         switch (Orientation)
         {
             case Orientation.Horizontal:
-                BoundScrollViewer.ScrollToHorizontalOffset(Args.NewValue);
+                BoundScrollViewer.ScrollToHorizontalOffset(args.NewValue);
                 IsHandled = true;
                 break;
 
             case Orientation.Vertical:
-                BoundScrollViewer.ScrollToVerticalOffset(Args.NewValue);
+                BoundScrollViewer.ScrollToVerticalOffset(args.NewValue);
                 IsHandled = true;
                 break;
         }

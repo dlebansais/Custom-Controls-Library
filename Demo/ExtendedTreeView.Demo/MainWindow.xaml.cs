@@ -290,14 +290,14 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="args">Arguments.</param>
-    protected virtual void OnDropCheck(object sender, RoutedEventArgs args)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(args), Type = "RoutedEventArgs")]
+    private void OnDropCheckVerified(object sender, DropCheckEventArgs args)
     {
-        Contract.RequireNotNull(args, out DropCheckEventArgs Args);
-
-        IExtendedTreeNode DropDestinationItem = (IExtendedTreeNode)Args.DropDestinationItem;
+        IExtendedTreeNode DropDestinationItem = (IExtendedTreeNode)args.DropDestinationItem;
 
         if (DropDestinationItem is not null && ((ICollection<IExtendedTreeNode>)DropDestinationItem.Children).Count == 0 && TreeViewSettingsWindow.AreLeavesSealed)
-            Args.Deny();
+            args.Deny();
     }
 
     /// <summary>

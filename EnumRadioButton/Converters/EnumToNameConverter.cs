@@ -16,7 +16,7 @@ using Contracts;
 /// Clients that use a custom localization mechanism must implement their own converter.
 /// </summary>
 [ValueConversion(typeof(object), typeof(string))]
-internal class EnumToNameConverter : IValueConverter
+internal partial class EnumToNameConverter : IValueConverter
 {
     /// <summary>
     /// Converts from an enum value to its localized name.
@@ -28,20 +28,20 @@ internal class EnumToNameConverter : IValueConverter
     /// <returns>
     /// The converted value.
     /// </returns>
-    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+    [Access("public")]
+    [Require("value.GetType().IsEnum")]
+    [RequireNotNull(nameof(parameter), Type = "object")]
+    private static object ConvertVerified(object value, Type targetType, string parameter, CultureInfo culture)
     {
-        Type ValueType = value.GetType();
-        Contract.Require(ValueType.IsEnum);
-        Contract.RequireNotNull(parameter, out string ParameterString);
-
-        Assembly ResourceAssembly = ValueType.Assembly;
-        Contract.RequireNotNull(ResourceAssembly.GetType(ParameterString), out Type ResourceSource);
+        Assembly ResourceAssembly = value.GetType().Assembly;
+        Type ResourceSource = Contract.AssertNotNull(ResourceAssembly.GetType(parameter));
 
         ResourceManager Manager = new(ResourceSource);
         string ResourceName = value.ToString()!;
 
+        // This converter converts the enum to its name in a resx file. The name must exist.
         string? Resource = Manager.GetString(ResourceName, culture);
-        Contract.RequireNotNull(Resource, out object Result);
+        object Result = Contract.AssertNotNull(Resource);
 
         return Result;
     }

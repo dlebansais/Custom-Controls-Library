@@ -15,7 +15,7 @@ internal class CloneableTestNodeCollection : ObservableCollection<CloneableTestN
     /// <param name="parent">The parent node.</param>
     public CloneableTestNodeCollection(CloneableTestNode parent)
     {
-        this.Parent = parent;
+        Parent = parent;
     }
 
     /// <summary>

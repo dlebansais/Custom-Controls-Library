@@ -15,7 +15,7 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
     /// <param name="parent">The parent node.</param>
     public TestNodeCollection(TestNode parent)
     {
-        this.Parent = parent;
+        Parent = parent;
     }
 
     /// <summary>
