@@ -15,34 +15,35 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="item">The item.</param>
     /// <param name="args">The event data.</param>
-    protected virtual void HandleChildrenChanged(object item, NotifyCollectionChangedEventArgs args)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(args))]
+    private void HandleChildrenChangedVerified(object item, NotifyCollectionChangedEventArgs args)
     {
-        Contract.RequireNotNull(args, out NotifyCollectionChangedEventArgs Args);
         IList OldItems;
         IList NewItems;
 
-        switch (Args.Action)
+        switch (args.Action)
         {
             case NotifyCollectionChangedAction.Add:
-                Contract.RequireNotNull(Args.NewItems, out NewItems);
-                OnItemAddChildren(item, Args.NewStartingIndex, NewItems);
+                NewItems = Contract.AssertNotNull(args.NewItems);
+                OnItemAddChildren(item, args.NewStartingIndex, NewItems);
                 break;
 
             case NotifyCollectionChangedAction.Remove:
-                Contract.RequireNotNull(Args.OldItems, out OldItems);
-                OnItemRemoveChildren(item, Args.OldStartingIndex, OldItems);
+                OldItems = Contract.AssertNotNull(args.OldItems);
+                OnItemRemoveChildren(item, args.OldStartingIndex, OldItems);
                 break;
 
             case NotifyCollectionChangedAction.Replace:
-                Contract.RequireNotNull(Args.OldItems, out OldItems);
-                Contract.RequireNotNull(Args.NewItems, out NewItems);
-                OnItemRemoveChildren(item, Args.OldStartingIndex, OldItems);
-                OnItemAddChildren(item, Args.NewStartingIndex, NewItems);
+                OldItems = Contract.AssertNotNull(args.OldItems);
+                NewItems = Contract.AssertNotNull(args.NewItems);
+                OnItemRemoveChildren(item, args.OldStartingIndex, OldItems);
+                OnItemAddChildren(item, args.NewStartingIndex, NewItems);
                 break;
 
             case NotifyCollectionChangedAction.Move:
-                Contract.RequireNotNull(Args.NewItems, out NewItems);
-                OnItemMoveChildren(item, Args.OldStartingIndex, Args.NewStartingIndex, NewItems);
+                NewItems = Contract.AssertNotNull(args.NewItems);
+                OnItemMoveChildren(item, args.OldStartingIndex, args.NewStartingIndex, NewItems);
                 break;
 
             case NotifyCollectionChangedAction.Reset:
@@ -57,10 +58,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item.</param>
     /// <param name="startIndex">Index where the first child is added.</param>
     /// <param name="itemList">The list of children.</param>
-    protected virtual void OnItemAddChildren(object item, int startIndex, IList itemList)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(itemList))]
+    private void OnItemAddChildrenVerified(object item, int startIndex, IList itemList)
     {
-        Contract.RequireNotNull(itemList, out IList ItemList);
-
         NotifyPreviewCollectionModified(TreeViewCollectionOperation.Insert);
 
         if (IsExpanded(item))
@@ -74,11 +75,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
             Context.Start();
 
 #if NETCOREAPP3_1
-            foreach (object? ChildItem in ItemList)
+            foreach (object? ChildItem in itemList)
                 if (ChildItem is not null)
                     InsertChildren(Context, ChildItem, item);
 #else
-            foreach (object ChildItem in ItemList)
+            foreach (object ChildItem in itemList)
                 InsertChildren(Context, ChildItem, item);
 #endif
 
@@ -95,10 +96,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item.</param>
     /// <param name="startIndex">Index of the first removed child.</param>
     /// <param name="itemList">The list of removed children.</param>
-    protected virtual void OnItemRemoveChildren(object item, int startIndex, IList itemList)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(itemList))]
+    private void OnItemRemoveChildrenVerified(object item, int startIndex, IList itemList)
     {
-        Contract.RequireNotNull(itemList, out IList ItemList);
-
         NotifyPreviewCollectionModified(TreeViewCollectionOperation.Remove);
 
         if (IsExpanded(item))
@@ -112,11 +113,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
             Context.Start();
 
 #if NETCOREAPP3_1
-            foreach (object? ChildItem in ItemList)
+            foreach (object? ChildItem in itemList)
                 if (ChildItem is not null)
                     RemoveChildren(Context, ChildItem);
 #else
-            foreach (object ChildItem in ItemList)
+            foreach (object ChildItem in itemList)
                 RemoveChildren(Context, ChildItem);
 #endif
 
@@ -134,18 +135,18 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="oldIndex">Index of the previous position of the first child.</param>
     /// <param name="newIndex">Index of the new position of the first child.</param>
     /// <param name="itemList">The list of moved children.</param>
-    protected virtual void OnItemMoveChildren(object item, int oldIndex, int newIndex, IList itemList)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(itemList))]
+    private void OnItemMoveChildrenVerified(object item, int oldIndex, int newIndex, IList itemList)
     {
-        Contract.RequireNotNull(itemList, out IList ItemList);
-
         NotifyPreviewCollectionModified(TreeViewCollectionOperation.Move);
 
         if (IsExpanded(item))
         {
             if (oldIndex < newIndex)
-                OnItemMoveChildrenPreviousBefore(item, oldIndex, newIndex, ItemList);
+                OnItemMoveChildrenPreviousBefore(item, oldIndex, newIndex, itemList);
             else if (oldIndex > newIndex)
-                OnItemMoveChildrenPreviousAfter(item, oldIndex, newIndex, ItemList);
+                OnItemMoveChildrenPreviousAfter(item, oldIndex, newIndex, itemList);
         }
 
         NotifyCollectionModified(TreeViewCollectionOperation.Move);

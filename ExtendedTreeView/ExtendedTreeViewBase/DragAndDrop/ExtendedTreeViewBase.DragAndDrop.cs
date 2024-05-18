@@ -24,10 +24,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="canonicSelectedItemList">The list to fill.</param>
     /// <returns>True if successful; otherwise, false.</returns>
-    protected virtual bool GetCanonicSelectedItemList(CanonicSelection canonicSelectedItemList)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(canonicSelectedItemList))]
+    private bool GetCanonicSelectedItemListVerified(CanonicSelection canonicSelectedItemList)
     {
-        Contract.RequireNotNull(canonicSelectedItemList, out CanonicSelection CanonicSelectedItemList);
-
         if (SelectedItems.Count == 0)
             return false;
 
@@ -52,15 +52,15 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
 
         if (FirstItemParent is not null)
         {
-            if (GetItemsWithSameParent(SortedSelectedItems, FirstItemParent, CanonicSelectedItemList))
+            if (GetItemsWithSameParent(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
             {
-                CanonicSelectedItemList.SetDraggedItemParent(FirstItemParent);
+                canonicSelectedItemList.SetDraggedItemParent(FirstItemParent);
                 return true;
             }
 
-            if (GetItemsInSameBranch(SortedSelectedItems, FirstItemParent, CanonicSelectedItemList))
+            if (GetItemsInSameBranch(SortedSelectedItems, FirstItemParent, canonicSelectedItemList))
             {
-                CanonicSelectedItemList.SetDraggedItemParent(FirstItemParent);
+                canonicSelectedItemList.SetDraggedItemParent(FirstItemParent);
                 return true;
             }
         }
@@ -243,16 +243,16 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="args">The event data.</param>
     /// <returns>Merged allowed effects.</returns>
-    protected virtual DragDropEffects MergedAllowedEffects(DragEventArgs args)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(args))]
+    private static DragDropEffects MergedAllowedEffectsVerified(DragEventArgs args)
     {
-        Contract.RequireNotNull(args, out DragEventArgs Args);
-
-        if (Args.AllowedEffects.HasFlag(DragDropEffects.Move))
-            if (Args.AllowedEffects.HasFlag(DragDropEffects.Copy) && Args.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
+        if (args.AllowedEffects.HasFlag(DragDropEffects.Move))
+            if (args.AllowedEffects.HasFlag(DragDropEffects.Copy) && args.KeyStates.HasFlag(DragDropKeyStates.ControlKey))
                 return DragDropEffects.Copy;
             else
                 return DragDropEffects.Move;
-        else if (Args.AllowedEffects.HasFlag(DragDropEffects.Copy))
+        else if (args.AllowedEffects.HasFlag(DragDropEffects.Copy))
             return DragDropEffects.Copy;
         else
             return DragDropEffects.None;

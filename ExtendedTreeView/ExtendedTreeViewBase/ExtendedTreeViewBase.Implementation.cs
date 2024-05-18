@@ -62,25 +62,25 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="context">The insertion context.</param>
     /// <param name="item">The item with children.</param>
     /// <param name="parentItem">The parent item.</param>
-    protected virtual void InsertChildren(IInsertItemContext context, object item, object? parentItem)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(context))]
+    private void InsertChildrenVerified(IInsertItemContext context, object item, object? parentItem)
     {
-        Contract.RequireNotNull(context, out IInsertItemContext Context);
-
         IList Children = GetItemChildren(item);
         bool IsExpanded = IsItemExpandedAtStart || (parentItem is null && IsRootAlwaysExpanded);
 
         if (IsExpanded)
             ExpandedChildren.Add(item, Children);
 
-        InternalInsert(Context.ShownIndex, item);
-        Context.NextIndex();
+        InternalInsert(context.ShownIndex, item);
+        context.NextIndex();
 
         if (IsExpanded)
         {
 #if NETCOREAPP3_1
             foreach (object? ChildItem in Children)
                 if (ChildItem is not null)
-                    InsertChildren(Context, ChildItem, item);
+                    InsertChildren(context, ChildItem, item);
 #else
             foreach (object ChildItem in Children)
                 InsertChildren(context, ChildItem, item);

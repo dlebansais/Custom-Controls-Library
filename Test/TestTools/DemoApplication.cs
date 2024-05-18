@@ -9,7 +9,7 @@ using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 using NuGet.Configuration;
 
-public static class DemoApplication
+public static partial class DemoApplication
 {
     public static DemoApp? Launch(string demoAppName, string? arguments = null)
     {
@@ -54,18 +54,18 @@ public static class DemoApplication
         return null;
     }
 
-    public static void Stop(DemoApp testApp)
+    [Access("public", "static")]
+    [RequireNotNull(nameof(testApp))]
+    private static void StopVerified(DemoApp testApp)
     {
-        Contract.RequireNotNull(testApp, out DemoApp TestApp);
-
-        Stop(TestApp.CoverageApp, TestApp.App);
+        Stop(testApp.CoverageApp, testApp.App);
     }
 
-    public static bool IsStopped(DemoApp testApp)
+    [Access("public", "static")]
+    [RequireNotNull(nameof(testApp))]
+    private static bool IsStoppedVerified(DemoApp testApp)
     {
-        Contract.RequireNotNull(testApp, out DemoApp TestApp);
-
-        return TestApp.CoverageApp.HasExited;
+        return testApp.CoverageApp.HasExited;
     }
 
     private static void Stop(Application coverageAppp, Application app)

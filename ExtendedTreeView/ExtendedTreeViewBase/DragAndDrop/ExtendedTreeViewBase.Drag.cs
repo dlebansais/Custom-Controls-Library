@@ -57,15 +57,15 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Occurs when activity of the current drag drop operation has changed.
     /// </summary>
-    /// <param name="sender">The event source.</param>
+    /// <param name="ctrl">The event source.</param>
     /// <param name="e">The event data.</param>
-    protected virtual void OnDragActivityChanged(object? sender, EventArgs e)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(ctrl), Type = "object?", Name = "sender")]
+    private void OnDragActivityChangedVerified(IDragSourceControl ctrl, EventArgs e)
     {
-        Contract.RequireNotNull(sender, out IDragSourceControl Ctrl);
-
         bool IsHandled = false;
 
-        switch (Ctrl.DragActivity)
+        switch (ctrl.DragActivity)
         {
             case DragActivity.Idle:
                 IsHandled = true;
@@ -80,7 +80,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 CancellationToken cancellation = new();
                 NotifyDragStarting(cancellation);
                 if (cancellation.IsCanceled)
-                    Ctrl.CancelDrag();
+                    ctrl.CancelDrag();
 
                 IsHandled = true;
                 break;
@@ -140,43 +140,43 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Invoked when an unhandled <see cref="UIElement.DragEnter"/> attached event reaches an element in its route that is derived from this class.
     /// </summary>
-    /// <param name="e">The event data.</param>
-    protected override void OnDragEnter(DragEventArgs e)
+    /// <param name="args">The event data.</param>
+    [Access("protected", "override")]
+    [RequireNotNull(nameof(args))]
+    private void OnDragEnterVerified(DragEventArgs args)
     {
-        Contract.RequireNotNull(e, out DragEventArgs Args);
+        UpdateCurrentDropTarget(args, false);
 
-        UpdateCurrentDropTarget(Args, false);
-
-        Args.Effects = GetAllowedDropEffects(Args);
-        Args.Handled = true;
+        args.Effects = GetAllowedDropEffects(args);
+        args.Handled = true;
     }
 
     /// <summary>
     /// Invoked when an unhandled <see cref="UIElement.DragLeave"/> attached event reaches an element in its route that is derived from this class.
     /// </summary>
-    /// <param name="e">The event data.</param>
-    protected override void OnDragLeave(DragEventArgs e)
+    /// <param name="args">The event data.</param>
+    [Access("protected", "override")]
+    [RequireNotNull(nameof(args))]
+    private void OnDragLeaveVerified(DragEventArgs args)
     {
-        Contract.RequireNotNull(e, out DragEventArgs Args);
+        UpdateCurrentDropTarget(args, true);
 
-        UpdateCurrentDropTarget(Args, true);
-
-        Args.Effects = GetAllowedDropEffects(Args);
-        Args.Handled = true;
+        args.Effects = GetAllowedDropEffects(args);
+        args.Handled = true;
     }
 
     /// <summary>
     /// Invoked when an unhandled <see cref="UIElement.DragOver"/> attached event reaches an element in its route that is derived from this class.
     /// </summary>
-    /// <param name="e">The event data.</param>
-    protected override void OnDragOver(DragEventArgs e)
+    /// <param name="args">The event data.</param>
+    [Access("protected", "override")]
+    [RequireNotNull(nameof(args))]
+    private void OnDragOverVerified(DragEventArgs args)
     {
-        Contract.RequireNotNull(e, out DragEventArgs Args);
+        UpdateCurrentDropTarget(args, false);
 
-        UpdateCurrentDropTarget(Args, false);
-
-        Args.Effects = GetAllowedDropEffects(Args);
-        Args.Handled = true;
+        args.Effects = GetAllowedDropEffects(args);
+        args.Handled = true;
     }
 
     /// <summary>
@@ -185,13 +185,13 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="args">The event data.</param>
     /// <param name="dragSource">The drag source upon return.</param>
     /// <returns>True if successful.</returns>
-    protected virtual bool GetValidDragSourceFromArgs(DragEventArgs args, out IDragSourceControl dragSource)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(args))]
+    private bool GetValidDragSourceFromArgsVerified(DragEventArgs args, out IDragSourceControl dragSource)
     {
-        Contract.RequireNotNull(args, out DragEventArgs Args);
-
-        if (Args.Data.GetDataPresent(DragSource.GetType()))
+        if (args.Data.GetDataPresent(DragSource.GetType()))
         {
-            if (Args.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
+            if (args.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
             {
                 if (AsDragSource.HasDragItemList(out object RootItem, out IList _) && IsSameTypeAsContent(RootItem))
                 {

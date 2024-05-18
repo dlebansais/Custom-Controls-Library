@@ -109,12 +109,12 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// Adds a tag to a container.
     /// </summary>
     /// <param name="container">The container.</param>
-    protected virtual void TagContainer(ExtendedTreeViewItemBase container)
+    [Access("protected")]
+    [RequireNotNull(nameof(container))]
+    private void TagContainerVerified(ExtendedTreeViewItemBase container)
     {
-        Contract.RequireNotNull(container, out ExtendedTreeViewItemBase Container);
-
-        Container.SetValue(HasContextMenuOpenPropertyKey, true);
-        MarkedContainerList.Add(Container);
+        container.SetValue(HasContextMenuOpenPropertyKey, true);
+        MarkedContainerList.Add(container);
     }
 
     /// <summary>

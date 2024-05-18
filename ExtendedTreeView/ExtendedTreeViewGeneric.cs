@@ -13,7 +13,7 @@ using Contracts;
 /// </summary>
 /// <typeparam name="TItem">The type of items.</typeparam>
 /// <typeparam name="TCollection">The type of collection of items.</typeparam>
-public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
+public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     where TItem : class, IExtendedTreeNode
     where TCollection : class, IExtendedTreeNodeCollection
 {
@@ -35,13 +35,13 @@ public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     /// <summary>
     /// Handles changes of the <see cref="Content"/> property.
     /// </summary>
-    /// <param name="modifiedObject">The modified object.</param>
+    /// <param name="control">The modified control.</param>
     /// <param name="args">An object that contains event data.</param>
-    protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
+    [Access("protected", "static")]
+    [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
+    private static void OnContentChangedVerified(ExtendedTreeViewGeneric<TItem, TCollection> control, DependencyPropertyChangedEventArgs args)
     {
-        Contract.RequireNotNull(modifiedObject, out ExtendedTreeViewGeneric<TItem, TCollection> Control);
-
-        Control.OnContentChanged(args);
+        control.OnContentChanged(args);
     }
 
     /// <summary>
@@ -402,14 +402,16 @@ public class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeViewBase
     /// <summary>
     /// Called when children of an item have changed.
     /// </summary>
-    /// <param name="sender">The event source.</param>
+    /// <param name="itemCollection">The event source.</param>
     /// <param name="e">The event data.</param>
-    protected virtual void OnItemChildrenChanged(object? sender, NotifyCollectionChangedEventArgs e)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(itemCollection), Type = "object?", Name = "sender", AliasName = "ItemCollection")]
+    [Require("ItemCollection.Parent is not null")]
+    private void OnItemChildrenChangedVerified(TCollection itemCollection, NotifyCollectionChangedEventArgs e)
     {
-        Contract.RequireNotNull(sender, out TCollection ItemCollection);
-        Contract.RequireNotNull(ItemCollection.Parent, out object Item);
+        object Item = Contract.AssertNotNull(itemCollection.Parent);
 
         HandleChildrenChanged(Item, e);
     }
-#endregion
+    #endregion
 }

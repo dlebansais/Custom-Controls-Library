@@ -46,12 +46,13 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Handles changes of the <see cref="IsExpanded"/> property.
     /// </summary>
-    /// <param name="modifiedObject">The modified object.</param>
+    /// <param name="control">The modified object.</param>
     /// <param name="args">An object that contains event data.</param>
-    protected static void OnIsExpandedChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
+    [Access("protected", "static")]
+    [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
+    private static void OnIsExpandedChangedVerified(ExtendedTreeViewItemBase control, DependencyPropertyChangedEventArgs args)
     {
-        Contract.RequireNotNull(modifiedObject, out ExtendedTreeViewItemBase Control);
-        Control.OnIsExpandedChanged(args);
+        control.OnIsExpandedChanged(args);
     }
 
     /// <summary>

@@ -24,18 +24,18 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Invoked when an unhandled <see cref="UIElement.Drop"/> attached event reaches an element in its route that is derived from this class.
     /// </summary>
-    /// <param name="e">The event data.</param>
-    protected override void OnDrop(DragEventArgs e)
+    /// <param name="args">The event data.</param>
+    [Access("protected", "override")]
+    [RequireNotNull(nameof(args))]
+    private void OnDropVerified(DragEventArgs args)
     {
-        Contract.RequireNotNull(e, out DragEventArgs Args);
+        args.Effects = GetAllowedDropEffects(args);
+        args.Handled = true;
 
-        Args.Effects = GetAllowedDropEffects(Args);
-        Args.Handled = true;
-
-        if (Args.Effects != DragDropEffects.None)
+        if (args.Effects != DragDropEffects.None)
         {
-            ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(Args);
-            IDragSourceControl AsDragSource = (IDragSourceControl)Args.Data.GetData(DragSource.GetType());
+            ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(args);
+            IDragSourceControl AsDragSource = (IDragSourceControl)args.Data.GetData(DragSource.GetType());
             bool IsDragPossible = AsDragSource.IsDragPossible(out object SourceItem, out IList ItemList);
             object? DestinationItem = ItemContainer?.Content;
 
@@ -46,15 +46,15 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 IList CloneList = CreateItemList();
 
                 Debug.Assert(CloneList.Count == 0);
-                NotifyPreviewDropCompleted(DestinationItem, Args.Effects, ItemList, CloneList);
+                NotifyPreviewDropCompleted(DestinationItem, args.Effects, ItemList, CloneList);
 
-                if (Args.Effects == DragDropEffects.Copy)
+                if (args.Effects == DragDropEffects.Copy)
                     DragDropCopy(SourceItem, DestinationItem, ItemList, CloneList);
-                else if (Args.Effects == DragDropEffects.Move)
+                else if (args.Effects == DragDropEffects.Move)
                     DragDropMove(SourceItem, DestinationItem, ItemList);
 
-                Debug.Assert(CloneList.Count > 0 || Args.Effects != DragDropEffects.Copy);
-                NotifyDropCompleted(DestinationItem, Args.Effects, ItemList, CloneList);
+                Debug.Assert(CloneList.Count > 0 || args.Effects != DragDropEffects.Copy);
+                NotifyDropCompleted(DestinationItem, args.Effects, ItemList, CloneList);
 
                 Expand(DestinationItem);
             }
@@ -154,24 +154,24 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Gets the drag target from arguments of a drag drop event.
     /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <param name="args">The event data.</param>
     /// <param name="asDragSource">The drag source.</param>
     /// <param name="destinationItem">The drag target upon return.</param>
     /// <returns>True if successful.</returns>
-    protected virtual bool GetValidDropDestinationFromArgs(DragEventArgs e, IDragSourceControl asDragSource, out object destinationItem)
+    [Access("protected", "virtual")]
+    [RequireNotNull(nameof(args))]
+    [RequireNotNull(nameof(asDragSource))]
+    private bool GetValidDropDestinationFromArgsVerified(DragEventArgs args, IDragSourceControl asDragSource, out object destinationItem)
     {
-        Contract.RequireNotNull(e, out DragEventArgs Args);
-        Contract.RequireNotNull(asDragSource, out IDragSourceControl AsDragSource);
-
         if (DropTargetContainer is not null)
         {
             object DropDestinationItem = DropTargetContainer.Content;
 
-            if (AsDragSource.SourceGuid == DragSource.SourceGuid)
+            if (asDragSource.SourceGuid == DragSource.SourceGuid)
             {
-                if (!AsDragSource.IsDraggedItemParent(DropDestinationItem) || (Args.AllowedEffects.HasFlag(DragDropEffects.Copy) && Args.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
+                if (!asDragSource.IsDraggedItemParent(DropDestinationItem) || (args.AllowedEffects.HasFlag(DragDropEffects.Copy) && args.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
                 {
-                    if (!AsDragSource.HasDragItemList(out _, out IList FlatItemList) || !FlatItemList.Contains(DropDestinationItem))
+                    if (!asDragSource.HasDragItemList(out _, out IList FlatItemList) || !FlatItemList.Contains(DropDestinationItem))
                     {
                         destinationItem = DropDestinationItem;
                         return true;

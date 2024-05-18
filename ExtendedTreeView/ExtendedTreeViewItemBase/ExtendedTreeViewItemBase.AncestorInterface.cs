@@ -39,12 +39,13 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Called when the <see cref="ContentControl.Content"/> property has changed.
     /// </summary>
-    /// <param name="modifiedObject">The object for which the property changed.</param>
+    /// <param name="control">The object for which the property changed.</param>
     /// <param name="args">The event data.</param>
-    protected static void OnContentChanged(DependencyObject modifiedObject, DependencyPropertyChangedEventArgs args)
+    [Access("protected", "static")]
+    [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
+    private static void OnContentChangedVerified(ExtendedTreeViewItemBase control, DependencyPropertyChangedEventArgs args)
     {
-        Contract.RequireNotNull(modifiedObject, out ExtendedTreeViewItemBase Control);
-        Control.OnContentChanged(args);
+        control.OnContentChanged(args);
     }
 
     /// <summary>

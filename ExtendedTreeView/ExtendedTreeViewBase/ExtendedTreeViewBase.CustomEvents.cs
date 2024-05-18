@@ -136,12 +136,12 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="effect">The drop effect.</param>
     /// <param name="itemList">The list of items.</param>
     /// <param name="cloneList">An empty list of items.</param>
-    protected virtual void NotifyPreviewDropCompleted(object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
+    [Access("protected")]
+    [RequireNotNull(nameof(cloneList))]
+    [Require("CloneList.Count == 0")]
+    private void NotifyPreviewDropCompletedVerified(object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
     {
-        Contract.RequireNotNull(cloneList, out IList CloneList);
-        Contract.Require(CloneList.Count == 0);
-
-        DropCompletedEventArgs Args = new(PreviewDropCompletedEvent, DragSource, dropDestinationItem, effect, itemList, CloneList);
+        DropCompletedEventArgs Args = new(PreviewDropCompletedEvent, DragSource, dropDestinationItem, effect, itemList, cloneList);
         RaiseEvent(Args);
     }
     #endregion

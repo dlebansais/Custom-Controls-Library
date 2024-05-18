@@ -119,18 +119,18 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Invoked when an unhandled <see cref="Keyboard.KeyDownEvent"/> attached event reaches an element in its route that is derived from this class.
     /// </summary>
-    /// <param name="e">The event data.</param>
-    protected override void OnKeyDown(KeyEventArgs e)
+    /// <param name="args">The event data.</param>
+    [Access("protected", "override")]
+    [RequireNotNull(nameof(args))]
+    private void OnKeyDownVerified(KeyEventArgs args)
     {
-        Contract.RequireNotNull(e, out KeyEventArgs Args);
-
-        switch (Args.Key)
+        switch (args.Key)
         {
             case Key.Left:
                 if (IsExpanded && Host.IsItemCollapsible(Content))
                 {
                     IsExpanded = false;
-                    Args.Handled = true;
+                    args.Handled = true;
                     return;
                 }
 
@@ -140,7 +140,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
                 if (!IsExpanded && Host.IsItemExpandable(Content))
                 {
                     IsExpanded = true;
-                    Args.Handled = true;
+                    args.Handled = true;
                     return;
                 }
 
@@ -158,7 +158,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
                 break;
         }
 
-        base.OnKeyDown(e);
+        base.OnKeyDown(args);
     }
     #endregion
 }

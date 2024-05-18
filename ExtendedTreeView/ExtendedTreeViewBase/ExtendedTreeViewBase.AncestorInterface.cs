@@ -38,14 +38,14 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Ensures the <see cref="ItemsControl.ItemsSource"/> property contains a valid value.
     /// </summary>
-    /// <param name="d">The object with the modified property.</param>
+    /// <param name="control">The object with the modified property.</param>
     /// <param name="value">The value to check.</param>
     /// <returns>True if valid; Otherwise, false.</returns>
-    protected static object CoerceItemsSource(DependencyObject d, object value)
+    [Access("protected", "static")]
+    [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "d")]
+    private static object CoerceItemsSourceVerified(ExtendedTreeViewBase control, object value)
     {
-        Contract.RequireNotNull(d, out ExtendedTreeViewBase Control);
-
-        return Control.CoerceItemsSource(value);
+        return control.CoerceItemsSource(value);
     }
 
     /// <summary>
