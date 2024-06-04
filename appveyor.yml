@@ -60,18 +60,18 @@ before_test:
   - nuget install ReportGenerator -Version %report_generator_version% -OutputDirectory packages
   - |-
     printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed\n" > run-tests.bat
-    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed\n" > run-tests.bat
-    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed\n" > run-tests.bat
-    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed\n" > run-tests.bat
-    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed\n" > run-tests.bat
+    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed\n" >> run-tests.bat
+    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed\n" >> run-tests.bat
+    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed\n" >> run-tests.bat
+    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed\n" >> run-tests.bat
   - |-
     printf "@echo ************************************************************** Starting Tests..\n" > run-tests1.bat
     printf "call run-tests.bat\n" >> run-tests1.bat
   - |-
-    printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > opencover.bat
+    printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 ""-filter:+[*]* -[*]*.Properties"" -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > opencover.bat
   - |-
     printf ".\packages\CodecovUploader.%codecov_uploader_version%\Tools\Codecov.exe -f ""Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > after-test.bat
-    printf ".\packages\ReportGenerator.%report_generator_version%\Tools\Net8.0\ReportGenerator.exe ""-reports:Coverage-%APPVEYOR_PROJECT_NAME%.xml"" -targetdir:.\CoverageReports ""-assemblyfilters:-Microsoft*;+DialogValidation.Test;+EditableTextBlock.Test;+EnumComboBox.Test;+EnumRadioButton.Test;+ExtendedCommandControls.Test"" ""-filefilters:-*.g.cs"" -reporttypes:textsummary\n" >> after-test.bat
+    printf ".\packages\ReportGenerator.%report_generator_version%\Tools\Net8.0\ReportGenerator.exe ""-reports:Coverage-%APPVEYOR_PROJECT_NAME%.xml"" -targetdir:.\CoverageReports ""-assemblyfilters:-Microsoft*;+DialogValidation*;+EditableTextBlock*;+EnumComboBox*;+EnumRadioButton*;+ExtendedCommandControls*"" ""-filefilters:-*.g.cs"" -reporttypes:textsummary\n" >> after-test.bat
     printf "powershell $summary = Get-Content .\CoverageReports\Summary.txt -Raw ; Write-Output $summary ; $pattern = 'Branch coverage' + [char]0x003A + ' 100' + [char]0x0025 ; if ($summary -NotMatch $pattern) { exit -1 }\n" >> after-test.bat
 
 test_script:
