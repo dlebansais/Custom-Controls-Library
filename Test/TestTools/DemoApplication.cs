@@ -25,7 +25,7 @@ public static partial class DemoApplication
         string AppName = Path.Combine(AppDirectory, $"{demoAppName}.exe");
         string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? "result.xml";
         string CoverageAppName = @$"{OpenCoverBasePath}\tools\OpenCover.Console.exe";
-        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" ""-filter:+[*]* -[{demoAppName}*]*"" -output:""{TestDirectory}\{ResultFileName}""";
+        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" -output:""{TestDirectory}\{ResultFileName}""";
 
         if (Application.Launch(CoverageAppName, CoverageAppArgs) is Application CoverageApp)
         {
