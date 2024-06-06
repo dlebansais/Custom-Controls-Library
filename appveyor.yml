@@ -58,18 +58,25 @@ after_build:
 before_test:
   - nuget install OpenCover -Version %opencover_version% -OutputDirectory packages
   - nuget install CodecovUploader -Version %codecov_uploader_version% -OutputDirectory packages
+  - ps: $env:COVERAGE_RESULT_FILE="Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - |-
-    printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed\n" > runtests.bat
+    printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > runtests.bat
+    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
+    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
+    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
+    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
   - |-
     printf "@echo ************************************************************** Starting Tests..\n" > runtests1.bat
     printf "call runtests.bat\n" >> runtests1.bat
+  - |-
+    printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%"".xml\n" > opencover.bat
 
 test_script:
-  - runtests1.bat
+  - opencover.bat runtests1.bat
 
 after_test:
-  - ps: Get-Content result.xml -Head 3
-  - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f result.xml
+  - ps: Get-Content $env:COVERAGE_RESULT_FILE -Head 3
+  - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f %COVERAGE_RESULT_FILE%
 
 artifacts:
   - path: $(APPVEYOR_PROJECT_NAME)-Debug.*.nupkg

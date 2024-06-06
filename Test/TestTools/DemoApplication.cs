@@ -18,7 +18,6 @@ public static partial class DemoApplication
         string? OpenCoverBasePath = GetPackagePath("opencover");
 
         string TestDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        string ResultDirectory = GetExecutingProjectRootPath();
 
 #if NETFRAMEWORK
         string AppDirectory = TestDirectory.Replace(@"\Test\", @"\Demo\").Replace(@".Test\", @".Demo\");
@@ -26,15 +25,16 @@ public static partial class DemoApplication
         string AppDirectory = TestDirectory.Replace(@"\Test\", @"\Demo\", StringComparison.InvariantCulture).Replace(@".Test\", @".Demo\", StringComparison.InvariantCulture);
 #endif
         string AppName = Path.Combine(AppDirectory, $"{demoAppName}.exe");
-        string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? "result.xml";
-        string ResultFilePath = $"{ResultDirectory}\\..\\..\\{ResultFileName}";
+        string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? Path.Combine(TestDirectory, "result.xml");
         string CoverageAppName = @$"{OpenCoverBasePath}\tools\OpenCover.Console.exe";
-        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" -output:""{ResultFilePath}"" -mergeoutput";
+        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" ""-filter:+[*]* -[{demoAppName}*]*"" -output:""{ResultFileName}"" -mergeoutput";
+
+        Console.WriteLine($"{DateTime.Now} - Current Directory: {Environment.CurrentDirectory}");
+        Console.WriteLine($"{DateTime.Now} - Output to: {ResultFileName}");
 
         if (Application.Launch(CoverageAppName, CoverageAppArgs) is Application CoverageApp)
         {
             Console.WriteLine($"{DateTime.Now} - CoverageAppName launched");
-            Console.WriteLine($"{DateTime.Now} - Result in {ResultFilePath}");
             Thread.Sleep(TimeSpan.FromSeconds(15));
 
             if (Application.Attach(AppName) is Application App)
