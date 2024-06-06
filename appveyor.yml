@@ -60,19 +60,19 @@ before_test:
   - nuget install CodecovUploader -Version %codecov_uploader_version% -OutputDirectory packages
   - ps: $env:COVERAGE_RESULT_FILE="Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - |-
-    printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > runtests.bat
-    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
-    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
-    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
-    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> runtests.bat
+    printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > run_tests.bat
+    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
+    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
+    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
+    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
   - |-
-    printf "@echo ************************************************************** Starting Tests..\n" > runtests1.bat
-    printf "call runtests.bat\n" >> runtests1.bat
+    printf "@echo ************************************************************** Starting Tests..\n" > run_tests1.bat
+    printf "call run_tests.bat\n" >> run_tests1.bat
   - |-
     printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%"".xml\n" > opencover.bat
 
 test_script:
-  - opencover.bat runtests1.bat
+  - if '%APPVEYOR_REPO_BRANCH%' == 'master' run_tests1.bat
 
 after_test:
   - ps: Get-Content $env:COVERAGE_RESULT_FILE -Head 3
