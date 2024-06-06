@@ -1,8 +1,10 @@
 ﻿namespace TestTools;
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using Contracts;
 using FlaUI.Core;
@@ -16,6 +18,7 @@ public static partial class DemoApplication
         string? OpenCoverBasePath = GetPackagePath("opencover");
 
         string TestDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        string ResultDirectory = GetExecutingProjectRootPath();
 
 #if NETFRAMEWORK
         string AppDirectory = TestDirectory.Replace(@"\Test\", @"\Demo\").Replace(@".Test\", @".Demo\");
@@ -24,12 +27,14 @@ public static partial class DemoApplication
 #endif
         string AppName = Path.Combine(AppDirectory, $"{demoAppName}.exe");
         string ResultFileName = Environment.GetEnvironmentVariable("RESULTFILENAME") ?? "result.xml";
+        string ResultFilePath = $"{ResultDirectory}\\..\\..\\{ResultFileName}";
         string CoverageAppName = @$"{OpenCoverBasePath}\tools\OpenCover.Console.exe";
-        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" -output:""{TestDirectory}\{ResultFileName}""";
+        string CoverageAppArgs = @$"-register:user -target:""{AppName}"" -targetargs:""{arguments}"" -output:""{ResultFilePath}"" -mergeoutput";
 
         if (Application.Launch(CoverageAppName, CoverageAppArgs) is Application CoverageApp)
         {
             Console.WriteLine($"{DateTime.Now} - CoverageAppName launched");
+            Console.WriteLine($"{DateTime.Now} - Result in {ResultFilePath}");
             Thread.Sleep(TimeSpan.FromSeconds(15));
 
             if (Application.Attach(AppName) is Application App)
@@ -132,5 +137,39 @@ public static partial class DemoApplication
         }
 
         return null;
+    }
+
+    public static string GetExecutingProjectRootPath()
+    {
+        Assembly ExecutingAssembly = Assembly.GetExecutingAssembly();
+        string? CurrentDirectory = Path.GetDirectoryName(ExecutingAssembly.Location);
+
+        for (; ; )
+        {
+            string? ParentFolder = Path.GetDirectoryName(CurrentDirectory);
+            string FileName = Path.GetFileName(CurrentDirectory)!;
+
+            List<string> KnownFolderNames = new()
+            {
+                "net481",
+                "net7.0",
+                "net7.0-windows7.0",
+                "net8.0",
+                "net8.0-windows7.0",
+                "Debug",
+                "Release",
+                "x64",
+                "bin",
+            };
+
+            if (KnownFolderNames.Contains(FileName))
+                CurrentDirectory = ParentFolder;
+            else
+                break;
+        }
+
+        System.Diagnostics.Debug.Assert(CurrentDirectory is not null);
+
+        return CurrentDirectory!;
     }
 }

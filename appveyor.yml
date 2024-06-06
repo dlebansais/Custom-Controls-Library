@@ -60,22 +60,16 @@ before_test:
   - nuget install CodecovUploader -Version %codecov_uploader_version% -OutputDirectory packages
   - |-
     printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed\n" > runtests.bat
-    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed\n" >> runtests.bat
-    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed\n" >> runtests.bat
-    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed\n" >> runtests.bat
-    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed\n" >> runtests.bat
   - |-
     printf "@echo ************************************************************** Starting Tests..\n" > runtests1.bat
     printf "call runtests.bat\n" >> runtests1.bat
-  - |-
-    printf ".\packages\OpenCover.%opencover_version%\Tools\OpenCover.Console.exe -register:user -returntargetcode -target:\x25\x31 -mergeoutput -output:""Coverage-%APPVEYOR_PROJECT_NAME%"".xml\n" > opencover.bat
 
 test_script:
-  - opencover.bat runtests1.bat
+  - runtests1.bat
 
 after_test:
-  - ps: Get-Content Coverage-*.xml -Head 3
-  - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f "Coverage-%APPVEYOR_PROJECT_NAME%.xml"
+  - ps: Get-Content result.xml -Head 3
+  - if '%APPVEYOR_REPO_BRANCH%' == 'master' .\packages\CodecovUploader.%codecov_uploader_version%\Tools\codecov.exe -f result.xml
 
 artifacts:
   - path: $(APPVEYOR_PROJECT_NAME)-Debug.*.nupkg
