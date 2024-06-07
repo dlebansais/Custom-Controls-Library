@@ -1,6 +1,12 @@
 ﻿namespace EnumRadioButtonDemo;
 
+using System;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using CustomControls;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
@@ -16,6 +22,35 @@ public partial class MainWindow : Window
         DataContext = this;
 
         BadBinding = 0;
+
+        Loaded += OnLoaded;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs args)
+    {
+        bool IsConverted;
+
+        IsConverted = TestConverter(EnumRadioButton.EnumItems, Array.Empty<TestEnum1>(), typeof(TestEnum1));
+        Debug.Assert(!IsConverted);
+
+        IsConverted = TestConverter(EnumRadioButton.EnumName, TestEnum1.X.ToString(), typeof(TestEnum1));
+        Debug.Assert(!IsConverted);
+
+        IsConverted = TestConverter(new BooleanToVisibilityConverter(), Visibility.Visible, typeof(bool));
+        Debug.Assert(IsConverted);
+    }
+
+    private static bool TestConverter(IValueConverter converter, object value, Type targetType)
+    {
+        try
+        {
+            _ = converter.ConvertBack(value, typeof(string), null!, CultureInfo.InvariantCulture);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     /// <summary>

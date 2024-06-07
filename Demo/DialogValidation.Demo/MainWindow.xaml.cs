@@ -66,6 +66,10 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         Debug.Assert(IsConvertedFrom);
         Debug.Assert(IsConvertedTo);
 
+        ConvertActiveCommand(Converter, "Bad", out IsConvertedFrom, ActiveCommands[0], out IsConvertedTo);
+        Debug.Assert(IsConvertedFrom);
+        Debug.Assert(IsConvertedTo);
+
         ConvertActiveCommand(Converter, 0, out IsConvertedFrom, ActiveCommands[0], out IsConvertedTo);
         Debug.Assert(!IsConvertedFrom);
         Debug.Assert(!IsConvertedTo);
