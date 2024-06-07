@@ -1,5 +1,6 @@
 ﻿namespace CustomControls;
 
+using System.Threading;
 using System.Windows;
 
 /// <summary>
@@ -17,7 +18,7 @@ public class EditLeaveEventArgs : EditableTextBlockEventArgs
     /// <param name="text">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
-    internal EditLeaveEventArgs(RoutedEvent routedEvent, EditableTextBlock source, string text, CancellationToken cancellation, bool isEditCanceled)
+    internal EditLeaveEventArgs(RoutedEvent routedEvent, EditableTextBlock source, string text, CancellationTokenSource cancellation, bool isEditCanceled)
         : base(routedEvent, source, text, cancellation)
     {
         IsEditCanceled = isEditCanceled;

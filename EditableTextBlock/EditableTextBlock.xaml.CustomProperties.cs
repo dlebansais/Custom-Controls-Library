@@ -1,6 +1,7 @@
 ﻿namespace CustomControls;
 
 using System;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -142,7 +143,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// Sends a <see cref="EditEnter"/> event.
     /// </summary>
     /// <param name="cancellation">A token to hold cancellation information.</param>
-    protected virtual void NotifyEditEnter(CancellationToken cancellation)
+    protected virtual void NotifyEditEnter(CancellationTokenSource cancellation)
     {
         EditableTextBlockEventArgs Args = CreateEditEnterEvent(ctrlTextBlock.Text, cancellation);
         RaiseEvent(Args);
@@ -154,7 +155,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="textToEdit">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <returns>The EditableTextBlockEventArgs object created.</returns>
-    protected virtual EditableTextBlockEventArgs CreateEditEnterEvent(string textToEdit, CancellationToken cancellation)
+    protected virtual EditableTextBlockEventArgs CreateEditEnterEvent(string textToEdit, CancellationTokenSource cancellation)
     {
         return new EditableTextBlockEventArgs(EditEnterEvent, this, textToEdit, cancellation);
     }
@@ -186,7 +187,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
-    protected virtual void NotifyEditLeave(CancellationToken cancellation, bool isEditCanceled)
+    protected virtual void NotifyEditLeave(CancellationTokenSource cancellation, bool isEditCanceled)
     {
         EditLeaveEventArgs Args = CreateEditLeaveEvent(ctrlTextBox.Text, cancellation, isEditCanceled);
         RaiseEvent(Args);
@@ -199,7 +200,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
     /// <returns>The EditableTextBlockEventArgs object created.</returns>
-    protected virtual EditLeaveEventArgs CreateEditLeaveEvent(string newText, CancellationToken cancellation, bool isEditCanceled)
+    protected virtual EditLeaveEventArgs CreateEditLeaveEvent(string newText, CancellationTokenSource cancellation, bool isEditCanceled)
     {
         return new EditLeaveEventArgs(EditLeaveEvent, this, newText, cancellation, isEditCanceled);
     }
@@ -250,7 +251,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     /// <param name="newText">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
-    protected virtual void NotifyTextChanged(string newText, CancellationToken cancellation)
+    protected virtual void NotifyTextChanged(string newText, CancellationTokenSource cancellation)
     {
         EditableTextBlockEventArgs Args = CreateTextChangedEvent(newText, cancellation);
         RaiseEvent(Args);
@@ -262,7 +263,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="newText">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <returns>The EditableTextBlockEventArgs object created.</returns>
-    protected virtual EditableTextBlockEventArgs CreateTextChangedEvent(string newText, CancellationToken cancellation)
+    protected virtual EditableTextBlockEventArgs CreateTextChangedEvent(string newText, CancellationTokenSource cancellation)
     {
         return new EditableTextBlockEventArgs(TextChangedEvent, this, newText, cancellation);
     }

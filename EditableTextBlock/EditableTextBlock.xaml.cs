@@ -108,10 +108,10 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     protected virtual void OnStartEditing()
     {
-        CancellationToken Cancellation = new();
+        using CancellationTokenSource Cancellation = new();
         NotifyEditEnter(Cancellation);
 
-        if (!Cancellation.IsCanceled)
+        if (!Cancellation.Token.IsCancellationRequested)
             SetValue(IsEditingProperty, true);
     }
 
@@ -120,7 +120,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     protected virtual void OnStopEditing()
     {
-        CancellationToken Cancellation = new();
+        using CancellationTokenSource Cancellation = new();
         NotifyEditLeave(Cancellation, true);
 
         SetValue(IsEditingProperty, false);
@@ -277,16 +277,16 @@ public partial class EditableTextBlock : UserControl, IDisposable
     {
         if (args.Key is Key.Return)
         {
-            CancellationToken Cancellation = new();
+            using CancellationTokenSource Cancellation = new();
             NotifyEditLeave(Cancellation, false);
 
-            if (!Cancellation.IsCanceled)
+            if (!Cancellation.Token.IsCancellationRequested)
             {
                 SetValue(IsEditingProperty, false);
 
                 NotifyTextChanged(ctrlTextBox.Text, Cancellation);
 
-                if (!Cancellation.IsCanceled)
+                if (!Cancellation.Token.IsCancellationRequested)
                     SetValue(TextProperty, ctrlTextBox.Text);
             }
 

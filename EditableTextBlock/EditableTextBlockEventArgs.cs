@@ -1,5 +1,6 @@
 ﻿namespace CustomControls;
 
+using System.Threading;
 using System.Windows;
 
 /// <summary>
@@ -15,7 +16,7 @@ public class EditableTextBlockEventArgs : RoutedEventArgs
     /// <param name="source">The control from which editing is left.</param>
     /// <param name="text">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
-    internal EditableTextBlockEventArgs(RoutedEvent routedEvent, EditableTextBlock source, string text, CancellationToken cancellation)
+    internal EditableTextBlockEventArgs(RoutedEvent routedEvent, EditableTextBlock source, string text, CancellationTokenSource cancellation)
         : base(routedEvent, source)
     {
         Text = text;
@@ -33,7 +34,7 @@ public class EditableTextBlockEventArgs : RoutedEventArgs
     /// <summary>
     /// Gets a token that indicates if the associated operation has been canceled by any handler.
     /// </summary>
-    private readonly CancellationToken Cancellation;
+    private readonly CancellationTokenSource Cancellation;
     #endregion
 
     #region Client Interface
