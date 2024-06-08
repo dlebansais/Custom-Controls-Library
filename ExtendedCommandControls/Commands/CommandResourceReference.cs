@@ -5,6 +5,7 @@ using System.Globalization;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 

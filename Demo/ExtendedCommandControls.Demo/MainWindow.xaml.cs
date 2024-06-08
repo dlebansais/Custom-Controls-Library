@@ -2,6 +2,7 @@
 
 using System.Windows;
 using System.Windows.Input;
+using CustomControls;
 
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
@@ -32,6 +33,10 @@ public partial class MainWindow : Window
         ctrlTest6.IsActiveChanged -= OnActiveChanged;
         ctrlTest6.ResetIsActive();
         ctrlTest5.IsCheckable = !ctrlTest5.IsCheckable;
+
+        ctrlTest5.IsDefaultActive = true;
+        ctrlTest5.IsActive = true;
+        ((ActiveDocumentRoutedCommand)ctrlTest5.Command).CommandGroup.IsEnabled = true;
     }
 
     private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -41,5 +46,11 @@ public partial class MainWindow : Window
 
     private void TestExecuted(object sender, ExecutedRoutedEventArgs e)
     {
+    }
+
+    private void OnToolBarMenuLoaded(object sender, RoutedEventArgs e)
+    {
+        ExtendedToolBarMenuItem Ctrl = (ExtendedToolBarMenuItem)sender;
+        Ctrl.CanShow = !Ctrl.CanShow;
     }
 }
