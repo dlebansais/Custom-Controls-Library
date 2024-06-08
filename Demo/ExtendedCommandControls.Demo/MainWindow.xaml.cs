@@ -22,6 +22,8 @@ public partial class MainWindow : Window
 
     private void OnLoaded(object sender, RoutedEventArgs e)
     {
+        ctrlTest6.IsDefaultActive = false;
+        ctrlTest6.Reference = ctrlTest5.Reference;
         ctrlTest6.IsActive = !ctrlTest6.IsActive;
     }
 
@@ -29,8 +31,7 @@ public partial class MainWindow : Window
     {
         ctrlTest6.IsActiveChanged -= OnActiveChanged;
         ctrlTest6.ResetIsActive();
-        ctrlTest6.IsEnabled = false;
-        ctrlTest6.IsCheckable = !ctrlTest5.IsCheckable;
+        ctrlTest5.IsCheckable = !ctrlTest5.IsCheckable;
     }
 
     private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)

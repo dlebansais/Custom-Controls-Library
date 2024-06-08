@@ -34,7 +34,9 @@ public class CommandResourceReference
             foreach (string ResourceName in ResourceNames)
                 if (ResourceName.EndsWith(ResourceExtension, StringComparison.OrdinalIgnoreCase))
                 {
-                    Type? ResourceType = InitResourceAssembly.GetType(ResourceName.Substring(0, ResourceName.Length - ResourceExtension.Length));
+                    string NameWithoutExtension = ResourceName.Substring(0, ResourceName.Length - ResourceExtension.Length);
+                    Type? ResourceType = InitResourceAssembly.GetType(NameWithoutExtension);
+
                     if (ResourceType is not null)
                     {
                         InitResourceSource = ResourceType;

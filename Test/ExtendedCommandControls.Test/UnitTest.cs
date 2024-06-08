@@ -15,7 +15,6 @@ public class UnitTest
     [TestCase("extendedToolBarButton1")]
     [TestCase("extendedToolBarButton2")]
     [TestCase("extendedToolBarButton3")]
-    [TestCase("extendedToolBarButton5")]
     public void TestDefault1(string buttonId)
     {
         DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
