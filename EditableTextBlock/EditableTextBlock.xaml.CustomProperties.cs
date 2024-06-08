@@ -146,7 +146,10 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="cancellation">A token to hold cancellation information.</param>
     protected virtual void NotifyEditEnter(CancellationTokenSource cancellation)
     {
-        EditableTextBlockEventArgs Args = CreateEditEnterEvent(ctrlTextBlock.Text, cancellation);
+        string Text = ctrlTextBlock.Text;
+        EditableTextBlockEventArgs Args = CreateEditEnterEvent(Text, cancellation);
+        Debug.Assert(Args.Text == Text);
+
         RaiseEvent(Args);
     }
 
@@ -257,6 +260,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     protected virtual void NotifyTextChanged(string newText, CancellationTokenSource cancellation)
     {
         EditableTextBlockEventArgs Args = CreateTextChangedEvent(newText, cancellation);
+        Debug.Assert(Args.Text == newText);
+
         RaiseEvent(Args);
     }
 

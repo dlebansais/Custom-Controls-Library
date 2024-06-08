@@ -339,15 +339,17 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <summary>
     /// Called when an object should release its resources.
     /// </summary>
-    /// <param name="isDisposing">Indicates if resources must be disposed now.</param>
-    protected virtual void Dispose(bool isDisposing)
+    /// <param name="disposing">Indicates if resources must be disposed now.</param>
+    protected virtual void Dispose(bool disposing)
     {
-        if (!IsDisposed)
+        if (!disposedValue)
         {
-            IsDisposed = true;
+            if (disposing)
+            {
+                StartEditingTimer.Dispose();
+            }
 
-            if (isDisposing)
-                DisposeNow();
+            disposedValue = true;
         }
     }
 
@@ -356,29 +358,10 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     public void Dispose()
     {
-        Dispose(true);
+        Dispose(disposing: true);
         GC.SuppressFinalize(this);
     }
 
-    /// <summary>
-    /// Finalizes an instance of the <see cref="EditableTextBlock"/> class.
-    /// </summary>
-    ~EditableTextBlock()
-    {
-        Dispose(false);
-    }
-
-    /// <summary>
-    /// True after <see cref="Dispose(bool)"/> has been invoked.
-    /// </summary>
-    private bool IsDisposed;
-
-    /// <summary>
-    /// Disposes of every reference that must be cleaned up.
-    /// </summary>
-    private void DisposeNow()
-    {
-        StartEditingTimer.Dispose();
-    }
+    private bool disposedValue;
     #endregion
 }
