@@ -10,7 +10,7 @@
 
         <RootNamespace>ExtendedCommandControlsDemo</RootNamespace>
         <Version>1.0.9</Version>
-        <AssemblyVersion>1.0.9.758</AssemblyVersion>
+        <AssemblyVersion>1.0.9.760</AssemblyVersion>
         <FileVersion>1.0.9.56</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
@@ -40,10 +40,12 @@
 
     <ItemGroup>
       <None Remove="Resources\Icons\Close.png" />
+      <None Remove="Resources\Icons\Exit.png" />
     </ItemGroup>
 
     <ItemGroup>
         <Resource Include="Resources\Icons\Close.png" />
+        <Resource Include="Resources\Icons\Exit.png" />
     </ItemGroup>
 
     <ItemGroup>

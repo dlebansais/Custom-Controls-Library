@@ -19,6 +19,7 @@ public partial class MainWindow : Window
 
     private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)
     {
+        e.CanExecute = true;
     }
 
     private void TestExecuted(object sender, ExecutedRoutedEventArgs e)
