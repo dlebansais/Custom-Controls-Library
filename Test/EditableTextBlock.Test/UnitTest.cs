@@ -69,7 +69,94 @@ public class UnitTest
         CheckIsEditableElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
+        Thread.Sleep(TimeSpan.FromSeconds(10));
+
         DemoApplication.Stop(DemoApp);
+    }
+
+    [Test]
+    public void TestEscape1()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape1");
+        Assert.That(DemoApp, Is.Not.Null);
+
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Mouse.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
+
+        Assert.That(DemoApplication.IsStopped(DemoApp), Is.True);
+    }
+
+    [Test]
+    public void TestEscape2()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape2");
+        Assert.That(DemoApp, Is.Not.Null);
+
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Mouse.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
+
+        Assert.That(DemoApplication.IsStopped(DemoApp), Is.True);
+    }
+
+    [Test]
+    public void TestEscape3()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape3");
+        Assert.That(DemoApp, Is.Not.Null);
+
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Mouse.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
+
+        Assert.That(DemoApplication.IsStopped(DemoApp), Is.True);
+    }
+
+    [Test]
+    public void TestEscape4()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape4");
+        Assert.That(DemoApp, Is.Not.Null);
+
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Mouse.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
+
+        DemoApplication.Stop(DemoApp);
+    }
+
+    [Test]
+    public void TestEscape5()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape5");
+        Assert.That(DemoApp, Is.Not.Null);
+
+        ClickBox(DemoApp);
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Mouse.Click();
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
+
+        Assert.That(DemoApplication.IsStopped(DemoApp), Is.True);
     }
 
     private static void ClickBox(DemoApp demoApp)

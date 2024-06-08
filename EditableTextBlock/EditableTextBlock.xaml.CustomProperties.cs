@@ -1,6 +1,7 @@
 ﻿namespace CustomControls;
 
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
@@ -190,6 +191,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     protected virtual void NotifyEditLeave(CancellationTokenSource cancellation, bool isEditCanceled)
     {
         EditLeaveEventArgs Args = CreateEditLeaveEvent(ctrlTextBox.Text, cancellation, isEditCanceled);
+        Debug.Assert(Args.IsEditCanceled == isEditCanceled);
+
         RaiseEvent(Args);
     }
 
