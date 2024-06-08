@@ -96,7 +96,7 @@ public class CommandResourceReference
         }
         catch (IOException)
         {
-            throw new ArgumentOutOfRangeException(nameof(name));
+            throw new FileNotFoundException(nameof(name));
         }
     }
     #endregion

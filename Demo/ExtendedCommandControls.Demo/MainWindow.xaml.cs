@@ -15,6 +15,22 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         DataContext = this;
+
+        Loaded += OnLoaded;
+        ctrlTest6.IsActiveChanged += OnActiveChanged;
+    }
+
+    private void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        ctrlTest6.IsActive = !ctrlTest6.IsActive;
+    }
+
+    private void OnActiveChanged(object sender, RoutedEventArgs e)
+    {
+        ctrlTest6.IsActiveChanged -= OnActiveChanged;
+        ctrlTest6.ResetIsActive();
+        ctrlTest6.IsEnabled = false;
+        ctrlTest6.IsCheckable = !ctrlTest5.IsCheckable;
     }
 
     private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)

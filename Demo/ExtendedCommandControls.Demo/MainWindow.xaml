@@ -13,10 +13,12 @@
         <ctrl:SolutionCommandGroup x:Key="testCommandGroup" IsEnabled="True"/>
         <ctrl:LocalizedRoutedCommand x:Key="testCommand" Reference="{StaticResource testReference}" CommandGroup="{StaticResource testCommandGroup}" HeaderKey="testHeader" IconKey="exit.png" ToolTipKey="testTooltip"/>
         <ctrl:LocalizedRoutedCommand x:Key="invalidCommand" Reference="{StaticResource testReference}" CommandGroup="{StaticResource testCommandGroup}" IconKey="invalid.png"/>
+        <ctrl:ActiveDocumentRoutedCommand x:Key="activeCommand" Reference="{StaticResource testReference}" CommandGroup="{StaticResource testCommandGroup}" InactiveHeaderKey="testHeader" IconKey="exit.png" InactiveToolTipKey="testTooltip"/>
         <Style TargetType="{x:Type ctrl:ExtendedToolBarButton}" BasedOn="{StaticResource {x:Type Button}}"/>
     </Window.Resources>
     <Window.CommandBindings>
         <CommandBinding Command="{StaticResource testCommand}" CanExecute="TestCanExecute" Executed="TestExecuted"/>
+        <CommandBinding Command="{StaticResource activeCommand}" CanExecute="TestCanExecute" Executed="TestExecuted"/>
     </Window.CommandBindings>
     <DockPanel>
         <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="ctrlOpen" Content="{Binding Path=Command, Converter={StaticResource convButtonCommandToText}, RelativeSource={RelativeSource Self}}" AutomationProperties.AutomationId="extendedToolBarButton1" Command="ApplicationCommands.Open" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Foreground="Black" Background="Blue"/>
@@ -44,6 +46,15 @@
         <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="invalid" Command="{StaticResource invalidCommand}" Reference="{StaticResource testReference}" IsEnabled="True" IsActive="True" Width="100" Height="20" Margin="10">
             <Image Source="{Binding Command.ImageSource, RelativeSource={RelativeSource AncestorType={x:Type ctrl:ExtendedToolBarButton}}}" />
         </ctrl:ExtendedToolBarButton>
+        <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="ctrlTest5" Content="testHeader" AutomationProperties.AutomationId="extendedToolBarButton5" Command="{StaticResource activeCommand}" Reference="{StaticResource testReference}" ToolTip="{Binding Command.InactiveButtonToolTip, RelativeSource={RelativeSource Self}}" IsEnabled="True" IsActive="True" IsDefaultActive="False" IsCheckable="False" Width="100" Height="20" Margin="10">
+            <ctrl:ExtendedToolBarButton.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="{Binding PlacementTarget.Command.InactiveMenuHeader, RelativeSource={RelativeSource AncestorType={x:Type ContextMenu}}}" />
+                    <ctrl:ExtendedToolBarMenuItem />
+                </ContextMenu>
+            </ctrl:ExtendedToolBarButton.ContextMenu>
+        </ctrl:ExtendedToolBarButton>
+        <ctrl:ExtendedToolBarButton DockPanel.Dock="Bottom" x:Name="ctrlTest6" Content="testHeader" IsActive="False" Width="100" Height="20" Margin="10"/>
         <Grid/>
     </DockPanel>
 </Window>
