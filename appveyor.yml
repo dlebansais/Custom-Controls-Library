@@ -83,6 +83,8 @@ artifacts:
     name: $(APPVEYOR_PROJECT_NAME)-Package-Debug
   - path: $(APPVEYOR_PROJECT_NAME).*.nupkg
     name: $(APPVEYOR_PROJECT_NAME)-Package-Release
+  - path: C:/projects/info.txt
+    name: info
 
 deploy:
   - provider: GitHub
