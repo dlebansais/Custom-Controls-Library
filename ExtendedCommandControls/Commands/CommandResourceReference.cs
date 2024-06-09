@@ -38,10 +38,6 @@ public class CommandResourceReference
                     string NameWithoutExtension = ResourceName.Substring(0, ResourceName.Length - ResourceExtension.Length);
                     Type? ResourceType = InitResourceAssembly.GetType(NameWithoutExtension);
 
-                    using FileStream Stream = new(@"C:\projects\custom-controls-library\info.txt", FileMode.Append, FileAccess.Write);
-                    using StreamWriter writer = new(Stream);
-                    writer.WriteLine($"{ResourceName} - {NameWithoutExtension}: {ResourceType}");
-
                     if (ResourceType is not null)
                     {
                         InitResourceSource = ResourceType;
