@@ -108,6 +108,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DispatcherLagMeter", "Dispa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DispatcherLagMeter.Demo", "Demo\DispatcherLagMeter.Demo\DispatcherLagMeter.Demo.csproj", "{C3A7F4E3-27BA-491E-AAA1-4019177D000A}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DispatcherLagMeter.Test", "Test\DispatcherLagMeter.Test\DispatcherLagMeter.Test.csproj", "{3379DBA4-9C16-46DE-8B16-DD2D66608386}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,6 +358,14 @@ Global
 		{C3A7F4E3-27BA-491E-AAA1-4019177D000A}.Release|Any CPU.Build.0 = Release|x64
 		{C3A7F4E3-27BA-491E-AAA1-4019177D000A}.Release|x64.ActiveCfg = Release|x64
 		{C3A7F4E3-27BA-491E-AAA1-4019177D000A}.Release|x64.Build.0 = Release|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Debug|Any CPU.Build.0 = Debug|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Debug|x64.ActiveCfg = Debug|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Debug|x64.Build.0 = Debug|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Release|Any CPU.ActiveCfg = Release|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Release|Any CPU.Build.0 = Release|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Release|x64.ActiveCfg = Release|x64
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -376,6 +386,7 @@ Global
 		{5ADB9B32-F7AF-40CF-8E33-0563949FF0FE} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
 		{E4F3FC20-383B-42A6-B1B9-F3D4E4039426} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
 		{C3A7F4E3-27BA-491E-AAA1-4019177D000A} = {80EA239E-CFC7-4470-B0F1-12F024D284B5}
+		{3379DBA4-9C16-46DE-8B16-DD2D66608386} = {7A4980AE-D9E0-4C45-9BF8-F8BC188B94FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {06C6BCBE-BE16-41F7-A401-83A862DA0367}
