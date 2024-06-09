@@ -1,4 +1,4 @@
-﻿namespace DialogValidationDemo;
+﻿namespace DialogValidation.Demo;
 
 using System;
 using System.Collections.Generic;
@@ -13,7 +13,7 @@ using System.Windows.Input;
 using CustomControls;
 
 /// <summary>
-/// Main window of the DialogValidationDemo program.
+/// Main window of the DialogValidation demo program.
 /// </summary>
 public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
 {

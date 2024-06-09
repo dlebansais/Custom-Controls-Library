@@ -1,4 +1,4 @@
-﻿namespace ExtendedTreeViewDemo;
+﻿namespace ExtendedTreeView.Demo;
 
 using System;
 

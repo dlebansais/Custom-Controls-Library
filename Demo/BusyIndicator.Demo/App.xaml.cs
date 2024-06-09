@@ -3,7 +3,7 @@
 using System.Windows;
 
 /// <summary>
-/// The BusyIndicatorDemo program.
+/// The BusyIndicator demo program.
 /// </summary>
 public partial class App : Application
 {

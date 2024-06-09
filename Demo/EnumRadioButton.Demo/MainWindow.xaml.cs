@@ -1,4 +1,4 @@
-﻿namespace EnumRadioButtonDemo;
+﻿namespace EnumRadioButton.Demo;
 
 using System;
 using System.Diagnostics;

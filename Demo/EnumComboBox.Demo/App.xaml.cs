@@ -1,11 +1,11 @@
-﻿namespace EnumComboBoxDemo;
+﻿namespace EnumComboBox.Demo;
 
 using System;
 using System.Diagnostics;
 using System.Windows;
 
 /// <summary>
-/// The EnumComboBoxDemo program.
+/// The EnumComboBox demo program.
 /// </summary>
 public partial class App : Application
 {

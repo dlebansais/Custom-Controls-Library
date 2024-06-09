@@ -3,7 +3,7 @@
                     xmlns:sys="clr-namespace:System;assembly=mscorlib"
                     xmlns:conv="clr-namespace:Converters"
                     xmlns:ctrl="CustomControlsLibrary"
-                    xmlns:app="clr-namespace:ExtendedTreeViewDemo">
+                    xmlns:app="clr-namespace:ExtendedTreeView.Demo">
     <conv:RandomPickerConverter x:Key="convRandomPicker"/>
     <CompositeCollection x:Key="FaceBitmaps">
         <Image Source="pack://application:,,,/Resources/Faces/face-angel-2.png"/>

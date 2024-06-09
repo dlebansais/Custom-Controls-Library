@@ -1,4 +1,4 @@
-﻿namespace ExtendedTreeViewDemo;
+﻿namespace ExtendedTreeView.Demo;
 
 /// <summary>
 /// Types of tree view items.

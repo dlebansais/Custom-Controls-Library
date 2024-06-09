@@ -1,4 +1,4 @@
-﻿namespace EnumRadioButtonDemo;
+﻿namespace EnumRadioButton.Demo;
 
 /// <summary>
 /// Enum for test.

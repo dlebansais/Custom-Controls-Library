@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:ctrl="CustomControlsLibrary"
-                    xmlns:app="clr-namespace:ExtendedTreeViewDemo">
+                    xmlns:app="clr-namespace:ExtendedTreeView.Demo">
     <DataTemplate DataType="{x:Type app:TestNode}">
         <StackPanel Orientation="Horizontal" Margin="6,0,0,0">
             <TextBlock Text="{Binding Text, FallbackValue={x:Null}}" Margin="6,0,0,0"/>

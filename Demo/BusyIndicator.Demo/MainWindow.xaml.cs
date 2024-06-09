@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Threading;
 
 /// <summary>
-/// Main window of the BusyIndicatorDemo program.
+/// Main window of the BusyIndicator demo program.
 /// </summary>
 public partial class MainWindow : Window, IDisposable
 {

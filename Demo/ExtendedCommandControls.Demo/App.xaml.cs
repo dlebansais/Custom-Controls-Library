@@ -1,11 +1,11 @@
-﻿namespace ExtendedCommandControlsDemo;
+﻿namespace ExtendedCommandControls.Demo;
 
 using System;
 using System.Diagnostics;
 using System.Windows;
 
 /// <summary>
-/// The ExtendedCommandControlsDemo program.
+/// The ExtendedCommandControls demo program.
 /// </summary>
 public partial class App : Application
 {

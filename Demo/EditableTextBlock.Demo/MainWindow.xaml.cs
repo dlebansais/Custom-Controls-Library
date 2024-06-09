@@ -1,4 +1,4 @@
-﻿namespace EditableTextBlockDemo;
+﻿namespace EditableTextBlock.Demo;
 
 using System;
 using System.Diagnostics;
@@ -8,7 +8,7 @@ using System.Windows.Input;
 using CustomControls;
 
 /// <summary>
-/// Main window of the EditableTextBlockDemo program.
+/// Main window of the EditableTextBlock demo program.
 /// </summary>
 public partial class MainWindow : Window, IDisposable
 {

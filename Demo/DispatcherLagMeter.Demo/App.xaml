@@ -1,7 +1,7 @@
-﻿<Application x:Class="DispatcherLagMeterDemo.App"
+﻿<Application x:Class="DispatcherLagMeter.Demo.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:DispatcherLagMeterDemo"
+             xmlns:local="clr-namespace:DispatcherLagMeter.Demo"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
          

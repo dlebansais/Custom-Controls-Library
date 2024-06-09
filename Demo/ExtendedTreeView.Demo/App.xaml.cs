@@ -1,9 +1,9 @@
-﻿namespace ExtendedTreeViewDemo;
+﻿namespace ExtendedTreeView.Demo;
 
 using System.Windows;
 
 /// <summary>
-/// The ExtendedTreeViewDemo program.
+/// The ExtendedTreeView demo program.
 /// </summary>
 public partial class App : Application
 {

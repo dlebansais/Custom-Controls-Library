@@ -1,4 +1,4 @@
-﻿namespace EnumComboBoxDemo;
+﻿namespace EnumComboBox.Demo;
 
 using System.Globalization;
 using System.Windows;

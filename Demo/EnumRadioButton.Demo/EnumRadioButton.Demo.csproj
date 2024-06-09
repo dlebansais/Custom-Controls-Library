@@ -8,10 +8,10 @@
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
 
-        <RootNamespace>EnumRadioButtonDemo</RootNamespace>
+        <RootNamespace>EnumRadioButton.Demo</RootNamespace>
         <Version>1.0.9</Version>
-        <AssemblyVersion>1.0.9.760</AssemblyVersion>
-        <FileVersion>1.0.9.57</FileVersion>
+        <AssemblyVersion>1.0.9.761</AssemblyVersion>
+        <FileVersion>1.0.9.58</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
@@ -74,13 +74,13 @@
 
     <Target Name="GenerateDesignerFilesOnce" BeforeTargets="GetFrameworkPaths" Condition="'$(TargetFramework)'=='net481' And !Exists('.\Properties\Resources.Designer.cs')">
         <Exec Command="echo Initializing designer files..." />
-        <GenerateResource SdkToolsPath="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools" Sources="@(EmbeddedResource)" StronglyTypedLanguage="C#" StronglyTypedClassName="%(FileName)" StronglyTypedNamespace="EnumRadioButtonDemo.Properties" StronglyTypedFileName="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" PublicClass="true" />
+        <GenerateResource SdkToolsPath="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools" Sources="@(EmbeddedResource)" StronglyTypedLanguage="C#" StronglyTypedClassName="%(FileName)" StronglyTypedNamespace="EnumRadioButton.Demo.Properties" StronglyTypedFileName="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" PublicClass="true" />
         <Delete Files="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).resources')" />
     </Target>
 
     <Target Name="GenerateDesignerFiles" BeforeTargets="PreBuildEvent" Inputs="@(EmbeddedResource)" Outputs="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" Condition="'$(TargetFramework)'=='net481'">
         <Exec Command="echo Updating designer files... Framework=$(TargetFramework)" />
-        <GenerateResource SdkToolsPath="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools" Sources="@(EmbeddedResource)" StronglyTypedLanguage="C#" StronglyTypedClassName="%(FileName)" StronglyTypedNamespace="EnumRadioButtonDemo.Properties" StronglyTypedFileName="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" PublicClass="true" />
+        <GenerateResource SdkToolsPath="C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8.1 Tools" Sources="@(EmbeddedResource)" StronglyTypedLanguage="C#" StronglyTypedClassName="%(FileName)" StronglyTypedNamespace="EnumRadioButton.Demo.Properties" StronglyTypedFileName="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).Designer.cs')" PublicClass="true" />
         <Delete Files="@(EmbeddedResource->'%(RootDir)%(Directory)%(FileName).resources')" />
     </Target>
     

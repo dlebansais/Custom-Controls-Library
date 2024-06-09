@@ -8,10 +8,10 @@
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
 
-        <RootNamespace>BusyIndicatorDemo</RootNamespace>
+        <RootNamespace>BusyIndicator.Demo</RootNamespace>
         <Version>1.0.9</Version>
-        <AssemblyVersion>1.0.9.758</AssemblyVersion>
-        <FileVersion>1.0.9.53</FileVersion>
+        <AssemblyVersion>1.0.9.761</AssemblyVersion>
+        <FileVersion>1.0.9.54</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />

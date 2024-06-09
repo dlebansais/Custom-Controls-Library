@@ -1,4 +1,4 @@
-﻿<Application x:Class="EditableTextBlockDemo.App"
+﻿<Application x:Class="EditableTextBlock.Demo.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml"/>

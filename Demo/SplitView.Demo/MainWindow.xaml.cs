@@ -1,4 +1,4 @@
-﻿namespace SplitViewDemo;
+﻿namespace SplitView.Demo;
 
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;

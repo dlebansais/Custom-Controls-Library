@@ -1,4 +1,4 @@
-﻿namespace ExtendedTreeViewDemo;
+﻿namespace ExtendedTreeView.Demo;
 
 /// <summary>
 /// Thye depth of a tree view.

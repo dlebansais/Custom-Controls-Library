@@ -1,4 +1,4 @@
-﻿namespace ExtendedCommandControlsDemo;
+﻿namespace ExtendedCommandControls.Demo;
 
 using System.Windows;
 using System.Windows.Input;

@@ -1,11 +1,11 @@
-﻿namespace EditableTextBlockDemo;
+﻿namespace EditableTextBlock.Demo;
 
 using System;
 using System.Diagnostics;
 using System.Windows;
 
 /// <summary>
-/// The EditableTextBlockDemo program.
+/// The EditableTextBlock demo program.
 /// </summary>
 public partial class App : Application
 {
@@ -17,15 +17,15 @@ public partial class App : Application
         string[] args = Environment.GetCommandLineArgs();
         if (args.Length > 1)
             if (args[1] == "escape1")
-                EditableTextBlockDemo.MainWindow.TestEscape = 1;
+                EditableTextBlock.Demo.MainWindow.TestEscape = 1;
             else if (args[1] == "escape2")
-                EditableTextBlockDemo.MainWindow.TestEscape = 2;
+                EditableTextBlock.Demo.MainWindow.TestEscape = 2;
             else if (args[1] == "escape3")
-                EditableTextBlockDemo.MainWindow.TestEscape = 3;
+                EditableTextBlock.Demo.MainWindow.TestEscape = 3;
             else if (args[1] == "escape4")
-                EditableTextBlockDemo.MainWindow.TestEscape = 4;
+                EditableTextBlock.Demo.MainWindow.TestEscape = 4;
             else if (args[1] == "escape5")
-                EditableTextBlockDemo.MainWindow.TestEscape = 5;
+                EditableTextBlock.Demo.MainWindow.TestEscape = 5;
             else
                 Process.GetCurrentProcess().Kill();
     }

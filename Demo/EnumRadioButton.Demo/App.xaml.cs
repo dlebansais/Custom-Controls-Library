@@ -1,11 +1,11 @@
-﻿namespace EnumRadioButtonDemo;
+﻿namespace EnumRadioButton.Demo;
 
 using System;
 using System.Diagnostics;
 using System.Windows;
 
 /// <summary>
-/// The EnumRadioButtonDemo program.
+/// The EnumRadioButton demo program.
 /// </summary>
 public partial class App : Application
 {

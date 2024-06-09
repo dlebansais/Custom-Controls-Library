@@ -1,9 +1,9 @@
-﻿namespace SplitViewDemo;
+﻿namespace SplitView.Demo;
 
 using System.Windows;
 
 /// <summary>
-/// The SplitViewDemo program.
+/// The SplitView demo program.
 /// </summary>
 public partial class App : Application
 {

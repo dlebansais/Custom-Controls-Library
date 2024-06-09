@@ -1,4 +1,4 @@
-﻿namespace EditableTextBlockDemo;
+﻿namespace EditableTextBlock.Demo;
 
 using System;
 using System.Windows;

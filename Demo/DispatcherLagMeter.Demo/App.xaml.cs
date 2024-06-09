@@ -1,11 +1,11 @@
-﻿namespace DispatcherLagMeterDemo;
+﻿namespace DispatcherLagMeter.Demo;
 
 using System;
 using System.Diagnostics;
 using System.Windows;
 
 /// <summary>
-/// The DispatcherLagMeterDemo program.
+/// The DispatcherLagMeter demo program.
 /// </summary>
 public partial class App : Application
 {

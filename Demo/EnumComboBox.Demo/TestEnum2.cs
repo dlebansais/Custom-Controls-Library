@@ -1,4 +1,4 @@
-﻿namespace EnumComboBoxDemo;
+﻿namespace EnumComboBox.Demo;
 
 /// <summary>
 /// Enum for test.

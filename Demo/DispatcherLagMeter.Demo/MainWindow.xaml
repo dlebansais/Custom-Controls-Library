@@ -1,4 +1,4 @@
-﻿<Window x:Class="DispatcherLagMeterDemo.MainWindow"
+﻿<Window x:Class="DispatcherLagMeter.Demo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"

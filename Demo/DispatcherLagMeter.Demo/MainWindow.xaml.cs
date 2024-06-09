@@ -1,4 +1,4 @@
-﻿namespace DispatcherLagMeterDemo;
+﻿namespace DispatcherLagMeter.Demo;
 
 using System;
 using System.ComponentModel;

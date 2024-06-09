@@ -1,4 +1,4 @@
-﻿namespace ExtendedTreeViewDemo;
+﻿namespace ExtendedTreeView.Demo;
 
 /// <summary>
 /// Represents a root test node.

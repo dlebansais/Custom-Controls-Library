@@ -1,4 +1,4 @@
-﻿namespace ExtendedTreeViewDemo;
+﻿namespace ExtendedTreeView.Demo;
 
 /// <summary>
 /// Sizes of a tree view.

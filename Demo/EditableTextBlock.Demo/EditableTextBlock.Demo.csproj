@@ -9,10 +9,10 @@
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
 
-        <RootNamespace>EditableTextBlockDemo</RootNamespace>
+        <RootNamespace>EditableTextBlock.Demo</RootNamespace>
         <Version>1.0.9</Version>
-        <AssemblyVersion>1.0.9.760</AssemblyVersion>
-        <FileVersion>1.0.9.56</FileVersion>
+        <AssemblyVersion>1.0.9.761</AssemblyVersion>
+        <FileVersion>1.0.9.57</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
