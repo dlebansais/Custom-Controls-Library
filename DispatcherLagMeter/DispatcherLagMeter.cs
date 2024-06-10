@@ -2,12 +2,63 @@
 
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Threading;
 using Contracts;
+
+/// <summary>
+/// Misc.
+/// </summary>
+internal enum WindowsMessage
+{
+    /// <summary>Sent after a window has been moved.</summary>
+    WM_MOVE = 0x0003,
+    /// <summary>
+    /// Sent to a window when the size or position of the window is about to change.
+    /// An application can use this message to override the window's default maximized size and position,
+    /// or its default minimum or maximum tracking size.
+    /// </summary>
+    WM_GETMINMAXINFO = 0x0024,
+    /// <summary>
+    /// Sent to a window whose size, position, or place in the Z order is about to change as a result
+    /// of a call to the SetWindowPos function or another window-management function.
+    /// </summary>
+    WM_WINDOWPOSCHANGING = 0x0046,
+    /// <summary>
+    /// Sent to a window whose size, position, or place in the Z order has changed as a result of a
+    /// call to the SetWindowPos function or another window-management function.
+    /// </summary>
+    WM_WINDOWPOSCHANGED = 0x0047,
+    /// <summary>
+    /// Sent to a window that the user is moving. By processing this message, an application can monitor
+    /// the position of the drag rectangle and, if needed, change its position.
+    /// </summary>
+    WM_MOVING = 0x0216,
+    /// <summary>
+    /// Sent once to a window after it enters the moving or sizing modal loop. The window enters the
+    /// moving or sizing modal loop when the user clicks the window's title bar or sizing border, or
+    /// when the window passes the WM_SYSCOMMAND message to the DefWindowProc function and the wParam
+    /// parameter of the message specifies the SC_MOVE or SC_SIZE value. The operation is complete
+    /// when DefWindowProc returns.
+    /// <para />
+    /// The system sends the WM_ENTERSIZEMOVE message regardless of whether the dragging of full windows
+    /// is enabled.
+    /// </summary>
+    WM_ENTERSIZEMOVE = 0x0231,
+    /// <summary>
+    /// Sent once to a window once it has exited moving or sizing modal loop. The window enters the
+    /// moving or sizing modal loop when the user clicks the window's title bar or sizing border, or
+    /// when the window passes the WM_SYSCOMMAND message to the DefWindowProc function and the
+    /// wParam parameter of the message specifies the SC_MOVE or SC_SIZE value. The operation is
+    /// complete when DefWindowProc returns.
+    /// </summary>
+    WM_EXITSIZEMOVE = 0x0232,
+}
 
 /// <summary>
 /// Represents a control that displays the dispatcher lag.
@@ -31,6 +82,65 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         Clock.Start();
 
         Dispatcher.ShutdownStarted += OnShutdownStarted;
+
+        Display = new(this);
+        Display.Width = 0;
+        Display.Height = 0;
+        Display.Show();
+
+        Loaded += OnLoaded;
+        SizeChanged += OnSizeChanged;
+    }
+
+    private void OnLoaded(object sender, EventArgs e)
+    {
+        Window Owner = Window.GetWindow(this);
+        Display.Owner = Owner;
+
+        IntPtr mainWindowPtr = new WindowInteropHelper(Owner).Handle;
+        HwndSource mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
+        mainWindowSrc.AddHook(WndProc);
+    }
+
+    private void RecalculatePositionAndSize()
+    {
+        if (double.IsNaN(ActualWidth))
+            Display.Width = 0;
+        else
+            Display.Width = ActualWidth;
+
+        if (double.IsNaN(ActualHeight))
+            Display.Height = 0;
+        else
+            Display.Height = ActualHeight;
+
+        Point ControlScreenCoordinates = PointToScreen(new Point(0, 0));
+        Window Root = Window.GetWindow(this);
+        IntPtr mainWindowPtr = new WindowInteropHelper(Root).Handle;
+        HwndSource mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
+        NativePoint lpPoint = default;
+        ClientToScreen(mainWindowSrc.Handle, ref lpPoint);
+        NativeRect rcRect = default;
+        GetClientRect(mainWindowSrc.Handle, ref rcRect);
+        NativeRect rcWinRect = default;
+        GetWindowRect(mainWindowSrc.Handle, ref rcWinRect);
+
+        int ClientX = ((rcWinRect.Right - rcWinRect.Left) - (rcRect.Right - rcRect.Left)) / 2;
+        int ClientY = (rcWinRect.Bottom - rcWinRect.Top) - (rcRect.Bottom - rcRect.Top);
+
+        Point ControlRelativeCoordinates = new(ControlScreenCoordinates.X - lpPoint.X + ClientX, ControlScreenCoordinates.Y - lpPoint.Y + ClientY - ClientX);
+
+        const double scalingFactor = 1;
+
+        Display.Left = Root.Left + (ControlRelativeCoordinates.X * scalingFactor);
+        Display.Top = Root.Top + (ControlRelativeCoordinates.Y * scalingFactor);
+
+        // Debug.WriteLine($"Left: {Display.Left}, Top: {Display.Top}, Width: {Display.Width}, Height: {Display.Height}");
+    }
+
+    private void OnSizeChanged(object sender, RoutedEventArgs e)
+    {
+        _ = Dispatcher.BeginInvoke(RecalculatePositionAndSize);
     }
 
     private void OnShutdownStarted(object? sender, EventArgs e)
@@ -38,6 +148,8 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         SamplingTimer.Stop();
         NotificationTimer.Stop();
         DisplayTimer.Stop();
+
+        Display.Close();
     }
     #endregion
 
@@ -81,46 +193,21 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         NotifyLagMeasured(LastLag, LastQueueLength);
     }
 
-    private static byte ToByteColor(double x)
-    {
-        return (byte)Math.Max(Math.Min(255, x * 255), 0);
-    }
-
-    /// <inheritdoc cref="UIElement.OnRender"/>
-    [Access("protected", "override")]
-    [RequireNotNull(nameof(drawingContext))]
-    private void OnRenderVerified(DrawingContext drawingContext)
-    {
-        base.OnRender(drawingContext);
-
-        double Length = Math.Min(ActualWidth, ActualHeight);
-        Point Center = new(ActualWidth / 2, ActualHeight / 2);
-        double RadiusX = Length / 8;
-        double RadiusY = Length / 2;
-
-        const double MaxAngle = 90;
-        double Angle = (1 - (1 / (1 + (LastLag / Math.Max(DurationSensitivity, 0.01))))) * MaxAngle;
-
-        const double BaseLength = 6.0;
-        const double MaxReddening = 1.0;
-        double Reddening = (1.0 - (1.0 / (1.0 + (Math.Max(0, LastQueueLength - BaseLength) / Math.Max(QueueLengthSensitivity, 1.0))))) * MaxReddening;
-
-        double Red = 2.0 * Reddening;
-        double Green = 2.0 * (1 - Reddening);
-        const double Blue = 0;
-        Brush Brush = new SolidColorBrush(Color.FromRgb(ToByteColor(Red), ToByteColor(Green), ToByteColor(Blue)));
-
-        drawingContext.PushTransform(new TranslateTransform(Center.X, Center.Y));
-        drawingContext.PushTransform(new RotateTransform(Angle));
-        drawingContext.DrawEllipse(Brush, null, new Point(0, 0), RadiusX, RadiusY);
-        drawingContext.Pop();
-        drawingContext.Pop();
-    }
-
     private void DisplayTimerCallback()
     {
-        Dispatcher.Invoke(InvalidateVisual);
+        // Dispatcher.Invoke(InvalidateVisual);
+        Display.Update();
     }
+
+    /// <summary>
+    /// Gets the last lag value.
+    /// </summary>
+    internal double LastLag { get; private set; }
+
+    /// <summary>
+    /// Gets the last queue length value.
+    /// </summary>
+    internal double LastQueueLength { get; private set; }
 
     private readonly ControlTimer SamplingTimer;
     private readonly ControlTimer NotificationTimer;
@@ -130,8 +217,6 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
     private int DispatcherQueueLength;
     private int BaseQueueLength;
     private TimeSpan LastSampling = TimeSpan.Zero;
-    private double LastLag;
-    private double LastQueueLength;
     private readonly Stopwatch Clock = new();
     #endregion
 
@@ -164,4 +249,69 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         GC.SuppressFinalize(this);
     }
     #endregion
+
+    private readonly DisplayWindow Display;
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    private static extern IntPtr DefWindowProc(
+        IntPtr hWnd,
+        int msg,
+        IntPtr wParam,
+        IntPtr lParam);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct NativePoint
+    {
+        public int X;
+        public int Y;
+    }
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    private static extern void ClientToScreen(IntPtr hWnd, ref NativePoint lpPoint);
+
+    [StructLayout(LayoutKind.Sequential)]
+    private struct NativeRect
+    {
+        public int Left;
+        public int Top;
+        public int Right;
+        public int Bottom;
+    }
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    private static extern void GetClientRect(IntPtr hWnd, ref NativeRect lpRect);
+
+    [DllImport("user32.dll", CharSet = CharSet.Auto)]
+    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
+    private static extern void GetWindowRect(IntPtr hWnd, ref NativeRect lpRect);
+
+    private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+    {
+        if (msg == (uint)WindowsMessage.WM_ENTERSIZEMOVE)
+        {
+            IsMovingOrResizing = true;
+            _ = DefWindowProc(hwnd, msg, wParam, lParam);
+        }
+        else if (msg == (uint)WindowsMessage.WM_EXITSIZEMOVE)
+        {
+            _ = DefWindowProc(hwnd, msg, wParam, lParam);
+            IsMovingOrResizing = false;
+            RecalculatePositionAndSize();
+        }
+        else if (msg == (uint)WindowsMessage.WM_MOVING)
+        {
+            if (IsMovingOrResizing)
+            {
+                Display.Width = 0;
+                Display.Height = 0;
+            }
+        }
+
+        return IntPtr.Zero;
+    }
+
+    private bool IsMovingOrResizing;
 }

@@ -3,6 +3,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.Threading;
 using System.Windows;
 using System.Windows.Threading;
@@ -87,7 +88,7 @@ public partial class MainWindow : Window
     private void OnLagMeasured(object sender, RoutedEventArgs e)
     {
         LagMeasuredEventArgs Args = (LagMeasuredEventArgs)e;
-        Debug.WriteLine($"OnLagMeasured: {Math.Round(Args.DispatcherLag.Lag * 1000)}, {Math.Round(Args.DispatcherLag.QueueLength, 1)}");
+        Debug.WriteLine($"OnLagMeasured: {Math.Round(Args.DispatcherLag.Lag * 1000).ToString(CultureInfo.InvariantCulture)}, {Math.Round(Args.DispatcherLag.QueueLength, 1).ToString(CultureInfo.InvariantCulture)}");
     }
 
     private void OnClosing(object sender, CancelEventArgs e)
