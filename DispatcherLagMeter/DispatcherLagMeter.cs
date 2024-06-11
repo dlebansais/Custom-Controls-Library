@@ -1,6 +1,7 @@
 ﻿namespace CustomControls;
 
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -89,7 +90,6 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         Display.Show();
 
         Loaded += OnLoaded;
-        SizeChanged += OnSizeChanged;
     }
 
     private void OnLoaded(object sender, EventArgs e)
@@ -100,19 +100,22 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         IntPtr mainWindowPtr = new WindowInteropHelper(Owner).Handle;
         HwndSource mainWindowSrc = HwndSource.FromHwnd(mainWindowPtr);
         mainWindowSrc.AddHook(WndProc);
+
+        SizeChanged += OnSizeChanged;
+
+        _ = Dispatcher.BeginInvoke(RecalculatePositionAndSize);
+    }
+
+    private static double FromBool(bool value)
+    {
+        return value ? 1.0 : 0.0;
     }
 
     private void RecalculatePositionAndSize()
     {
-        if (double.IsNaN(ActualWidth))
-            Display.Width = 0;
-        else
-            Display.Width = ActualWidth;
-
-        if (double.IsNaN(ActualHeight))
-            Display.Height = 0;
-        else
-            Display.Height = ActualHeight;
+        double Visibility = FromBool(true) * FromBool(!DesignerProperties.GetIsInDesignMode(this));
+        Display.Width = ActualWidth * Visibility;
+        Display.Height = ActualHeight * Visibility;
 
         Point ControlScreenCoordinates = PointToScreen(new Point(0, 0));
         Window Root = Window.GetWindow(this);
@@ -233,6 +236,8 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         {
             if (disposing)
             {
+                Dispatcher.ShutdownStarted -= OnShutdownStarted;
+
                 SamplingTimer.Dispose();
                 NotificationTimer.Dispose();
                 DisplayTimer.Dispose();

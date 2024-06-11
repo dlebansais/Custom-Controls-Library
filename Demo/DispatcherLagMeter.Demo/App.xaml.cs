@@ -16,6 +16,11 @@ public partial class App : Application
     {
         string[] args = Environment.GetCommandLineArgs();
         if (args.Length > 1)
-            Process.GetCurrentProcess().Kill();
+            if (args[1] == "escape1")
+                DispatcherLagMeter.Demo.MainWindow.TestEscape = 1;
+            else if (args[1] == "escape2")
+                DispatcherLagMeter.Demo.MainWindow.TestEscape = 2;
+            else
+                Process.GetCurrentProcess().Kill();
     }
 }

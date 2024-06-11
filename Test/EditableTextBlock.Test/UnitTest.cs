@@ -92,7 +92,8 @@ public class UnitTest
 
         Thread.Sleep(TimeSpan.FromSeconds(10));
 
-        Assert.That(DemoApplication.IsStopped(DemoApp), Is.True);
+        bool IsStopped = DemoApplication.IsStopped(DemoApp);
+        Assert.That(IsStopped, Is.True);
     }
 
     [Test]

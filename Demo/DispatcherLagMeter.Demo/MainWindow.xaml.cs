@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 using CustomControls;
@@ -22,7 +23,26 @@ public partial class MainWindow : Window
         InitializeComponent();
         DataContext = this;
 
-        QueueLagOperation();
+        if (TestEscape == 2)
+            _ = Dispatcher.BeginInvoke(StartTest2);
+        else
+            Loaded += OnLoaded;
+    }
+
+    private async void OnLoaded(object sender, RoutedEventArgs e)
+    {
+        if (TestEscape == 1)
+        {
+            using (TestDisposeWindow Dlg = new())
+            {
+                _ = Dlg.ShowDialog();
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(18)).ConfigureAwait(true);
+            Close();
+        }
+        else
+            QueueLagOperation();
     }
 
     /// <summary>
@@ -58,6 +78,11 @@ public partial class MainWindow : Window
     }
 
     private double CountField = 1.0;
+
+    /// <summary>
+    /// Gets or sets the test escape.
+    /// </summary>
+    public static int TestEscape { get; set; }
 
     private void QueueLagOperation()
     {
@@ -99,6 +124,39 @@ public partial class MainWindow : Window
             e.Cancel = true;
             IsClosing = true;
         }
+    }
+
+    private async void StartTest2()
+    {
+        ctrl.LagMeasured -= OnLagMeasured;
+
+        ctrl.SamplingInterval = TimeSpan.FromSeconds(10);
+        Debug.Assert(ctrl.SamplingInterval == TimeSpan.FromSeconds(10));
+
+        ctrl.NotificationInterval = TimeSpan.FromSeconds(10);
+        Debug.Assert(ctrl.NotificationInterval == TimeSpan.FromSeconds(10));
+
+        ctrl.DurationSensitivity = 1.0;
+        Debug.Assert(ctrl.DurationSensitivity == 1.0);
+
+        ctrl.DurationFilterCutoff = 1.0;
+        Debug.Assert(ctrl.DurationFilterCutoff == 1.0);
+
+        ctrl.QueueLengthSensitivity = 1.0;
+        Debug.Assert(ctrl.QueueLengthSensitivity == 1.0);
+
+        ctrl.QueueLengthFilterCutoff = 1.0;
+        Debug.Assert(ctrl.QueueLengthFilterCutoff == 1.0);
+
+        ctrl.DisplayInterval = TimeSpan.FromSeconds(10);
+        Debug.Assert(ctrl.DisplayInterval == TimeSpan.FromSeconds(10));
+
+        await Task.Delay(TimeSpan.FromSeconds(0.1)).ConfigureAwait(true);
+        ctrl.DisplayInterval = TimeSpan.FromSeconds(1);
+        await Task.Delay(TimeSpan.FromSeconds(0.1)).ConfigureAwait(true);
+        ctrl.DisplayInterval = TimeSpan.FromSeconds(1);
+        await Task.Delay(TimeSpan.FromSeconds(0.1)).ConfigureAwait(true);
+        ctrl.DisplayInterval = Timeout.InfiniteTimeSpan;
     }
 
     private bool IsClosing;
