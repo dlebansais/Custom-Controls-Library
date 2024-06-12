@@ -5,6 +5,7 @@ using FlaUI.Core.Input;
 using FlaUI.UIA3.Patterns;
 using NUnit.Framework;
 using System;
+using System.Runtime.InteropServices;
 using System.Threading;
 using TestTools;
 
@@ -57,9 +58,9 @@ public class UnitTest
     }
 
     [Test]
-    public void TestMove()
+    public void TestResizeAndMove()
     {
-        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape3");
         Assert.That(DemoApp, Is.Not.Null);
 
         Window MainWindow = DemoApp.MainWindow;
@@ -67,7 +68,7 @@ public class UnitTest
 
         MainWindow.Move(10, 10);
 
-        Thread.Sleep(TimeSpan.FromSeconds(10));
+        Thread.Sleep(TimeSpan.FromSeconds(2));
 
         DemoApplication.Stop(DemoApp);
     }

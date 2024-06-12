@@ -311,7 +311,7 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         {
             _ = DefWindowProc(hwnd, msg, wParam, lParam);
 
-            WINDOWPOS wp = (WINDOWPOS)System.Runtime.InteropServices.Marshal.PtrToStructure(lParam, typeof(WINDOWPOS))!;
+            WINDOWPOS wp = (WINDOWPOS)Marshal.PtrToStructure(lParam, typeof(WINDOWPOS))!;
             const int SWP_NOMOVE = 0x0002;
 
             if ((wp.Flags & SWP_NOMOVE) == 0)

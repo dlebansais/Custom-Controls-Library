@@ -41,8 +41,20 @@ public partial class MainWindow : Window
             await Task.Delay(TimeSpan.FromSeconds(18)).ConfigureAwait(true);
             Close();
         }
+        else if (TestEscape == 3)
+        {
+            _ = Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, Resize3);
+        }
         else
             QueueLagOperation();
+    }
+
+    private async void Resize3()
+    {
+        await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
+        SizeToContent = SizeToContent.Manual;
+        ResizeMode = ResizeMode.CanResize;
+        Width = ActualWidth + 10;
     }
 
     /// <summary>
