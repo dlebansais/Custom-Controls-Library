@@ -43,20 +43,10 @@ internal class ControlTimer : IDisposable
     public void Restart(TimeSpan oldInterval, TimeSpan newInterval)
     {
         TimeSpan FirstSampling;
-        if (newInterval < oldInterval)
-        {
+        if (newInterval == Timeout.InfiniteTimeSpan || newInterval < oldInterval)
             FirstSampling = newInterval;
-        }
-        else if (newInterval == Timeout.InfiniteTimeSpan)
-        {
-            FirstSampling = newInterval;
-        }
-        else if (newInterval > oldInterval)
-        {
-            FirstSampling = newInterval - oldInterval;
-        }
         else
-            return;
+            FirstSampling = newInterval - oldInterval;
 
         Stop();
         Start(FirstSampling, newInterval);

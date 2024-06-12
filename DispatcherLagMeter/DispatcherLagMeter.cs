@@ -293,30 +293,31 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
     [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
     private static extern void GetWindowRect(IntPtr hWnd, ref NativeRect lpRect);
 
+    [StructLayout(LayoutKind.Sequential)]
+    private struct WINDOWPOS
+    {
+        public IntPtr Hwnd;
+        public IntPtr HwndInsertAfter;
+        public int X;
+        public int Y;
+        public int CX;
+        public int CY;
+        public int Flags;
+    }
+
     private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
     {
-        if (msg == (uint)WindowsMessage.WM_ENTERSIZEMOVE)
-        {
-            IsMovingOrResizing = true;
-            _ = DefWindowProc(hwnd, msg, wParam, lParam);
-        }
-        else if (msg == (uint)WindowsMessage.WM_EXITSIZEMOVE)
+        if (msg == (uint)WindowsMessage.WM_WINDOWPOSCHANGED)
         {
             _ = DefWindowProc(hwnd, msg, wParam, lParam);
-            IsMovingOrResizing = false;
-            RecalculatePositionAndSize();
-        }
-        else if (msg == (uint)WindowsMessage.WM_MOVING)
-        {
-            if (IsMovingOrResizing)
-            {
-                Display.Width = 0;
-                Display.Height = 0;
-            }
+
+            WINDOWPOS wp = (WINDOWPOS)System.Runtime.InteropServices.Marshal.PtrToStructure(lParam, typeof(WINDOWPOS))!;
+            const int SWP_NOMOVE = 0x0002;
+
+            if ((wp.Flags & SWP_NOMOVE) == 0)
+                RecalculatePositionAndSize();
         }
 
         return IntPtr.Zero;
     }
-
-    private bool IsMovingOrResizing;
 }

@@ -2,6 +2,7 @@
 
 using FlaUI.Core.AutomationElements;
 using FlaUI.Core.Input;
+using FlaUI.UIA3.Patterns;
 using NUnit.Framework;
 using System;
 using System.Threading;
@@ -51,6 +52,22 @@ public class UnitTest
         Assert.That(MainWindow, Is.Not.Null);
 
         Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        DemoApplication.Stop(DemoApp);
+    }
+
+    [Test]
+    public void TestMove()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName);
+        Assert.That(DemoApp, Is.Not.Null);
+
+        Window MainWindow = DemoApp.MainWindow;
+        Assert.That(MainWindow, Is.Not.Null);
+
+        MainWindow.Move(10, 10);
+
+        Thread.Sleep(TimeSpan.FromSeconds(10));
 
         DemoApplication.Stop(DemoApp);
     }
