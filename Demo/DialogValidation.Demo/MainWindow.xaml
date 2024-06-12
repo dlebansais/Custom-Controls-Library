@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
         WindowStartupLocation="CenterScreen"
-        Title="Test-DialogValidation"
+        Title="Demo - Dialog Validation"
         SizeToContent="WidthAndHeight">
     <Window.CommandBindings>
         <CommandBinding Command="{x:Static ctrl:DialogValidation.DefaultCommandOk}" Executed="OnOk" CanExecute="OnCanExecuteOk"/>

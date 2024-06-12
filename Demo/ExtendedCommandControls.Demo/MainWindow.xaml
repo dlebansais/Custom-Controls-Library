@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
         xmlns:conv="clr-namespace:Converters"
-        Title="Test-ExtendedCommandControls"
+        Title="Demo - Extended Command Controls"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
     <Window.Resources>

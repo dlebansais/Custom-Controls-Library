@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
         xmlns:local="clr-namespace:EnumRadioButton.Demo"
-        Title="Test-EnumRadioButton"
+        Title="Demo - Enum RadioButton"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight" MinWidth="200" MinHeight="100">
     <Window.Resources>

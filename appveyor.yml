@@ -61,11 +61,12 @@ before_test:
   - ps: $env:COVERAGE_RESULT_FILE="Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - |-
     printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > run_tests.bat
+    printf "dotnet test ./Test/DispatcherLagMeter.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DispatcherLagMeter.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
     printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
     printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
     printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
     printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
-    printf "dotnet test ./Test/DispatcherLagMeter.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DispatcherLagMeter.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
+    printf "dotnet test ./Test/ExtendedPasswordBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedPasswordBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run_tests.bat
   - |-
     printf "@echo ************************************************************** Starting Tests..\n" > run_tests1.bat
     printf "call run_tests.bat\n" >> run_tests1.bat

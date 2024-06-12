@@ -1,0 +1,14 @@
+﻿<Window x:Class="ExtendedPasswordBox.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ctrl="CustomControlsLibrary"
+        xmlns:local="clr-namespace:ExtendedPasswordBox.Demo"
+        Title="Demo - Extended Password Box"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="WidthAndHeight">
+    <Window.Resources>
+    </Window.Resources>
+    <DockPanel Margin="10">
+        <ctrl:ExtendedPasswordBox DockPanel.Dock="Bottom" x:Name="ctrl" AutomationProperties.AutomationId="extendedPasswordBox1" />
+    </DockPanel>
+</Window>
