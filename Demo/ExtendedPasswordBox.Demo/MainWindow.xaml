@@ -8,7 +8,12 @@
         SizeToContent="WidthAndHeight">
     <Window.Resources>
     </Window.Resources>
-    <DockPanel Margin="10">
-        <ctrl:ExtendedPasswordBox DockPanel.Dock="Bottom" x:Name="ctrl" AutomationProperties.AutomationId="extendedPasswordBox1" />
-    </DockPanel>
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ctrl:ExtendedPasswordBox Grid.Row="0" x:Name="ctrl" ShowPassword="{Binding ElementName=isVisible, Path=IsChecked}" AutomationProperties.AutomationId="extendedPasswordBox1" />
+        <CheckBox Grid.Row="1" x:Name="isVisible" Margin="0,10,0,0">Visible</CheckBox>
+    </Grid>
 </Window>
