@@ -20,6 +20,8 @@ public partial class App : Application
                 ExtendedPasswordBox.Demo.MainWindow.TestEscape = 1;
             else if (args[1] == "escape2")
                 ExtendedPasswordBox.Demo.MainWindow.TestEscape = 2;
+            else if (args[1] == "escape3")
+                ExtendedPasswordBox.Demo.MainWindow.TestEscape = 3;
             else
                 Process.GetCurrentProcess().Kill();
     }

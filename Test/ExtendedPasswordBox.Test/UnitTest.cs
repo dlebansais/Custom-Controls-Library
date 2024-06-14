@@ -84,4 +84,23 @@ public class UnitTest
 
         DemoApplication.Stop(DemoApp);
     }
+
+    [Test]
+    public void TestEscape3()
+    {
+        DemoApp? DemoApp = DemoApplication.Launch(DemoAppName, "escape3");
+        Assert.That(DemoApp, Is.Not.Null);
+
+        Window MainWindow = DemoApp.MainWindow;
+        Assert.That(MainWindow, Is.Not.Null);
+
+        TextBox TextBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Edit)).AsTextBox();
+        Assert.That(TextBox, Is.Not.Null);
+
+        TextBox.Text = "test";
+
+        Thread.Sleep(TimeSpan.FromSeconds(2));
+
+        DemoApplication.Stop(DemoApp);
+    }
 }

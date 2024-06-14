@@ -23,6 +23,8 @@ public partial class MainWindow : Window
             _ = Dispatcher.BeginInvoke(Cycle1);
         else if (TestEscape == 2)
             _ = Dispatcher.BeginInvoke(Cycle2);
+        else if (TestEscape == 3)
+            _ = Dispatcher.BeginInvoke(Cycle3);
     }
 
     private async void Cycle1()
@@ -54,6 +56,20 @@ public partial class MainWindow : Window
         ctrl.Text = string.Empty;
         Debug.Assert(ctrl.Text == string.Empty);
         Debug.Assert(ctrl.IsPasswordEmpty);
+
+        ctrl.Focus();
+
+        ctrl.ShowPassword = true;
+        Debug.Assert(ctrl.ShowPassword);
+
+        ctrl.Focus();
+
+        ctrl.ShowPassword = false;
+        Debug.Assert(!ctrl.ShowPassword);
+
+        ctrl.Text = "test";
+        Debug.Assert(ctrl.Text == "test");
+        Debug.Assert(!ctrl.IsPasswordEmpty);
     }
 
     private async void Cycle2()
@@ -66,7 +82,24 @@ public partial class MainWindow : Window
         ExtendedPassword Password = ctrl.Password;
         Debug.Assert(Password.IsSecure);
         Debug.Assert(Password.SecurePassword.Length == 0);
+
+        ctrl.MarkAsInsecure();
+
+        Password = ctrl.Password;
+        Debug.Assert(!Password.IsSecure);
+
+        ctrl.MarkAsInsecure();
     }
+
+    private void Cycle3()
+    {
+        _ = ctrl.SetBinding(ExtendedPasswordBox.TextProperty, nameof(TestProperty));
+    }
+
+    /// <summary>
+    /// Gets or sets a simple test property.
+    /// </summary>
+    public string TestProperty { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the test escape.
