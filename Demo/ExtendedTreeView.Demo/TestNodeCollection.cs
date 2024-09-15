@@ -23,7 +23,7 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
     /// </summary>
     public IExtendedTreeNode Parent { get; private set; }
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IExtendedTreeNodeCollection.Sort"/>
     public void Sort()
     {
     }
@@ -71,7 +71,7 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
         return Remove((TestNode)item);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ICollection{T}.IsReadOnly"/>
     public bool IsReadOnly
     {
         get { return false; }

@@ -257,7 +257,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
                 childrenCount = randomNumberGenerator.Next(averageChildrenCount) + 1;
             }
 
-            IExtendedTreeNode NewItem = CreateNode(isCloneable, parentTreeNode !, generated);
+            IExtendedTreeNode NewItem = CreateNode(isCloneable, parentTreeNode!, generated);
             parentTreeNode?.Children.Add(NewItem);
 
             if (childIndex == 0)
