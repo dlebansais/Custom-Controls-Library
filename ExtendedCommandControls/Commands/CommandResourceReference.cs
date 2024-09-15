@@ -8,6 +8,7 @@ using System.Resources;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Contracts;
 
 /// <summary>
 /// Represents an object that can extract string and icon resources from an assembly specified by name.
@@ -76,7 +77,7 @@ public class CommandResourceReference
     public string GetString(string name)
     {
         Initialize();
-        return InitResourceManager.GetString(name, CultureInfo.CurrentCulture)!;
+        return Contract.AssertNotNull(InitResourceManager.GetString(name, CultureInfo.CurrentCulture));
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public class CommandResourceReference
     {
         Initialize();
 
-        string AssemblyName = InitResourceAssembly.GetName().Name !;
+        string AssemblyName = Contract.AssertNotNull(InitResourceAssembly.GetName().Name);
         string UriPath = $"pack://application:,,,/{AssemblyName};component/{IconPath}{name}";
         UriPath = UriPath.ToLower(CultureInfo.CurrentCulture);
 

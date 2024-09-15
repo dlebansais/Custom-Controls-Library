@@ -258,7 +258,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
             return DragDropEffects.None;
     }
 
-    private IDragSourceControl DragSource = null!;
+    private IDragSourceControl? DragSource;
     private static ExtendedTreeViewItemBase? DropTargetContainer;
     private static int DropTargetContainerIndex;
 }

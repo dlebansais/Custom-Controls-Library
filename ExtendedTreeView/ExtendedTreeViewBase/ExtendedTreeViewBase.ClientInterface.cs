@@ -2,6 +2,7 @@
 
 using System.Collections;
 using System.Windows.Controls.Primitives;
+using Contracts;
 
 /// <summary>
 /// Represents a control with a tree of nodes that can be moved around with Drag and Drop.
@@ -108,6 +109,6 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <returns>True if allowed; Otherwise, false.</returns>
     public virtual bool IsCopyPossible
     {
-        get { return DragSource.IsDragPossible(out _, out _); }
+        get { return Contract.AssertNotNull(DragSource).IsDragPossible(out _, out _); }
     }
 }

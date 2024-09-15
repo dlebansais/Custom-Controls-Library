@@ -21,7 +21,7 @@ public class CanonicSelection
     /// <summary>
     /// Gets the parent item when dragging.
     /// </summary>
-    public object DraggedItemParent { get; private set; } = null!;
+    public object? DraggedItemParent { get; private set; }
 
     /// <summary>
     /// Gets the list of selected items.

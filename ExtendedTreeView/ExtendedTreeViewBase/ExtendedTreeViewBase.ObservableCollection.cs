@@ -257,7 +257,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 int ItemIndex = Siblings.IndexOf(item);
                 if (ItemIndex + 1 < Siblings.Count)
                 {
-                    object NextItem = Siblings[ItemIndex + 1]!;
+                    object NextItem = Contract.AssertNotNull(Siblings[ItemIndex + 1]);
                     int EndIndex = VisibleChildren.IndexOf(NextItem);
                     RemoveCount = EndIndex - StartIndex;
                 }

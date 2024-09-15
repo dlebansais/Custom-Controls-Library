@@ -76,7 +76,7 @@ public class DragSourceControl : IDragSourceControl
             throw new ArgumentNullException(nameof(canonicSelectedItemList));
 #endif
 
-        DraggedItemParent = canonicSelectedItemList.DraggedItemParent;
+        DraggedItemParent = Contract.AssertNotNull(canonicSelectedItemList.DraggedItemParent);
         ItemList = canonicSelectedItemList.ItemList;
         AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
     }
@@ -86,7 +86,7 @@ public class DragSourceControl : IDragSourceControl
     /// </summary>
     public virtual void ClearIsDragPossible()
     {
-        DraggedItemParent = null!;
+        DraggedItemParent = null;
         AllowDropCopy = false;
     }
 
@@ -98,10 +98,14 @@ public class DragSourceControl : IDragSourceControl
     /// <returns>True if drag is possible; otherwise, false.</returns>
     public virtual bool IsDragPossible(out object draggedItemParent, out IList itemList)
     {
-        if (DraggedItemParent is not null)
+        bool IsDragPossible = true;
+        IsDragPossible &= DraggedItemParent is not null;
+        IsDragPossible &= ItemList is not null;
+
+        if (IsDragPossible)
         {
-            draggedItemParent = DraggedItemParent;
-            itemList = ItemList;
+            draggedItemParent = Contract.AssertNotNull(DraggedItemParent);
+            itemList = Contract.AssertNotNull(ItemList);
             return true;
         }
 
@@ -153,8 +157,8 @@ public class DragSourceControl : IDragSourceControl
     /// </summary>
     public virtual void ClearFlatDraggedItemList()
     {
-        RootItem = null!;
-        FlatItemList = null!;
+        RootItem = null;
+        FlatItemList = null;
     }
 
     /// <summary>
@@ -197,8 +201,8 @@ public class DragSourceControl : IDragSourceControl
     }
 
     private DispatcherOperation? InitiateDragOperation;
-    private object DraggedItemParent = null!;
-    private object RootItem = null!;
-    private IList ItemList = null!;
-    private IList FlatItemList = null!;
+    private object? DraggedItemParent;
+    private object? RootItem;
+    private IList? ItemList;
+    private IList? FlatItemList;
 }

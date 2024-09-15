@@ -35,7 +35,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         if (args.Effects != DragDropEffects.None)
         {
             ExtendedTreeViewItemBase? ItemContainer = GetEventSourceItem(args);
-            IDragSourceControl AsDragSource = (IDragSourceControl)args.Data.GetData(DragSource.GetType());
+            IDragSourceControl AsDragSource = (IDragSourceControl)args.Data.GetData(Contract.AssertNotNull(DragSource).GetType());
             bool IsDragPossible = AsDragSource.IsDragPossible(out object SourceItem, out IList ItemList);
             object? DestinationItem = ItemContainer?.Content;
 
@@ -167,7 +167,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         {
             object DropDestinationItem = DropTargetContainer.Content;
 
-            if (asDragSource.SourceGuid == DragSource.SourceGuid)
+            if (asDragSource.SourceGuid == Contract.AssertNotNull(DragSource).SourceGuid)
             {
                 if (!asDragSource.IsDraggedItemParent(DropDestinationItem) || (args.AllowedEffects.HasFlag(DragDropEffects.Copy) && args.KeyStates.HasFlag(DragDropKeyStates.ControlKey)))
                 {

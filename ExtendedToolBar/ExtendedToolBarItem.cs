@@ -3,22 +3,11 @@
 /// <summary>
 /// A proxy to hold a reference to a <see cref="ExtendedToolBarButton"/> object.
 /// </summary>
-public class ExtendedToolBarItem
+/// <param name="Button">Gets the stored <see cref="ExtendedToolBarButton"/> object.</param>
+public record ExtendedToolBarItem(ExtendedToolBarButton Button)
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ExtendedToolBarItem"/> class.
-    /// </summary>
-    /// <param name="button">The <see cref="ExtendedToolBarButton"/> object to store.</param>
-    public ExtendedToolBarItem(ExtendedToolBarButton button)
-    {
-        Button = button;
-    }
-
     /// <summary>
     /// Gets the stored <see cref="ExtendedToolBarButton"/> object.
     /// </summary>
-    /// <returns>
-    /// The stored <see cref="ExtendedToolBarButton"/> object.
-    /// </returns>
-    public ExtendedToolBarButton Button { get; private set; }
+    public ExtendedToolBarButton Button { get; private set; } = Button;
 }

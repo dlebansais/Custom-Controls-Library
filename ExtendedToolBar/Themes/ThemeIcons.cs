@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using Contracts;
 
 /// <summary>
 /// Gets image sources and icons from resources in an assembly.
@@ -40,7 +41,7 @@ public static class ThemeIcons
             throw new ArgumentNullException(nameof(resourceAssembly));
 #endif
 
-        string AssemblyName = resourceAssembly.GetName().Name !;
+        string AssemblyName = Contract.AssertNotNull(resourceAssembly.GetName().Name);
         string UriPath = "pack://application:,,,/" + AssemblyName + ";component" + iconPath + "/" + key + ".png";
 
         try

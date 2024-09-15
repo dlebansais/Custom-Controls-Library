@@ -7,20 +7,18 @@ using System.Runtime.InteropServices;
 /// <summary>
 /// Represents a list of string resources loaded from a files.
 /// </summary>
-internal class StringResource
+/// <param name="FilePath">Path to the file to read.</param>
+/// <param name="ResourceID">Identifier of the resources.</param>
+internal record StringResource(string FilePath, uint ResourceID)
 {
-    #region Init
+    #region Properties
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringResource"/> class.
+    /// Gets the loaded string resources.
     /// </summary>
-    /// <param name="filePath">Path to the file to read.</param>
-    /// <param name="resourceID">Identifier of the resources.</param>
-    public StringResource(string filePath, uint resourceID)
-    {
-        FilePath = filePath;
-        ResourceID = resourceID;
-    }
+    public IList<string> AsStrings { get; } = new List<string>();
+    #endregion
 
+    #region Client Interface
     /// <summary>
     /// Loads the string resources.
     /// </summary>
@@ -33,23 +31,6 @@ internal class StringResource
             FreeHandles(hMod);
         }
     }
-    #endregion
-
-    #region Properties
-    /// <summary>
-    /// Gets the path to the file resources are loaded from.
-    /// </summary>
-    public string FilePath { get; }
-
-    /// <summary>
-    /// Gets the identifier used to find and load resources in the file.
-    /// </summary>
-    public uint ResourceID { get; }
-
-    /// <summary>
-    /// Gets the loaded string resources.
-    /// </summary>
-    public IList<string> AsStrings { get; } = new List<string>();
     #endregion
 
     #region Implementation

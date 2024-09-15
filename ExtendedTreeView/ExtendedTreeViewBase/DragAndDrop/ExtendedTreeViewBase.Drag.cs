@@ -34,7 +34,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 {
                     DebugMessage("Drag Started");
 
-                    DragSource.DragAfterMouseMove(e);
+                    Contract.AssertNotNull(DragSource).DragAfterMouseMove(e);
                 }
             }
     }
@@ -44,13 +44,15 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     protected virtual void UpdateIsDragDropPossible()
     {
+        IDragSourceControl CurrentDragSource = Contract.AssertNotNull(DragSource);
+
         CanonicSelection CanonicSelectedItemList = new(CreateItemList());
         if (GetCanonicSelectedItemList(CanonicSelectedItemList))
-            DragSource.SetIsDragPossible(CanonicSelectedItemList);
+            CurrentDragSource.SetIsDragPossible(CanonicSelectedItemList);
         else
         {
-            DragSource.ClearIsDragPossible();
-            DragSource.ClearFlatDraggedItemList();
+            CurrentDragSource.ClearIsDragPossible();
+            CurrentDragSource.ClearFlatDraggedItemList();
         }
     }
 
@@ -64,6 +66,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     private void OnDragActivityChangedVerified(IDragSourceControl ctrl, EventArgs e)
     {
         bool IsHandled = false;
+        IDragSourceControl CurrentDragSource;
 
         switch (ctrl.DragActivity)
         {
@@ -72,10 +75,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 break;
 
             case DragActivity.Starting:
-                bool IsDragPossible = DragSource.IsDragPossible(out _, out IList ItemList);
+                CurrentDragSource = Contract.AssertNotNull(DragSource);
+                bool IsDragPossible = CurrentDragSource.IsDragPossible(out _, out IList ItemList);
                 Debug.Assert(IsDragPossible);
 
-                SetDragItemList(DragSource, ItemList);
+                SetDragItemList(CurrentDragSource, ItemList);
 
                 CancellationToken cancellation = new();
                 NotifyDragStarting(cancellation);
@@ -86,9 +90,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                 break;
 
             case DragActivity.Started:
-                DataObject Data = new(DragSource.GetType(), DragSource);
+                CurrentDragSource = Contract.AssertNotNull(DragSource);
+                DataObject Data = new(CurrentDragSource.GetType(), DragSource);
                 DragDropEffects AllowedEffects = DragDropEffects.Move;
-                if (DragSource.AllowDropCopy)
+                if (CurrentDragSource.AllowDropCopy)
                     AllowedEffects |= DragDropEffects.Copy;
                 _ = DragDrop.DoDragDrop(this, Data, AllowedEffects);
                 ClearCurrentDropTarget();
@@ -116,7 +121,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
             throw new ArgumentNullException(nameof(e));
 #endif
 
-        Cursor FeedbackCursor;
+        Cursor? FeedbackCursor;
 
         if (UseDefaultCursors)
             FeedbackCursor = Cursors.None;
@@ -189,9 +194,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     [RequireNotNull(nameof(args))]
     private bool GetValidDragSourceFromArgsVerified(DragEventArgs args, out IDragSourceControl dragSource)
     {
-        if (args.Data.GetDataPresent(DragSource.GetType()))
+        IDragSourceControl CurrentDragSource = Contract.AssertNotNull(DragSource);
+
+        if (args.Data.GetDataPresent(CurrentDragSource.GetType()))
         {
-            if (args.Data.GetData(DragSource.GetType()) is IDragSourceControl AsDragSource)
+            if (args.Data.GetData(CurrentDragSource.GetType()) is IDragSourceControl AsDragSource)
             {
                 if (AsDragSource.HasDragItemList(out object RootItem, out IList _) && IsSameTypeAsContent(RootItem))
                 {

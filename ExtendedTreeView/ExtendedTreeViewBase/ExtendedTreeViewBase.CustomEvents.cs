@@ -82,7 +82,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="cancellation">The cancellation token.</param>
     protected virtual void NotifyDragStarting(CancellationToken cancellation)
     {
-        DragStartingEventArgs Args = new(DragStartingEvent, DragSource, cancellation);
+        DragStartingEventArgs Args = new(DragStartingEvent, Contract.AssertNotNull(DragSource), cancellation);
         RaiseEvent(Args);
     }
     #endregion
@@ -109,7 +109,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="permission">The drop permission token.</param>
     protected virtual void NotifyDropCheck(object dropDestinationItem, PermissionToken permission)
     {
-        DropCheckEventArgs Args = new(DropCheckEvent, DragSource, dropDestinationItem, permission);
+        DropCheckEventArgs Args = new(DropCheckEvent, Contract.AssertNotNull(DragSource), dropDestinationItem, permission);
         RaiseEvent(Args);
     }
     #endregion
@@ -141,7 +141,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     [Require("CloneList.Count == 0")]
     private void NotifyPreviewDropCompletedVerified(object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
     {
-        DropCompletedEventArgs Args = new(PreviewDropCompletedEvent, DragSource, dropDestinationItem, effect, itemList, cloneList);
+        DropCompletedEventArgs Args = new(PreviewDropCompletedEvent, Contract.AssertNotNull(DragSource), dropDestinationItem, effect, itemList, cloneList);
         RaiseEvent(Args);
     }
     #endregion
@@ -170,7 +170,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="cloneList">The list of cloned items.</param>
     protected virtual void NotifyDropCompleted(object dropDestinationItem, DragDropEffects effect, IList itemList, IList cloneList)
     {
-        DropCompletedEventArgs Args = new(DropCompletedEvent, DragSource, dropDestinationItem, effect, itemList, cloneList);
+        DropCompletedEventArgs Args = new(DropCompletedEvent, Contract.AssertNotNull(DragSource), dropDestinationItem, effect, itemList, cloneList);
         RaiseEvent(Args);
     }
     #endregion

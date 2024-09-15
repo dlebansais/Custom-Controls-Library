@@ -97,7 +97,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Identifies the <see cref="IsDropOver"/> attached property.
     /// </summary>
-    public static readonly DependencyProperty IsDropOverProperty = IsDropOverPropertyKey?.DependencyProperty!;
+    public static readonly DependencyProperty IsDropOverProperty = Contract.AssertNotNull(IsDropOverPropertyKey).DependencyProperty;
     private static readonly DependencyPropertyKey IsDropOverPropertyKey = DependencyProperty.RegisterReadOnly(nameof(IsDropOver), typeof(bool), typeof(ExtendedTreeViewItemBase), new PropertyMetadata(false));
 
     /// <summary>

@@ -37,7 +37,7 @@ internal partial class EnumToNameConverter : IValueConverter
         Type ResourceSource = Contract.AssertNotNull(ResourceAssembly.GetType(parameter));
 
         ResourceManager Manager = new(ResourceSource);
-        string ResourceName = value.ToString()!;
+        string ResourceName = Contract.AssertNotNull(value.ToString());
 
         // This converter converts the enum to its name in a resx file. The name must exist.
         string? Resource = Manager.GetString(ResourceName, culture);

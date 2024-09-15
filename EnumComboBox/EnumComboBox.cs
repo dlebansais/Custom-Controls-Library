@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using Contracts;
 
 /// <summary>
 /// Represents a combo box with specific support for enum types.
@@ -155,7 +156,7 @@ public partial class EnumComboBox : ComboBox
 
                     for (int i = 0; i < Values.Length; i++)
                     {
-                        object EnumValue = Values.GetValue(i)!;
+                        object EnumValue = Contract.AssertNotNull(Values.GetValue(i));
                         if (EnumValue.Equals(CurrentValue))
                             Result = i;
                     }

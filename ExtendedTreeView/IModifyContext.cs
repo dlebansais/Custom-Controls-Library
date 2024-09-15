@@ -34,21 +34,13 @@ public interface IModifyContext
 /// <summary>
 /// Represents a modify item context.
 /// </summary>
-public abstract class ModifyContext : IModifyContext
+/// <param name="shownIndex">Index of the item.</param>
+public abstract class ModifyContext(int shownIndex) : IModifyContext
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ModifyContext"/> class.
-    /// </summary>
-    /// <param name="shownIndex">Index of the item.</param>
-    protected ModifyContext(int shownIndex)
-    {
-        ShownIndex = shownIndex;
-    }
-
     /// <summary>
     /// Gets or sets the index of the item.
     /// </summary>
-    public int ShownIndex { get; protected set; }
+    public int ShownIndex { get; protected set; } = shownIndex;
 
     /// <summary>
     /// Starts the operation.

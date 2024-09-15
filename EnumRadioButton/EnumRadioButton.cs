@@ -4,6 +4,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using Contracts;
 using Converters;
 
 /// <summary>
@@ -84,7 +85,7 @@ public partial class EnumRadioButton : RadioButton
 
                 for (int i = 0; i < EnumNames.Length && i < EnumValues.Length; i++)
                     if (EnumNames[i] == AsString)
-                        value = EnumValues.GetValue(i)!;
+                        value = Contract.AssertNotNull(EnumValues.GetValue(i));
             }
         }
 

@@ -155,7 +155,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
 #endif
 
         TItem Item = (TItem)item;
-        return ((IList)Item.Children)[index]!;
+        return Contract.AssertNotNull(((IList)Item.Children)[index]);
     }
 
     /// <summary>
