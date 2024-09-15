@@ -29,6 +29,7 @@ matrix:
 before_build:
   - nuget restore %APPVEYOR_PROJECT_NAME%.sln
   - nuget install GitCommitId -DependencyVersion Highest -OutputDirectory packages
+  - dotnet restore
 
 configuration:
   - Release
