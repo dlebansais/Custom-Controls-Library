@@ -22,18 +22,12 @@ internal class ControlTimer : IDisposable
     /// </summary>
     /// <param name="dueTime">The due time.</param>
     /// <param name="period">The period.</param>
-    public void Start(TimeSpan dueTime, TimeSpan period)
-    {
-        _ = Timer.Change(dueTime, period);
-    }
+    public void Start(TimeSpan dueTime, TimeSpan period) => _ = Timer.Change(dueTime, period);
 
     /// <summary>
     /// Stops the timer.
     /// </summary>
-    public void Stop()
-    {
-        _ = Timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-    }
+    public void Stop() => _ = Timer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
     /// <summary>
     /// Restarts the timer.

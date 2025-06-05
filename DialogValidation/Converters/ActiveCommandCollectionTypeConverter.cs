@@ -62,7 +62,9 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
             return Result;
         }
         else
+        {
             return base.ConvertFrom(context, culture, value);
+        }
     }
 
     /// <summary>
@@ -106,7 +108,9 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
             return Result;
         }
         else
+        {
             return base.ConvertTo(context, culture, value, destinationType);
+        }
     }
 #endif
 }

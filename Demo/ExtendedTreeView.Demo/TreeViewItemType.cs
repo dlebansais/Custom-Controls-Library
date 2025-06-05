@@ -3,7 +3,7 @@
 /// <summary>
 /// Types of tree view items.
 /// </summary>
-public enum TreeViewItemType
+internal enum TreeViewItemType
 {
     /// <summary>
     /// The fixed height type.

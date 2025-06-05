@@ -1,4 +1,6 @@
-﻿namespace TestTools;
+﻿#pragma warning disable CA1515 // Consider making public types internal
+
+namespace TestTools;
 
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;

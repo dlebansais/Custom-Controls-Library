@@ -40,8 +40,5 @@ internal class IdentityStringConverter : IValueConverter
     /// <returns>
     /// The value of <paramref name="value"/>.
     /// </returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value;
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

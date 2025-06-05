@@ -81,9 +81,13 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     private void LeftClickSelectExtended(object item)
     {
         if (IsShiftDown())
+        {
             LeftClickSelectExtendedShiftDown(item);
+        }
         else if (IsCtrlDown())
+        {
             LeftClickSelectExtendedCtrlDown(item);
+        }
         else if (!SelectedItems.Contains(item))
         {
             UnselectAll();
@@ -241,10 +245,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// Adds an item to the list of selected items.
     /// </summary>
     /// <param name="item">The item.</param>
-    protected virtual void AddSelectedItem(object item)
-    {
-        _ = SelectedItems.Add(item);
-    }
+    protected virtual void AddSelectedItem(object item) => _ = SelectedItems.Add(item);
 
     /// <summary>
     /// Removes an item from the list of selected items.
@@ -261,72 +262,48 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Gets a value indicating whether there is a last selected item.
     /// </summary>
-    protected virtual bool IsLastSelectedItemSet
-    {
-        get { return LastSelectedItem is not null; }
-    }
+    protected virtual bool IsLastSelectedItemSet => LastSelectedItem is not null;
 
     /// <summary>
     /// Sets the last selected item.
     /// </summary>
     /// <param name="item">The item.</param>
-    protected virtual void SetLastSelectedItem(object item)
-    {
-        LastSelectedItem = item;
-    }
+    protected virtual void SetLastSelectedItem(object item) => LastSelectedItem = item;
 
     /// <summary>
     /// Checks whether an item is the last selected.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if the last selected.</returns>
-    protected virtual bool IsLastSelectedItem(object item)
-    {
-        return LastSelectedItem == item;
-    }
+    protected virtual bool IsLastSelectedItem(object item) => LastSelectedItem == item;
 
     /// <summary>
     /// Clears the last selected item.
     /// </summary>
-    protected virtual void ClearLastSelectedItem()
-    {
-        LastSelectedItem = null;
-    }
+    protected virtual void ClearLastSelectedItem() => LastSelectedItem = null;
 
     /// <summary>
     /// Gets a value indicating whether there is a last clicked item.
     /// </summary>
-    protected virtual bool IsLastClickedItemSet
-    {
-        get { return LastClickedItem is not null; }
-    }
+    protected virtual bool IsLastClickedItemSet => LastClickedItem is not null;
 
     /// <summary>
     /// Sets the last clicked item.
     /// </summary>
     /// <param name="item">The item.</param>
-    protected virtual void SetLastClickedItem(object item)
-    {
-        LastClickedItem = item;
-    }
+    protected virtual void SetLastClickedItem(object item) => LastClickedItem = item;
 
     /// <summary>
     /// Checks whether an item is the last clicked.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if the last clicked.</returns>
-    protected virtual bool IsLastClickedItem(object item)
-    {
-        return LastClickedItem == item;
-    }
+    protected virtual bool IsLastClickedItem(object item) => LastClickedItem == item;
 
     /// <summary>
     /// Clears the last clicked item.
     /// </summary>
-    protected virtual void ClearLastClickedItem()
-    {
-        LastClickedItem = null;
-    }
+    protected virtual void ClearLastClickedItem() => LastClickedItem = null;
 
     /// <summary>
     /// Gets the last selected item.

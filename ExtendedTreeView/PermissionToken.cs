@@ -17,9 +17,6 @@ public class PermissionToken
     /// <summary>
     /// Allows a handler to deny the operation notified by the event associated to this object.
     /// </summary>
-    public virtual void Deny()
-    {
-        IsAllowed = false;
-    }
+    public virtual void Deny() => IsAllowed = false;
     #endregion
 }

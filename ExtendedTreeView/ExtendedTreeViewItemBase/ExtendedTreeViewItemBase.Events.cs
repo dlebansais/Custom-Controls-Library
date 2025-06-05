@@ -16,19 +16,13 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// Invoked when an unhandled <see cref="Mouse.MouseEnterEvent"/> attached event is raised on this element.
     /// </summary>
     /// <param name="e">The event data.</param>
-    protected override void OnMouseEnter(MouseEventArgs e)
-    {
-        DebugCall();
-    }
+    protected override void OnMouseEnter(MouseEventArgs e) => DebugCall();
 
     /// <summary>
     /// Invoked when an unhandled <see cref="Mouse.MouseLeaveEvent"/> attached event is raised on this element.
     /// </summary>
     /// <param name="e">The event data.</param>
-    protected override void OnMouseLeave(MouseEventArgs e)
-    {
-        DebugCall();
-    }
+    protected override void OnMouseLeave(MouseEventArgs e) => DebugCall();
 
     /// <summary>
     /// Invoked when an unhandled <see cref="UIElement.PreviewMouseLeftButtonDown"/> attached event is raised on this element.

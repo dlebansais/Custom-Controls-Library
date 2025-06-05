@@ -58,10 +58,7 @@ public class DragSourceControl : IDragSourceControl
     /// <summary>
     /// Invokes handlers of the <see cref="DragActivityChanged"/> event.
     /// </summary>
-    protected void NotifyDragActivityChanged()
-    {
-        DragActivityChanged?.Invoke(this, EventArgs.Empty);
-    }
+    protected void NotifyDragActivityChanged() => DragActivityChanged?.Invoke(this, EventArgs.Empty);
 
     /// <summary>
     /// Changes the drag activity.
@@ -119,27 +116,18 @@ public class DragSourceControl : IDragSourceControl
     /// </summary>
     /// <param name="item">The item to check.</param>
     /// <returns>True if the parent of the dragged item; otherwise, false.</returns>
-    public virtual bool IsDraggedItemParent(object item)
-    {
-        return DraggedItemParent == item;
-    }
+    public virtual bool IsDraggedItemParent(object item) => DraggedItemParent == item;
 
     /// <summary>
     /// Called when a drag should begin after the mouse moved.
     /// </summary>
     /// <param name="sourceLocation">The source location.</param>
-    public virtual void DragAfterMouseMove(MouseEventArgs sourceLocation)
-    {
-        InitiateDrag();
-    }
+    public virtual void DragAfterMouseMove(MouseEventArgs sourceLocation) => InitiateDrag();
 
     /// <summary>
     /// Cancels the drag operation.
     /// </summary>
-    public virtual void CancelDrag()
-    {
-        DragActivity = DragActivity.Canceled;
-    }
+    public virtual void CancelDrag() => DragActivity = DragActivity.Canceled;
 
     /// <summary>
     /// Sets the flat list of dragged items.

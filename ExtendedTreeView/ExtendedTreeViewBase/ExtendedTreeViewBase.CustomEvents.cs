@@ -31,9 +31,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="treeViewCollectionOperation">The modifying operation.</param>
     protected virtual void NotifyPreviewCollectionModified(TreeViewCollectionOperation treeViewCollectionOperation)
-    {
-        RaiseEvent(new TreeViewCollectionModifiedEventArgs(PreviewCollectionModifiedEvent, treeViewCollectionOperation, Items.Count));
-    }
+        => RaiseEvent(new TreeViewCollectionModifiedEventArgs(PreviewCollectionModifiedEvent, treeViewCollectionOperation, Items.Count));
     #endregion
 
     #region Collection Modified
@@ -56,9 +54,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="treeViewCollectionOperation">The modifying operation.</param>
     protected virtual void NotifyCollectionModified(TreeViewCollectionOperation treeViewCollectionOperation)
-    {
-        RaiseEvent(new TreeViewCollectionModifiedEventArgs(CollectionModifiedEvent, treeViewCollectionOperation, Items.Count));
-    }
+        => RaiseEvent(new TreeViewCollectionModifiedEventArgs(CollectionModifiedEvent, treeViewCollectionOperation, Items.Count));
     #endregion
 
     #region Drag Starting

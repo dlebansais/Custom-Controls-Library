@@ -30,8 +30,8 @@ public partial class ExtendedScrollBar : ScrollBar
     [Bindable(true)]
     public ScrollViewer BoundScrollViewer
     {
-        get { return (ScrollViewer)GetValue(BoundScrollViewerProperty); }
-        set { SetValue(BoundScrollViewerProperty, value); }
+        get => (ScrollViewer)GetValue(BoundScrollViewerProperty);
+        set => SetValue(BoundScrollViewerProperty, value);
     }
 
     private static void OnBoundScrollViewerPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)

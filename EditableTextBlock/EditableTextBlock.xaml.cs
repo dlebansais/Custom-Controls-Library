@@ -51,10 +51,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <summary>
     /// Proceeds to the initialization of properties related to editing.
     /// </summary>
-    private void InitializeEditing()
-    {
-        _ = Dispatcher.BeginInvoke(InitPositioning);
-    }
+    private void InitializeEditing() => _ = Dispatcher.BeginInvoke(InitPositioning);
 
     /// <summary>
     /// Schedule a timer event to switch to editing mode after a given time.
@@ -81,20 +78,14 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <summary>
     /// Cancel the timer event scheduled by ScheduleStartEditing, for instance in case of a double-click.
     /// </summary>
-    private void CancelStartEditing()
-    {
-        _ = StartEditingTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
-    }
+    private void CancelStartEditing() => _ = StartEditingTimer.Change(Timeout.InfiniteTimeSpan, Timeout.InfiniteTimeSpan);
 
     /// <summary>
     /// Called when the timer event scheduled by ScheduleStartEditing occurs.
     /// Executed in the context of a timer thread. Reschedule the event to run in the graphic thread context.
     /// </summary>
     /// <param name="parameter">This parameter is not used.</param>
-    private void StartEditingTimerCallback(object? parameter)
-    {
-        _ = Dispatcher.BeginInvoke(DispatcherPriority.Normal, new StartEditingHandler(OnStartEditing));
-    }
+    private void StartEditingTimerCallback(object? parameter) => _ = Dispatcher.BeginInvoke(DispatcherPriority.Normal, new StartEditingHandler(OnStartEditing));
 
     /// <summary>
     /// Handler of a rescheduled timer event.
@@ -173,10 +164,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="args">An object that contains no event data.</param>
-    private void OnIsSelectionActiveChanged(object? sender, EventArgs args)
-    {
-        OnStopEditing();
-    }
+    private void OnIsSelectionActiveChanged(object? sender, EventArgs args) => OnStopEditing();
 
     /// <summary>
     /// Timer used to schedule even event when the user clicks the control.
@@ -193,10 +181,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <summary>
     /// Proceeds to the initialization of properties related to the control implementation.
     /// </summary>
-    private void InitializeImplementation()
-    {
-        ResetClickCount();
-    }
+    private void InitializeImplementation() => ResetClickCount();
 
     /// <summary>
     /// Called when the user clicks the left mouse button.
@@ -263,10 +248,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="args">An object that contains no event data.</param>
-    private void OnEditLostFocus(object sender, RoutedEventArgs args)
-    {
-        OnStopEditing();
-    }
+    private void OnEditLostFocus(object sender, RoutedEventArgs args) => OnStopEditing();
 
     /// <summary>
     /// Called when the user presses a key on the keyboard.
@@ -307,27 +289,18 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <summary>
     /// Reset the click count to its base value.
     /// </summary>
-    private void ResetClickCount()
-    {
-        UpClickCount = 0;
-    }
+    private void ResetClickCount() => UpClickCount = 0;
 
     /// <summary>
     /// Increment the click count to take the user click into account.
     /// </summary>
-    private void IncrementClickCount()
-    {
-        UpClickCount++;
-    }
+    private void IncrementClickCount() => UpClickCount++;
 
     /// <summary>
     /// Check that this is a simple click.
     /// </summary>
     /// <returns>True if the user click is not a double click.</returns>
-    private bool IsClickCountSimple()
-    {
-        return UpClickCount < 2;
-    }
+    private bool IsClickCountSimple() => UpClickCount < 2;
 
     /// <summary>
     /// Contains a count of mouse clicks, used to decide when it is time to start editing.

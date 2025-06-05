@@ -22,18 +22,12 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Overrides inherited metadata for the <see cref="ItemsControl.ItemsSource"/> property.
     /// </summary>
-    protected static void OverrideMetadataItemsSource()
-    {
-        ItemsSourceProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.NotDataBindable, null, new CoerceValueCallback(CoerceItemsSource), true));
-    }
+    protected static void OverrideMetadataItemsSource() => ItemsSourceProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.NotDataBindable, null, new CoerceValueCallback(CoerceItemsSource), true));
 
     /// <summary>
     /// Overrides inherited metadata for the <see cref="FrameworkElement.DefaultStyleKey"/> property.
     /// </summary>
-    protected static void OverrideMetadataDefaultStyleKey()
-    {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(typeof(ExtendedTreeViewBase)));
-    }
+    protected static void OverrideMetadataDefaultStyleKey() => DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedTreeViewBase), new FrameworkPropertyMetadata(typeof(ExtendedTreeViewBase)));
 
     /// <summary>
     /// Ensures the <see cref="ItemsControl.ItemsSource"/> property contains a valid value.
@@ -43,53 +37,35 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <returns>True if valid; Otherwise, false.</returns>
     [Access("protected", "static")]
     [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "d")]
-    private static object CoerceItemsSourceVerified(ExtendedTreeViewBase control, object value)
-    {
-        return control.CoerceItemsSource(value);
-    }
+    private static object CoerceItemsSourceVerified(ExtendedTreeViewBase control, object value) => control.CoerceItemsSource(value);
 
     /// <summary>
     /// Ensures the <see cref="ItemsControl.ItemsSource"/> property contains a valid value.
     /// </summary>
     /// <param name="value">The value to check.</param>
     /// <returns>True if valid; Otherwise, false.</returns>
-    protected virtual object CoerceItemsSource(object value)
-    {
-        return VisibleChildren;
-    }
+    protected virtual object CoerceItemsSource(object value) => VisibleChildren;
 
-    private void InitAncestor()
-    {
-        CanSelectMultipleItems = true;
-    }
+    private void InitAncestor() => CanSelectMultipleItems = true;
 
     /// <summary>
     /// Creates or identifies the element that is used to display the given item.
     /// </summary>
     /// <returns>The element that is used to display the given item.</returns>
-    protected override DependencyObject GetContainerForItemOverride()
-    {
-        return CreateContainerItem();
-    }
+    protected override DependencyObject GetContainerForItemOverride() => CreateContainerItem();
 
     /// <summary>
     /// Determines if the specified item is (or is eligible to be) its own container.
     /// </summary>
     /// <param name="item">The item to check.</param>
     /// <returns>True if the item is (or is eligible to be) its own container; otherwise, false.</returns>
-    protected override bool IsItemItsOwnContainerOverride(object item)
-    {
-        return item is ExtendedTreeViewItemBase;
-    }
+    protected override bool IsItemItsOwnContainerOverride(object item) => item is ExtendedTreeViewItemBase;
 
     /// <summary>
     /// Creates a container for an item.
     /// </summary>
     /// <returns>The created container.</returns>
-    protected virtual ExtendedTreeViewItemBase CreateContainerItem()
-    {
-        return new ExtendedTreeViewItemBase(this);
-    }
+    protected virtual ExtendedTreeViewItemBase CreateContainerItem() => new(this);
 
     /// <summary>
     /// Called when the selection changes.

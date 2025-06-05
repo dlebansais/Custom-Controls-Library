@@ -20,10 +20,7 @@ public static class ThemeIcons
     /// <param name="resourceAssembly">The assembly where to find the image source.</param>
     /// <param name="key">The key used to locate the resource in the assembly.</param>
     /// <returns>The image source.</returns>
-    public static ImageSource GetImageSource(Assembly resourceAssembly, string key)
-    {
-        return GetImageSource(resourceAssembly, "/Resources/Icons", key);
-    }
+    public static ImageSource GetImageSource(Assembly resourceAssembly, string key) => GetImageSource(resourceAssembly, "/Resources/Icons", key);
 
     /// <summary>
     /// Gets an image sources from resources in an assembly.
@@ -63,10 +60,7 @@ public static class ThemeIcons
     /// <param name="resourceAssembly">The assembly where to find the icon.</param>
     /// <param name="key">The key used to locate the resource in the assembly.</param>
     /// <returns>The icon.</returns>
-    public static Image GetIcon(Assembly resourceAssembly, string key)
-    {
-        return GetIcon(resourceAssembly, "/Resources/Icons", key);
-    }
+    public static Image GetIcon(Assembly resourceAssembly, string key) => GetIcon(resourceAssembly, "/Resources/Icons", key);
 
     /// <summary>
     /// Gets an icon from resources in an assembly.

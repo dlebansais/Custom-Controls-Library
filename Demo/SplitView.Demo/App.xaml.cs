@@ -5,6 +5,6 @@ using System.Windows;
 /// <summary>
 /// The SplitView demo program.
 /// </summary>
-public partial class App : Application
+internal partial class App : Application
 {
 }

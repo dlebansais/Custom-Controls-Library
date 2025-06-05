@@ -40,8 +40,8 @@ public partial class EnumRadioButton : RadioButton
 #pragma warning restore SA1629 // Documentation text should end with a period
     public object? EnumBinding
     {
-        get { return GetValue(EnumBindingProperty); }
-        set { SetValue(EnumBindingProperty, value); }
+        get => GetValue(EnumBindingProperty);
+        set => SetValue(EnumBindingProperty, value);
     }
 
     private static void OnEnumBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -84,8 +84,8 @@ public partial class EnumRadioButton : RadioButton
 #pragma warning restore SA1629 // Documentation text should end with a period
     public object EnumValue
     {
-        get { return GetValue(EnumValueProperty); }
-        set { SetValue(EnumValueProperty, value); }
+        get => GetValue(EnumValueProperty);
+        set => SetValue(EnumValueProperty, value);
     }
     #endregion
 }

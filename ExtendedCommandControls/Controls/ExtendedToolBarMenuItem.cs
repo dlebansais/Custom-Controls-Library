@@ -22,17 +22,11 @@ public partial class ExtendedToolBarMenuItem : MenuItem
     /// <summary>
     /// Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
     /// </summary>
-    private static void OverrideAncestorMetadata()
-    {
-        OverrideMetadataDefaultStyleKey();
-    }
+    private static void OverrideAncestorMetadata() => OverrideMetadataDefaultStyleKey();
 
     /// <summary>
     /// Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
     /// </summary>
-    private static void OverrideMetadataDefaultStyleKey()
-    {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBarMenuItem), new FrameworkPropertyMetadata(typeof(ExtendedToolBarMenuItem)));
-    }
+    private static void OverrideMetadataDefaultStyleKey() => DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBarMenuItem), new FrameworkPropertyMetadata(typeof(ExtendedToolBarMenuItem)));
     #endregion
 }

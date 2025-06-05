@@ -9,7 +9,7 @@ using CustomControls;
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
 /// </summary>
-public partial class MainWindow : Window
+internal partial class MainWindow : Window
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -92,9 +92,7 @@ public partial class MainWindow : Window
     }
 
     private void Cycle3()
-    {
-        _ = ctrl.SetBinding(ExtendedPasswordBox.TextProperty, nameof(TestProperty));
-    }
+        => _ = ctrl.SetBinding(ExtendedPasswordBox.TextProperty, nameof(TestProperty));
 
     /// <summary>
     /// Gets or sets a simple test property.

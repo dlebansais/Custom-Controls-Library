@@ -11,13 +11,10 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Gets the indentation level of the item.
     /// </summary>
-    public int Level { get { return Host.ItemLevel(Content); } }
+    public int Level => Host.ItemLevel(Content);
 
     /// <summary>
     /// Updates the <see cref="IsDropOver"/> property.
     /// </summary>
-    public void UpdateIsDropOver()
-    {
-        SetValue(IsDropOverPropertyKey, ExtendedTreeViewBase.IsDropOver(this));
-    }
+    public void UpdateIsDropOver() => SetValue(IsDropOverPropertyKey, ExtendedTreeViewBase.IsDropOver(this));
 }

@@ -14,6 +14,9 @@ dotnet_diagnostic.CA1711.severity = silent
 # CA1716: Identifiers should not match keywords
 dotnet_diagnostic.CA1716.severity = silent
 
+# CA1812: Avoid uninstantiated internal classes
+dotnet_diagnostic.CA1812.severity = silent
+
 # CA1820: Test for empty strings using string length
 dotnet_diagnostic.CA1820.severity = silent
 
@@ -96,6 +99,12 @@ dotnet_diagnostic.IDE0002.severity = warning
 # IDE0004: Remove unnecessary cast
 dotnet_diagnostic.IDE0004.severity = warning
 
+# IDE0011: Add braces
+dotnet_diagnostic.IDE0011.severity = none
+dotnet_diagnostic.CSL1007.severity = warning
+dotnet_diagnostic.CSL1008.severity = warning
+csharp_prefer_braces = recursive
+
 # IDE0016: Use throw expression
 dotnet_diagnostic.IDE0016.severity = warning
 
@@ -104,6 +113,10 @@ dotnet_diagnostic.IDE0019.severity = warning
 
 # IDE0020: Use pattern matching to avoid is check followed by a cast (with variable)
 dotnet_diagnostic.IDE0020.severity = warning
+
+# IDE0020: Use expression body for methods
+dotnet_diagnostic.IDE0022.severity = warning
+csharp_style_expression_bodied_methods = when_on_single_line
 
 # IDE0030: Null check can be simplified (if null check)
 dotnet_diagnostic.IDE0030.severity = warning
@@ -186,6 +199,9 @@ dotnet_diagnostic.IDE0110.severity = warning
 
 # IDE0120: Simplify LINQ expression
 dotnet_diagnostic.IDE0120.severity = warning
+
+# IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = silent
 
 # IDE0161: Use file-scoped namespace
 dotnet_diagnostic.IDE0161.severity = warning

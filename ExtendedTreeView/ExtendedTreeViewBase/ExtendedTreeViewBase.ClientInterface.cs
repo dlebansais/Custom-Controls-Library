@@ -36,10 +36,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if expanded; Otherwise, false.</returns>
-    public virtual bool IsExpanded(object item)
-    {
-        return ExpandedChildren.ContainsKey(item);
-    }
+    public virtual bool IsExpanded(object item) => ExpandedChildren.ContainsKey(item);
 
     /// <summary>
     /// Expands an item.
@@ -79,36 +76,24 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if selected; Otherwise, false.</returns>
-    public virtual bool IsSelected(object item)
-    {
-        return SelectedItems.Contains(item);
-    }
+    public virtual bool IsSelected(object item) => SelectedItems.Contains(item);
 
     /// <summary>
     /// Adds an item to the selection.
     /// </summary>
     /// <param name="item">The item.</param>
-    public virtual void SetSelected(object item)
-    {
-        SelectedItem = item;
-    }
+    public virtual void SetSelected(object item) => SelectedItem = item;
 
     /// <summary>
     /// Checks if an item is visible in the scrolled view.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if visible; Otherwise, false.</returns>
-    public virtual bool IsItemVisible(object item)
-    {
-        return VisibleChildren.Contains(item);
-    }
+    public virtual bool IsItemVisible(object item) => VisibleChildren.Contains(item);
 
     /// <summary>
     /// Gets a value indicating whether the control allows to copy items.
     /// </summary>
     /// <returns>True if allowed; Otherwise, false.</returns>
-    public virtual bool IsCopyPossible
-    {
-        get { return Contract.AssertNotNull(DragSource).IsDragPossible(out _, out _); }
-    }
+    public virtual bool IsCopyPossible => Contract.AssertNotNull(DragSource).IsDragPossible(out _, out _);
 }

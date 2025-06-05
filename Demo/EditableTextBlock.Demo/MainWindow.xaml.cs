@@ -10,7 +10,7 @@ using CustomControls;
 /// <summary>
 /// Main window of the EditableTextBlock demo program.
 /// </summary>
-public partial class MainWindow : Window, IDisposable
+internal partial class MainWindow : Window, IDisposable
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -111,10 +111,7 @@ public partial class MainWindow : Window, IDisposable
     /// </summary>
     public static int TestEscape { get; set; }
 
-    private void EscapeTimerCallback(object? parameter)
-    {
-        _ = Dispatcher.BeginInvoke(OnEscapeTimer);
-    }
+    private void EscapeTimerCallback(object? parameter) => _ = Dispatcher.BeginInvoke(OnEscapeTimer);
 
     private void OnEscapeTimer()
     {

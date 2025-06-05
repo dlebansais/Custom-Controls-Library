@@ -19,7 +19,7 @@ using CustomControls;
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
 /// </summary>
-public partial class MainWindow : Window, INotifyPropertyChanged
+internal partial class MainWindow : Window, INotifyPropertyChanged
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -97,10 +97,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="args">Ignored.</param>
-    protected virtual void OnExit(object sender, ExecutedRoutedEventArgs args)
-    {
-        Close();
-    }
+    protected virtual void OnExit(object sender, ExecutedRoutedEventArgs args) => Close();
 
     /// <summary>
     /// Generates a tree view.
@@ -271,7 +268,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged
 
         UpdateProgress(generated, itemCount);
         if (IsGenerating && generated < itemCount)
+        {
             _ = Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action<bool, int, int, RandomNumberGenerator, IExtendedTreeNode, int, Collection<IExtendedTreeNode>, int, IExtendedTreeNode?, int, int>(GenerateNext), isCloneable, itemCount, averageChildrenCount, randomNumberGenerator, root, generated, parentChain, parentIndex, parentTreeNode, childIndex, childrenCount);
+        }
         else
         {
             IsGenerating = false;
@@ -358,11 +357,6 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     /// Notifies that a property is changed.
     /// </summary>
     /// <param name="propertyName">The property name.</param>
-    public void NotifyPropertyChanged(string propertyName)
-    {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-    }
+    public void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     #endregion
 }

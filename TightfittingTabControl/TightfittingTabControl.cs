@@ -81,10 +81,7 @@ public class TightfittingTabControl : TabControl
             CycleIndex = 0;
     }
 
-    private void SaveSelectedIndex()
-    {
-        InitSelectedIndex = SelectedIndex;
-    }
+    private void SaveSelectedIndex() => InitSelectedIndex = SelectedIndex;
 
     private void NextCycle()
     {
@@ -103,10 +100,7 @@ public class TightfittingTabControl : TabControl
         CyclingCompleted?.Invoke(this, new EventArgs());
     }
 
-    private void RestoreSelectedIndex()
-    {
-        SelectedIndex = InitSelectedIndex;
-    }
+    private void RestoreSelectedIndex() => SelectedIndex = InitSelectedIndex;
 
     private void SetMinSize()
     {

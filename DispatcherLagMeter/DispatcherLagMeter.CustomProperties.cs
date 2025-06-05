@@ -23,8 +23,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public TimeSpan SamplingInterval
     {
-        get { return (TimeSpan)GetValue(SamplingIntervalProperty); }
-        set { SetValue(SamplingIntervalProperty, value); }
+        get => (TimeSpan)GetValue(SamplingIntervalProperty);
+        set => SetValue(SamplingIntervalProperty, value);
     }
 
     private static void OnSamplingIntervalChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -55,8 +55,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public TimeSpan NotificationInterval
     {
-        get { return (TimeSpan)GetValue(NotificationIntervalProperty); }
-        set { SetValue(NotificationIntervalProperty, value); }
+        get => (TimeSpan)GetValue(NotificationIntervalProperty);
+        set => SetValue(NotificationIntervalProperty, value);
     }
 
     private static void OnNotificationIntervalChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -109,10 +109,7 @@ public partial class DispatcherLagMeter
     /// <param name="lag">The dispatcher lag.</param>
     /// <param name="queueLength">The dispatcher queue length.</param>
     /// <returns>The <see cref="LagMeasuredEventArgs"/> object created.</returns>
-    protected virtual LagMeasuredEventArgs CreateLagMeasuredEvent(double lag, double queueLength)
-    {
-        return new LagMeasuredEventArgs(LagMeasuredEvent, this, new DispatcherLag(DateTime.UtcNow, DateTime.Now, Clock.Elapsed, lag, queueLength));
-    }
+    protected virtual LagMeasuredEventArgs CreateLagMeasuredEvent(double lag, double queueLength) => new(LagMeasuredEvent, this, new DispatcherLag(DateTime.UtcNow, DateTime.Now, Clock.Elapsed, lag, queueLength));
     #endregion
 
     #region DisplayInterval
@@ -128,8 +125,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public TimeSpan DisplayInterval
     {
-        get { return (TimeSpan)GetValue(DisplayIntervalProperty); }
-        set { SetValue(DisplayIntervalProperty, value); }
+        get => (TimeSpan)GetValue(DisplayIntervalProperty);
+        set => SetValue(DisplayIntervalProperty, value);
     }
 
     private static void OnDisplayIntervalChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -160,8 +157,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public double DurationSensitivity
     {
-        get { return (double)GetValue(DurationSensitivityProperty); }
-        set { SetValue(DurationSensitivityProperty, value); }
+        get => (double)GetValue(DurationSensitivityProperty);
+        set => SetValue(DurationSensitivityProperty, value);
     }
     #endregion
 
@@ -178,8 +175,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public double DurationFilterCutoff
     {
-        get { return (double)GetValue(DurationFilterCutoffProperty); }
-        set { SetValue(DurationFilterCutoffProperty, value); }
+        get => (double)GetValue(DurationFilterCutoffProperty);
+        set => SetValue(DurationFilterCutoffProperty, value);
     }
     #endregion
 
@@ -196,8 +193,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public double QueueLengthSensitivity
     {
-        get { return (double)GetValue(QueueLengthSensitivityProperty); }
-        set { SetValue(QueueLengthSensitivityProperty, value); }
+        get => (double)GetValue(QueueLengthSensitivityProperty);
+        set => SetValue(QueueLengthSensitivityProperty, value);
     }
     #endregion
 
@@ -214,8 +211,8 @@ public partial class DispatcherLagMeter
     [Bindable(true)]
     public double QueueLengthFilterCutoff
     {
-        get { return (double)GetValue(QueueLengthFilterCutoffProperty); }
-        set { SetValue(QueueLengthFilterCutoffProperty, value); }
+        get => (double)GetValue(QueueLengthFilterCutoffProperty);
+        set => SetValue(QueueLengthFilterCutoffProperty, value);
     }
     #endregion
 }

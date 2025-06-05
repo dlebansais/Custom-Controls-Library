@@ -40,10 +40,7 @@ public class UndoRedoManager
     /// <returns>
     /// True if there is an operation that can be reversed in <see cref="UndoList"/>. False otherwise.
     /// </returns>
-    public virtual bool CanUndo
-    {
-        get { return UndoList.Count > 0; }
-    }
+    public virtual bool CanUndo => UndoList.Count > 0;
 
     /// <summary>
     /// Gets a value indicating whether there is an operation that can be performed in <see cref="RedoList"/>.
@@ -51,10 +48,7 @@ public class UndoRedoManager
     /// <returns>
     /// True if there is an operation that can be performed in <see cref="RedoList"/>. False otherwise.
     /// </returns>
-    public virtual bool CanRedo
-    {
-        get { return RedoList.Count > 0; }
-    }
+    public virtual bool CanRedo => RedoList.Count > 0;
     #endregion
 
     #region Client Interface

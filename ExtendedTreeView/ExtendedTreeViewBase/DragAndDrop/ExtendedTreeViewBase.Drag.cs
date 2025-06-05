@@ -48,7 +48,9 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
 
         CanonicSelection CanonicSelectedItemList = new(CreateItemList());
         if (GetCanonicSelectedItemList(CanonicSelectedItemList))
+        {
             CurrentDragSource.SetIsDragPossible(CanonicSelectedItemList);
+        }
         else
         {
             CurrentDragSource.ClearIsDragPossible();
@@ -139,7 +141,9 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
             e.Handled = true;
         }
         else
+        {
             base.OnGiveFeedback(e);
+        }
     }
 
     /// <summary>

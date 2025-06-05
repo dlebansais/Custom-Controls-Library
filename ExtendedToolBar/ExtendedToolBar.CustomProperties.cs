@@ -22,8 +22,8 @@ public partial class ExtendedToolBar : ToolBar
     /// </summary>
     public string ToolBarName
     {
-        get { return (string)GetValue(ToolBarNameProperty); }
-        set { SetValue(ToolBarNameProperty, value); }
+        get => (string)GetValue(ToolBarNameProperty);
+        set => SetValue(ToolBarNameProperty, value);
     }
     #endregion
 }

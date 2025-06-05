@@ -41,9 +41,6 @@ public class EditableTextBlockEventArgs : RoutedEventArgs
     /// <summary>
     /// Allows a handler to cancel the operation notified by the event associated to this object.
     /// </summary>
-    public virtual void Cancel()
-    {
-        Cancellation.Cancel();
-    }
+    public virtual void Cancel() => Cancellation.Cancel();
     #endregion
 }

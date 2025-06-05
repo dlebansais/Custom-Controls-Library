@@ -7,7 +7,7 @@ using CustomControls;
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
 /// </summary>
-public partial class MainWindow : Window
+internal partial class MainWindow : Window
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -39,10 +39,7 @@ public partial class MainWindow : Window
         ((ActiveDocumentRoutedCommand)ctrlTest5.Command).CommandGroup.IsEnabled = true;
     }
 
-    private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e)
-    {
-        e.CanExecute = true;
-    }
+    private void TestCanExecute(object sender, CanExecuteRoutedEventArgs e) => e.CanExecute = true;
 
     private void TestExecuted(object sender, ExecutedRoutedEventArgs e)
     {

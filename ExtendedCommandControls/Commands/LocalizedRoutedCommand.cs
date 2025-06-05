@@ -38,16 +38,16 @@ public class LocalizedRoutedCommand : ExtendedRoutedCommand
     /// <summary>
     /// Gets the localized menu header.
     /// </summary>
-    public override string MenuHeader { get { return Reference.GetString(HeaderKey); } }
+    public override string MenuHeader => Reference.GetString(HeaderKey);
 
     /// <summary>
     /// Gets the localized tooltip.
     /// </summary>
-    public override string ButtonToolTip { get { return Reference.GetString(ToolTipKey); } }
+    public override string ButtonToolTip => Reference.GetString(ToolTipKey);
 
     /// <summary>
     /// Gets the localized image.
     /// </summary>
-    public override ImageSource ImageSource { get { return Reference.GetImageSource(IconKey); } }
+    public override ImageSource ImageSource => Reference.GetImageSource(IconKey);
     #endregion
 }

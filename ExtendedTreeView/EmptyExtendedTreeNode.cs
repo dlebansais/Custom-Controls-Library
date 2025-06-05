@@ -22,7 +22,7 @@ internal class EmptyExtendedTreeNode<TItem, TCollection> : IExtendedTreeNode
     /// <summary>
     /// Gets the parent node.
     /// </summary>
-    public IExtendedTreeNode? Parent { get { return null; } }
+    public IExtendedTreeNode? Parent => null;
 
     /// <summary>
     /// Gets the collection of child nodes.

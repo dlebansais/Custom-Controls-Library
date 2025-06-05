@@ -37,8 +37,8 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// </summary>
     public DataTemplate ViewTemplate
     {
-        get { return (DataTemplate)GetValue(ViewTemplateProperty); }
-        set { SetValue(ViewTemplateProperty, value); }
+        get => (DataTemplate)GetValue(ViewTemplateProperty);
+        set => SetValue(ViewTemplateProperty, value);
     }
     #endregion
 
@@ -55,10 +55,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Gets a collection of zooms that can be applied to each view separately.
     /// </summary>
-    public Collection<double> ZoomOptions
-    {
-        get { return (Collection<double>)GetValue(ZoomOptionsProperty); }
-    }
+    public Collection<double> ZoomOptions => (Collection<double>)GetValue(ZoomOptionsProperty);
     #endregion
 
     #region Content Loaded

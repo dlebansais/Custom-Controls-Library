@@ -5,7 +5,7 @@ using System;
 /// <summary>
 /// Represents a random number generator.
 /// </summary>
-public class RandomNumberGenerator
+internal class RandomNumberGenerator
 {
     /// <summary>
     /// Gets or sets the seed.

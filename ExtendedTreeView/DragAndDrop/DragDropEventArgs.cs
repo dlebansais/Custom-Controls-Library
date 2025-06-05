@@ -21,7 +21,7 @@ public class DragDropEventArgs : RoutedEventArgs
     /// <summary>
     /// Gets a value indicating whether copy on drop is allowed.
     /// </summary>
-    public virtual bool AllowDropCopy { get { return DragSource.AllowDropCopy; } }
+    public virtual bool AllowDropCopy => DragSource.AllowDropCopy;
 
     private readonly IDragSourceControl DragSource;
 }

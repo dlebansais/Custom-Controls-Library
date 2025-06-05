@@ -10,7 +10,7 @@ using System.Threading;
 using TestTools;
 
 [TestFixture]
-public class UnitTest
+internal class UnitTest
 {
     private const string DemoAppName = "DispatcherLagMeter.Demo";
 

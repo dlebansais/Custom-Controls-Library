@@ -262,7 +262,9 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
                     RemoveCount = EndIndex - StartIndex;
                 }
                 else
+                {
                     RemoveCount = CountVisibleChildren(item);
+                }
             }
             else
             {

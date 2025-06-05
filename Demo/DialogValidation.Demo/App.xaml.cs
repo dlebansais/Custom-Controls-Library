@@ -7,7 +7,7 @@ using System.Windows;
 /// <summary>
 /// The DialogValidation demo program.
 /// </summary>
-public partial class App : Application
+internal partial class App : Application
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="App"/> class.

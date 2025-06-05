@@ -95,10 +95,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Split the control in two views.
     /// </summary>
-    public void Split()
-    {
-        SplitTestOrExecute(true, out _);
-    }
+    public void Split() => SplitTestOrExecute(true, out _);
 
     private void SplitTestOrExecute(bool isExecute, out bool isTestSuccessful)
     {
@@ -139,10 +136,7 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Removes any split and returns the control to a single view state.
     /// </summary>
-    public void RemoveSplit()
-    {
-        RemoveSplitTestOrExecute(true, out _);
-    }
+    public void RemoveSplit() => RemoveSplitTestOrExecute(true, out _);
 
     private void RemoveSplitTestOrExecute(bool isExecute, out bool isTestSuccessful)
     {
@@ -186,10 +180,14 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
                 rowContent = VisualTreeHelper.GetChild(contentPresenter, 0) as FrameworkElement;
             }
             else
+            {
                 rowContent = null;
+            }
         }
         else
+        {
             rowContent = null;
+        }
 
         return rowContent;
     }
@@ -222,15 +220,9 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
 
     private delegate void UpdateLengthHandler(FrameworkElement element, Size adjustedSize);
 
-    private void OnBottomScrollBar0SizeChanged(object sender, SizeChangedEventArgs args)
-    {
-        FixSiblingDimension(sender, "comboZoom0", UpdateHeightAndIndex, OnBottomScrollBar0SizeChanged);
-    }
+    private void OnBottomScrollBar0SizeChanged(object sender, SizeChangedEventArgs args) => FixSiblingDimension(sender, "comboZoom0", UpdateHeightAndIndex, OnBottomScrollBar0SizeChanged);
 
-    private void OnBottomScrollBar1SizeChanged(object sender, SizeChangedEventArgs args)
-    {
-        FixSiblingDimension(sender, "comboZoom1", UpdateHeightAndIndex, OnBottomScrollBar1SizeChanged);
-    }
+    private void OnBottomScrollBar1SizeChanged(object sender, SizeChangedEventArgs args) => FixSiblingDimension(sender, "comboZoom1", UpdateHeightAndIndex, OnBottomScrollBar1SizeChanged);
 
     private void UpdateHeightAndIndex(FrameworkElement element, Size adjustedSize)
     {
@@ -240,15 +232,9 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
             _ = Dispatcher.BeginInvoke(DispatcherPriority.Normal, new Action<ComboBox>(OnUpdateIndex), AsComboBox);
     }
 
-    private void OnUpdateIndex(ComboBox asComboBox)
-    {
-        asComboBox.SelectedIndex = 3;
-    }
+    private void OnUpdateIndex(ComboBox asComboBox) => asComboBox.SelectedIndex = 3;
 
-    private void OnRightScrollBarSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        FixSiblingDimension(sender, "buttonSplit", UpdateWidthAndHeight, OnRightScrollBarSizeChanged);
-    }
+    private void OnRightScrollBarSizeChanged(object sender, SizeChangedEventArgs e) => FixSiblingDimension(sender, "buttonSplit", UpdateWidthAndHeight, OnRightScrollBarSizeChanged);
 
     private void UpdateWidthAndHeight(FrameworkElement element, Size adjustedSize)
     {
@@ -281,9 +267,13 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
                     break;
                 }
                 else if (CurrentElement.Parent is FrameworkElement AsFrameworkElement)
+                {
                     CurrentElement = AsFrameworkElement;
+                }
                 else
+                {
                     break;
+                }
             }
         }
     }
@@ -300,15 +290,9 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
         }
     }
 
-    private void OnZoom0Changed(object sender, SelectionChangedEventArgs args)
-    {
-        OnZoomChanged(sender, viewer0);
-    }
+    private void OnZoom0Changed(object sender, SelectionChangedEventArgs args) => OnZoomChanged(sender, viewer0);
 
-    private void OnZoom1Changed(object sender, SelectionChangedEventArgs args)
-    {
-        OnZoomChanged(sender, viewer1);
-    }
+    private void OnZoom1Changed(object sender, SelectionChangedEventArgs args) => OnZoomChanged(sender, viewer1);
 
     private void OnZoomChanged(object sender, ScrollViewer viewer)
     {
@@ -388,18 +372,12 @@ public partial class SplitView : UserControl, INotifyPropertyChanged
     /// Invoke handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the property that changed.</param>
-    protected void NotifyPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     /// <summary>
     /// Invoke handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the property that changed.</param>
-    protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     #endregion
 }

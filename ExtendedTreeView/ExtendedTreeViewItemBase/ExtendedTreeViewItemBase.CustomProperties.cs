@@ -23,8 +23,8 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// </summary>
     public bool IsSelected
     {
-        get { return Selector.GetIsSelected(this); }
-        set { Selector.SetIsSelected(this, value); }
+        get => Selector.GetIsSelected(this);
+        set => Selector.SetIsSelected(this, value);
     }
     #endregion
 
@@ -39,8 +39,8 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// </summary>
     public bool IsExpanded
     {
-        get { return (bool)GetValue(IsExpandedProperty); }
-        set { SetValue(IsExpandedProperty, value); }
+        get => (bool)GetValue(IsExpandedProperty);
+        set => SetValue(IsExpandedProperty, value);
     }
 
     /// <summary>
@@ -50,10 +50,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <param name="args">An object that contains event data.</param>
     [Access("protected", "static")]
     [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
-    private static void OnIsExpandedChangedVerified(ExtendedTreeViewItemBase control, DependencyPropertyChangedEventArgs args)
-    {
-        control.OnIsExpandedChanged(args);
-    }
+    private static void OnIsExpandedChangedVerified(ExtendedTreeViewItemBase control, DependencyPropertyChangedEventArgs args) => control.OnIsExpandedChanged(args);
 
     /// <summary>
     /// Handles changes of the <see cref="IsExpanded"/> property.
@@ -74,18 +71,12 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Begins initialization of the item content.
     /// </summary>
-    protected virtual void BeginInitializeContent()
-    {
-        IsContentInitializing = true;
-    }
+    protected virtual void BeginInitializeContent() => IsContentInitializing = true;
 
     /// <summary>
     /// Ends initialization of the item content.
     /// </summary>
-    protected virtual void EndInitializeContent()
-    {
-        IsContentInitializing = false;
-    }
+    protected virtual void EndInitializeContent() => IsContentInitializing = false;
 
     /// <summary>
     /// Gets a value indicating whether the content is being initialized.
@@ -103,9 +94,6 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Gets a value indicating whether the item is the destination of a drop.
     /// </summary>
-    public bool IsDropOver
-    {
-        get { return (bool)GetValue(IsDropOverProperty); }
-    }
+    public bool IsDropOver => (bool)GetValue(IsDropOverProperty);
     #endregion
 }

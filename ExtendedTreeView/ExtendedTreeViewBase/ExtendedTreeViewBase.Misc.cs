@@ -15,37 +15,28 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Gets a value indicating whether traces are enabled.
     /// </summary>
-    public static bool EnableTraces { get => false; }
+    public static bool EnableTraces => false;
 
     /// <summary>
     /// Gets the container associated to an item.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>The container.</returns>
-    protected virtual ExtendedTreeViewItemBase? ContainerFromItem(object item)
-    {
-        return ItemContainerGenerator.ContainerFromItem(item) as ExtendedTreeViewItemBase;
-    }
+    protected virtual ExtendedTreeViewItemBase? ContainerFromItem(object item) => ItemContainerGenerator.ContainerFromItem(item) as ExtendedTreeViewItemBase;
 
     /// <summary>
     /// Gets the container associated to the item at the provided position.
     /// </summary>
     /// <param name="index">the item position.</param>
     /// <returns>The container.</returns>
-    protected virtual ExtendedTreeViewItemBase? ContainerFromIndex(int index)
-    {
-        return ItemContainerGenerator.ContainerFromIndex(index) as ExtendedTreeViewItemBase;
-    }
+    protected virtual ExtendedTreeViewItemBase? ContainerFromIndex(int index) => ItemContainerGenerator.ContainerFromIndex(index) as ExtendedTreeViewItemBase;
 
     /// <summary>
     /// Checks whether an item can be cloned.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if cloneable; otherwise, false.</returns>
-    protected virtual bool IsItemCloneable(object item)
-    {
-        return item is ICloneable;
-    }
+    protected virtual bool IsItemCloneable(object item) => item is ICloneable;
 
     /// <summary>
     /// Gets the indentation level of an item.
@@ -94,18 +85,14 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <returns>True if down; otherwise, false.</returns>
     protected virtual bool IsCtrlDown()
-    {
-        return (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && !(Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt));
-    }
+        => (Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && !(Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt));
 
     /// <summary>
     /// Checks whether the SHIFT key is down.
     /// </summary>
     /// <returns>True if down; otherwise, false.</returns>
     protected virtual bool IsShiftDown()
-    {
-        return Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
-    }
+        => Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift);
 
     /// <summary>
     /// Sorts two items by index.
@@ -114,7 +101,5 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item2">The second item.</param>
     /// <returns>The sort result.</returns>
     protected virtual int SortByIndex(object item1, object item2)
-    {
-        return VisibleChildren.IndexOf(item1) - VisibleChildren.IndexOf(item2);
-    }
+        => VisibleChildren.IndexOf(item1) - VisibleChildren.IndexOf(item2);
 }

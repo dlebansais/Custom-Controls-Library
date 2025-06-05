@@ -40,8 +40,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     public TimeSpan ClickDelay
     {
-        get { return (TimeSpan)GetValue(ClickDelayProperty); }
-        set { SetValue(ClickDelayProperty, value); }
+        get => (TimeSpan)GetValue(ClickDelayProperty);
+        set => SetValue(ClickDelayProperty, value);
     }
 
     /// <summary>
@@ -72,8 +72,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     public bool Editable
     {
-        get { return (bool)GetValue(EditableProperty); }
-        set { SetValue(EditableProperty, value); }
+        get => (bool)GetValue(EditableProperty);
+        set => SetValue(EditableProperty, value);
     }
     #endregion
 
@@ -93,8 +93,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     public bool IsEditing
     {
-        get { return (bool)GetValue(IsEditingProperty); }
-        set { SetValue(IsEditingProperty, value); }
+        get => (bool)GetValue(IsEditingProperty);
+        set => SetValue(IsEditingProperty, value);
     }
 
     /// <summary>
@@ -159,10 +159,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="textToEdit">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <returns>The EditableTextBlockEventArgs object created.</returns>
-    protected virtual EditableTextBlockEventArgs CreateEditEnterEvent(string textToEdit, CancellationTokenSource cancellation)
-    {
-        return new EditableTextBlockEventArgs(EditEnterEvent, this, textToEdit, cancellation);
-    }
+    protected virtual EditableTextBlockEventArgs CreateEditEnterEvent(string textToEdit, CancellationTokenSource cancellation) => new(EditEnterEvent, this, textToEdit, cancellation);
     #endregion
 
     #region Edit Leave event
@@ -206,10 +203,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <param name="isEditCanceled">A value that indicates if editing has been canceled.</param>
     /// <returns>The EditableTextBlockEventArgs object created.</returns>
-    protected virtual EditLeaveEventArgs CreateEditLeaveEvent(string newText, CancellationTokenSource cancellation, bool isEditCanceled)
-    {
-        return new EditLeaveEventArgs(EditLeaveEvent, this, newText, cancellation, isEditCanceled);
-    }
+    protected virtual EditLeaveEventArgs CreateEditLeaveEvent(string newText, CancellationTokenSource cancellation, bool isEditCanceled) => new(EditLeaveEvent, this, newText, cancellation, isEditCanceled);
     #endregion
 
     #region Text
@@ -227,8 +221,8 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// </summary>
     public string Text
     {
-        get { return (string)GetValue(TextProperty); }
-        set { SetValue(TextProperty, value); }
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
     }
     #endregion
 
@@ -271,9 +265,6 @@ public partial class EditableTextBlock : UserControl, IDisposable
     /// <param name="newText">The current content of the control.</param>
     /// <param name="cancellation">A token to hold cancellation information.</param>
     /// <returns>The EditableTextBlockEventArgs object created.</returns>
-    protected virtual EditableTextBlockEventArgs CreateTextChangedEvent(string newText, CancellationTokenSource cancellation)
-    {
-        return new EditableTextBlockEventArgs(TextChangedEvent, this, newText, cancellation);
-    }
+    protected virtual EditableTextBlockEventArgs CreateTextChangedEvent(string newText, CancellationTokenSource cancellation) => new(TextChangedEvent, this, newText, cancellation);
     #endregion
 }

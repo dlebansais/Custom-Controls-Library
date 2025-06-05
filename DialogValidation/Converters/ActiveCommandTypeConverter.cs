@@ -72,7 +72,9 @@ internal class ActiveCommandTypeConverter : TypeConverter
                 return DependencyProperty.UnsetValue;
         }
         else
+        {
             return base.ConvertFrom(context, culture, value);
+        }
     }
 
     /// <summary>

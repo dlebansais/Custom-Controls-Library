@@ -44,18 +44,12 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// Invoke handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the property that changed.</param>
-    protected void NotifyPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     /// <summary>
     /// Invoke handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the property that changed.</param>
-    protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     #endregion
 }

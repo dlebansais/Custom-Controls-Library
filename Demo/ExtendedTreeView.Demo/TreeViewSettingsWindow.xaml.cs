@@ -8,16 +8,16 @@ using System.Windows.Controls;
 /// <summary>
 /// Interaction logic for TreeViewSettingsWindow.xaml.
 /// </summary>
-public partial class TreeViewSettingsWindow : Window
+internal partial class TreeViewSettingsWindow : Window
 {
     #region Constants
-    private static readonly IReadOnlyDictionary<TreeViewSize, int> SizeTable = new Dictionary<TreeViewSize, int>()
+    private static readonly Dictionary<TreeViewSize, int> SizeTable = new()
     {
         { TreeViewSize.Small, 10 },
         { TreeViewSize.Medium, 10000 },
         { TreeViewSize.Large, 10000000 },
     };
-    private static readonly IReadOnlyDictionary<TreeViewDepth, int> AverageChildrenCountTable = new Dictionary<TreeViewDepth, int>()
+    private static readonly Dictionary<TreeViewDepth, int> AverageChildrenCountTable = new()
     {
         { TreeViewDepth.Small, 5 },
         { TreeViewDepth.Medium, 500 },
@@ -122,12 +122,12 @@ public partial class TreeViewSettingsWindow : Window
     /// <summary>
     /// Gets the count of items.
     /// </summary>
-    public static int ItemCount { get { return SizeTable[TreeViewSize]; } }
+    public static int ItemCount => SizeTable[TreeViewSize];
 
     /// <summary>
     /// Gets the average children count.
     /// </summary>
-    public static int AverageChildrenCount { get { return AverageChildrenCountTable[TreeViewDepth]; } }
+    public static int AverageChildrenCount => AverageChildrenCountTable[TreeViewDepth];
     #endregion
 
     #region Implementation

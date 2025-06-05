@@ -90,10 +90,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// Creates a list of items.
     /// </summary>
     /// <returns>The created list of items.</returns>
-    protected virtual IList CreateItemList()
-    {
-        return new List<object>();
-    }
+    protected virtual IList CreateItemList() => new List<object>();
 
     /// <summary>
     /// Sets the dragged items.
@@ -114,10 +111,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item where insertion takes place.</param>
     /// <param name="shownIndex">Index where insertion takes place.</param>
     /// <returns>The context.</returns>
-    protected virtual IInsertItemContext CreateInsertItemContext(object item, int shownIndex)
-    {
-        return new InsertItemContext(shownIndex);
-    }
+    protected virtual IInsertItemContext CreateInsertItemContext(object item, int shownIndex) => new InsertItemContext(shownIndex);
 
     /// <summary>
     /// Creates a context for removing.
@@ -125,17 +119,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item where removal takes place.</param>
     /// <param name="shownIndex">Index where removal takes place.</param>
     /// <returns>The context.</returns>
-    protected virtual IRemoveItemContext CreateRemoveItemContext(object item, int shownIndex)
-    {
-        return new RemoveItemContext(shownIndex);
-    }
+    protected virtual IRemoveItemContext CreateRemoveItemContext(object item, int shownIndex) => new RemoveItemContext(shownIndex);
 
     /// <summary>
     /// Creates the control used for drag and drop.
     /// </summary>
     /// <returns>The control.</returns>
-    protected virtual IDragSourceControl CreateSourceControl()
-    {
-        return new DragSourceControl(this);
-    }
+    protected virtual IDragSourceControl CreateSourceControl() => new DragSourceControl(this);
 }

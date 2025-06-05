@@ -1,4 +1,6 @@
-﻿namespace TestTools;
+﻿#pragma warning disable CA1515 // Consider making public types internal
+
+namespace TestTools;
 
 using System;
 using System.Collections.Generic;
@@ -53,7 +55,9 @@ public static partial class DemoApplication
                 Stop(CoverageApp, App);
             }
             else
+            {
                 _ = CoverageApp.Close();
+            }
         }
 
         return null;
@@ -61,17 +65,11 @@ public static partial class DemoApplication
 
     [Access("public", "static")]
     [RequireNotNull(nameof(testApp))]
-    private static void StopVerified(DemoApp testApp)
-    {
-        Stop(testApp.CoverageApp, testApp.App);
-    }
+    private static void StopVerified(DemoApp testApp) => Stop(testApp.CoverageApp, testApp.App);
 
     [Access("public", "static")]
     [RequireNotNull(nameof(testApp))]
-    private static bool IsStoppedVerified(DemoApp testApp)
-    {
-        return testApp.CoverageApp.HasExited;
-    }
+    private static bool IsStoppedVerified(DemoApp testApp) => testApp.CoverageApp.HasExited;
 
     private static void Stop(Application coverageAppp, Application app)
     {

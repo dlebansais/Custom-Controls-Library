@@ -9,9 +9,9 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>SplitView.Demo</RootNamespace>
-        <Version>1.0.9</Version>
-        <AssemblyVersion>1.0.9.765</AssemblyVersion>
-        <FileVersion>1.0.9.56</FileVersion>
+        <Version>1.0.10</Version>
+        <AssemblyVersion>1.0.10.766</AssemblyVersion>
+        <FileVersion>1.0.10.56</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />
@@ -39,14 +39,14 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Costura.Fody" Version="5.7.0">
+        <PackageReference Include="Costura.Fody" Version="6.0.0">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
-        <PackageReference Include="Fody" Version="6.8.2">
+        <PackageReference Include="Fody" Version="6.9.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="IDisposableAnalyzers" Version="4.0.8">
+        <PackageReference Include="dlebansais.IDisposableAnalyzers" Version="4.0.8.8">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -54,7 +54,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="dlebansais.CSharpLatest" Version="1.0.5">
+        <PackageReference Include="dlebansais.CSharpLatest" Version="2.1.2">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
@@ -62,12 +62,12 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="PolySharp" Version="1.14.1">
+        <PackageReference Include="PolySharp" Version="1.15.0">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="XamlConverterLibrary-Debug" Version="1.0.12" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
-        <PackageReference Include="XamlConverterLibrary" Version="1.0.12" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
+        <PackageReference Include="XamlConverterLibrary-Debug" Version="2.0.0" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+        <PackageReference Include="XamlConverterLibrary" Version="2.0.0" Condition="'$(Configuration)|$(Platform)'!='Debug|x64'" />
     </ItemGroup>
 
     <ItemGroup>

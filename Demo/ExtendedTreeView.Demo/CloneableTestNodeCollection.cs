@@ -29,16 +29,10 @@ internal class CloneableTestNodeCollection : ObservableCollection<CloneableTestN
     }
 
     /// <inheritdoc/>
-    int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item)
-    {
-        return IndexOf((CloneableTestNode)item);
-    }
+    int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item) => IndexOf((CloneableTestNode)item);
 
     /// <inheritdoc/>
-    void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item)
-    {
-        Insert(index, (CloneableTestNode)item);
-    }
+    void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item) => Insert(index, (CloneableTestNode)item);
 
     /// <inheritdoc/>
     IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
@@ -48,38 +42,20 @@ internal class CloneableTestNodeCollection : ObservableCollection<CloneableTestN
     }
 
     /// <inheritdoc/>
-    void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item)
-    {
-        Add((CloneableTestNode)item);
-    }
+    void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item) => Add((CloneableTestNode)item);
 
     /// <inheritdoc/>
-    bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item)
-    {
-        return Contains((CloneableTestNode)item);
-    }
+    bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item) => Contains((CloneableTestNode)item);
 
     /// <inheritdoc/>
-    void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
-    {
-        CopyTo((CloneableTestNode[])array, arrayIndex);
-    }
+    void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex) => CopyTo((CloneableTestNode[])array, arrayIndex);
 
     /// <inheritdoc/>
-    bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)
-    {
-        return Remove((CloneableTestNode)item);
-    }
+    bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item) => Remove((CloneableTestNode)item);
 
     /// <inheritdoc cref="ICollection{T}.IsReadOnly"/>
-    public bool IsReadOnly
-    {
-        get { return false; }
-    }
+    public bool IsReadOnly => false;
 
     /// <inheritdoc/>
-    IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator() => GetEnumerator();
 }

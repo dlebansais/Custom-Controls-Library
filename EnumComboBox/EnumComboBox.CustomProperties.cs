@@ -40,8 +40,8 @@ public partial class EnumComboBox : ComboBox
 #pragma warning restore SA1629 // Documentation text should end with a period
     public object? EnumBinding
     {
-        get { return GetValue(EnumBindingProperty); }
-        set { SetValue(EnumBindingProperty, value); }
+        get => GetValue(EnumBindingProperty);
+        set => SetValue(EnumBindingProperty, value);
     }
 
     private static void OnEnumBindingChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -78,8 +78,8 @@ public partial class EnumComboBox : ComboBox
     /// </summary>
     public IValueConverter NameConverter
     {
-        get { return (IValueConverter)GetValue(NameConverterProperty); }
-        set { SetValue(NameConverterProperty, value); }
+        get => (IValueConverter)GetValue(NameConverterProperty);
+        set => SetValue(NameConverterProperty, value);
     }
     #endregion
 
@@ -95,8 +95,8 @@ public partial class EnumComboBox : ComboBox
     /// </summary>
     public object NameConverterParameter
     {
-        get { return GetValue(NameConverterParameterProperty); }
-        set { SetValue(NameConverterParameterProperty, value); }
+        get => GetValue(NameConverterParameterProperty);
+        set => SetValue(NameConverterParameterProperty, value);
     }
     #endregion
 
@@ -112,8 +112,8 @@ public partial class EnumComboBox : ComboBox
     /// </summary>
     public CultureInfo NameConverterCulture
     {
-        get { return (CultureInfo)GetValue(NameConverterCultureProperty); }
-        set { SetValue(NameConverterCultureProperty, value); }
+        get => (CultureInfo)GetValue(NameConverterCultureProperty);
+        set => SetValue(NameConverterCultureProperty, value);
     }
     #endregion
 }

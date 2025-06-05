@@ -34,8 +34,5 @@ public class DropCheckEventArgs : DragDropEventArgs
     /// <summary>
     /// Deny the drop.
     /// </summary>
-    public void Deny()
-    {
-        Permission.Deny();
-    }
+    public void Deny() => Permission.Deny();
 }

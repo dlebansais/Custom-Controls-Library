@@ -27,8 +27,5 @@ public class DragStartingEventArgs : DragDropEventArgs
     /// <summary>
     /// Cancels the operation.
     /// </summary>
-    public void Cancel()
-    {
-        Cancellation.Cancel();
-    }
+    public void Cancel() => Cancellation.Cancel();
 }

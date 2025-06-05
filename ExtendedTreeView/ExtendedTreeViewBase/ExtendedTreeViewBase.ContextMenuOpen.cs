@@ -13,27 +13,18 @@ using Contracts;
 /// </summary>
 public abstract partial class ExtendedTreeViewBase : MultiSelector
 {
-    private void InitializeContextMenu()
-    {
-        CurrentlyFocusedContainer = null;
-    }
+    private void InitializeContextMenu() => CurrentlyFocusedContainer = null;
 
     /// <summary>
     /// Calleds when a container looses the focus.
     /// </summary>
-    public void ContainerLostFocus()
-    {
-        RemoveKeyboardFocusWithinHandler();
-    }
+    public void ContainerLostFocus() => RemoveKeyboardFocusWithinHandler();
 
     /// <summary>
     /// Calleds when a container gets the focus.
     /// </summary>
     /// <param name="container">The container.</param>
-    public void ContainerGotFocus(ExtendedTreeViewItemBase container)
-    {
-        AddKeyboardFocusWithinHandler(container);
-    }
+    public void ContainerGotFocus(ExtendedTreeViewItemBase container) => AddKeyboardFocusWithinHandler(container);
 
     /// <summary>
     /// Adds a keyboard focus handler for a container.

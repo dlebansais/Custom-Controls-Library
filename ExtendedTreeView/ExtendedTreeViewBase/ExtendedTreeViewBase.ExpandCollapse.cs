@@ -79,20 +79,14 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if expandable; othewise, false.</returns>
-    public bool IsItemExpandable(object item)
-    {
-        return !IsCtrlDown() && GetItemChildrenCount(item) > 0;
-    }
+    public bool IsItemExpandable(object item) => !IsCtrlDown() && GetItemChildrenCount(item) > 0;
 
     /// <summary>
     /// Checks if an item can be collapsed.
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if collapsible; othewise, false.</returns>
-    public bool IsItemCollapsible(object item)
-    {
-        return !IsCtrlDown() && GetItemChildrenCount(item) > 0 && (!IsContent(item) || !IsRootAlwaysExpanded);
-    }
+    public bool IsItemCollapsible(object item) => !IsCtrlDown() && GetItemChildrenCount(item) > 0 && (!IsContent(item) || !IsRootAlwaysExpanded);
 
     /// <summary>
     /// Expands an item at the provided position.

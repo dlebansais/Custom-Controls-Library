@@ -10,7 +10,7 @@ using System.Windows.Data;
 /// Converter to a value to an image from an array of images.
 /// </summary>
 [ValueConversion(typeof(int), typeof(object))]
-public class RandomPickerConverter : IValueConverter
+internal class RandomPickerConverter : IValueConverter
 {
     /// <summary>
     /// Converts a value to an image from an array of images.
@@ -36,7 +36,9 @@ public class RandomPickerConverter : IValueConverter
                 return Result;
         }
         else
+        {
             throw new ArgumentOutOfRangeException(nameof(parameter));
+        }
     }
 
     /// <summary>
@@ -47,8 +49,5 @@ public class RandomPickerConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        return value;
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

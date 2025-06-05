@@ -3,7 +3,7 @@
 /// <summary>
 /// Enum for test.
 /// </summary>
-public enum TestEnum2
+internal enum TestEnum2
 {
     /// <summary>
     /// The X value.

@@ -30,7 +30,9 @@ public class TreeViewLevelToObjectConverter : IMultiValueConverter
                 return CollectionOfItems[2];
             }
             else
+            {
                 throw new ArgumentOutOfRangeException(nameof(parameter));
+            }
         else
             throw new ArgumentOutOfRangeException(nameof(parameter));
     }
@@ -43,8 +45,5 @@ public class TreeViewLevelToObjectConverter : IMultiValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>An array of values that have been converted from the target value back to the source values.</returns>
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
+    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

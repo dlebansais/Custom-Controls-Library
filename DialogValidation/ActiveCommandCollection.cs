@@ -37,17 +37,11 @@ public class ActiveCommandCollection : ObservableCollection<ActiveCommand>
     /// </summary>
     /// <param name="sender">This parameter is not used.</param>
     /// <param name="args">Arguments for the associated event.</param>
-    protected virtual void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args)
-    {
-        SetCollectionModified();
-    }
+    protected virtual void OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs args) => SetCollectionModified();
 
     /// <summary>
     /// Marks the collection as modified.
     /// </summary>
-    protected virtual void SetCollectionModified()
-    {
-        IsCollectionModified = true;
-    }
+    protected virtual void SetCollectionModified() => IsCollectionModified = true;
     #endregion
 }

@@ -10,7 +10,7 @@ using CustomControls;
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
 /// </summary>
-public partial class MainWindow : Window, INotifyPropertyChanged
+internal partial class MainWindow : Window, INotifyPropertyChanged
 {
     #region Init
     /// <summary>
@@ -31,7 +31,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     /// </summary>
     public string TestContent
     {
-        get { return TestContentInternal; }
+        get => TestContentInternal;
         set
         {
             if (TestContentInternal != value)
@@ -78,18 +78,12 @@ public partial class MainWindow : Window, INotifyPropertyChanged
     /// Invoke handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the property that changed.</param>
-    protected void NotifyPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    protected void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     /// <summary>
     /// Invoke handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">Name of the property that changed.</param>
-    protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "")
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    protected void NotifyThisPropertyChanged([CallerMemberName] string propertyName = "") => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     #endregion
 }

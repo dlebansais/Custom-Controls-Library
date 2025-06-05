@@ -17,18 +17,18 @@ if "%WINAPPDRIVER_DIR%" == "" goto error2
 if not exist "%WINAPPDRIVER_DIR%/WinAppDriver.exe" goto error2
 if "%VSTESTPLATFORM_DIR%" == "" goto error3
 if not exist "%VSTESTPLATFORM_DIR%/VSTest.Console.exe" goto error3
-if not exist ".\BusyIndicator\bin\x64\Debug\net48\BusyIndicator.dll" goto error4
-if not exist ".\DialogValidation\bin\x64\Debug\net48\DialogValidation.dll" goto error4
-if not exist ".\EditableTextBlock\bin\x64\Debug\net48\EditableTextBlock.dll" goto error4
-if not exist ".\EnumComboBox\bin\x64\Debug\net48\EnumComboBox.dll" goto error4
-if not exist ".\EnumRadioButton\bin\x64\Debug\net48\EnumRadioButton.dll" goto error4
+if not exist ".\BusyIndicator\bin\x64\Debug\net481\BusyIndicator.dll" goto error4
+if not exist ".\DialogValidation\bin\x64\Debug\net481\DialogValidation.dll" goto error4
+if not exist ".\EditableTextBlock\bin\x64\Debug\net481\EditableTextBlock.dll" goto error4
+if not exist ".\EnumComboBox\bin\x64\Debug\net481\EnumComboBox.dll" goto error4
+if not exist ".\EnumRadioButton\bin\x64\Debug\net481\EnumRadioButton.dll" goto error4
 
 if exist .\Test\Coverage-Debug_coverage.xml del .\Test\Coverage-Debug_coverage.xml
 
 start cmd /k .\coverage\start_winappdriver.bat
 
-call .\coverage\app.bat %OPENCOVER_VERSION% BusyIndicator Debug
-call .\coverage\wait.bat 20
+rem call .\coverage\app.bat %OPENCOVER_VERSION% BusyIndicator Debug
+rem call .\coverage\wait.bat 20
 
 call .\coverage\app.bat %OPENCOVER_VERSION% DialogValidation Debug "unset"
 call .\coverage\wait.bat 30
@@ -93,11 +93,11 @@ echo ERROR: Codecov not found. Restore it with Nuget.
 goto end
 
 :error2
-echo ERROR: WinAppDriver not found. Example: set WINAPPDRIVER_DIR=C:\Program Files\Windows Application Driver
+echo ERROR: WinAppDriver not found. Example: set WINAPPDRIVER_DIR=C:\Program Files (x86)\Windows Application Driver
 goto end
 
 :error3
-echo ERROR: Visual Studio 2019 not found. Example: set VSTESTPLATFORM_DIR=C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\TestPlatform
+echo ERROR: Visual Studio 2019 not found. Example: set VSTESTPLATFORM_DIR=C:\Program Files\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\TestPlatform
 goto end
 
 :error4

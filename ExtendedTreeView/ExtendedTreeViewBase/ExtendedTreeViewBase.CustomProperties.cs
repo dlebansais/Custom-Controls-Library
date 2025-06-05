@@ -23,8 +23,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public SelectionMode SelectionMode
     {
-        get { return (SelectionMode)GetValue(SelectionModeProperty); }
-        set { SetValue(SelectionModeProperty, value); }
+        get => (SelectionMode)GetValue(SelectionModeProperty);
+        set => SetValue(SelectionModeProperty, value);
     }
     #endregion
 
@@ -39,8 +39,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public bool IsRootAlwaysExpanded
     {
-        get { return (bool)GetValue(IsRootAlwaysExpandedProperty); }
-        set { SetValue(IsRootAlwaysExpandedProperty, value); }
+        get => (bool)GetValue(IsRootAlwaysExpandedProperty);
+        set => SetValue(IsRootAlwaysExpandedProperty, value);
     }
     #endregion
 
@@ -55,8 +55,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public bool IsItemExpandedAtStart
     {
-        get { return (bool)GetValue(IsItemExpandedAtStartProperty); }
-        set { SetValue(IsItemExpandedAtStartProperty, value); }
+        get => (bool)GetValue(IsItemExpandedAtStartProperty);
+        set => SetValue(IsItemExpandedAtStartProperty, value);
     }
     #endregion
 
@@ -71,8 +71,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public bool AllowDragDrop
     {
-        get { return (bool)GetValue(AllowDragDropProperty); }
-        set { SetValue(AllowDragDropProperty, value); }
+        get => (bool)GetValue(AllowDragDropProperty);
+        set => SetValue(AllowDragDropProperty, value);
     }
 
     /// <summary>
@@ -82,10 +82,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="args">An object that contains event data.</param>
     [Access("protected", "static")]
     [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
-    private static void OnAllowDragDropChangedVerified(ExtendedTreeViewBase control, DependencyPropertyChangedEventArgs args)
-    {
-        control.OnAllowDragDropChanged(args);
-    }
+    private static void OnAllowDragDropChangedVerified(ExtendedTreeViewBase control, DependencyPropertyChangedEventArgs args) => control.OnAllowDragDropChanged(args);
 
     /// <summary>
     /// Handles changes of the <see cref="AllowDragDrop"/> property.
@@ -110,8 +107,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public bool UseDefaultCursors
     {
-        get { return (bool)GetValue(UseDefaultCursorsProperty); }
-        set { SetValue(UseDefaultCursorsProperty, value); }
+        get => (bool)GetValue(UseDefaultCursorsProperty);
+        set => SetValue(UseDefaultCursorsProperty, value);
     }
     #endregion
 
@@ -126,8 +123,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public Cursor CursorForbidden
     {
-        get { return (Cursor)GetValue(CursorForbiddenProperty); }
-        set { SetValue(CursorForbiddenProperty, value); }
+        get => (Cursor)GetValue(CursorForbiddenProperty);
+        set => SetValue(CursorForbiddenProperty, value);
     }
     #endregion
 
@@ -142,8 +139,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public Cursor CursorMove
     {
-        get { return (Cursor)GetValue(CursorMoveProperty); }
-        set { SetValue(CursorMoveProperty, value); }
+        get => (Cursor)GetValue(CursorMoveProperty);
+        set => SetValue(CursorMoveProperty, value);
     }
     #endregion
 
@@ -158,8 +155,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public Cursor CursorCopy
     {
-        get { return (Cursor)GetValue(CursorCopyProperty); }
-        set { SetValue(CursorCopyProperty, value); }
+        get => (Cursor)GetValue(CursorCopyProperty);
+        set => SetValue(CursorCopyProperty, value);
     }
     #endregion
 
@@ -174,8 +171,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public double ExpandButtonWidth
     {
-        get { return (double)GetValue(ExpandButtonWidthProperty); }
-        set { SetValue(ExpandButtonWidthProperty, value); }
+        get => (double)GetValue(ExpandButtonWidthProperty);
+        set => SetValue(ExpandButtonWidthProperty, value);
     }
 
     /// <summary>
@@ -201,8 +198,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public Style ExpandButtonStyle
     {
-        get { return (Style)GetValue(ExpandButtonStyleProperty); }
-        set { SetValue(ExpandButtonStyleProperty, value); }
+        get => (Style)GetValue(ExpandButtonStyleProperty);
+        set => SetValue(ExpandButtonStyleProperty, value);
     }
     #endregion
 
@@ -217,8 +214,8 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     public double IndentationWidth
     {
-        get { return (double)GetValue(IndentationWidthProperty); }
-        set { SetValue(IndentationWidthProperty, value); }
+        get => (double)GetValue(IndentationWidthProperty);
+        set => SetValue(IndentationWidthProperty, value);
     }
 
     /// <summary>

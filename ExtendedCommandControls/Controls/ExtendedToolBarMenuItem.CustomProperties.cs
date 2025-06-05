@@ -26,8 +26,8 @@ public partial class ExtendedToolBarMenuItem : MenuItem
     /// </summary>
     public bool CanShow
     {
-        get { return (bool)GetValue(CanShowProperty); }
-        set { SetValue(CanShowProperty, value); }
+        get => (bool)GetValue(CanShowProperty);
+        set => SetValue(CanShowProperty, value);
     }
     #endregion
 }

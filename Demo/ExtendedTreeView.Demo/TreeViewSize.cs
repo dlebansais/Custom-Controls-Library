@@ -3,7 +3,7 @@
 /// <summary>
 /// Sizes of a tree view.
 /// </summary>
-public enum TreeViewSize
+internal enum TreeViewSize
 {
     /// <summary>
     /// The small size.

@@ -15,7 +15,7 @@ internal class EmptyExtendedTreeNodeCollection<TItem, TCollection> : List<IExten
     /// <summary>
     /// Gets the parent of the collection.
     /// </summary>
-    public IExtendedTreeNode? Parent { get { return null; } }
+    public IExtendedTreeNode? Parent => null;
 
     /// <summary>
     /// Occurs when the collection changes.
@@ -25,8 +25,5 @@ internal class EmptyExtendedTreeNodeCollection<TItem, TCollection> : List<IExten
     /// <summary>
     /// Notify when the collection is changed.
     /// </summary>
-    protected void NotifyCollectionChanged()
-    {
-        CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-    }
+    protected void NotifyCollectionChanged() => CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 }

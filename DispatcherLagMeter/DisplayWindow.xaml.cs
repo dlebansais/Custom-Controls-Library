@@ -25,10 +25,7 @@ public partial class DisplayWindow : Window
     /// <summary>
     /// Updates the displayed content of this window.
     /// </summary>
-    internal void Update()
-    {
-        Dispatcher.Invoke(InvalidateVisual);
-    }
+    internal void Update() => Dispatcher.Invoke(InvalidateVisual);
 
     /// <inheritdoc cref="UIElement.OnRender"/>
     [Access("protected", "override")]
@@ -62,10 +59,7 @@ public partial class DisplayWindow : Window
         drawingContext.Pop();
     }
 
-    private static byte ToByteColor(double x)
-    {
-        return (byte)Math.Max(Math.Min(255, x * 255), 0);
-    }
+    private static byte ToByteColor(double x) => (byte)Math.Max(Math.Min(255, x * 255), 0);
 
     private DispatcherLagMeter LagMeter { get; }
 }

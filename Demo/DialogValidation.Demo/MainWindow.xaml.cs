@@ -15,7 +15,7 @@ using CustomControls;
 /// <summary>
 /// Main window of the DialogValidation demo program.
 /// </summary>
-public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
+internal partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
 {
     #region Init
     /// <summary>
@@ -31,7 +31,9 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
         Loaded += OnLoaded;
 
         if (TestUnset)
+            {
             UnsetTimer = new Timer(new TimerCallback(UnsetTimerCallback), this, TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(2));
+        }
     }
 
     private void OnLoaded(object sender, RoutedEventArgs args)
@@ -158,20 +160,11 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     #endregion
 
     #region Event handlers
-    private void OnOk(object sender, ExecutedRoutedEventArgs args)
-    {
-        Close();
-    }
+    private void OnOk(object sender, ExecutedRoutedEventArgs args) => Close();
 
-    private void OnCanExecuteOk(object sender, CanExecuteRoutedEventArgs args)
-    {
-        args.CanExecute = true;
-    }
+    private void OnCanExecuteOk(object sender, CanExecuteRoutedEventArgs args) => args.CanExecute = true;
 
-    private void OnCancel(object sender, ExecutedRoutedEventArgs args)
-    {
-        Close();
-    }
+    private void OnCancel(object sender, ExecutedRoutedEventArgs args) => Close();
 
     private void OnIsLocalizedSet(object sender, RoutedEventArgs args)
     {
@@ -298,10 +291,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     #endregion
 
     #region Implementation
-    private void UnsetTimerCallback(object? parameter)
-    {
-        _ = Dispatcher.BeginInvoke(OnUnsetTimer);
-    }
+    private void UnsetTimerCallback(object? parameter) => _ = Dispatcher.BeginInvoke(OnUnsetTimer);
 
     private void OnUnsetTimer()
     {
@@ -341,12 +331,7 @@ public partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     /// Notifies that a property is changed.
     /// </summary>
     /// <param name="propertyName">The property name.</param>
-    public void NotifyPropertyChanged(string propertyName)
-    {
-#pragma warning disable CS8602 // Dereference of a possibly null reference.
-        PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
-#pragma warning restore CS8602 // Dereference of a possibly null reference.
-    }
+    private void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     #endregion
 
     #region Implementation of IDisposable

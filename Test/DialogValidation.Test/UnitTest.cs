@@ -7,7 +7,7 @@ using NUnit.Framework;
 using TestTools;
 
 [TestFixture]
-public class UnitTest
+internal class UnitTest
 {
     private const string DemoAppName = "DialogValidation.Demo";
 

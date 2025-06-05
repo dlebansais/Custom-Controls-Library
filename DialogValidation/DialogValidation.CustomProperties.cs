@@ -87,8 +87,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public bool IsLocalized
     {
-        get { return (bool)GetValue(IsLocalizedProperty); }
-        set { SetValue(IsLocalizedProperty, value); }
+        get => (bool)GetValue(IsLocalizedProperty);
+        set => SetValue(IsLocalizedProperty, value);
     }
     #endregion
 
@@ -107,8 +107,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     [SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly", Justification="Collection must be R/W to allow Xaml syntax")]
     public ActiveCommandCollection ActiveCommands
     {
-        get { return (ActiveCommandCollection)GetValue(ActiveCommandsProperty); }
-        set { SetValue(ActiveCommandsProperty, value); }
+        get => (ActiveCommandCollection)GetValue(ActiveCommandsProperty);
+        set => SetValue(ActiveCommandsProperty, value);
     }
 
     /// <summary>
@@ -149,8 +149,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public Orientation Orientation
     {
-        get { return (Orientation)GetValue(OrientationProperty); }
-        set { SetValue(OrientationProperty, value); }
+        get => (Orientation)GetValue(OrientationProperty);
+        set => SetValue(OrientationProperty, value);
     }
     #endregion
 
@@ -168,8 +168,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandOk
     {
-        get { return (ICommand)GetValue(CommandOkProperty); }
-        set { SetValue(CommandOkProperty, value); }
+        get => (ICommand)GetValue(CommandOkProperty);
+        set => SetValue(CommandOkProperty, value);
     }
     #endregion
 
@@ -187,8 +187,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentOk
     {
-        get { return GetValue(ContentOkProperty); }
-        set { UpdateButtonContent(ContentOkProperty, value); }
+        get => GetValue(ContentOkProperty);
+        set => UpdateButtonContent(ContentOkProperty, value);
     }
     #endregion
 
@@ -206,8 +206,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandCancel
     {
-        get { return (ICommand)GetValue(CommandCancelProperty); }
-        set { SetValue(CommandCancelProperty, value); }
+        get => (ICommand)GetValue(CommandCancelProperty);
+        set => SetValue(CommandCancelProperty, value);
     }
     #endregion
 
@@ -225,8 +225,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentCancel
     {
-        get { return GetValue(ContentCancelProperty); }
-        set { UpdateButtonContent(ContentCancelProperty, value); }
+        get => GetValue(ContentCancelProperty);
+        set => UpdateButtonContent(ContentCancelProperty, value);
     }
     #endregion
 
@@ -244,8 +244,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandAbort
     {
-        get { return (ICommand)GetValue(CommandAbortProperty); }
-        set { SetValue(CommandAbortProperty, value); }
+        get => (ICommand)GetValue(CommandAbortProperty);
+        set => SetValue(CommandAbortProperty, value);
     }
     #endregion
 
@@ -263,8 +263,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentAbort
     {
-        get { return GetValue(ContentAbortProperty); }
-        set { UpdateButtonContent(ContentAbortProperty, value); }
+        get => GetValue(ContentAbortProperty);
+        set => UpdateButtonContent(ContentAbortProperty, value);
     }
     #endregion
 
@@ -282,8 +282,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandRetry
     {
-        get { return (ICommand)GetValue(CommandRetryProperty); }
-        set { SetValue(CommandRetryProperty, value); }
+        get => (ICommand)GetValue(CommandRetryProperty);
+        set => SetValue(CommandRetryProperty, value);
     }
     #endregion
 
@@ -301,8 +301,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentRetry
     {
-        get { return GetValue(ContentRetryProperty); }
-        set { UpdateButtonContent(ContentRetryProperty, value); }
+        get => GetValue(ContentRetryProperty);
+        set => UpdateButtonContent(ContentRetryProperty, value);
     }
     #endregion
 
@@ -320,8 +320,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandIgnore
     {
-        get { return (ICommand)GetValue(CommandIgnoreProperty); }
-        set { SetValue(CommandIgnoreProperty, value); }
+        get => (ICommand)GetValue(CommandIgnoreProperty);
+        set => SetValue(CommandIgnoreProperty, value);
     }
     #endregion
 
@@ -339,8 +339,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentIgnore
     {
-        get { return GetValue(ContentIgnoreProperty); }
-        set { UpdateButtonContent(ContentIgnoreProperty, value); }
+        get => GetValue(ContentIgnoreProperty);
+        set => UpdateButtonContent(ContentIgnoreProperty, value);
     }
     #endregion
 
@@ -358,8 +358,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandYes
     {
-        get { return (ICommand)GetValue(CommandYesProperty); }
-        set { SetValue(CommandYesProperty, value); }
+        get => (ICommand)GetValue(CommandYesProperty);
+        set => SetValue(CommandYesProperty, value);
     }
     #endregion
 
@@ -377,8 +377,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentYes
     {
-        get { return GetValue(ContentYesProperty); }
-        set { UpdateButtonContent(ContentYesProperty, value); }
+        get => GetValue(ContentYesProperty);
+        set => UpdateButtonContent(ContentYesProperty, value);
     }
     #endregion
 
@@ -396,8 +396,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandNo
     {
-        get { return (ICommand)GetValue(CommandNoProperty); }
-        set { SetValue(CommandNoProperty, value); }
+        get => (ICommand)GetValue(CommandNoProperty);
+        set => SetValue(CommandNoProperty, value);
     }
     #endregion
 
@@ -415,8 +415,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentNo
     {
-        get { return GetValue(ContentNoProperty); }
-        set { UpdateButtonContent(ContentNoProperty, value); }
+        get => GetValue(ContentNoProperty);
+        set => UpdateButtonContent(ContentNoProperty, value);
     }
     #endregion
 
@@ -434,8 +434,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandClose
     {
-        get { return (ICommand)GetValue(CommandCloseProperty); }
-        set { SetValue(CommandCloseProperty, value); }
+        get => (ICommand)GetValue(CommandCloseProperty);
+        set => SetValue(CommandCloseProperty, value);
     }
     #endregion
 
@@ -453,8 +453,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentClose
     {
-        get { return GetValue(ContentCloseProperty); }
-        set { UpdateButtonContent(ContentCloseProperty, value); }
+        get => GetValue(ContentCloseProperty);
+        set => UpdateButtonContent(ContentCloseProperty, value);
     }
     #endregion
 
@@ -472,8 +472,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandHelp
     {
-        get { return (ICommand)GetValue(CommandHelpProperty); }
-        set { SetValue(CommandHelpProperty, value); }
+        get => (ICommand)GetValue(CommandHelpProperty);
+        set => SetValue(CommandHelpProperty, value);
     }
     #endregion
 
@@ -491,8 +491,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentHelp
     {
-        get { return GetValue(ContentHelpProperty); }
-        set { UpdateButtonContent(ContentHelpProperty, value); }
+        get => GetValue(ContentHelpProperty);
+        set => UpdateButtonContent(ContentHelpProperty, value);
     }
     #endregion
 
@@ -510,8 +510,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandTryAgain
     {
-        get { return (ICommand)GetValue(CommandTryAgainProperty); }
-        set { SetValue(CommandTryAgainProperty, value); }
+        get => (ICommand)GetValue(CommandTryAgainProperty);
+        set => SetValue(CommandTryAgainProperty, value);
     }
     #endregion
 
@@ -529,8 +529,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentTryAgain
     {
-        get { return GetValue(ContentTryAgainProperty); }
-        set { UpdateButtonContent(ContentTryAgainProperty, value); }
+        get => GetValue(ContentTryAgainProperty);
+        set => UpdateButtonContent(ContentTryAgainProperty, value);
     }
     #endregion
 
@@ -548,8 +548,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public ICommand CommandContinue
     {
-        get { return (ICommand)GetValue(CommandContinueProperty); }
-        set { SetValue(CommandContinueProperty, value); }
+        get => (ICommand)GetValue(CommandContinueProperty);
+        set => SetValue(CommandContinueProperty, value);
     }
     #endregion
 
@@ -567,8 +567,8 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// </summary>
     public object ContentContinue
     {
-        get { return GetValue(ContentContinueProperty); }
-        set { UpdateButtonContent(ContentContinueProperty, value); }
+        get => GetValue(ContentContinueProperty);
+        set => UpdateButtonContent(ContentContinueProperty, value);
     }
     #endregion
 }

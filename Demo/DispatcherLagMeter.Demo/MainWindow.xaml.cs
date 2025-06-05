@@ -13,7 +13,7 @@ using CustomControls;
 /// <summary>
 /// Interaction logic for MainWindow.xaml.
 /// </summary>
-public partial class MainWindow : Window
+internal partial class MainWindow : Window
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -46,7 +46,9 @@ public partial class MainWindow : Window
             _ = Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, Resize3);
         }
         else
+        {
             QueueLagOperation();
+        }
     }
 
     private async void Resize3()

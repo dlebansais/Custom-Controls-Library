@@ -8,7 +8,7 @@ using System.Windows.Threading;
 /// <summary>
 /// Window used to test disposing.
 /// </summary>
-public partial class TestDisposeWindow : Window, IDisposable
+internal partial class TestDisposeWindow : Window, IDisposable
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="TestDisposeWindow"/> class.
@@ -22,9 +22,7 @@ public partial class TestDisposeWindow : Window, IDisposable
     }
 
     private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        _ = Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, Close);
-    }
+        => _ = Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, Close);
 
     #region Implementation of IDisposable
     /// <summary>

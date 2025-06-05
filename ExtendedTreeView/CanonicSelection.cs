@@ -42,8 +42,5 @@ public class CanonicSelection
     /// Sets the dragged item parent.
     /// </summary>
     /// <param name="draggedItemParent">The dragged item parent.</param>
-    public void SetDraggedItemParent(object draggedItemParent)
-    {
-        DraggedItemParent = draggedItemParent;
-    }
+    public void SetDraggedItemParent(object draggedItemParent) => DraggedItemParent = draggedItemParent;
 }

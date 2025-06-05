@@ -8,7 +8,7 @@ using System.Windows.Data;
 /// Converter for an integer value to <see langword="true"/> if it's equal to the provided parameter.
 /// </summary>
 [ValueConversion(typeof(int), typeof(bool))]
-public class DiscreteIndexConverter : IValueConverter
+internal class DiscreteIndexConverter : IValueConverter
 {
     /// <summary>
     /// Converts an integer value to <see langword="true"/> if it's equal to the provided parameter.
@@ -33,8 +33,5 @@ public class DiscreteIndexConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

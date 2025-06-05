@@ -122,7 +122,9 @@ public partial class ExtendedPasswordBox : UserControl
             UpdateIsPasswordEmptyProperty(NewText);
         }
         else
+        {
             UpdateIsPasswordEmptyProperty(Ctrl.SecurePassword);
+        }
     }
 
     private bool IsTextPropertyBound()

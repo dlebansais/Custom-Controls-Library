@@ -3,7 +3,7 @@
 using FlaUI.Core;
 using FlaUI.Core.AutomationElements;
 
-public class TestApp
+internal class TestApp
 {
     /// <summary>
     /// Gets or sets the coverage application.

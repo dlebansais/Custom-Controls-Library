@@ -91,9 +91,6 @@ internal record StringResource(string FilePath, uint ResourceID)
     /// Frees loaded handles from memory.
     /// </summary>
     /// <param name="hMod">Handle to free.</param>
-    protected virtual void FreeHandles(IntPtr hMod)
-    {
-        _ = NativeMethods.FreeLibrary(hMod);
-    }
+    protected virtual void FreeHandles(IntPtr hMod) => _ = NativeMethods.FreeLibrary(hMod);
     #endregion
 }

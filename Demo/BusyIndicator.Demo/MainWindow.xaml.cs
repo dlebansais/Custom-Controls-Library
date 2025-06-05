@@ -8,7 +8,7 @@ using System.Windows.Threading;
 /// <summary>
 /// Main window of the BusyIndicator demo program.
 /// </summary>
-public partial class MainWindow : Window, IDisposable
+internal partial class MainWindow : Window, IDisposable
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MainWindow"/> class.
@@ -21,15 +21,9 @@ public partial class MainWindow : Window, IDisposable
         StopTimer = new Timer(new TimerCallback(StopTimerCallback), this, TimeSpan.FromSeconds(5), Timeout.InfiniteTimeSpan);
     }
 
-    private void StopTimerCallback(object? parameter)
-    {
-        _ = Dispatcher.BeginInvoke(OnStopTimer);
-    }
+    private void StopTimerCallback(object? parameter) => _ = Dispatcher.BeginInvoke(OnStopTimer);
 
-    private void OnStopTimer()
-    {
-        Close();
-    }
+    private void OnStopTimer() => Close();
 
     /// <summary>
     /// Disposes of managed and unmanaged resources.

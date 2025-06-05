@@ -263,9 +263,6 @@ internal class CursorResource
     /// Frees loaded handle from memory.
     /// </summary>
     /// <param name="hMod">Handle to free.</param>
-    protected virtual void FreeHandle(IntPtr hMod)
-    {
-        _ = NativeMethods.FreeLibrary(hMod);
-    }
+    protected virtual void FreeHandle(IntPtr hMod) => _ = NativeMethods.FreeLibrary(hMod);
     #endregion
 }

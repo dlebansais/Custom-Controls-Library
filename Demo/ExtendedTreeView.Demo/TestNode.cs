@@ -39,20 +39,14 @@ internal class TestNode : IExtendedTreeNode
     /// <summary>
     /// Gets the node text.
     /// </summary>
-    public string Text { get { return "TestNode #" + Index.ToString(CultureInfo.InvariantCulture); } }
+    public string Text => "TestNode #" + Index.ToString(CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Changes the parent.
     /// </summary>
     /// <param name="newParent">The new parent.</param>
-    public void ChangeParent(IExtendedTreeNode newParent)
-    {
-        Parent = newParent;
-    }
+    public void ChangeParent(IExtendedTreeNode newParent) => Parent = newParent;
 
     /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"{base.ToString()} #{Index}";
-    }
+    public override string ToString() => $"{base.ToString()} #{Index}";
 }

@@ -6,7 +6,7 @@ using System.Windows;
 /// <summary>
 /// Window used to test disposing.
 /// </summary>
-public partial class TestDisposeWindow : Window, IDisposable
+internal partial class TestDisposeWindow : Window, IDisposable
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="TestDisposeWindow"/> class.
@@ -19,10 +19,7 @@ public partial class TestDisposeWindow : Window, IDisposable
         Loaded += OnLoaded;
     }
 
-    private void OnLoaded(object sender, RoutedEventArgs e)
-    {
-        Close();
-    }
+    private void OnLoaded(object sender, RoutedEventArgs e) => Close();
 
     #region Implementation of IDisposable
     /// <summary>

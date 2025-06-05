@@ -28,8 +28,8 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
     /// </summary>
     public TItem Content
     {
-        get { return (TItem)GetValue(ContentProperty); }
-        set { SetValue(ContentProperty, value); }
+        get => (TItem)GetValue(ContentProperty);
+        set => SetValue(ContentProperty, value);
     }
 
     /// <summary>
@@ -39,19 +39,13 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
     /// <param name="args">An object that contains event data.</param>
     [Access("protected", "static")]
     [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
-    private static void OnContentChangedVerified(ExtendedTreeViewGeneric<TItem, TCollection> control, DependencyPropertyChangedEventArgs args)
-    {
-        control.OnContentChanged(args);
-    }
+    private static void OnContentChangedVerified(ExtendedTreeViewGeneric<TItem, TCollection> control, DependencyPropertyChangedEventArgs args) => control.OnContentChanged(args);
 
     /// <summary>
     /// Handles changes of the <see cref="Content"/> property.
     /// </summary>
     /// <param name="args">An object that contains event data.</param>
-    protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs args)
-    {
-        BuildFlatChildrenTables();
-    }
+    protected virtual void OnContentChanged(DependencyPropertyChangedEventArgs args) => BuildFlatChildrenTables();
     #endregion
 
     #region Ancestor Interface
@@ -60,10 +54,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
     /// </summary>
     /// <param name="item">The item.</param>
     /// <returns>True if equal to the current content; otherwise, false.</returns>
-    protected override bool IsContent(object item)
-    {
-        return item is TItem AsItem && AsItem == Content;
-    }
+    protected override bool IsContent(object item) => item is TItem AsItem && AsItem == Content;
 
     /// <summary>
     /// Checks if an item is of the same type as the current content.
@@ -315,10 +306,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
     /// Creates a list of items.
     /// </summary>
     /// <returns>The created list of items.</returns>
-    protected override IList CreateItemList()
-    {
-        return new List<TItem>();
-    }
+    protected override IList CreateItemList() => new List<TItem>();
 
     /// <summary>
     /// Sets the dragged items.

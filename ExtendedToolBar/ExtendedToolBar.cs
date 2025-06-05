@@ -39,18 +39,12 @@ public partial class ExtendedToolBar : ToolBar
     /// <summary>
     /// Overrides metadata associated to the ancestor control with new ones associated to this control specifically.
     /// </summary>
-    protected static void OverrideAncestorMetadata()
-    {
-        OverrideMetadataDefaultStyleKey();
-    }
+    protected static void OverrideAncestorMetadata() => OverrideMetadataDefaultStyleKey();
 
     /// <summary>
     /// Overrides the DefaultStyleKey metadata associated to the ancestor control with a new one associated to this control specifically.
     /// </summary>
-    protected static void OverrideMetadataDefaultStyleKey()
-    {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBar), new FrameworkPropertyMetadata(typeof(ExtendedToolBar)));
-    }
+    protected static void OverrideMetadataDefaultStyleKey() => DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedToolBar), new FrameworkPropertyMetadata(typeof(ExtendedToolBar)));
     #endregion
 
     #region Client Interface
@@ -164,10 +158,7 @@ public partial class ExtendedToolBar : ToolBar
     #endregion
 
     #region Implementation
-    private void InitializeHandlers()
-    {
-        Loaded += OnLoaded;
-    }
+    private void InitializeHandlers() => Loaded += OnLoaded;
 
     private void OnLoaded(object sender, RoutedEventArgs args)
     {
@@ -236,7 +227,9 @@ public partial class ExtendedToolBar : ToolBar
 
         string Question;
         if (string.IsNullOrEmpty(ToolBarName))
+        {
             Question = Properties.Resources.ConfirmResetThisToolBarQuestion;
+        }
         else
         {
             string QuestionFormat = Properties.Resources.ConfirmResetToolBarQuestion;

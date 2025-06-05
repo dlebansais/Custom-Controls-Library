@@ -3,7 +3,7 @@
 /// <summary>
 /// Types of tree view.
 /// </summary>
-public enum TreeViewType
+internal enum TreeViewType
 {
     /// <summary>
     /// Visual 2013 type.

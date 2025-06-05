@@ -24,8 +24,5 @@ public class InsertItemContext : ModifyContext, IInsertItemContext
     /// <summary>
     /// Moves to the next index.
     /// </summary>
-    public override void NextIndex()
-    {
-        ShownIndex++;
-    }
+    public override void NextIndex() => ShownIndex++;
 }

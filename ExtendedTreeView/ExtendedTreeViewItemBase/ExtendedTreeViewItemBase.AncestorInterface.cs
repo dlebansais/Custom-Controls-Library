@@ -23,18 +23,12 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Override metadata for the <see cref="ContentControl.Content"/> property.
     /// </summary>
-    protected static void OverrideMetadataContent()
-    {
-        ContentProperty.OverrideMetadata(typeof(ExtendedTreeViewItemBase), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnContentChanged)));
-    }
+    protected static void OverrideMetadataContent() => ContentProperty.OverrideMetadata(typeof(ExtendedTreeViewItemBase), new FrameworkPropertyMetadata(new PropertyChangedCallback(OnContentChanged)));
 
     /// <summary>
     /// Override metadata for the <see cref="FrameworkElement.DefaultStyleKey"/> property.
     /// </summary>
-    protected static void OverrideMetadataDefaultStyleKey()
-    {
-        DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedTreeViewItemBase), new FrameworkPropertyMetadata(typeof(ExtendedTreeViewItemBase)));
-    }
+    protected static void OverrideMetadataDefaultStyleKey() => DefaultStyleKeyProperty.OverrideMetadata(typeof(ExtendedTreeViewItemBase), new FrameworkPropertyMetadata(typeof(ExtendedTreeViewItemBase)));
 
     /// <summary>
     /// Called when the <see cref="ContentControl.Content"/> property has changed.
@@ -43,10 +37,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <param name="args">The event data.</param>
     [Access("protected", "static")]
     [RequireNotNull(nameof(control), Type = "DependencyObject", Name = "modifiedObject")]
-    private static void OnContentChangedVerified(ExtendedTreeViewItemBase control, DependencyPropertyChangedEventArgs args)
-    {
-        control.OnContentChanged(args);
-    }
+    private static void OnContentChangedVerified(ExtendedTreeViewItemBase control, DependencyPropertyChangedEventArgs args) => control.OnContentChanged(args);
 
     /// <summary>
     /// Called when the <see cref="ContentControl.Content"/> property has changed.

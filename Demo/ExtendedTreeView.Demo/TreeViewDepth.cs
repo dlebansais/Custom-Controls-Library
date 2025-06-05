@@ -3,7 +3,7 @@
 /// <summary>
 /// Thye depth of a tree view.
 /// </summary>
-public enum TreeViewDepth
+internal enum TreeViewDepth
 {
     /// <summary>
     /// The small depth.

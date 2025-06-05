@@ -40,16 +40,13 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     /// <summary>
     /// Gets the node text.
     /// </summary>
-    public string Text { get { return $"CloneableTestNode #{Index}"; } }
+    public string Text => $"CloneableTestNode #{Index}";
 
     /// <summary>
     /// Changes the parent.
     /// </summary>
     /// <param name="newParent">The new parent.</param>
-    public void ChangeParent(IExtendedTreeNode newParent)
-    {
-        Parent = newParent;
-    }
+    public void ChangeParent(IExtendedTreeNode newParent) => Parent = newParent;
 
     /// <summary>
     /// Clones the node.
@@ -64,8 +61,5 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     }
 
     /// <inheritdoc/>
-    public override string ToString()
-    {
-        return $"{base.ToString()} #{Index}";
-    }
+    public override string ToString() => $"{base.ToString()} #{Index}";
 }

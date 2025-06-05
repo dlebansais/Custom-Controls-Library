@@ -20,10 +20,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Unselects the item because a left button up event occured.
     /// </summary>
-    protected void UnselectItemOnLeftButtonUp()
-    {
-        Host.LeftClickUnselect(Content);
-    }
+    protected void UnselectItemOnLeftButtonUp() => Host.LeftClickUnselect(Content);
 
     /// <summary>
     /// Selects the item because a right button down event occured.
@@ -37,8 +34,5 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     /// <summary>
     /// Unselects the item because a right button up event occured.
     /// </summary>
-    protected void UnselectItemOnRightButtonUp()
-    {
-        Host.RightClickUnselect(Content);
-    }
+    protected void UnselectItemOnRightButtonUp() => Host.RightClickUnselect(Content);
 }

@@ -19,11 +19,11 @@ public class ActiveDocumentRoutedCommand : LocalizedRoutedCommand
     /// <summary>
     /// Gets the localized menu header when a document is inactive.
     /// </summary>
-    public string InactiveMenuHeader { get { return Reference.GetString(InactiveHeaderKey); } }
+    public string InactiveMenuHeader => Reference.GetString(InactiveHeaderKey);
 
     /// <summary>
     /// Gets the localized tooltip when a document is inactive.
     /// </summary>
-    public string InactiveButtonToolTip { get { return Reference.GetString(InactiveToolTipKey); } }
+    public string InactiveButtonToolTip => Reference.GetString(InactiveToolTipKey);
     #endregion
 }

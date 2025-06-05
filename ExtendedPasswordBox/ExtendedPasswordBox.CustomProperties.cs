@@ -32,8 +32,8 @@ public partial class ExtendedPasswordBox : UserControl
     [Bindable(true)]
     public string Text
     {
-        get { return (string)GetValue(TextProperty); }
-        set { SetValue(TextProperty, value); }
+        get => (string)GetValue(TextProperty);
+        set => SetValue(TextProperty, value);
     }
 
     private static void OnTextChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -74,8 +74,8 @@ public partial class ExtendedPasswordBox : UserControl
     /// </summary>
     public bool ShowPassword
     {
-        get { return (bool)GetValue(ShowPasswordProperty); }
-        set { SetValue(ShowPasswordProperty, value); }
+        get => (bool)GetValue(ShowPasswordProperty);
+        set => SetValue(ShowPasswordProperty, value);
     }
 
     private static void OnShowPasswordChanged(DependencyObject d, DependencyPropertyChangedEventArgs args)
@@ -123,9 +123,6 @@ public partial class ExtendedPasswordBox : UserControl
     /// <summary>
     /// Gets a value indicating whether the password is currently empty.
     /// </summary>
-    public bool IsPasswordEmpty
-    {
-        get { return (bool)GetValue(IsPasswordEmptyProperty); }
-    }
+    public bool IsPasswordEmpty => (bool)GetValue(IsPasswordEmptyProperty);
     #endregion
 }

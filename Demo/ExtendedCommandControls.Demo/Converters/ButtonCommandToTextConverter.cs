@@ -10,7 +10,7 @@ using CustomControls;
 /// Converter from a <see cref="ICommand"/> to a menu header string.
 /// </summary>
 [ValueConversion(typeof(ICommand), typeof(string))]
-public class ButtonCommandToTextConverter : IValueConverter
+internal class ButtonCommandToTextConverter : IValueConverter
 {
     /// <summary>
     /// Converts from a <see cref="ICommand"/> to a menu header string.
@@ -84,8 +84,5 @@ public class ButtonCommandToTextConverter : IValueConverter
     /// <param name="parameter">The converter parameter to use.</param>
     /// <param name="culture">The culture to use in the converter.</param>
     /// <returns>A converted value.</returns>
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-    {
-        throw new NotSupportedException();
-    }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

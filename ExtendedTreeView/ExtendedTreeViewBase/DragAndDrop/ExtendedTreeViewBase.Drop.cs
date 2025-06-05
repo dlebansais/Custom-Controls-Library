@@ -16,10 +16,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     /// <param name="itemContainer">The container.</param>
     /// <returns>True if destination of a drop; otherwise, false.</returns>
-    public static bool IsDropOver(ExtendedTreeViewItemBase itemContainer)
-    {
-        return itemContainer == DropTargetContainer;
-    }
+    public static bool IsDropOver(ExtendedTreeViewItemBase itemContainer) => itemContainer == DropTargetContainer;
 
     /// <summary>
     /// Invoked when an unhandled <see cref="UIElement.Drop"/> attached event reaches an element in its route that is derived from this class.
@@ -129,10 +126,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <summary>
     /// Clears the target of a drag drop operation.
     /// </summary>
-    protected virtual void ClearCurrentDropTarget()
-    {
-        _ = Dispatcher.BeginInvoke(new ClearCurrentDropTargetHandler(OnClearCurrentDropTarget));
-    }
+    protected virtual void ClearCurrentDropTarget() => _ = Dispatcher.BeginInvoke(new ClearCurrentDropTargetHandler(OnClearCurrentDropTarget));
 
     /// <summary>
     /// Represents the method that will handle a ClearCurrentDropTarget event.

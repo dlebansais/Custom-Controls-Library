@@ -17,9 +17,6 @@ public class CancellationToken
     /// <summary>
     /// Allows a handler to cancel the operation notified by the event associated to this object.
     /// </summary>
-    public virtual void Cancel()
-    {
-        IsCanceled = true;
-    }
+    public virtual void Cancel() => IsCanceled = true;
     #endregion
 }

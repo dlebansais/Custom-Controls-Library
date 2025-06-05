@@ -10,10 +10,7 @@ using Contracts;
 /// </summary>
 public abstract partial class ExtendedTreeViewBase : MultiSelector
 {
-    private void InitializeImplementation()
-    {
-        ItemsSource = VisibleChildren;
-    }
+    private void InitializeImplementation() => ItemsSource = VisibleChildren;
 
     /// <summary>
     /// Builds the flat children table.

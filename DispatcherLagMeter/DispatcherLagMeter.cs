@@ -52,10 +52,7 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         _ = Dispatcher.BeginInvoke(RecalculatePositionAndSize);
     }
 
-    private static double FromBool(bool value)
-    {
-        return value ? 1.0 : 0.0;
-    }
+    private static double FromBool(bool value) => value ? 1.0 : 0.0;
 
     private void RecalculatePositionAndSize()
     {
@@ -74,10 +71,7 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         Display.Top = Root.Top + (ControlRelativeCoordinates.Y * scalingFactor);
     }
 
-    private void OnSizeChanged(object sender, RoutedEventArgs e)
-    {
-        _ = Dispatcher.BeginInvoke(RecalculatePositionAndSize);
-    }
+    private void OnSizeChanged(object sender, RoutedEventArgs e) => _ = Dispatcher.BeginInvoke(RecalculatePositionAndSize);
 
     private void OnShutdownStarted(object? sender, EventArgs e)
     {
@@ -131,11 +125,11 @@ public partial class DispatcherLagMeter : UserControl, IDisposable
         NotifyLagMeasured(LastLag, LastQueueLength);
     }
 
-    private void DisplayTimerCallback()
-    {
-        // Dispatcher.Invoke(InvalidateVisual);
+    private void DisplayTimerCallback() =>
+        /*
+        Dispatcher.Invoke(InvalidateVisual);
+        */
         Display.Update();
-    }
 
     /// <summary>
     /// Gets the last lag value.

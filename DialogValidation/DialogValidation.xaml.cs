@@ -26,18 +26,12 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <summary>
     /// Gets default commands to use when the client does not specifically define them.
     /// </summary>
-    private static IList<ActiveCommand> InitDefaultCommandCollection()
-    {
-        return [ActiveCommand.Ok, ActiveCommand.Cancel];
-    }
+    private static IList<ActiveCommand> InitDefaultCommandCollection() => [ActiveCommand.Ok, ActiveCommand.Cancel];
 
     /// <summary>
     /// Creates a default command.
     /// </summary>
-    private static RoutedUICommand CreateDefaultCommand(string text)
-    {
-        return new RoutedUICommand() { Text = text };
-    }
+    private static RoutedUICommand CreateDefaultCommand(string text) => new() { Text = text };
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DialogValidation"/> class.
@@ -55,10 +49,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// <param name="sender">This parameter is not used.</param>
     /// <param name="args">This parameter is not used.</param>
     /// </parameters>
-    private void OnInitialized(object? sender, EventArgs args)
-    {
-        InitializeCommands();
-    }
+    private void OnInitialized(object? sender, EventArgs args) => InitializeCommands();
 
     /// <summary>
     /// Initializes the default commands and localized names.
@@ -89,10 +80,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// Creates and initializes a <see cref="ActiveCommandCollection"/> object.
     /// </summary>
     /// <returns>The created object instance.</returns>
-    protected virtual ActiveCommandCollection CreateActiveCommandCollection()
-    {
-        return new ActiveCommandCollection();
-    }
+    protected virtual ActiveCommandCollection CreateActiveCommandCollection() => new();
     #endregion
 
     #region Properties
@@ -163,9 +151,6 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     /// Invokes handlers of the <see cref="PropertyChanged"/> event.
     /// </summary>
     /// <param name="propertyName">The property name.</param>
-    public void NotifyPropertyChanged(string propertyName)
-    {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
+    public void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     #endregion
 }

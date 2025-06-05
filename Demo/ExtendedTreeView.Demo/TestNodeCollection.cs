@@ -29,16 +29,10 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
     }
 
     /// <inheritdoc/>
-    int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item)
-    {
-        return IndexOf((TestNode)item);
-    }
+    int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item) => IndexOf((TestNode)item);
 
     /// <inheritdoc/>
-    void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item)
-    {
-        Insert(index, (TestNode)item);
-    }
+    void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item) => Insert(index, (TestNode)item);
 
     /// <inheritdoc/>
     IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
@@ -48,38 +42,20 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
     }
 
     /// <inheritdoc/>
-    void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item)
-    {
-        Add((TestNode)item);
-    }
+    void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item) => Add((TestNode)item);
 
     /// <inheritdoc/>
-    bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item)
-    {
-        return Contains((TestNode)item);
-    }
+    bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item) => Contains((TestNode)item);
 
     /// <inheritdoc/>
-    void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex)
-    {
-        CopyTo((TestNode[])array, arrayIndex);
-    }
+    void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex) => CopyTo((TestNode[])array, arrayIndex);
 
     /// <inheritdoc/>
-    bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item)
-    {
-        return Remove((TestNode)item);
-    }
+    bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item) => Remove((TestNode)item);
 
     /// <inheritdoc cref="ICollection{T}.IsReadOnly"/>
-    public bool IsReadOnly
-    {
-        get { return false; }
-    }
+    public bool IsReadOnly => false;
 
     /// <inheritdoc/>
-    IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator()
-    {
-        return GetEnumerator();
-    }
+    IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator() => GetEnumerator();
 }

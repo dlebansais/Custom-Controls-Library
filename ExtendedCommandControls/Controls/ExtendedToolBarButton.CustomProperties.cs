@@ -24,8 +24,8 @@ public partial class ExtendedToolBarButton : Button
     /// </summary>
     public CommandResourceReference Reference
     {
-        get { return (CommandResourceReference)GetValue(ReferenceProperty); }
-        set { SetValue(ReferenceProperty, value); }
+        get => (CommandResourceReference)GetValue(ReferenceProperty);
+        set => SetValue(ReferenceProperty, value);
     }
     #endregion
 
@@ -45,8 +45,8 @@ public partial class ExtendedToolBarButton : Button
     /// </summary>
     public bool IsCheckable
     {
-        get { return (bool)GetValue(IsCheckableProperty); }
-        set { SetValue(IsCheckableProperty, value); }
+        get => (bool)GetValue(IsCheckableProperty);
+        set => SetValue(IsCheckableProperty, value);
     }
 
     /// <summary>
@@ -63,10 +63,7 @@ public partial class ExtendedToolBarButton : Button
     /// <summary>
     /// Called when the <see cref="IsCheckable"/> dependency property is changed.
     /// </summary>
-    private void OnIsCheckableChanged()
-    {
-        UpdateVisibility();
-    }
+    private void OnIsCheckableChanged() => UpdateVisibility();
     #endregion
 
     #region Is Default Active
@@ -85,8 +82,8 @@ public partial class ExtendedToolBarButton : Button
     /// </summary>
     public bool IsDefaultActive
     {
-        get { return (bool)GetValue(IsDefaultActiveProperty); }
-        set { SetValue(IsDefaultActiveProperty, value); }
+        get => (bool)GetValue(IsDefaultActiveProperty);
+        set => SetValue(IsDefaultActiveProperty, value);
     }
 
     /// <summary>
@@ -103,10 +100,7 @@ public partial class ExtendedToolBarButton : Button
     /// <summary>
     /// Called when the <see cref="IsDefaultActive"/> dependency property is changed.
     /// </summary>
-    private void OnIsDefaultActiveChanged()
-    {
-        InitializeIsActive();
-    }
+    private void OnIsDefaultActiveChanged() => InitializeIsActive();
     #endregion
 
     #region Is Active
@@ -125,8 +119,8 @@ public partial class ExtendedToolBarButton : Button
     /// </summary>
     public bool IsActive
     {
-        get { return (bool)GetValue(IsActiveProperty); }
-        set { SetValue(IsActiveProperty, value); }
+        get => (bool)GetValue(IsActiveProperty);
+        set => SetValue(IsActiveProperty, value);
     }
 
     /// <summary>
@@ -171,9 +165,6 @@ public partial class ExtendedToolBarButton : Button
     /// <summary>
     /// Sends a <see cref="IsActiveChanged"/> event.
     /// </summary>
-    protected virtual void NotifyIsActiveChanged()
-    {
-        RaiseEvent(new RoutedEventArgs(IsActiveChangedEvent));
-    }
+    protected virtual void NotifyIsActiveChanged() => RaiseEvent(new RoutedEventArgs(IsActiveChangedEvent));
     #endregion
 }
