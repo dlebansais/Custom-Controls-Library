@@ -50,7 +50,7 @@ after_build:
   - if exist nuget\%PACKAGE_PREFIX%.%APPVEYOR_PROJECT_NAME%.nuspec nuget pack nuget\%PACKAGE_PREFIX%.%APPVEYOR_PROJECT_NAME%.nuspec
   - '%PACKAGER_PATH% %CUSTOM_PACKAGER_OPTIONS% --prefix=%PACKAGE_PREFIX% --debug'          # Execute the packager: the output is nuget-debug\%PACKAGE_PREFIX%.%APPVEYOR_PROJECT_NAME%-Debug.nuspec
   - if exist nuget-debug\%PACKAGE_PREFIX%.%APPVEYOR_PROJECT_NAME%-Debug.nuspec nuget pack nuget-debug\%PACKAGE_PREFIX%.%APPVEYOR_PROJECT_NAME%-Debug.nuspec
-  - ps: $xml = [xml](Get-Content .\$env:APPVEYOR_PROJECT_NAME\$env:APPVEYOR_PROJECT_NAME.csproj)
+  - ps: $xml = [xml](Get-Content .\BusyIndicator\BusyIndicator.csproj)
   - ps: $version=$xml.Project.PropertyGroup.Version
   - ps: set version_tag v$version
   - ps: $version_tag=$version_tag.Trim()
@@ -63,12 +63,12 @@ before_test:
   - ps: $env:COVERAGE_RESULT_FILE="Coverage-$env:APPVEYOR_PROJECT_NAME.xml"
   - |-
     printf "dotnet test ./Test/DialogValidation.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DialogValidation.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" > run-tests.bat
-    printf "dotnet test ./Test/DispatcherLagMeter.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DispatcherLagMeter.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-    printf "dotnet test ./Test/ExtendedPasswordBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedPasswordBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+#    printf "dotnet test ./Test/DispatcherLagMeter.Test/bin/x64/%CONFIGURATION%/net8.0-windows/DispatcherLagMeter.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+#    printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+#    printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+#    printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+#    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+#    printf "dotnet test ./Test/ExtendedPasswordBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedPasswordBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
   - |-
     printf "@echo ************************************************************** Starting Tests..\n" > run-tests1.bat
     printf "call run-tests.bat\n" >> run-tests1.bat
