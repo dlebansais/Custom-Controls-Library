@@ -142,9 +142,7 @@ public partial class DialogValidation : UserControl, INotifyPropertyChanged
     #endregion
 
     #region Implementation of INotifyPropertyChanged
-    /// <summary>
-    /// Occurs when a property has changed.
-    /// </summary>
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>

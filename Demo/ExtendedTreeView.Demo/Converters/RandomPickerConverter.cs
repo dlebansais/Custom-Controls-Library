@@ -12,14 +12,7 @@ using System.Windows.Data;
 [ValueConversion(typeof(int), typeof(object))]
 internal class RandomPickerConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts a value to an image from an array of images.
-    /// </summary>
-    /// <param name="value">An integer value.</param>
-    /// <param name="targetType">The type of the binding target property (ignored).</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter (ignored).</param>
-    /// <returns>A converted value.</returns>
+    /// <inheritdoc />
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         int IndexValue = (int)value;
@@ -41,13 +34,6 @@ internal class RandomPickerConverter : IValueConverter
         }
     }
 
-    /// <summary>
-    /// This method is not used.
-    /// </summary>
-    /// <param name="value">The value that is produced by the binding target.</param>
-    /// <param name="targetType">The type to convert to.</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter.</param>
-    /// <returns>A converted value.</returns>
+    /// <inheritdoc />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

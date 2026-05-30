@@ -18,9 +18,7 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
         Parent = parent;
     }
 
-    /// <summary>
-    /// Gets the parent node.
-    /// </summary>
+    /// <inheritdoc />
     public IExtendedTreeNode Parent { get; private set; }
 
     /// <inheritdoc cref="IExtendedTreeNodeCollection.Sort"/>

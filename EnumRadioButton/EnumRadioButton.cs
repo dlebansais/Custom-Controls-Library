@@ -49,11 +49,7 @@ public partial class EnumRadioButton : RadioButton
     #endregion
 
     #region Events
-    /// <summary>
-    /// Override the <see cref="OnChecked"/> event handler, to modify the enum property bound to the <see cref="EnumBinding"/> dependency property when this radio button is checked.
-    /// <para>The enum property bound to the <see cref="EnumBinding"/> property is set to the value designed by the <see cref="EnumValue"/> property at the time of the click.</para>
-    /// </summary>
-    /// <param name="e">Provides data for <see cref="RoutedEventArgs"/>.</param>
+    /// <inheritdoc />
     protected override void OnChecked(RoutedEventArgs e)
     {
         base.OnChecked(e);

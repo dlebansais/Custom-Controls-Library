@@ -40,13 +40,7 @@ public partial class EnumComboBox : ComboBox
     #endregion
 
     #region Ancestor Interface
-    /// <summary>
-    /// Override the <see cref="MeasureOverride"/> event handler, to accommodate for the largest enum value name.
-    /// </summary>
-    /// <param name="constraint">The maximum size that the method can return.</param>
-    /// <returns>
-    /// The size of the control, up to the maximum specified by constraint.
-    /// </returns>
+    /// <inheritdoc />
     protected override Size MeasureOverride(Size constraint)
     {
         Size BaseSize = base.MeasureOverride(constraint);
@@ -99,10 +93,7 @@ public partial class EnumComboBox : ComboBox
         return new Size(EnumWidth, EnumHeight);
     }
 
-    /// <summary>
-    /// Override the <see cref="OnSelectionChanged"/> event handler, to update the bound enum property.
-    /// </summary>
-    /// <param name="e">Provides data for <see cref="SelectionChangedEventArgs"/>.</param>
+    /// <inheritdoc />
     protected override void OnSelectionChanged(SelectionChangedEventArgs e)
     {
         base.OnSelectionChanged(e);

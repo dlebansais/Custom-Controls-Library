@@ -48,17 +48,10 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
 
     private void InitAncestor() => CanSelectMultipleItems = true;
 
-    /// <summary>
-    /// Creates or identifies the element that is used to display the given item.
-    /// </summary>
-    /// <returns>The element that is used to display the given item.</returns>
+    /// <inheritdoc />
     protected override DependencyObject GetContainerForItemOverride() => CreateContainerItem();
 
-    /// <summary>
-    /// Determines if the specified item is (or is eligible to be) its own container.
-    /// </summary>
-    /// <param name="item">The item to check.</param>
-    /// <returns>True if the item is (or is eligible to be) its own container; otherwise, false.</returns>
+    /// <inheritdoc />
     protected override bool IsItemItsOwnContainerOverride(object item) => item is ExtendedTreeViewItemBase;
 
     /// <summary>
@@ -67,10 +60,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <returns>The created container.</returns>
     protected virtual ExtendedTreeViewItemBase CreateContainerItem() => new(this);
 
-    /// <summary>
-    /// Called when the selection changes.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnSelectionChanged(SelectionChangedEventArgs e)
     {
         base.OnSelectionChanged(e);

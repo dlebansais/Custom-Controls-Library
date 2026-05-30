@@ -35,19 +35,13 @@ public class LocalizedRoutedCommand : ExtendedRoutedCommand
     /// </summary>
     public string IconKey { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Gets the localized menu header.
-    /// </summary>
+    /// <inheritdoc />
     public override string MenuHeader => Reference.GetString(HeaderKey);
 
-    /// <summary>
-    /// Gets the localized tooltip.
-    /// </summary>
+    /// <inheritdoc />
     public override string ButtonToolTip => Reference.GetString(ToolTipKey);
 
-    /// <summary>
-    /// Gets the localized image.
-    /// </summary>
+    /// <inheritdoc />
     public override ImageSource ImageSource => Reference.GetImageSource(IconKey);
     #endregion
 }

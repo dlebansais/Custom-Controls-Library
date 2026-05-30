@@ -7,18 +7,12 @@ using System.Windows.Input;
 /// </summary>
 public class ActiveCommandContinue : ActiveCommand
 {
-    /// <summary>
-    /// Gets the neutral name of the <see cref="ActiveCommandContinue"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string Name => "Continue";
 
-    /// <summary>
-    /// Gets the localized name of the <see cref="ActiveCommandContinue"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string FriendlyName => "_Continue";
 
-    /// <summary>
-    /// Gets the routed command of the <see cref="ActiveCommandContinue"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override RoutedUICommand Command => DialogValidation.DefaultCommandContinue;
 }

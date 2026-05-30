@@ -322,9 +322,7 @@ internal partial class MainWindow : Window, INotifyPropertyChanged, IDisposable
     #endregion
 
     #region Implementation of INotifyPropertyChanged
-    /// <summary>
-    /// The PropertyChanged event.
-    /// </summary>
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
+using CSharpLatest;
 using CustomControls;
 
 /// <summary>
@@ -29,7 +30,8 @@ internal partial class MainWindow : Window
             Loaded += OnLoaded;
     }
 
-    private async void OnLoaded(object sender, RoutedEventArgs e)
+    [AsyncEventHandler]
+    private async Task OnLoadedAsync(object sender, RoutedEventArgs e)
     {
         if (TestEscape == 1)
         {
@@ -51,7 +53,7 @@ internal partial class MainWindow : Window
         }
     }
 
-    private async void Resize3()
+    private async Task Resize3()
     {
         await Task.Delay(TimeSpan.FromSeconds(1)).ConfigureAwait(true);
         SizeToContent = SizeToContent.Manual;
@@ -140,7 +142,7 @@ internal partial class MainWindow : Window
         }
     }
 
-    private async void StartTest2()
+    private async Task StartTest2()
     {
         ctrl.LagMeasured -= OnLagMeasured;
 

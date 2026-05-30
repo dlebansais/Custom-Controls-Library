@@ -7,18 +7,12 @@ using System.Windows.Input;
 /// </summary>
 public class ActiveCommandTryAgain : ActiveCommand
 {
-    /// <summary>
-    /// Gets the neutral name of the <see cref="ActiveCommandTryAgain"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string Name => "TryAgain";
 
-    /// <summary>
-    /// Gets the localized name of the <see cref="ActiveCommandTryAgain"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string FriendlyName => "_Try Again";
 
-    /// <summary>
-    /// Gets the routed command of the <see cref="ActiveCommandTryAgain"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override RoutedUICommand Command => DialogValidation.DefaultCommandTryAgain;
 }

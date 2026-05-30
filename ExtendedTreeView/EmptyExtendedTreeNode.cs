@@ -19,20 +19,13 @@ internal class EmptyExtendedTreeNode<TItem, TCollection> : IExtendedTreeNode
         Children.CollectionChanged += OnCollectionChanged;
     }
 
-    /// <summary>
-    /// Gets the parent node.
-    /// </summary>
+    /// <inheritdoc />
     public IExtendedTreeNode? Parent => null;
 
-    /// <summary>
-    /// Gets the collection of child nodes.
-    /// </summary>
+    /// <inheritdoc />
     public IExtendedTreeNodeCollection Children { get; } = new EmptyExtendedTreeNodeCollection<TItem, TCollection>();
 
-    /// <summary>
-    /// Changes the node parent.
-    /// </summary>
-    /// <param name="newParent">The new parent node.</param>
+    /// <inheritdoc />
     public void ChangeParent(IExtendedTreeNode newParent)
     {
     }

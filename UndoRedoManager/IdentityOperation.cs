@@ -17,23 +17,17 @@ internal class IdentityOperation : IReversibleOperation
     #endregion
 
     #region Properties
-    /// <summary>
-    /// Gets the operation name.
-    /// </summary>
+    /// <inheritdoc />
     public string Name { get; } = string.Empty;
     #endregion
 
     #region Client Interface
-    /// <summary>
-    /// Executes the operation.
-    /// </summary>
+    /// <inheritdoc />
     public void Redo()
     {
     }
 
-    /// <summary>
-    /// Returns the system to the state before the operation was executed.
-    /// </summary>
+    /// <inheritdoc />
     public void Undo()
     {
     }

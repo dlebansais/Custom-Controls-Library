@@ -12,32 +12,20 @@ using Contracts;
 public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyChanged
 {
     #region Mouse Events
-    /// <summary>
-    /// Invoked when an unhandled <see cref="Mouse.MouseEnterEvent"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseEnter(MouseEventArgs e) => DebugCall();
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="Mouse.MouseLeaveEvent"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseLeave(MouseEventArgs e) => DebugCall();
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseLeftButtonDown"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnPreviewMouseLeftButtonDown(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseLeftButtonDown"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         DebugCall();
@@ -45,20 +33,14 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
         base.OnMouseLeftButtonDown(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseLeftButtonUp"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnPreviewMouseLeftButtonUp(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseLeftButtonUp"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
     {
         DebugCall();
@@ -66,20 +48,14 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
         base.OnMouseLeftButtonUp(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseRightButtonDown"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseRightButtonDown(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnPreviewMouseRightButtonDown(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseRightButtonDown"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseRightButtonDown(MouseButtonEventArgs e)
     {
         DebugCall();
@@ -87,20 +63,14 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
         base.OnMouseRightButtonDown(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseRightButtonUp"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseRightButtonUp(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnPreviewMouseRightButtonUp(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseRightButtonUp"/> attached event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseRightButtonUp(MouseButtonEventArgs e)
     {
         DebugCall();

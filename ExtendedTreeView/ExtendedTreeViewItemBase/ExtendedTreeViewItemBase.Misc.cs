@@ -35,9 +35,7 @@ public partial class ExtendedTreeViewItemBase : ContentControl, INotifyPropertyC
     #endregion
 
     #region Implementation of INotifyPropertyChanged
-    /// <summary>
-    /// Implements the PropertyChanged event.
-    /// </summary>
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>

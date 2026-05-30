@@ -9,10 +9,7 @@ using System.Windows.Input;
 /// </summary>
 public abstract partial class ExtendedTreeViewBase : MultiSelector
 {
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseLeftButtonDown"/> routed event reaches an element in its route that is derived from this class.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         DebugCall();
@@ -20,50 +17,35 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         base.OnPreviewMouseLeftButtonDown(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseLeftButtonDown"/> routed event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnMouseLeftButtonDown(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseLeftButtonUp"/> routed event reaches an element in its route that is derived from this class.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseLeftButtonUp(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnPreviewMouseLeftButtonUp(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseLeftButtonUp"/> routed event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseLeftButtonUp(MouseButtonEventArgs e)
     {
         DebugCall();
         base.OnMouseLeftButtonUp(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.PreviewMouseMove"/> routed event reaches an element in its route that is derived from this class.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnPreviewMouseMove(MouseEventArgs e)
     {
         DebugCall();
         base.OnPreviewMouseMove(e);
     }
 
-    /// <summary>
-    /// Invoked when an unhandled <see cref="UIElement.MouseMove"/> routed event is raised on this element.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnMouseMove(MouseEventArgs e)
     {
         DebugCall();

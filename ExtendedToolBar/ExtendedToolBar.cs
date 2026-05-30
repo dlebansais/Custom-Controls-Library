@@ -110,10 +110,7 @@ public partial class ExtendedToolBar : ToolBar
     #endregion
 
     #region Checked Buttons
-    /// <summary>
-    /// Updates the list of all <see cref="ExtendedToolBarButton"/> objects in the toolbar.
-    /// </summary>
-    /// <param name="e">This parameter is not used.</param>
+    /// <inheritdoc />
     protected override void OnItemsChanged(NotifyCollectionChangedEventArgs e)
     {
         base.OnItemsChanged(e);

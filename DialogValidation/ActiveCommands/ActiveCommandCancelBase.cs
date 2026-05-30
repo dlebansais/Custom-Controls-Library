@@ -7,18 +7,12 @@ using System.Windows.Input;
 /// </summary>
 public class ActiveCommandCancelBase : ActiveCommand
 {
-    /// <summary>
-    /// Gets the neutral name of the <see cref="ActiveCommandCancelBase"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string Name => "Cancel";
 
-    /// <summary>
-    /// Gets the localized name of the <see cref="ActiveCommandCancelBase"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string FriendlyName => "Cancel";
 
-    /// <summary>
-    /// Gets the routed command of the <see cref="ActiveCommandCancelBase"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override RoutedUICommand Command => DialogValidation.DefaultCommandCancel;
 }

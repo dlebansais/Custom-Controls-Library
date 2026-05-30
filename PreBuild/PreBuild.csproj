@@ -10,7 +10,7 @@
     </Target>
 
     <ItemGroup>
-      <PackageReference Include="dlebansais.IDisposableAnalyzers" Version="4.0.8.9">
+      <PackageReference Include="dlebansais.IDisposableAnalyzers" Version="4.0.8.17">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>

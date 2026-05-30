@@ -348,9 +348,7 @@ internal partial class MainWindow : Window, INotifyPropertyChanged
     private readonly List<FrameworkElement> ButtonList = new();
 
     #region Implementation of INotifyPropertyChanged
-    /// <summary>
-    /// The PropertyChanged event.
-    /// </summary>
+    /// <inheritdoc />
     public event PropertyChangedEventHandler? PropertyChanged;
 
     /// <summary>

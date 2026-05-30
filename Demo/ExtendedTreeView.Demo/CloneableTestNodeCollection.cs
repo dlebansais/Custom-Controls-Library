@@ -18,9 +18,7 @@ internal class CloneableTestNodeCollection : ObservableCollection<CloneableTestN
         Parent = parent;
     }
 
-    /// <summary>
-    /// Gets the collection parent node.
-    /// </summary>
+    /// <inheritdoc />
     public IExtendedTreeNode Parent { get; }
 
     /// <inheritdoc cref="IExtendedTreeNodeCollection.Sort"/>

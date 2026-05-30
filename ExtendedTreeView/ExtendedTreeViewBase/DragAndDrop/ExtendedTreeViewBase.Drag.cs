@@ -110,10 +110,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         Debug.Assert(IsHandled);
     }
 
-    /// <summary>
-    /// Called when feedback for the user is needed.
-    /// </summary>
-    /// <param name="e">The event data.</param>
+    /// <inheritdoc />
     protected override void OnGiveFeedback(GiveFeedbackEventArgs e)
     {
 #if NET6_0_OR_GREATER

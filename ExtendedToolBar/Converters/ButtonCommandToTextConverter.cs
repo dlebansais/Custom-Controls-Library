@@ -12,13 +12,7 @@ using CustomControls;
 [ValueConversion(typeof(ICommand), typeof(string))]
 public class ButtonCommandToTextConverter : IValueConverter
 {
-    /// <summary>
-    /// Converts from a <see cref="ICommand"/> to a menu header string.
-    /// </summary>
-    /// <param name="value">The <see cref="ICommand"/> object to convert.</param>
-    /// <param name="targetType">The type of the binding target property.</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter.</param>
+    /// <inheritdoc />
     /// <returns>
     /// If <paramref name="value"/> is a valid <see cref="ICommand"/> object, the converter returns its menu header as a string.
     /// Otherwise, this method returns null.
@@ -76,13 +70,6 @@ public class ButtonCommandToTextConverter : IValueConverter
         return ItemHeader;
     }
 
-    /// <summary>
-    /// This method is not used.
-    /// </summary>
-    /// <param name="value">The value that is produced by the binding target.</param>
-    /// <param name="targetType">The type to convert to.</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter.</param>
-    /// <returns>A converted value.</returns>
+    /// <inheritdoc />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

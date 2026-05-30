@@ -30,29 +30,19 @@ public class DragSourceControl : IDragSourceControl
         DragActivity = DragActivity.Idle;
     }
 
-    /// <summary>
-    /// Gets the control source of the dragged content.
-    /// </summary>
+    /// <inheritdoc />
     public FrameworkElement SourceControl { get; }
 
-    /// <summary>
-    /// Gets a value indicating whether copy is allowed on drop.
-    /// </summary>
+    /// <inheritdoc />
     public bool AllowDropCopy { get; private set; }
 
-    /// <summary>
-    /// Gets the GUID of the source.
-    /// </summary>
+    /// <inheritdoc />
     public Guid SourceGuid { get; private set; }
 
-    /// <summary>
-    /// Gets the activity state of the drag operation.
-    /// </summary>
+    /// <inheritdoc />
     public DragActivity DragActivity { get; private set; }
 
-    /// <summary>
-    /// Occurs when <see cref="DragActivity"/> changed.
-    /// </summary>
+    /// <inheritdoc />
     public event EventHandler<EventArgs>? DragActivityChanged;
 
     /// <summary>
@@ -60,10 +50,7 @@ public class DragSourceControl : IDragSourceControl
     /// </summary>
     protected void NotifyDragActivityChanged() => DragActivityChanged?.Invoke(this, EventArgs.Empty);
 
-    /// <summary>
-    /// Changes the drag activity.
-    /// </summary>
-    /// <param name="canonicSelectedItemList">The lost of selected items.</param>
+    /// <inheritdoc />
     public virtual void SetIsDragPossible(CanonicSelection canonicSelectedItemList)
     {
 #if NET6_0_OR_GREATER
@@ -78,21 +65,14 @@ public class DragSourceControl : IDragSourceControl
         AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
     }
 
-    /// <summary>
-    /// Clears the value indicating if drag is possible.
-    /// </summary>
+    /// <inheritdoc />
     public virtual void ClearIsDragPossible()
     {
         DraggedItemParent = null;
         AllowDropCopy = false;
     }
 
-    /// <summary>
-    /// Gets the value indicating if drag is possible.
-    /// </summary>
-    /// <param name="draggedItemParent">The dragged parent item upon return.</param>
-    /// <param name="itemList">The list of dragged items upon return.</param>
-    /// <returns>True if drag is possible; otherwise, false.</returns>
+    /// <inheritdoc />
     public virtual bool IsDragPossible(out object draggedItemParent, out IList itemList)
     {
         bool IsDragPossible = true;
@@ -111,50 +91,30 @@ public class DragSourceControl : IDragSourceControl
         return false;
     }
 
-    /// <summary>
-    /// Checks if an item is the parent of the dragged item.
-    /// </summary>
-    /// <param name="item">The item to check.</param>
-    /// <returns>True if the parent of the dragged item; otherwise, false.</returns>
+    /// <inheritdoc />
     public virtual bool IsDraggedItemParent(object item) => DraggedItemParent == item;
 
-    /// <summary>
-    /// Called when a drag should begin after the mouse moved.
-    /// </summary>
-    /// <param name="sourceLocation">The source location.</param>
+    /// <inheritdoc />
     public virtual void DragAfterMouseMove(MouseEventArgs sourceLocation) => InitiateDrag();
 
-    /// <summary>
-    /// Cancels the drag operation.
-    /// </summary>
+    /// <inheritdoc />
     public virtual void CancelDrag() => DragActivity = DragActivity.Canceled;
 
-    /// <summary>
-    /// Sets the flat list of dragged items.
-    /// </summary>
-    /// <param name="rootItem">The root item.</param>
-    /// <param name="flatItemList">The flat list of dragged items.</param>
+    /// <inheritdoc />
     public virtual void SetFlatDraggedItemList(object rootItem, IList flatItemList)
     {
         RootItem = rootItem;
         FlatItemList = flatItemList;
     }
 
-    /// <summary>
-    /// Clears the flat list of dragged items.
-    /// </summary>
+    /// <inheritdoc />
     public virtual void ClearFlatDraggedItemList()
     {
         RootItem = null;
         FlatItemList = null;
     }
 
-    /// <summary>
-    /// Checks if there are dragged items.
-    /// </summary>
-    /// <param name="rootItem">The root of dragged items upon return.</param>
-    /// <param name="flatItemList">The flat list of dragged items upon return.</param>
-    /// <returns>True if successful; otherwise, false.</returns>
+    /// <inheritdoc />
     public virtual bool HasDragItemList(out object rootItem, out IList flatItemList)
     {
         if (RootItem is not null && FlatItemList is not null && FlatItemList.Count > 0)

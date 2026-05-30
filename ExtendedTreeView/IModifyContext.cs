@@ -37,33 +37,23 @@ public interface IModifyContext
 /// <param name="shownIndex">Index of the item.</param>
 public abstract class ModifyContext(int shownIndex) : IModifyContext
 {
-    /// <summary>
-    /// Gets or sets the index of the item.
-    /// </summary>
+    /// <inheritdoc />
     public int ShownIndex { get; protected set; } = shownIndex;
 
-    /// <summary>
-    /// Starts the operation.
-    /// </summary>
+    /// <inheritdoc />
     public virtual void Start()
     {
     }
 
-    /// <summary>
-    /// Moves to the next index.
-    /// </summary>
+    /// <inheritdoc />
     public abstract void NextIndex();
 
-    /// <summary>
-    /// Complete the operation.
-    /// </summary>
+    /// <inheritdoc />
     public virtual void Complete()
     {
     }
 
-    /// <summary>
-    /// Closes the context.
-    /// </summary>
+    /// <inheritdoc />
     public virtual void Close()
     {
     }

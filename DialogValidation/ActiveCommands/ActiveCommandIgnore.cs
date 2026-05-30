@@ -7,18 +7,12 @@ using System.Windows.Input;
 /// </summary>
 public class ActiveCommandIgnore : ActiveCommand
 {
-    /// <summary>
-    /// Gets the neutral name of the <see cref="ActiveCommandIgnore"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string Name => "Ignore";
 
-    /// <summary>
-    /// Gets the localized name of the <see cref="ActiveCommandIgnore"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string FriendlyName => "_Ignore";
 
-    /// <summary>
-    /// Gets the routed command of the <see cref="ActiveCommandIgnore"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override RoutedUICommand Command => DialogValidation.DefaultCommandIgnore;
 }

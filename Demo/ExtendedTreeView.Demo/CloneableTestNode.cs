@@ -22,9 +22,7 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
         Children = new CloneableTestNodeCollection(this);
     }
 
-    /// <summary>
-    /// Gets the node parent.
-    /// </summary>
+    /// <inheritdoc />
     public IExtendedTreeNode? Parent { get; private set; }
 
     /// <summary>
@@ -32,9 +30,7 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     /// </summary>
     public int Index { get; private set; }
 
-    /// <summary>
-    /// Gets the node children.
-    /// </summary>
+    /// <inheritdoc />
     public IExtendedTreeNodeCollection Children { get; private set; }
 
     /// <summary>
@@ -42,15 +38,10 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     /// </summary>
     public string Text => $"CloneableTestNode #{Index}";
 
-    /// <summary>
-    /// Changes the parent.
-    /// </summary>
-    /// <param name="newParent">The new parent.</param>
+    /// <inheritdoc />
     public void ChangeParent(IExtendedTreeNode newParent) => Parent = newParent;
 
-    /// <summary>
-    /// Clones the node.
-    /// </summary>
+    /// <inheritdoc />
     public object Clone()
     {
         CloneableTestNode Clone = new((CloneableTestNode?)Parent, Index);

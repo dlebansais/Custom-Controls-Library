@@ -13,16 +13,7 @@ using System.Windows.Data;
 [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification="Instanciated in Xaml")]
 internal class ActiveCommandToContentConverter : IMultiValueConverter
 {
-    /// <summary>
-    /// Converter from a <see cref="ActiveCommand"/> to the associated content in a <see cref="DialogValidation"/>.
-    /// </summary>
-    /// <param name="values">The array of values that the source bindings in the <see cref="MultiBinding"/> produces. The value <see cref="DependencyProperty.UnsetValue"/> indicates that the source binding has no value to provide for conversion.</param>
-    /// <param name="targetType">The type of the binding target property.</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter.</param>
-    /// <returns>
-    /// A <see cref="object"/> that represents the converted value.
-    /// </returns>
+    /// <inheritdoc />
     /// <remarks>
     /// <para>The first value must be a <see cref="DialogValidation"/>.</para>
     /// <para>The second value must be a <see cref="ActiveCommand"/>.</para>
@@ -82,16 +73,7 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
         return Result;
     }
 
-    /// <summary>
-    /// Converts a binding target value to the source binding values.
-    /// </summary>
-    /// <param name="value">The value that the binding target produces.</param>
-    /// <param name="targetTypes">The array of types to convert to. The array length indicates the number and types of values that are suggested for the method to return.</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter.</param>
-    /// <returns>
-    /// An array of values that have been converted from the target value back to the source values.
-    /// </returns>
+    /// <inheritdoc />
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
         Debug.Assert(targetTypes.Length > 2);

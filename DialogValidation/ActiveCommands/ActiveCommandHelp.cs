@@ -7,18 +7,12 @@ using System.Windows.Input;
 /// </summary>
 public class ActiveCommandHelp : ActiveCommand
 {
-    /// <summary>
-    /// Gets the neutral name of the <see cref="ActiveCommandHelp"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string Name => "Help";
 
-    /// <summary>
-    /// Gets the localized name of the <see cref="ActiveCommandHelp"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override string FriendlyName => "Help";
 
-    /// <summary>
-    /// Gets the routed command of the <see cref="ActiveCommandHelp"/> object.
-    /// </summary>
+    /// <inheritdoc />
     public override RoutedUICommand Command => DialogValidation.DefaultCommandHelp;
 }

@@ -326,9 +326,7 @@ public partial class EditableTextBlock : UserControl, IDisposable
         }
     }
 
-    /// <summary>
-    /// Called when an object should release its resources.
-    /// </summary>
+    /// <inheritdoc />
     public void Dispose()
     {
         Dispose(disposing: true);

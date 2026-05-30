@@ -27,7 +27,7 @@ internal partial class MainWindow : Window
             _ = Dispatcher.BeginInvoke(Cycle3);
     }
 
-    private async void Cycle1()
+    private async Task Cycle1()
     {
         Debug.Assert(!ctrl.ShowPassword);
         Debug.Assert(ctrl.IsPasswordEmpty);
@@ -72,7 +72,7 @@ internal partial class MainWindow : Window
         Debug.Assert(!ctrl.IsPasswordEmpty);
     }
 
-    private async void Cycle2()
+    private async Task Cycle2()
     {
         Debug.Assert(!ctrl.ShowPassword);
         Debug.Assert(ctrl.IsPasswordEmpty);

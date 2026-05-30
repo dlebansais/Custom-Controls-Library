@@ -49,18 +49,10 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
     #endregion
 
     #region Ancestor Interface
-    /// <summary>
-    /// Checks if an item is the current content.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <returns>True if equal to the current content; otherwise, false.</returns>
+    /// <inheritdoc />
     protected override bool IsContent(object item) => item is TItem AsItem && AsItem == Content;
 
-    /// <summary>
-    /// Checks if an item is of the same type as the current content.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <returns>True if of the same type as the current content; otherwise, false.</returns>
+    /// <inheritdoc />
     protected override bool IsSameTypeAsContent(object item)
     {
 #if NET6_0_OR_GREATER
@@ -76,11 +68,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return true;
     }
 
-    /// <summary>
-    /// Gets the parent of an item.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <returns>The parent item.</returns>
+    /// <inheritdoc />
     protected override object? GetItemParent(object item)
     {
 #if NET6_0_OR_GREATER
@@ -94,11 +82,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return Item.Parent;
     }
 
-    /// <summary>
-    /// Gets the number of children of an item.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <returns>The number of children.</returns>
+    /// <inheritdoc />
     protected override int GetItemChildrenCount(object item)
     {
 #if NET6_0_OR_GREATER
@@ -112,11 +96,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return ((IList)Item.Children).Count;
     }
 
-    /// <summary>
-    /// Gets children of an item.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <returns>The children.</returns>
+    /// <inheritdoc />
     protected override IList GetItemChildren(object item)
     {
 #if NET6_0_OR_GREATER
@@ -130,12 +110,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return Item.Children;
     }
 
-    /// <summary>
-    /// Gets the child of an item at the provided index.
-    /// </summary>
-    /// <param name="item">The item.</param>
-    /// <param name="index">The child index.</param>
-    /// <returns>The child at the provided index.</returns>
+    /// <inheritdoc />
     protected override object GetItemChild(object item, int index)
     {
 #if NET6_0_OR_GREATER
@@ -149,10 +124,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return Contract.AssertNotNull(((IList)Item.Children)[index]);
     }
 
-    /// <summary>
-    /// Installs event handlers on an item.
-    /// </summary>
-    /// <param name="item">The item.</param>
+    /// <inheritdoc />
     protected override void InstallHandlers(object item)
     {
 #if NET6_0_OR_GREATER
@@ -166,10 +138,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         Item.Children.CollectionChanged += OnItemChildrenChanged;
     }
 
-    /// <summary>
-    /// Uninstalls event handlers from an item.
-    /// </summary>
-    /// <param name="item">The item.</param>
+    /// <inheritdoc />
     protected override void UninstallHandlers(object item)
     {
 #if NET6_0_OR_GREATER
@@ -183,12 +152,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         Item.Children.CollectionChanged -= OnItemChildrenChanged;
     }
 
-    /// <summary>
-    /// Moves items from source to destination.
-    /// </summary>
-    /// <param name="sourceItem">The source item.</param>
-    /// <param name="destinationItem">The destination item.</param>
-    /// <param name="itemList">Moved children.</param>
+    /// <inheritdoc />
     protected override void DragDropMove(object sourceItem, object destinationItem, IList itemList)
     {
 #if NET6_0_OR_GREATER
@@ -234,13 +198,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         DestinationCollection.Sort();
     }
 
-    /// <summary>
-    /// Copy items from source to destination.
-    /// </summary>
-    /// <param name="sourceItem">The source item.</param>
-    /// <param name="destinationItem">The destination item.</param>
-    /// <param name="itemList">Children at the source.</param>
-    /// <param name="cloneList">Cloned children at the destination.</param>
+    /// <inheritdoc />
     protected override void DragDropCopy(object sourceItem, object destinationItem, IList itemList, IList cloneList)
     {
 #if NET6_0_OR_GREATER
@@ -285,9 +243,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         DestinationCollection.Sort();
     }
 
-    /// <summary>
-    /// Inserts child items starting from the content root.
-    /// </summary>
+    /// <inheritdoc />
     protected override void InsertChildrenFromRootDontNotify()
     {
         if (Content is TItem Item)
@@ -302,17 +258,10 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         }
     }
 
-    /// <summary>
-    /// Creates a list of items.
-    /// </summary>
-    /// <returns>The created list of items.</returns>
+    /// <inheritdoc />
     protected override IList CreateItemList() => new List<TItem>();
 
-    /// <summary>
-    /// Sets the dragged items.
-    /// </summary>
-    /// <param name="dragSource">The drag source.</param>
-    /// <param name="itemList">The list of dragged items.</param>
+    /// <inheritdoc />
     protected override void SetDragItemList(IDragSourceControl dragSource, IList itemList)
     {
 #if NET6_0_OR_GREATER
@@ -325,10 +274,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         dragSource.SetFlatDraggedItemList(Content, FlatItemList(itemList));
     }
 
-    /// <summary>
-    /// Clears the dragged items.
-    /// </summary>
-    /// <param name="dragSource">The drag source.</param>
+    /// <inheritdoc />
     protected override void ClearDragItemList(IDragSourceControl dragSource)
     {
 #if NET6_0_OR_GREATER
@@ -356,9 +302,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return Result;
     }
 #elif NETCOREAPP3_1
-    /// <summary>
-    /// Gets the list of visible items.
-    /// </summary>
+    /// <inheritdoc />
     public override IList VisibleItems()
     {
         List<TItem?> Result = new();
@@ -370,9 +314,7 @@ public partial class ExtendedTreeViewGeneric<TItem, TCollection> : ExtendedTreeV
         return Result;
     }
 #else
-    /// <summary>
-    /// Gets the list of visible items.
-    /// </summary>
+    /// <inheritdoc />
     public override IList VisibleItems()
     {
         List<TItem> Result = new();

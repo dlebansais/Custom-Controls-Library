@@ -12,14 +12,7 @@ using System.Windows.Data;
 [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification = "Instantiated in Xaml")]
 internal class LazyConverter : IValueConverter
 {
-    /// <summary>
-    /// Converter for tests.
-    /// </summary>
-    /// <param name="value">Any value.</param>
-    /// <param name="targetType">The type of the binding target property (ignored).</param>
-    /// <param name="parameter">The converter parameter to use (ignored).</param>
-    /// <param name="culture">The culture to use in the converter (ignored).</param>
-    /// <returns>A converted value.</returns>
+    /// <inheritdoc />
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is null)
@@ -30,13 +23,6 @@ internal class LazyConverter : IValueConverter
             return TestEnum1.X;
     }
 
-    /// <summary>
-    /// This method converts an object to itself.
-    /// </summary>
-    /// <param name="value">The value that is produced by the binding target.</param>
-    /// <param name="targetType">The type to convert to.</param>
-    /// <param name="parameter">The converter parameter to use.</param>
-    /// <param name="culture">The culture to use in the converter.</param>
-    /// <returns>A converted value.</returns>
+    /// <inheritdoc />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

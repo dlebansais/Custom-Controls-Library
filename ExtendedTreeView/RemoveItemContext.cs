@@ -14,9 +14,7 @@ public class RemoveItemContext : ModifyContext, IRemoveItemContext
     {
     }
 
-    /// <summary>
-    /// Moves to the next index.
-    /// </summary>
+    /// <inheritdoc />
     public override void NextIndex()
     {
     }
