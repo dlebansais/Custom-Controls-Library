@@ -9,7 +9,7 @@
 
         <RootNamespace>CustomControls</RootNamespace>
         <Version>1.0.10</Version>
-        <AssemblyVersion>1.0.10.766</AssemblyVersion>
+        <AssemblyVersion>1.0.10.767</AssemblyVersion>
         <FileVersion>1.0.10.146</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
@@ -70,7 +70,7 @@
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.300">
             <PrivateAssets>all</PrivateAssets>
         </PackageReference>
         <PackageReference Include="dlebansais.Method.Contracts.Analyzers-Debug" Version="2.0.10" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

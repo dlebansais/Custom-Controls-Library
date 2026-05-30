@@ -35,7 +35,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        TextBox TextBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Edit)).AsTextBox();
+        TextBox? TextBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Edit)).AsTextBox();
         Assert.That(TextBox, Is.Not.Null);
 
         TextBox.Text = "test";
@@ -46,7 +46,7 @@ internal class UnitTest
 
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        CheckBox CheckBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.CheckBox)).AsCheckBox();
+        CheckBox? CheckBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.CheckBox)).AsCheckBox();
         Assert.That(CheckBox, Is.Not.Null);
         Assert.That(CheckBox.IsChecked, Is.False);
 
@@ -94,7 +94,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        TextBox TextBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Edit)).AsTextBox();
+        TextBox? TextBox = MainWindow.FindFirstDescendant(cf => cf.ByControlType(ControlType.Edit)).AsTextBox();
         Assert.That(TextBox, Is.Not.Null);
 
         TextBox.Text = "test";

@@ -23,7 +23,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId(buttonId));
+        AutomationElement? ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId(buttonId));
         Assert.That(ComboElement, Is.Not.Null);
 
         ComboElement.Click();
@@ -43,7 +43,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId(buttonId));
+        AutomationElement? ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId(buttonId));
         Assert.That(ComboElement, Is.Not.Null);
 
         ComboElement.RightClick();

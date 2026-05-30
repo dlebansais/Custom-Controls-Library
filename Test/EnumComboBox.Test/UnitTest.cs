@@ -21,13 +21,13 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement CheckboxNullElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Null"));
+        AutomationElement? CheckboxNullElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Null"));
         Assert.That(CheckboxNullElement, Is.Not.Null);
 
-        AutomationElement CheckboxBadElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Bad"));
+        AutomationElement? CheckboxBadElement = MainWindow.FindFirstDescendant(cf => cf.ByText("Bad"));
         Assert.That(CheckboxBadElement, Is.Not.Null);
 
-        AutomationElement ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId("enumComboBox1"));
+        AutomationElement? ComboElement = MainWindow.FindFirstDescendant(cf => cf.ByAutomationId("enumComboBox1"));
         Assert.That(ComboElement, Is.Not.Null);
 
         ComboElement.Click();

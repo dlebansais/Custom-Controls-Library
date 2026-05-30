@@ -51,7 +51,7 @@ internal class UnitTest
         DoubleClickBox(DemoApp);
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        AutomationElement CheckIsEditableElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Editable"));
+        AutomationElement? CheckIsEditableElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Editable"));
         Assert.That(CheckIsEditableElement, Is.Not.Null);
 
         CheckIsEditableElement.Click();
@@ -130,7 +130,7 @@ internal class UnitTest
         Window MainWindow = demoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement TextElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Init"));
+        AutomationElement? TextElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Init"));
         Assert.That(TextElement, Is.Not.Null);
 
         TextElement.Click();

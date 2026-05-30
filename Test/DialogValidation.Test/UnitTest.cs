@@ -20,7 +20,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement ButtonOKElement = MainWindow.FindFirstDescendant(cf => cf.ByName("OK"));
+        AutomationElement? ButtonOKElement = MainWindow.FindFirstDescendant(cf => cf.ByName("OK"));
         Assert.That(ButtonOKElement, Is.Not.Null);
 
         ButtonOKElement.Click();
@@ -39,7 +39,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement ButtonCancelElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Cancel"));
+        AutomationElement? ButtonCancelElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Cancel"));
         Assert.That(ButtonCancelElement, Is.Not.Null);
 
         ButtonCancelElement.Click();
@@ -58,7 +58,7 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement CheckAddYesElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Add Yes"));
+        AutomationElement? CheckAddYesElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Add Yes"));
         Assert.That(CheckAddYesElement, Is.Not.Null);
 
         CheckAddYesElement.Click();
@@ -66,7 +66,7 @@ internal class UnitTest
         CheckAddYesElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        AutomationElement CheckIsLocalizedElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Is Localized"));
+        AutomationElement? CheckIsLocalizedElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Is Localized"));
         Assert.That(CheckIsLocalizedElement, Is.Not.Null);
 
         CheckIsLocalizedElement.Click();
@@ -85,7 +85,7 @@ internal class UnitTest
         CheckAddYesElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        AutomationElement CheckIsHorizontalElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Horizontal"));
+        AutomationElement? CheckIsHorizontalElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Horizontal"));
         Assert.That(CheckIsHorizontalElement, Is.Not.Null);
 
         CheckIsHorizontalElement.Click();
@@ -96,7 +96,7 @@ internal class UnitTest
         CheckIsLocalizedElement.Click();
         Thread.Sleep(TimeSpan.FromSeconds(2));
 
-        AutomationElement ButtonSetCustomCommandsElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Set Custom Commands"));
+        AutomationElement? ButtonSetCustomCommandsElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Set Custom Commands"));
         Assert.That(ButtonSetCustomCommandsElement, Is.Not.Null);
 
         ButtonSetCustomCommandsElement.Click();
@@ -117,7 +117,8 @@ internal class UnitTest
         Window MainWindow = DemoApp.MainWindow;
         Assert.That(MainWindow, Is.Not.Null);
 
-        AutomationElement ButtonSetCustomCommandsElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Set Custom Commands"));
+        AutomationElement? ButtonSetCustomCommandsElement = MainWindow.FindFirstDescendant(cf => cf.ByName("Set Custom Commands"));
+        Assert.That(ButtonSetCustomCommandsElement, Is.Not.Null);
         ButtonSetCustomCommandsElement.Click();
 
         Thread.Sleep(TimeSpan.FromSeconds(2));
