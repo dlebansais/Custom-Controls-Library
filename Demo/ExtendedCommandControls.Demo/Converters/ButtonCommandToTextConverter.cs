@@ -12,7 +12,7 @@ using CustomControls;
 [ValueConversion(typeof(ICommand), typeof(string))]
 internal class ButtonCommandToTextConverter : IValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.Convert(object, Type, object, CultureInfo)" />
     /// <returns>
     /// If <paramref name="value"/> is a valid <see cref="ICommand"/> object, the converter returns its menu header as a string.
     /// Otherwise, this method returns null.
@@ -70,6 +70,6 @@ internal class ButtonCommandToTextConverter : IValueConverter
         return ItemHeader;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

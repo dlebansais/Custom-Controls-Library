@@ -12,7 +12,7 @@ using System.Windows.Data;
 [ValueConversion(typeof(int), typeof(object))]
 internal class RandomPickerConverter : IValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.Convert(object, Type, object, CultureInfo)" />
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         int IndexValue = (int)value;
@@ -34,6 +34,6 @@ internal class RandomPickerConverter : IValueConverter
         }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

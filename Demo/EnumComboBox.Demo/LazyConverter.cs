@@ -12,7 +12,7 @@ using System.Windows.Data;
 [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification = "Instantiated in Xaml")]
 internal class LazyConverter : IValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.Convert(object, Type, object, CultureInfo)" />
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         if (value is null)
@@ -23,6 +23,6 @@ internal class LazyConverter : IValueConverter
             return TestEnum1.X;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

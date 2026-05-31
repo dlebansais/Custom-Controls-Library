@@ -18,7 +18,7 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
         Parent = parent;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNodeCollection.Parent" />
     public IExtendedTreeNode Parent { get; private set; }
 
     /// <inheritdoc cref="IExtendedTreeNodeCollection.Sort"/>
@@ -26,34 +26,34 @@ internal class TestNodeCollection : ObservableCollection<TestNode>, IExtendedTre
     {
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IList{IExtendedTreeNode}.IndexOf(IExtendedTreeNode)"/>
     int IList<IExtendedTreeNode>.IndexOf(IExtendedTreeNode item) => IndexOf((TestNode)item);
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IList{IExtendedTreeNode}.Insert(int, IExtendedTreeNode)"/>
     void IList<IExtendedTreeNode>.Insert(int index, IExtendedTreeNode item) => Insert(index, (TestNode)item);
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IList{IExtendedTreeNode}.this[int]"/>
     IExtendedTreeNode IList<IExtendedTreeNode>.this[int index]
     {
         get { return this[index]; }
         set { this[index] = (TestNode)value; }
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ICollection{IExtendedTreeNode}.Add(IExtendedTreeNode)"/>
     void ICollection<IExtendedTreeNode>.Add(IExtendedTreeNode item) => Add((TestNode)item);
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ICollection{IExtendedTreeNode}.Contains(IExtendedTreeNode)"/>
     bool ICollection<IExtendedTreeNode>.Contains(IExtendedTreeNode item) => Contains((TestNode)item);
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ICollection{IExtendedTreeNode}.CopyTo(IExtendedTreeNode[], int)"/>
     void ICollection<IExtendedTreeNode>.CopyTo(IExtendedTreeNode[] array, int arrayIndex) => CopyTo((TestNode[])array, arrayIndex);
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="ICollection{IExtendedTreeNode}.Remove(IExtendedTreeNode)"/>
     bool ICollection<IExtendedTreeNode>.Remove(IExtendedTreeNode item) => Remove((TestNode)item);
 
     /// <inheritdoc cref="ICollection{T}.IsReadOnly"/>
     public bool IsReadOnly => false;
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="IEnumerable{IExtendedTreeNode}.GetEnumerator()"/>
     IEnumerator<IExtendedTreeNode> IEnumerable<IExtendedTreeNode>.GetEnumerator() => GetEnumerator();
 }

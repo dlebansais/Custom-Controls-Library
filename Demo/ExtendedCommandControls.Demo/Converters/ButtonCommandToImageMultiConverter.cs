@@ -15,7 +15,7 @@ using CustomControls;
 [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification = "Instantiated in Xaml")]
 internal class ButtonCommandToImageMultiConverter : IMultiValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.Convert(object[], Type, object, CultureInfo)" />
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         Debug.Assert(values.Length > 1);
@@ -41,6 +41,6 @@ internal class ButtonCommandToImageMultiConverter : IMultiValueConverter
         return Result;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.ConvertBack(object, Type[], object, CultureInfo)" />
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }
