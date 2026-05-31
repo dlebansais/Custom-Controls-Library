@@ -14,7 +14,7 @@ using CustomControls;
 [ValueConversion(typeof(ExtendedToolBarButton), typeof(ImageSource))]
 public class ExtendedButtonToImageSourceConverter : IValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.Convert(object, Type, object, CultureInfo)" />
     /// <returns>
     /// If <paramref name="value"/> is a valid <see cref="ExtendedToolBarButton"/> object, the converter returns the image source associated to its command.
     /// Otherwise, this method returns null.
@@ -51,6 +51,6 @@ public class ExtendedButtonToImageSourceConverter : IValueConverter
         }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

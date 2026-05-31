@@ -12,7 +12,7 @@ using System.Linq;
 internal class ActiveCommandCollectionTypeConverter : TypeConverter
 #pragma warning restore CA1812
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="TypeConverter.CanConvertFrom(ITypeDescriptorContext, Type)" />
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
         if (sourceType == typeof(string))
@@ -21,7 +21,7 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
         return base.CanConvertFrom(context, sourceType);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="TypeConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, object)" />
     /// <remarks>
     /// <para>This method will convert a string with format "&lt;commandname&gt;, ..." where &lt;commandname&gt; is the name of one of the supported commands.</para>
     /// </remarks>
@@ -52,7 +52,7 @@ internal class ActiveCommandCollectionTypeConverter : TypeConverter
         }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="TypeConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, object, Type)" />
     /// <remarks>
     /// <para>This method will convert to a string with format "&lt;commandname&gt;, ..." where &lt;commandname&gt; is the name of each command in the collection.</para>
     /// </remarks>

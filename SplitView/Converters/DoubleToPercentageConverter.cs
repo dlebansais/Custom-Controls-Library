@@ -12,7 +12,7 @@ using System.Windows.Data;
 [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification = "Instanciated in Xaml")]
 internal class DoubleToPercentageConverter : IValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.Convert(object, Type, object, CultureInfo)" />
     /// <returns>
     /// If <paramref name="value"/> is a positive double, or zero, the converter returns <paramref name="value"/> multiplied by 100 and followed by the % sign.
     /// Otherwise, returns null.
@@ -26,6 +26,6 @@ internal class DoubleToPercentageConverter : IValueConverter
         throw new ArgumentOutOfRangeException(nameof(value));
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

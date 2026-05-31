@@ -32,7 +32,7 @@ internal class ActiveCommandTypeConverter : TypeConverter
         return false;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="TypeConverter.CanConvertFrom(ITypeDescriptorContext, Type)" />
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
     {
         if (sourceType == typeof(string))
@@ -41,7 +41,7 @@ internal class ActiveCommandTypeConverter : TypeConverter
         return base.CanConvertFrom(context, sourceType);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="TypeConverter.ConvertFrom(ITypeDescriptorContext, CultureInfo, object)" />
     /// <remarks>
     /// Compare a name with known command names and return the corresponding <see cref="ActiveCommand"/>.
     /// </remarks>
@@ -62,7 +62,7 @@ internal class ActiveCommandTypeConverter : TypeConverter
         }
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="TypeConverter.ConvertTo(ITypeDescriptorContext, CultureInfo, object, Type)" />
     /// <remarks>
     /// <para>This method will convert to a string which is the name of the command.</para>
     /// </remarks>

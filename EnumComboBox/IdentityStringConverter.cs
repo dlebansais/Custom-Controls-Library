@@ -11,7 +11,7 @@ using System.Windows.Data;
 [ValueConversion(typeof(string), typeof(string))]
 internal class IdentityStringConverter : IValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.Convert(object, Type, object, CultureInfo)" />
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         object Result = value;
@@ -21,6 +21,6 @@ internal class IdentityStringConverter : IValueConverter
         return Result;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => value;
 }

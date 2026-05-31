@@ -10,7 +10,7 @@ using System.Windows.Data;
 /// </summary>
 public class TreeViewMarginConverter : IMultiValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.Convert(object[], Type, object, CultureInfo)" />
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if (values is not null && values.Length > 3 && (values[0] is int Level) && (values[1] is bool IsRootAlwaysExpanded) && (values[2] is double IndentationWidth) && (values[3] is double ExpandButtonWidth))
@@ -25,6 +25,6 @@ public class TreeViewMarginConverter : IMultiValueConverter
         return new Thickness(0);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.ConvertBack(object, Type[], object, CultureInfo)" />
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

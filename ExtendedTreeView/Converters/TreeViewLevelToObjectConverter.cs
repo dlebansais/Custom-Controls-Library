@@ -9,7 +9,7 @@ using System.Windows.Data;
 /// </summary>
 public class TreeViewLevelToObjectConverter : IMultiValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.Convert(object[], Type, object, CultureInfo)" />
     public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
     {
         if (values is not null && values.Length > 2 && (values[0] is int Level) && (values[1] is bool IsRootAlwaysExpanded) && (values[2] is int ChildCount))
@@ -30,6 +30,6 @@ public class TreeViewLevelToObjectConverter : IMultiValueConverter
             throw new ArgumentOutOfRangeException(nameof(parameter));
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.ConvertBack(object, Type[], object, CultureInfo)" />
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }

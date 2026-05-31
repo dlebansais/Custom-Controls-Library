@@ -27,6 +27,6 @@ internal partial class EnumToItemsConverter : IValueConverter
         return Result;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IValueConverter.ConvertBack(object, Type, object, CultureInfo)" />
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) => throw new NotSupportedException();
 }
