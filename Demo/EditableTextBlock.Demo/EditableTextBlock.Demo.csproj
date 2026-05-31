@@ -5,14 +5,14 @@
         <TargetFrameworks>net481;net8.0-windows</TargetFrameworks>
         <UseWPF>true</UseWPF>
         <UseWindowsForms>true</UseWindowsForms>
-        <LangVersion>12</LangVersion>
+        <LangVersion>14</LangVersion>
         <Nullable>enable</Nullable>
         <Platforms>x64</Platforms>
 
         <RootNamespace>EditableTextBlock.Demo</RootNamespace>
-        <Version>1.0.10</Version>
-        <AssemblyVersion>1.0.10.767</AssemblyVersion>
-        <FileVersion>1.0.10.59</FileVersion>
+        <Version>1.1.0</Version>
+        <AssemblyVersion>1.1.0.768</AssemblyVersion>
+        <FileVersion>1.1.0.60</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />

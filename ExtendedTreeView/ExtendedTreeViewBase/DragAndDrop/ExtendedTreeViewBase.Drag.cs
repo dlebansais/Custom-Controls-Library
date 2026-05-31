@@ -93,7 +93,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
 
             case DragActivity.Started:
                 CurrentDragSource = Contract.AssertNotNull(DragSource);
-                DataObject Data = new(CurrentDragSource.GetType(), DragSource);
+                DataObject Data = new(CurrentDragSource.GetType(), CurrentDragSource);
                 DragDropEffects AllowedEffects = DragDropEffects.Move;
                 if (CurrentDragSource.AllowDropCopy)
                     AllowedEffects |= DragDropEffects.Copy;

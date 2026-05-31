@@ -43,11 +43,11 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// </summary>
     protected virtual void RemoveKeyboardFocusWithinHandler()
     {
-        if (CurrentlyFocusedContainer is not null)
-        {
-            CurrentlyFocusedContainer.IsKeyboardFocusWithinChanged -= OnIsKeyboardFocusWithinChanged;
-            CurrentlyFocusedContainer = null;
-        }
+        if (CurrentlyFocusedContainer is null)
+            return;
+
+        CurrentlyFocusedContainer.IsKeyboardFocusWithinChanged -= OnIsKeyboardFocusWithinChanged;
+        CurrentlyFocusedContainer = null;
     }
 
     /// <summary>

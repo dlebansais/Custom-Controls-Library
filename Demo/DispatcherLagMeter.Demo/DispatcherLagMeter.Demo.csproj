@@ -9,9 +9,9 @@
         <Platforms>x64</Platforms>
 
         <RootNamespace>DispatcherLagMeter.Demo</RootNamespace>
-        <Version>1.0.10</Version>
-        <AssemblyVersion>1.0.10.767</AssemblyVersion>
-        <FileVersion>1.0.10.60</FileVersion>
+        <Version>1.1.0</Version>
+        <AssemblyVersion>1.1.0.768</AssemblyVersion>
+        <FileVersion>1.1.0.61</FileVersion>
         <Authors>David Le Bansais</Authors>
         <Company />
         <Product />

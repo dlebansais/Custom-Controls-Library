@@ -44,8 +44,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item.</param>
     public virtual void Expand(object item)
     {
-        ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
-        if (ItemContainer is not null)
+        if (ContainerFromItem(item) is ExtendedTreeViewItemBase ItemContainer)
             ItemContainer.IsExpanded = true;
     }
 
@@ -55,8 +54,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item.</param>
     public virtual void Collapse(object item)
     {
-        ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
-        if (ItemContainer is not null)
+        if (ContainerFromItem(item) is ExtendedTreeViewItemBase ItemContainer)
             ItemContainer.IsExpanded = false;
     }
 
@@ -66,8 +64,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
     /// <param name="item">The item.</param>
     public virtual void ToggleIsExpanded(object item)
     {
-        ExtendedTreeViewItemBase? ItemContainer = ContainerFromItem(item);
-        if (ItemContainer is not null)
+        if (ContainerFromItem(item) is ExtendedTreeViewItemBase ItemContainer)
             ItemContainer.IsExpanded = !ItemContainer.IsExpanded;
     }
 
