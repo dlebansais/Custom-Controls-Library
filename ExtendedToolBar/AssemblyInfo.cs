@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Markup;
 
 [assembly: XmlnsDefinition("CustomControlsLibrary", "CustomControls")]
+[assembly: XmlnsDefinition("CustomConvertersLibrary", "Converters")]
 [assembly: ThemeInfo(ResourceDictionaryLocation.SourceAssembly, ResourceDictionaryLocation.SourceAssembly)]
 [assembly: CLSCompliant(true)]
 [assembly: ComVisible(false)]

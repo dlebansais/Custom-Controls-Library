@@ -2,13 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:ctrl="CustomControlsLibrary"
+        xmlns:ctrlconv="CustomConvertersLibrary"
         xmlns:conv="clr-namespace:Converters"
         Title="Demo - Extended Command Controls"
         WindowStartupLocation="CenterScreen"
         SizeToContent="WidthAndHeight">
     <Window.Resources>
         <conv:ButtonCommandToImageMultiConverter x:Key="convButtonCommandToImage"/>
-        <conv:ButtonCommandToTextConverter x:Key="convButtonCommandToText"/>
+        <ctrlconv:ButtonCommandToTextConverter x:Key="convButtonCommandToText"/>
         <ctrl:CommandResourceReference x:Key="testReference" AssemblyName="ExtendedCommandControls.Demo" ResourceExtension=".resources" IconPath="Resources/Icons/"/>
         <ctrl:SolutionCommandGroup x:Key="testCommandGroup" IsEnabled="True"/>
         <ctrl:SolutionCommandGroup x:Key="disabledCommandGroup" IsEnabled="False"/>
