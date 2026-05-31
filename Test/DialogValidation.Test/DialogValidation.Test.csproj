@@ -45,10 +45,6 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="NUnit3TestAdapter" Version="6.2.0" />
-
-        <!-- System.Drawing.Common is added to mitigate vulnerability. -->
-        <!-- Remove as soon as one of the packages above no longer depends on the vulnerable version -->
-        <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
     </ItemGroup>
 
     <ItemGroup>
