@@ -12,10 +12,10 @@ internal class EmptyExtendedTreeNodeCollection<TItem, TCollection> : List<IExten
     where TItem : class, IExtendedTreeNode
     where TCollection : IExtendedTreeNodeCollection
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNodeCollection.Parent" />
     public IExtendedTreeNode? Parent => null;
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="INotifyCollectionChanged.CollectionChanged" />
     public event NotifyCollectionChangedEventHandler? CollectionChanged;
 
     /// <summary>

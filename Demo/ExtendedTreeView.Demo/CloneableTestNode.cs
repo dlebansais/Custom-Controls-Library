@@ -1,7 +1,6 @@
 ﻿namespace ExtendedTreeView.Demo;
 
 using System;
-using System.Globalization;
 using CustomControls;
 
 /// <summary>
@@ -22,7 +21,7 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
         Children = new CloneableTestNodeCollection(this);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNode.Parent" />
     public IExtendedTreeNode? Parent { get; private set; }
 
     /// <summary>
@@ -30,7 +29,7 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     /// </summary>
     public int Index { get; private set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNode.Children" />
     public IExtendedTreeNodeCollection Children { get; private set; }
 
     /// <summary>
@@ -38,10 +37,10 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
     /// </summary>
     public string Text => $"CloneableTestNode #{Index}";
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNode.ChangeParent(IExtendedTreeNode)" />
     public void ChangeParent(IExtendedTreeNode newParent) => Parent = newParent;
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="ICloneable.Clone()" />
     public object Clone()
     {
         CloneableTestNode Clone = new((CloneableTestNode?)Parent, Index);
@@ -51,6 +50,6 @@ internal class CloneableTestNode : IExtendedTreeNode, ICloneable
         return Clone;
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="object.ToString()" />
     public override string ToString() => $"{base.ToString()} #{Index}";
 }

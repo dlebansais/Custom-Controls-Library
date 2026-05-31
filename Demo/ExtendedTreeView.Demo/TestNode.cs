@@ -21,7 +21,7 @@ internal class TestNode : IExtendedTreeNode
         Children = new TestNodeCollection(this);
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNode.Parent" />
     public IExtendedTreeNode? Parent { get; private set; }
 
     /// <summary>
@@ -29,7 +29,7 @@ internal class TestNode : IExtendedTreeNode
     /// </summary>
     public int Index { get; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNode.Children" />
     public IExtendedTreeNodeCollection Children { get; }
 
     /// <summary>
@@ -37,9 +37,9 @@ internal class TestNode : IExtendedTreeNode
     /// </summary>
     public string Text => "TestNode #" + Index.ToString(CultureInfo.InvariantCulture);
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IExtendedTreeNode.ChangeParent(IExtendedTreeNode)" />
     public void ChangeParent(IExtendedTreeNode newParent) => Parent = newParent;
 
-    /// <inheritdoc/>
+    /// <inheritdoc cref="object.ToString()" />
     public override string ToString() => $"{base.ToString()} #{Index}";
 }
