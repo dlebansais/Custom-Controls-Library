@@ -159,38 +159,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         int RemoveIndex = ShownPreviousChildrenCount;
         RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex, -1);
 
-        IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
-        RemoveContext.Start();
-
-#if NETCOREAPP3_1
-        foreach (object? ChildItem in itemList)
-            if (ChildItem is not null)
-                RemoveChildren(RemoveContext, ChildItem);
-#else
-        foreach (object ChildItem in itemList)
-            RemoveChildren(RemoveContext, ChildItem);
-#endif
-
-        RemoveContext.Complete();
-        RemoveContext.Close();
-
-        int InsertIndex = ShownPreviousChildrenCount;
-        InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
-
-        IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
-        InsertContext.Start();
-
-#if NETCOREAPP3_1
-        foreach (object? ChildItem in itemList)
-            if (ChildItem is not null)
-                InsertChildren(InsertContext, ChildItem, item);
-#else
-        foreach (object ChildItem in itemList)
-            InsertChildren(InsertContext, ChildItem, item);
-#endif
-
-        InsertContext.Complete();
-        InsertContext.Close();
+        OnItemMoveChildrenPreviousContinued(item, newIndex, itemList, ShownPreviousChildrenCount, RemoveIndex);
     }
 
     private void OnItemMoveChildrenPreviousAfter(object item, int oldIndex, int newIndex, IList itemList)
@@ -200,7 +169,12 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         int RemoveIndex = ShownPreviousChildrenCount;
         RemoveIndex += CountPreviousChildrenExpanded(item, oldIndex + 1, newIndex);
 
-        IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, RemoveIndex);
+        OnItemMoveChildrenPreviousContinued(item, newIndex, itemList, ShownPreviousChildrenCount, RemoveIndex);
+    }
+
+    private void OnItemMoveChildrenPreviousContinued(object item, int newIndex, IList itemList, int shownPreviousChildrenCount, int removeIndex)
+    {
+        IRemoveItemContext RemoveContext = CreateRemoveItemContext(item, removeIndex);
         RemoveContext.Start();
 
 #if NETCOREAPP3_1
@@ -215,7 +189,7 @@ public abstract partial class ExtendedTreeViewBase : MultiSelector
         RemoveContext.Complete();
         RemoveContext.Close();
 
-        int InsertIndex = ShownPreviousChildrenCount;
+        int InsertIndex = shownPreviousChildrenCount;
         InsertIndex += CountPreviousChildrenExpanded(item, newIndex, -1);
 
         IInsertItemContext InsertContext = CreateInsertItemContext(item, InsertIndex);
