@@ -67,8 +67,8 @@ before_test:
     printf "dotnet test ./Test/EditableTextBlock.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EditableTextBlock.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
     printf "dotnet test ./Test/EnumComboBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumComboBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
     printf "dotnet test ./Test/EnumRadioButton.Test/bin/x64/%CONFIGURATION%/net8.0-windows/EnumRadioButton.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-#    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
-#    printf "dotnet test ./Test/ExtendedPasswordBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedPasswordBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+    printf "dotnet test ./Test/ExtendedCommandControls.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedCommandControls.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
+    printf "dotnet test ./Test/ExtendedPasswordBox.Test/bin/x64/%CONFIGURATION%/net8.0-windows/ExtendedPasswordBox.Test.dll -l console;verbosity=detailed --environment RESULTFILENAME=""../../../../../../Coverage-%APPVEYOR_PROJECT_NAME%.xml""\n" >> run-tests.bat
   - |-
     printf "@echo ************************************************************** Starting Tests..\n" > run-tests1.bat
     printf "call run-tests.bat\n" >> run-tests1.bat

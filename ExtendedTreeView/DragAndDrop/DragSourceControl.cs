@@ -30,19 +30,19 @@ public class DragSourceControl : IDragSourceControl
         DragActivity = DragActivity.Idle;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.SourceControl" />
     public FrameworkElement SourceControl { get; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.AllowDropCopy" />
     public bool AllowDropCopy { get; private set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.SourceGuid" />
     public Guid SourceGuid { get; private set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.DragActivity" />
     public DragActivity DragActivity { get; private set; }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.DragActivityChanged" />
     public event EventHandler<EventArgs>? DragActivityChanged;
 
     /// <summary>
@@ -50,7 +50,7 @@ public class DragSourceControl : IDragSourceControl
     /// </summary>
     protected void NotifyDragActivityChanged() => DragActivityChanged?.Invoke(this, EventArgs.Empty);
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.SetIsDragPossible(CanonicSelection)" />
     public virtual void SetIsDragPossible(CanonicSelection canonicSelectedItemList)
     {
 #if NET6_0_OR_GREATER
@@ -65,14 +65,14 @@ public class DragSourceControl : IDragSourceControl
         AllowDropCopy = canonicSelectedItemList.AllItemsCloneable;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.ClearIsDragPossible" />
     public virtual void ClearIsDragPossible()
     {
         DraggedItemParent = null;
         AllowDropCopy = false;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.IsDragPossible(out object, out IList)" />
     public virtual bool IsDragPossible(out object draggedItemParent, out IList itemList)
     {
         bool IsDragPossible = true;
@@ -91,30 +91,30 @@ public class DragSourceControl : IDragSourceControl
         return false;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.IsDraggedItemParent(object)" />
     public virtual bool IsDraggedItemParent(object item) => DraggedItemParent == item;
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.DragAfterMouseMove(MouseEventArgs)" />
     public virtual void DragAfterMouseMove(MouseEventArgs sourceLocation) => InitiateDrag();
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.CancelDrag" />
     public virtual void CancelDrag() => DragActivity = DragActivity.Canceled;
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.SetFlatDraggedItemList(object, IList)" />
     public virtual void SetFlatDraggedItemList(object rootItem, IList flatItemList)
     {
         RootItem = rootItem;
         FlatItemList = flatItemList;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.ClearFlatDraggedItemList" />
     public virtual void ClearFlatDraggedItemList()
     {
         RootItem = null;
         FlatItemList = null;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IDragSourceControl.HasDragItemList(out object, out IList)" />
     public virtual bool HasDragItemList(out object rootItem, out IList flatItemList)
     {
         if (RootItem is not null && FlatItemList is not null && FlatItemList.Count > 0)

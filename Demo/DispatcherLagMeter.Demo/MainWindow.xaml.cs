@@ -30,7 +30,7 @@ internal partial class MainWindow : Window
             Loaded += OnLoaded;
     }
 
-    [AsyncEventHandler]
+    [AsyncEventHandler(UseDispatcher = true)]
     private async Task OnLoadedAsync(object sender, RoutedEventArgs e)
     {
         if (TestEscape == 1)

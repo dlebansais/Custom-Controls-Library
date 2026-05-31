@@ -13,7 +13,7 @@ using System.Windows.Data;
 [SuppressMessage("Microsoft.Performance", "CA1812:AvoidUninstantiatedInternalClasses", Justification="Instanciated in Xaml")]
 internal class ActiveCommandToContentConverter : IMultiValueConverter
 {
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.Convert(object[], Type, object, CultureInfo)" />
     /// <remarks>
     /// <para>The first value must be a <see cref="DialogValidation"/>.</para>
     /// <para>The second value must be a <see cref="ActiveCommand"/>.</para>
@@ -73,7 +73,7 @@ internal class ActiveCommandToContentConverter : IMultiValueConverter
         return Result;
     }
 
-    /// <inheritdoc />
+    /// <inheritdoc cref="IMultiValueConverter.ConvertBack(object, Type[], object, CultureInfo)" />
     public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
         Debug.Assert(targetTypes.Length > 2);
